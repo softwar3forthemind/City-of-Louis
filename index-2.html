@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>City of Louis</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400&family=Cinzel:wght@400;600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet"/>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'EB Garamond', Georgia, serif;
+      background: #060401;
+      color: #d4c9a8;
+      min-height: 100vh;
+    }
+
+    .page { display: none; min-height: 100vh; }
+    .page.active { display: block; }
+
+    /* ── HOME ── */
+    .home {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      min-height: 100vh; padding: 2rem 1rem; position: relative; overflow: hidden;
+    }
+
+    .home-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background: radial-gradient(ellipse at 50% 0%, #2a1e08 0%, #120e04 45%, #060401 100%);
+    }
+
+    .rays {
+      position: fixed; top: 0; left: 50%; transform: translateX(-50%);
+      width: 100vw; height: 100vh; z-index: 1; pointer-events: none;
+    }
+
+    .glow-pool {
+      position: absolute; top: 42%; left: 50%; transform: translate(-50%, -50%);
+      width: 320px; height: 220px;
+      background: radial-gradient(ellipse at 50% 40%, rgba(210,165,60,0.13) 0%, transparent 70%);
+      z-index: 1; pointer-events: none;
+    }
+
+    .site-title {
+      font-family: 'Cinzel', serif;
+      font-size: 10px;
+      letter-spacing: 0.4em;
+      color: #8a7640;
+      text-transform: uppercase;
+      margin-bottom: 2.2rem;
+      position: relative; z-index: 2;
+    }
+
+    .prism-wrap { position: relative; z-index: 2; width: 360px; height: 320px; }
+    .prism-svg { width: 100%; height: 100%; overflow: visible; }
+
+    .tri-zone { cursor: pointer; }
+    .tri-zone .tri-fill { transition: opacity 0.22s; }
+    .tri-zone:hover .tri-fill { opacity: 0.6; }
+
+    .tri-label {
+      font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 0.1em;
+      fill: #e8dfc0; text-anchor: middle; dominant-baseline: middle; pointer-events: none;
+    }
+
+    .tagline {
+      font-family: 'EB Garamond', serif; font-style: italic; font-size: 13px;
+      color: #6a5c30; margin-top: 2rem; letter-spacing: 0.04em; position: relative; z-index: 2;
+    }
+
+    /* ── INNER PAGES ── */
+    .page.active:not(#page-home) {
+      background: radial-gradient(ellipse at 50% 0%, #1a1206 0%, #080602 100%);
+      min-height: 100vh;
+    }
+
+    .inner-page {
+      padding: 2.5rem 2rem 3rem; max-width: 680px; margin: 0 auto; min-height: 100vh;
+    }
+
+    .page-top {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      margin-bottom: 2.5rem;
+    }
+
+    .back-link {
+      font-family: 'Cinzel', serif; font-size: 9px; letter-spacing: 0.3em;
+      color: #5a4e30; text-transform: uppercase; cursor: pointer;
+      display: inline-block; border-bottom: 0.5px solid #3a3020;
+      padding-bottom: 2px; transition: color 0.2s;
+    }
+    .back-link:hover { color: #b09a60; }
+
+    .portfolio-link {
+      font-family: 'Cinzel', serif; font-size: 8px; letter-spacing: 0.28em;
+      color: #7a6a30; text-transform: uppercase; text-decoration: none;
+      border-bottom: 0.5px solid #3a3018; padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s; white-space: nowrap;
+    }
+    .portfolio-link:hover { color: #d4a830; border-color: #c8952a; }
+
+    .page-eyebrow {
+      font-family: 'Cinzel', serif; font-size: 9px; letter-spacing: 0.4em;
+      color: #7a6a44; text-transform: uppercase; margin-bottom: 0.6rem;
+    }
+
+    .page-heading {
+      font-family: 'Cinzel Decorative', serif; font-weight: 400; font-size: 24px;
+      color: #d4c9a8; letter-spacing: 0.04em; margin-bottom: 2rem;
+      padding-bottom: 1.2rem; border-bottom: 0.5px solid #2a2418; line-height: 1.2;
+    }
+
+    .writing-area { font-size: 16px; line-height: 1.85; color: #9a8e70; font-style: italic; }
+    .writing-area p { margin-bottom: 1.5rem; }
+
+    .writing-placeholder {
+      font-style: italic; color: #3d3626; font-size: 14px;
+      border-left: 1.5px solid #2a2418; padding-left: 1.2rem; margin-top: 2rem;
+    }
+
+    .community-threshold {
+      margin-top: 3.5rem; padding-top: 2rem; border-top: 0.5px solid #1e1a0e;
+      display: flex; flex-direction: column; align-items: center; gap: 0.7rem;
+    }
+
+    .threshold-label {
+      font-family: 'Cinzel', serif; font-size: 8px; letter-spacing: 0.4em;
+      color: #3a3218; text-transform: uppercase;
+    }
+
+    .threshold-link {
+      font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 0.28em;
+      color: #7a6a30; text-decoration: none; text-transform: uppercase;
+      border-bottom: 0.5px solid #3a3018; padding-bottom: 3px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .threshold-link:hover { color: #d4a830; border-color: #c8952a; }
+  </style>
+</head>
+<body>
+
+  <!-- HOME -->
+  <div class="page active" id="page-home">
+    <div class="home">
+      <div class="home-bg"></div>
+
+      <svg class="rays" viewBox="0 0 700 700" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="rayGrad" cx="50%" cy="0%" r="100%" fx="50%" fy="0%">
+            <stop offset="0%" stop-color="#c8952a" stop-opacity="0.22"/>
+            <stop offset="40%" stop-color="#a07020" stop-opacity="0.08"/>
+            <stop offset="100%" stop-color="#60400a" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="sourceGlow" cx="50%" cy="0%" r="20%">
+            <stop offset="0%" stop-color="#ffe090" stop-opacity="0.55"/>
+            <stop offset="100%" stop-color="#c8952a" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <polygon points="350,0 0,700 700,700" fill="url(#rayGrad)"/>
+        <line x1="350" y1="2" x2="0"   y2="700" stroke="#d4a030" stroke-width="0.7" stroke-opacity="0.12"/>
+        <line x1="350" y1="2" x2="60"  y2="700" stroke="#d4a030" stroke-width="0.8" stroke-opacity="0.10"/>
+        <line x1="350" y1="2" x2="130" y2="700" stroke="#d4a030" stroke-width="1.2" stroke-opacity="0.13"/>
+        <line x1="350" y1="2" x2="200" y2="700" stroke="#e0b840" stroke-width="0.9" stroke-opacity="0.11"/>
+        <line x1="350" y1="2" x2="260" y2="700" stroke="#e0b840" stroke-width="1.5" stroke-opacity="0.15"/>
+        <line x1="350" y1="2" x2="305" y2="700" stroke="#f0cc60" stroke-width="1.0" stroke-opacity="0.10"/>
+        <line x1="350" y1="2" x2="350" y2="700" stroke="#f0cc60" stroke-width="2.0" stroke-opacity="0.18"/>
+        <line x1="350" y1="2" x2="395" y2="700" stroke="#f0cc60" stroke-width="1.0" stroke-opacity="0.10"/>
+        <line x1="350" y1="2" x2="440" y2="700" stroke="#e0b840" stroke-width="1.5" stroke-opacity="0.15"/>
+        <line x1="350" y1="2" x2="500" y2="700" stroke="#e0b840" stroke-width="0.9" stroke-opacity="0.11"/>
+        <line x1="350" y1="2" x2="570" y2="700" stroke="#d4a030" stroke-width="1.2" stroke-opacity="0.13"/>
+        <line x1="350" y1="2" x2="640" y2="700" stroke="#d4a030" stroke-width="0.8" stroke-opacity="0.10"/>
+        <line x1="350" y1="2" x2="700" y2="700" stroke="#d4a030" stroke-width="0.7" stroke-opacity="0.12"/>
+        <ellipse cx="350" cy="8" rx="90" ry="40" fill="url(#sourceGlow)"/>
+        <ellipse cx="350" cy="4" rx="30" ry="14" fill="#ffe8a0" fill-opacity="0.28"/>
+      </svg>
+
+      <div class="glow-pool"></div>
+      <div class="site-title">City of Louis</div>
+
+      <div class="prism-wrap">
+        <svg class="prism-svg" viewBox="0 0 360 320" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="cg" cx="50%" cy="60%" r="40%">
+              <stop offset="0%" stop-color="#c89030" stop-opacity="0.40"/>
+              <stop offset="100%" stop-color="#c89030" stop-opacity="0"/>
+            </radialGradient>
+            <radialGradient id="centerTriGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#ffe090" stop-opacity="0.22"/>
+              <stop offset="100%" stop-color="#c89030" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+
+          <ellipse cx="180" cy="200" rx="120" ry="80" fill="url(#cg)"/>
+
+          <!-- TOP → Law -->
+          <g class="tri-zone" onclick="navigate('law')">
+            <polygon class="tri-fill" points="180,20 100,160 260,160" fill="#100f0e" fill-opacity="0.72"/>
+            <polygon points="180,20 100,160 260,160" fill="none" stroke="#e8b84a" stroke-width="1.2" stroke-opacity="0.85"/>
+            <text class="tri-label" x="180" y="118">Law</text>
+          </g>
+
+          <!-- LEFT → Capital -->
+          <g class="tri-zone" onclick="navigate('capital')">
+            <polygon class="tri-fill" points="100,160 20,300 180,300" fill="#0e0f0c" fill-opacity="0.72"/>
+            <polygon points="100,160 20,300 180,300" fill="none" stroke="#e8b84a" stroke-width="1.2" stroke-opacity="0.85"/>
+            <text class="tri-label" x="100" y="246">Capital</text>
+          </g>
+
+          <!-- RIGHT → Technology -->
+          <g class="tri-zone" onclick="navigate('technology')">
+            <polygon class="tri-fill" points="260,160 180,300 340,300" fill="#0c100e" fill-opacity="0.72"/>
+            <polygon points="260,160 180,300 340,300" fill="none" stroke="#e8b84a" stroke-width="1.2" stroke-opacity="0.85"/>
+            <text class="tri-label" x="260" y="246">Technology</text>
+          </g>
+
+          <!-- CENTER → New Adam -->
+          <g class="tri-zone" onclick="navigate('newadам')">
+            <polygon class="tri-fill" points="100,160 260,160 180,300" fill="#1a1505" fill-opacity="0.55"/>
+            <polygon points="100,160 260,160 180,300" fill="url(#centerTriGlow)" fill-opacity="0.9"/>
+            <polygon points="100,160 260,160 180,300" fill="none" stroke="#ffe090" stroke-width="1.6" stroke-opacity="0.95"/>
+            <text class="tri-label" x="180" y="218" fill="#ffe090">New Adam</text>
+          </g>
+
+          <!-- Outer border -->
+          <polygon points="180,20 20,300 340,300" fill="none" stroke="#e8b84a" stroke-width="1.8" stroke-opacity="0.95"/>
+
+          <circle cx="180" cy="20"  r="2.5" fill="#f0cc60" fill-opacity="0.9"/>
+          <circle cx="20"  cy="300" r="2"   fill="#e8b84a" fill-opacity="0.8"/>
+          <circle cx="340" cy="300" r="2"   fill="#e8b84a" fill-opacity="0.8"/>
+          <circle cx="100" cy="160" r="2"   fill="#e8b84a" fill-opacity="0.7"/>
+          <circle cx="260" cy="160" r="2"   fill="#e8b84a" fill-opacity="0.7"/>
+          <circle cx="180" cy="300" r="2"   fill="#e8b84a" fill-opacity="0.7"/>
+          <circle cx="180" cy="207" r="3.5" fill="#ffe090" fill-opacity="0.85"/>
+          <circle cx="180" cy="207" r="8"   fill="#c89030" fill-opacity="0.22"/>
+        </svg>
+      </div>
+
+      <div class="tagline">A New Promise.</div>
+    </div>
+  </div>
+
+  <!-- NEW ADAM -->
+  <div class="page" id="page-newadам">
+    <div class="inner-page">
+      <div class="page-top">
+        <span class="back-link" onclick="navigate('home')">← Return</span>
+      </div>
+      <div class="page-eyebrow">Teachings</div>
+      <h1 class="page-heading">New Adam</h1>
+      <div class="writing-area">
+        <p>Your central writings — the synthesis of all three pillars — will live here.</p>
+      </div>
+      <div class="writing-placeholder">This page is ready for your text.</div>
+      <div class="community-threshold">
+        <div class="threshold-label">Enter the Covenant</div>
+        <a class="threshold-link" href="#" target="_blank">Join the Community →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- CAPITAL -->
+  <div class="page" id="page-capital">
+    <div class="inner-page">
+      <div class="page-top">
+        <span class="back-link" onclick="navigate('home')">← Return</span>
+        <a class="portfolio-link" href="https://docs.google.com/spreadsheets/d/e/2PACX-1vRxAWEQmq7XKoQacTfEhbu9lbESTWSbCBRhXhFfmvilFDsMUw4o4J7H753CZ0O_FPqItghPVBX1ijZg/pubhtml" target="_blank">Portfolio →</a>
+      </div>
+      <div class="page-eyebrow">Teachings</div>
+      <h1 class="page-heading">Capital</h1>
+      <div class="writing-area">
+        <p>Your writings on capital will live here.</p>
+      </div>
+      <div class="writing-placeholder">This page is ready for your text.</div>
+    </div>
+  </div>
+
+  <!-- LAW -->
+  <div class="page" id="page-law">
+    <div class="inner-page">
+      <div class="page-top">
+        <span class="back-link" onclick="navigate('home')">← Return</span>
+      </div>
+      <div class="page-eyebrow">Teachings</div>
+      <h1 class="page-heading">Law</h1>
+      <div class="writing-area">
+        <p>Your writings on law will live here.</p>
+      </div>
+      <div class="writing-placeholder">This page is ready for your text.</div>
+    </div>
+  </div>
+
+  <!-- TECHNOLOGY -->
+  <div class="page" id="page-technology">
+    <div class="inner-page">
+      <div class="page-top">
+        <span class="back-link" onclick="navigate('home')">← Return</span>
+      </div>
+      <div class="page-eyebrow">Teachings</div>
+      <h1 class="page-heading">Technology</h1>
+      <div class="writing-area">
+        <p>Your writings on technology will live here.</p>
+      </div>
+      <div class="writing-placeholder">This page is ready for your text.</div>
+    </div>
+  </div>
+
+  <script>
+    function navigate(target) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      const id = target === 'home' ? 'page-home' : 'page-' + target;
+      const el = document.getElementById(id);
+      if (el) { el.classList.add('active'); window.scrollTo(0, 0); }
+    }
+  </script>
+
+</body>
+</html>
