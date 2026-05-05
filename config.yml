@@ -2,6 +2,9 @@ backend:
   name: github
   repo: YOUR_GITHUB_USERNAME/city-of-louis
   branch: main
+  base_url: https://api.github.com
+  auth_endpoint: login/oauth/authorize
+  app_id: Ov23liMXeqb6uUoKwQz6
 
 media_folder: "images/uploads"
 public_folder: "/images/uploads"
