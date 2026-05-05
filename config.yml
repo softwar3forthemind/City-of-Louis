@@ -16,7 +16,7 @@ collections:
     fields:
       - { label: "Title",   name: "title",   widget: "string" }
       - { label: "Date",    name: "date",    widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
-      - { label: "Excerpt", name: "excerpt", widget: "string",   required: false, hint: "A single sentence shown in the entry list." }
+      - { label: "Excerpt", name: "excerpt", widget: "string",   required: false }
       - { label: "Body",    name: "body",    widget: "markdown" }
 
   - name: "capital"
@@ -51,13 +51,3 @@ collections:
       - { label: "Date",    name: "date",    widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
       - { label: "Excerpt", name: "excerpt", widget: "string",   required: false }
       - { label: "Body",    name: "body",    widget: "markdown" }
-
-  - name: "foundation"
-    label: "Foundational Document"
-    files:
-      - label: "The Foundational Document"
-        name: "foundation"
-        file: "_entries/foundation.md"
-        fields:
-          - { label: "Title", name: "title", widget: "string" }
-          - { label: "Body",  name: "body",  widget: "markdown" }
