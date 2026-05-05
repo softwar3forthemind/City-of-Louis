@@ -454,6 +454,113 @@
       font-family: 'EB Garamond', serif; font-size: 12px; font-style: italic;
       color: #2e2810; text-align: center; line-height: 1.7;
     }
+
+    /* ── REMAIN IN UNION email form ── */
+    .union-wrap {
+      width: 100%; display: flex; flex-direction: column;
+      align-items: center; gap: 0.7rem; margin: 2.5rem 0;
+    }
+    .union-label {
+      font-family: 'Cinzel', serif; font-size: 9px; letter-spacing: 0.42em;
+      color: #7a6a30; text-transform: uppercase;
+    }
+    .union-form {
+      display: flex; align-items: center; gap: 0;
+      border-bottom: 0.5px solid #3a3018; width: 280px;
+      padding-bottom: 5px;
+    }
+    .union-input {
+      font-family: 'EB Garamond', serif; font-size: 15px; font-style: italic;
+      color: #d4c9a8; background: transparent; border: none; outline: none;
+      flex: 1; caret-color: #c8a030;
+    }
+    .union-input::placeholder { color: #2e2810; }
+    .union-btn {
+      font-family: 'Cinzel', serif; font-size: 11px;
+      color: #7a6a30; background: transparent; border: none;
+      cursor: pointer; padding: 0 0 0 8px;
+      transition: color 0.2s;
+    }
+    .union-btn:hover { color: #d4a830; }
+    .union-msg {
+      font-family: 'EB Garamond', serif; font-size: 12px; font-style: italic;
+      color: #6a5c30; min-height: 16px;
+    }
+    /* ══════════════════════════════════════
+       MOBILE — primary viewport
+    ══════════════════════════════════════ */
+    @media (max-width: 600px) {
+
+      /* HOME */
+      .home {
+        padding: 2rem 1rem 2.5rem;
+        justify-content: center;
+        min-height: 100vh;
+      }
+
+      .rays {
+        top: -22vh;
+        left: 50%;
+        width: 160vw;
+        height: 130vh;
+        transform: translateX(-50%);
+      }
+
+      .site-title {
+        font-size: 8px; letter-spacing: 0.35em; margin-bottom: 1.6rem;
+      }
+
+      .prism-wrap { width: 290px; height: 258px; }
+
+      .tagline { font-size: 11px; margin-top: 1.4rem; }
+
+      .benefactor-link-wrap { margin-top: 1.1rem; }
+      .benefactor-link { font-size: 7px; letter-spacing: 0.3em; }
+
+      /* INNER PAGES */
+      .inner-page { padding: 2rem 1.2rem 3rem; }
+
+      .page-heading { font-size: 19px; margin-bottom: 1.5rem; }
+
+      .entry-title { font-size: 16px; }
+      .entry-excerpt { font-size: 13px; }
+      .entry-full-body { font-size: 16px; line-height: 1.9; }
+      .entry-full-title { font-size: 18px; }
+
+      /* BENEFACTOR PAGE */
+      .benefactor-page { padding: 2rem 0 3rem; }
+      .benefactor-intro { font-size: 14px; }
+      .amount-input { font-size: 24px; width: 120px; }
+      .union-form { width: 100%; }
+      .union-input { font-size: 14px; }
+
+      /* FOUNDATION PAGE — hide pillars on mobile, too narrow */
+      .foundation-pillar { display: none; }
+      .foundation-border { display: none; }
+      .foundation-content { padding: 3.5rem 1.4rem 5rem; }
+      .foundation-title { font-size: 22px; }
+      .foundation-arch-wrap svg { width: 260px; }
+      .foundation-capital { max-width: 100%; }
+      .foundation-frieze { max-width: 100%; }
+      .foundation-body { font-size: 15px; }
+
+      /* ENTRY INDEX touch targets */
+      .entry-item { padding: 1.2rem 0; }
+
+      /* THRESHOLD / COMMUNITY */
+      .community-threshold { margin-top: 2.5rem; }
+
+      /* FOUNDATION LINK */
+      .foundation-link-wrap { margin: 2rem 0 0; }
+    }
+
+    /* TABLET — slight refinement */
+    @media (min-width: 601px) and (max-width: 860px) {
+      .prism-wrap { width: 320px; height: 284px; }
+      .foundation-pillar { width: 50px; }
+      .foundation-content { padding: 4rem 1.8rem 5rem; }
+    }
+
   </style>
 </head>
 <body>
@@ -570,11 +677,16 @@
       <div class="page-eyebrow">Teachings</div>
       <h1 class="page-heading">New Adam</h1>
 
+      <!-- Foundational document link — top -->
+      <div class="foundation-link-wrap" id="foundation-wrap">
+        <div class="foundation-link-rule"></div>
+        <span class="foundation-link" onclick="navigate('foundation')">Breathing Life Into Adam</span>
+        <div class="foundation-link-rule"></div>
+      </div>
+
       <!-- Entry list view -->
       <div class="entry-list" id="list-newadам">
-        <div class="entry-index" id="index-newadам">
-          <!-- Entries injected by JS -->
-        </div>
+        <div class="entry-index" id="index-newadам"></div>
         <div class="writing-placeholder" id="empty-newadам" style="display:none;">
           The first entry has not yet been written.
         </div>
@@ -586,12 +698,6 @@
         <div class="entry-full-date" id="entry-date-newadам"></div>
         <h2 class="entry-full-title" id="entry-title-newadам"></h2>
         <div class="entry-full-body" id="entry-body-newadам"></div>
-      </div>
-
-      <div class="foundation-link-wrap" id="foundation-wrap">
-        <div class="foundation-link-rule"></div>
-        <span class="foundation-link" onclick="navigate('foundation')">The Foundational Document</span>
-        <div class="foundation-link-rule"></div>
       </div>
 
       <div class="community-threshold">
@@ -1028,6 +1134,18 @@
         </p>
         <div class="benefactor-divider"></div>
 
+        <!-- Remain In Union email form -->
+        <div class="union-wrap">
+          <div class="union-label">Remain In Union</div>
+          <div class="union-form">
+            <input class="union-input" id="union-email-bene" type="email" placeholder="Your email address"/>
+            <button class="union-btn" onclick="subscribeEmail('union-email-bene')">→</button>
+          </div>
+          <div class="union-msg" id="union-msg-bene"></div>
+        </div>
+
+        <div class="benefactor-divider"></div>
+
         <div class="amount-wrap">
           <div class="amount-label">Your Contribution</div>
           <div class="amount-input-row">
@@ -1057,7 +1175,41 @@
 
   <script>
     // ─────────────────────────────────────────
-    // ENTRIES DATA
+    // KIT EMAIL SUBSCRIPTION
+    // ─────────────────────────────────────────
+    async function subscribeEmail(inputId) {
+      const input = document.getElementById(inputId);
+      const msgId = inputId.replace('union-email-', 'union-msg-');
+      const msg   = document.getElementById(msgId);
+      const email = input.value.trim();
+
+      if (!email || !email.includes('@')) {
+        msg.textContent = 'Please enter a valid email address.';
+        return;
+      }
+
+      msg.textContent = '...';
+
+      try {
+        const res = await fetch('https://api.convertkit.com/v3/forms/9406727/subscribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            api_key: '9yQUjnQRRP5qKm1KUOdEOg',
+            email: email
+          })
+        });
+        const data = await res.json();
+        if (data.subscription) {
+          msg.textContent = 'You are in union.';
+          input.value = '';
+        } else {
+          msg.textContent = 'Something went wrong. Please try again.';
+        }
+      } catch(e) {
+        msg.textContent = 'Something went wrong. Please try again.';
+      }
+    }
     // When Decap CMS is connected, this array
     // will be populated from your markdown files.
     // For now, sample entries demonstrate the layout.
