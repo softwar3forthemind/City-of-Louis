@@ -1,0 +1,62 @@
+backend:
+  name: github
+  repo: YOUR_GITHUB_USERNAME/city-of-louis
+  branch: main
+
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "new-adam"
+    label: "New Adam"
+    folder: "_entries/new-adam"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Title",   name: "title",   widget: "string" }
+      - { label: "Date",    name: "date",    widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
+      - { label: "Excerpt", name: "excerpt", widget: "string",   required: false, hint: "A single sentence shown in the entry list." }
+      - { label: "Body",    name: "body",    widget: "markdown" }
+
+  - name: "capital"
+    label: "Capital"
+    folder: "_entries/capital"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Title",   name: "title",   widget: "string" }
+      - { label: "Date",    name: "date",    widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
+      - { label: "Excerpt", name: "excerpt", widget: "string",   required: false }
+      - { label: "Body",    name: "body",    widget: "markdown" }
+
+  - name: "law"
+    label: "Law"
+    folder: "_entries/law"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Title",   name: "title",   widget: "string" }
+      - { label: "Date",    name: "date",    widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
+      - { label: "Excerpt", name: "excerpt", widget: "string",   required: false }
+      - { label: "Body",    name: "body",    widget: "markdown" }
+
+  - name: "technology"
+    label: "Technology"
+    folder: "_entries/technology"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Title",   name: "title",   widget: "string" }
+      - { label: "Date",    name: "date",    widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
+      - { label: "Excerpt", name: "excerpt", widget: "string",   required: false }
+      - { label: "Body",    name: "body",    widget: "markdown" }
+
+  - name: "foundation"
+    label: "Foundational Document"
+    files:
+      - label: "The Foundational Document"
+        name: "foundation"
+        file: "_entries/foundation.md"
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Body",  name: "body",  widget: "markdown" }
