@@ -1,0 +1,53 @@
+backend:
+  name: github
+  repo: softwar3forthemind/City-of-Louis
+  branch: main
+  base_url: https://city-of-louis-auth.softwar3forthemind.workers.dev
+
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "new-adam"
+    label: "New Adam"
+    folder: "_entries/new-adam"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Title",   name: "title",   widget: "string" }
+      - { label: "Date",    name: "date",    widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
+      - { label: "Excerpt", name: "excerpt", widget: "string",   required: false }
+      - { label: "Body",    name: "body",    widget: "markdown" }
+
+  - name: "capital"
+    label: "Capital"
+    folder: "_entries/capital"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Title",   name: "title",   widget: "string" }
+      - { label: "Date",    name: "date",    widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
+      - { label: "Excerpt", name: "excerpt", widget: "string",   required: false }
+      - { label: "Body",    name: "body",    widget: "markdown" }
+
+  - name: "law"
+    label: "Law"
+    folder: "_entries/law"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Title",   name: "title",   widget: "string" }
+      - { label: "Date",    name: "date",    widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
+      - { label: "Excerpt", name: "excerpt", widget: "string",   required: false }
+      - { label: "Body",    name: "body",    widget: "markdown" }
+
+  - name: "technology"
+    label: "Technology"
+    folder: "_entries/technology"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Title",   name: "title",   widget: "string" }
+      - { label: "Date",    name: "date",    widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
+      - { label: "Excerpt", name: "excerpt", widget: "string",   required: false }
+      - { label: "Body",    name: "body",    widget: "markdown" }
