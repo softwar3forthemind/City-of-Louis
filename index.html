@@ -1,0 +1,1206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>City of Louis</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400&family=Cinzel:wght@400;600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet"/>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'EB Garamond', Georgia, serif;
+      background: #060401;
+      color: #d4c9a8;
+      min-height: 100vh;
+    }
+
+    .page { display: none; min-height: 100vh; }
+    .page.active { display: block; }
+
+    /* ── HOME ── */
+    .home {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      min-height: 100vh; padding: 2rem 1rem; position: relative; overflow: hidden;
+    }
+
+    .home-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background: radial-gradient(ellipse at 50% 0%, #2a1e08 0%, #120e04 45%, #060401 100%);
+    }
+
+    .rays {
+      position: fixed; top: 0; left: 50%; transform: translateX(-50%);
+      width: 100vw; height: 100vh; z-index: 1; pointer-events: none;
+    }
+
+    .glow-pool {
+      position: absolute; top: 42%; left: 50%; transform: translate(-50%, -50%);
+      width: 320px; height: 220px;
+      background: radial-gradient(ellipse at 50% 40%, rgba(210,165,60,0.13) 0%, transparent 70%);
+      z-index: 1; pointer-events: none;
+    }
+
+    .site-title {
+      font-family: 'Cinzel', serif;
+      font-size: 10px;
+      letter-spacing: 0.4em;
+      color: #8a7640;
+      text-transform: uppercase;
+      margin-bottom: 2.2rem;
+      position: relative; z-index: 2;
+    }
+
+    .prism-wrap { position: relative; z-index: 2; width: 360px; height: 320px; }
+    .prism-svg { width: 100%; height: 100%; overflow: visible; }
+
+    .tri-zone { cursor: pointer; }
+    .tri-zone .tri-fill { transition: opacity 0.22s; }
+    .tri-zone:hover .tri-fill { opacity: 0.6; }
+
+    .tri-label {
+      font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 0.1em;
+      fill: #e8dfc0; text-anchor: middle; dominant-baseline: middle; pointer-events: none;
+    }
+
+    .tagline {
+      font-family: 'EB Garamond', serif; font-style: italic; font-size: 13px;
+      color: #6a5c30; margin-top: 2rem; letter-spacing: 0.04em; position: relative; z-index: 2;
+    }
+
+    /* ── INNER PAGES ── */
+    .page.active:not(#page-home) {
+      background: radial-gradient(ellipse at 50% 0%, #1a1206 0%, #080602 100%);
+      min-height: 100vh;
+    }
+
+    .inner-page {
+      padding: 2.5rem 2rem 3rem; max-width: 680px; margin: 0 auto; min-height: 100vh;
+    }
+
+    .page-top {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      margin-bottom: 2.5rem;
+    }
+
+    .back-link {
+      font-family: 'Cinzel', serif; font-size: 9px; letter-spacing: 0.3em;
+      color: #5a4e30; text-transform: uppercase; cursor: pointer;
+      display: inline-block; border-bottom: 0.5px solid #3a3020;
+      padding-bottom: 2px; transition: color 0.2s;
+    }
+    .back-link:hover { color: #b09a60; }
+
+    .portfolio-link {
+      font-family: 'Cinzel', serif; font-size: 8px; letter-spacing: 0.28em;
+      color: #7a6a30; text-transform: uppercase; text-decoration: none;
+      border-bottom: 0.5px solid #3a3018; padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s; white-space: nowrap;
+    }
+    .portfolio-link:hover { color: #d4a830; border-color: #c8952a; }
+
+    .page-eyebrow {
+      font-family: 'Cinzel', serif; font-size: 9px; letter-spacing: 0.4em;
+      color: #7a6a44; text-transform: uppercase; margin-bottom: 0.6rem;
+    }
+
+    .page-heading {
+      font-family: 'Cinzel Decorative', serif; font-weight: 400; font-size: 24px;
+      color: #d4c9a8; letter-spacing: 0.04em; margin-bottom: 2rem;
+      padding-bottom: 1.2rem; border-bottom: 0.5px solid #2a2418; line-height: 1.2;
+    }
+
+    .writing-area { font-size: 16px; line-height: 1.85; color: #9a8e70; font-style: italic; }
+    .writing-area p { margin-bottom: 1.5rem; }
+
+    .writing-placeholder {
+      font-style: italic; color: #3d3626; font-size: 14px;
+      border-left: 1.5px solid #2a2418; padding-left: 1.2rem; margin-top: 2rem;
+    }
+
+    /* ── ENTRY INDEX ── */
+    .entry-index { margin-top: 0.5rem; }
+
+    .entry-item {
+      display: flex; flex-direction: column;
+      padding: 1.4rem 0; border-bottom: 0.5px solid #1e1a0e;
+      cursor: pointer; transition: opacity 0.2s;
+    }
+    .entry-item:first-child { border-top: 0.5px solid #1e1a0e; }
+    .entry-item:hover { opacity: 0.75; }
+
+    .entry-date {
+      font-family: 'Cinzel', serif; font-size: 7.5px; letter-spacing: 0.38em;
+      color: #4a3e1e; text-transform: uppercase; margin-bottom: 0.4rem;
+    }
+
+    .entry-title {
+      font-family: 'EB Garamond', serif; font-size: 18px;
+      color: #c4b888; line-height: 1.35; font-style: normal;
+    }
+
+    .entry-excerpt {
+      font-family: 'EB Garamond', serif; font-size: 14px;
+      color: #5a5038; font-style: italic; margin-top: 0.35rem;
+      line-height: 1.6;
+    }
+
+    /* ── SINGLE ENTRY VIEW ── */
+    .entry-view { display: none; }
+    .entry-view.active { display: block; }
+    .entry-list { display: block; }
+    .entry-list.hidden { display: none; }
+
+    .entry-back {
+      font-family: 'Cinzel', serif; font-size: 9px; letter-spacing: 0.3em;
+      color: #5a4e30; text-transform: uppercase; cursor: pointer;
+      display: inline-block; border-bottom: 0.5px solid #3a3020;
+      padding-bottom: 2px; transition: color 0.2s; margin-bottom: 2.5rem;
+    }
+    .entry-back:hover { color: #b09a60; }
+
+    .entry-full-date {
+      font-family: 'Cinzel', serif; font-size: 8px; letter-spacing: 0.4em;
+      color: #4a3e1e; text-transform: uppercase; margin-bottom: 0.8rem;
+    }
+
+    .entry-full-title {
+      font-family: 'Cinzel Decorative', serif; font-weight: 400; font-size: 22px;
+      color: #d4c9a8; letter-spacing: 0.04em; line-height: 1.3;
+      margin-bottom: 2rem; padding-bottom: 1.2rem;
+      border-bottom: 0.5px solid #2a2418;
+    }
+
+    .entry-full-body {
+      font-family: 'EB Garamond', serif; font-size: 17px; line-height: 1.95;
+      color: #9a8e70;
+    }
+    .entry-full-body p { margin-bottom: 1.6rem; }
+    .entry-full-body h2 {
+      font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 0.35em;
+      color: #6a5c30; text-transform: uppercase; margin: 2.5rem 0 1rem;
+    }
+
+    .community-threshold {
+      margin-top: 3.5rem; padding-top: 2rem; border-top: 0.5px solid #1e1a0e;
+      display: flex; flex-direction: column; align-items: center; gap: 0.7rem;
+    }
+
+    .threshold-label {
+      font-family: 'Cinzel', serif; font-size: 8px; letter-spacing: 0.4em;
+      color: #3a3218; text-transform: uppercase;
+    }
+
+    .threshold-link {
+      font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 0.28em;
+      color: #7a6a30; text-decoration: none; text-transform: uppercase;
+      border-bottom: 0.5px solid #3a3018; padding-bottom: 3px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .threshold-link:hover { color: #d4a830; border-color: #c8952a; }
+
+    /* ── FOUNDATION LINK (New Adam page) ── */
+    .foundation-link-wrap {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 0.9rem; margin: 3rem 0 0;
+    }
+    .foundation-link-rule {
+      width: 100%; height: 0.5px;
+      background: linear-gradient(90deg, transparent, #3a3018, transparent);
+    }
+    .foundation-link {
+      font-family: 'Cinzel', serif; font-size: 9px; letter-spacing: 0.42em;
+      color: #7a6a30; text-transform: uppercase; cursor: pointer;
+      transition: color 0.22s; padding: 0.2rem 0;
+    }
+    .foundation-link:hover { color: #d4a830; }
+
+    /* ══════════════════════════════════════
+       FOUNDATION PAGE — SOLOMON'S TEMPLE
+    ══════════════════════════════════════ */
+    #page-foundation {
+      position: relative; overflow: hidden; min-height: 100vh;
+    }
+
+    .foundation-bg {
+      position: fixed; inset: 0; z-index: 0;
+      background:
+        radial-gradient(ellipse at 50% 0%,   #2e1d04 0%, transparent 60%),
+        radial-gradient(ellipse at 50% 100%,  #1a0e01 0%, transparent 55%),
+        radial-gradient(ellipse at 0%   50%,  #120800 0%, transparent 50%),
+        radial-gradient(ellipse at 100% 50%,  #120800 0%, transparent 50%),
+        linear-gradient(180deg, #080501 0%, #0e0a02 50%, #080501 100%);
+    }
+
+    /* Warm ambient glow at center */
+    .foundation-glow {
+      position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%);
+      width: 600px; height: 600px; z-index: 1; pointer-events: none;
+      background: radial-gradient(ellipse at 50% 50%, rgba(180,110,10,0.08) 0%, transparent 70%);
+      animation: templeBreath 8s ease-in-out infinite alternate;
+    }
+    @keyframes templeBreath {
+      0%   { opacity: 0.7;  transform: translate(-50%,-50%) scale(1);   }
+      100% { opacity: 1.0;  transform: translate(-50%,-50%) scale(1.08); }
+    }
+
+    /* ── Pillar columns ── */
+    .foundation-pillar {
+      position: fixed; top: 0; bottom: 0; z-index: 2;
+      width: 72px; pointer-events: none;
+    }
+    .foundation-pillar.left  { left: 0; }
+    .foundation-pillar.right { right: 0; }
+
+    .foundation-pillar svg {
+      width: 100%; height: 100%;
+    }
+
+    /* ── Outer decorative border ── */
+    .foundation-border {
+      position: fixed; inset: 0; z-index: 3; pointer-events: none;
+    }
+    .foundation-border svg { width: 100%; height: 100%; }
+
+    /* ── Scrollable content ── */
+    .foundation-content {
+      position: relative; z-index: 5;
+      max-width: 580px; margin: 0 auto;
+      padding: 5rem 2rem 7rem;
+      display: flex; flex-direction: column; align-items: center;
+    }
+
+    .foundation-back {
+      font-family: 'Cinzel', serif; font-size: 8px; letter-spacing: 0.3em;
+      color: #3a2e0a; text-transform: uppercase; cursor: pointer;
+      border-bottom: 0.5px solid #2a2008; padding-bottom: 2px;
+      transition: color 0.2s; align-self: flex-start; margin-bottom: 4.5rem;
+    }
+    .foundation-back:hover { color: #b09030; }
+
+    /* Arch header ornament */
+    .foundation-arch-wrap {
+      width: 100%; display: flex; justify-content: center;
+      margin-bottom: 2rem;
+    }
+
+    .foundation-eyebrow {
+      font-family: 'Cinzel', serif; font-size: 7px; letter-spacing: 0.6em;
+      color: #4a3a10; text-transform: uppercase;
+      text-align: center; margin-bottom: 1.4rem;
+    }
+
+    .foundation-title {
+      font-family: 'Cinzel Decorative', serif; font-weight: 400;
+      font-size: clamp(20px, 4vw, 30px);
+      color: #d4a020;
+      text-shadow:
+        0 0 60px rgba(200,140,10,0.5),
+        0 0 20px rgba(200,140,10,0.3),
+        0 2px 6px rgba(0,0,0,0.95);
+      letter-spacing: 0.06em; text-align: center; line-height: 1.35;
+      margin-bottom: 0.8rem;
+    }
+
+    .foundation-subtitle {
+      font-family: 'EB Garamond', serif; font-style: italic;
+      font-size: 14px; color: #5a4610; letter-spacing: 0.14em;
+      text-align: center; margin-bottom: 3.5rem;
+    }
+
+    /* Horizontal capital ornament rule */
+    .foundation-capital {
+      width: 100%; margin-bottom: 3rem; opacity: 0.7;
+    }
+
+    .foundation-body {
+      font-family: 'EB Garamond', serif; font-size: 17px; line-height: 2.1;
+      color: #8a7848; text-align: center; font-style: italic;
+      margin-bottom: 3.5rem; letter-spacing: 0.01em;
+    }
+    .foundation-body p { margin-bottom: 1.8rem; }
+
+    .foundation-placeholder {
+      font-family: 'Cinzel', serif; font-size: 8px; letter-spacing: 0.45em;
+      color: #2a2006; text-transform: uppercase; text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    /* Bottom frieze */
+    .foundation-frieze {
+      width: 100%; margin-bottom: 2rem; opacity: 0.65;
+    }
+
+    .foundation-seal {
+      display: flex; flex-direction: column; align-items: center; gap: 0.6rem;
+    }
+    .foundation-seal-cross {
+      width: 14px; height: 14px; position: relative; opacity: 0.4;
+    }
+    .foundation-seal-cross::before,
+    .foundation-seal-cross::after {
+      content: ''; position: absolute; background: #c8952a;
+    }
+    .foundation-seal-cross::before { width: 1px; height: 100%; left: 50%; top: 0; }
+    .foundation-seal-cross::after  { height: 1px; width: 100%; top: 50%; left: 0; }
+    .foundation-seal-text {
+      font-family: 'Cinzel', serif; font-size: 7px; letter-spacing: 0.5em;
+      color: #2a2006; text-transform: uppercase;
+    }
+
+    /* ── BENEFACTOR LINK (homepage) ── */
+    .benefactor-link-wrap {
+      position: relative; z-index: 2;
+      margin-top: 1.4rem;
+      display: flex; align-items: center; gap: 0.8rem;
+    }
+    .benefactor-link-wrap::before,
+    .benefactor-link-wrap::after {
+      content: '';
+      display: block;
+      width: 32px; height: 0.5px;
+      background: linear-gradient(90deg, transparent, #3a3018);
+    }
+    .benefactor-link-wrap::after {
+      background: linear-gradient(90deg, #3a3018, transparent);
+    }
+    .benefactor-link {
+      font-family: 'Cinzel', serif; font-size: 8px; letter-spacing: 0.38em;
+      color: #5a4e28; text-transform: uppercase; cursor: pointer;
+      transition: color 0.2s; white-space: nowrap;
+    }
+    .benefactor-link:hover { color: #c8a030; }
+
+    /* ── BENEFACTOR PAGE ── */
+    .benefactor-page {
+      max-width: 520px; margin: 0 auto; padding: 3.5rem 2rem 4rem;
+      display: flex; flex-direction: column; align-items: center;
+    }
+    .benefactor-intro {
+      font-family: 'EB Garamond', serif; font-size: 15px; line-height: 1.9;
+      color: #7a6e50; text-align: center; margin-bottom: 2.8rem; font-style: italic;
+    }
+    .benefactor-divider {
+      width: 60px; height: 0.5px;
+      background: linear-gradient(90deg, transparent, #3a3018, transparent);
+      margin-bottom: 2.8rem;
+    }
+    .amount-wrap {
+      width: 100%; margin-bottom: 2rem;
+      display: flex; flex-direction: column; align-items: center; gap: 0.6rem;
+    }
+    .amount-label {
+      font-family: 'Cinzel', serif; font-size: 8px; letter-spacing: 0.4em;
+      color: #4a4020; text-transform: uppercase;
+    }
+    .amount-input-row {
+      display: flex; align-items: center; gap: 0;
+      border-bottom: 0.5px solid #3a3018; padding-bottom: 6px; width: 180px;
+    }
+    .amount-currency {
+      font-family: 'EB Garamond', serif; font-size: 20px;
+      color: #6a5c30; padding-right: 4px;
+    }
+    .amount-input {
+      font-family: 'EB Garamond', serif; font-size: 28px;
+      color: #d4c9a8; background: transparent; border: none; outline: none;
+      width: 140px; text-align: left;
+      caret-color: #c8a030;
+    }
+    .amount-input::placeholder { color: #2e2810; }
+
+    .identity-wrap {
+      width: 100%; margin-bottom: 2.8rem;
+      display: flex; flex-direction: column; align-items: center; gap: 1rem;
+    }
+    .identity-label {
+      font-family: 'Cinzel', serif; font-size: 8px; letter-spacing: 0.4em;
+      color: #4a4020; text-transform: uppercase;
+    }
+    .identity-options {
+      display: flex; gap: 1.5rem;
+    }
+    .identity-option {
+      font-family: 'Cinzel', serif; font-size: 8px; letter-spacing: 0.28em;
+      color: #5a4e28; text-transform: uppercase; cursor: pointer;
+      padding-bottom: 3px; border-bottom: 0.5px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .identity-option.selected,
+    .identity-option:hover { color: #c8a030; border-color: #c8a030; }
+
+    .name-input {
+      font-family: 'EB Garamond', serif; font-size: 15px; font-style: italic;
+      color: #d4c9a8; background: transparent; border: none; outline: none;
+      border-bottom: 0.5px solid #3a3018; padding-bottom: 4px;
+      width: 240px; text-align: center;
+      caret-color: #c8a030; display: none;
+    }
+    .name-input::placeholder { color: #2e2810; }
+    .name-input.visible { display: block; }
+
+    .stripe-btn {
+      font-family: 'Cinzel', serif; font-size: 9px; letter-spacing: 0.38em;
+      color: #8a7640; text-transform: uppercase; cursor: pointer;
+      border: 0.5px solid #3a3018; padding: 10px 28px;
+      background: transparent; transition: color 0.2s, border-color 0.2s;
+      margin-bottom: 1.8rem;
+    }
+    .stripe-btn:hover { color: #d4a830; border-color: #c8a030; }
+
+    .stripe-note {
+      font-family: 'EB Garamond', serif; font-size: 12px; font-style: italic;
+      color: #2e2810; text-align: center; line-height: 1.7;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HOME -->
+  <div class="page active" id="page-home">
+    <div class="home">
+      <div class="home-bg"></div>
+
+      <svg class="rays" viewBox="0 0 700 700" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="rayGrad" cx="50%" cy="0%" r="100%" fx="50%" fy="0%">
+            <stop offset="0%" stop-color="#c8952a" stop-opacity="0.22"/>
+            <stop offset="40%" stop-color="#a07020" stop-opacity="0.08"/>
+            <stop offset="100%" stop-color="#60400a" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="sourceGlow" cx="50%" cy="0%" r="20%">
+            <stop offset="0%" stop-color="#ffe090" stop-opacity="0.55"/>
+            <stop offset="100%" stop-color="#c8952a" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <polygon points="350,0 0,700 700,700" fill="url(#rayGrad)"/>
+        <line x1="350" y1="2" x2="0"   y2="700" stroke="#d4a030" stroke-width="0.7" stroke-opacity="0.12"/>
+        <line x1="350" y1="2" x2="60"  y2="700" stroke="#d4a030" stroke-width="0.8" stroke-opacity="0.10"/>
+        <line x1="350" y1="2" x2="130" y2="700" stroke="#d4a030" stroke-width="1.2" stroke-opacity="0.13"/>
+        <line x1="350" y1="2" x2="200" y2="700" stroke="#e0b840" stroke-width="0.9" stroke-opacity="0.11"/>
+        <line x1="350" y1="2" x2="260" y2="700" stroke="#e0b840" stroke-width="1.5" stroke-opacity="0.15"/>
+        <line x1="350" y1="2" x2="305" y2="700" stroke="#f0cc60" stroke-width="1.0" stroke-opacity="0.10"/>
+        <line x1="350" y1="2" x2="350" y2="700" stroke="#f0cc60" stroke-width="2.0" stroke-opacity="0.18"/>
+        <line x1="350" y1="2" x2="395" y2="700" stroke="#f0cc60" stroke-width="1.0" stroke-opacity="0.10"/>
+        <line x1="350" y1="2" x2="440" y2="700" stroke="#e0b840" stroke-width="1.5" stroke-opacity="0.15"/>
+        <line x1="350" y1="2" x2="500" y2="700" stroke="#e0b840" stroke-width="0.9" stroke-opacity="0.11"/>
+        <line x1="350" y1="2" x2="570" y2="700" stroke="#d4a030" stroke-width="1.2" stroke-opacity="0.13"/>
+        <line x1="350" y1="2" x2="640" y2="700" stroke="#d4a030" stroke-width="0.8" stroke-opacity="0.10"/>
+        <line x1="350" y1="2" x2="700" y2="700" stroke="#d4a030" stroke-width="0.7" stroke-opacity="0.12"/>
+        <ellipse cx="350" cy="8" rx="90" ry="40" fill="url(#sourceGlow)"/>
+        <ellipse cx="350" cy="4" rx="30" ry="14" fill="#ffe8a0" fill-opacity="0.28"/>
+      </svg>
+
+      <div class="glow-pool"></div>
+      <div class="site-title">City of Louis</div>
+
+      <div class="prism-wrap">
+        <svg class="prism-svg" viewBox="0 0 360 320" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="cg" cx="50%" cy="60%" r="40%">
+              <stop offset="0%" stop-color="#c89030" stop-opacity="0.40"/>
+              <stop offset="100%" stop-color="#c89030" stop-opacity="0"/>
+            </radialGradient>
+            <radialGradient id="centerTriGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#ffe090" stop-opacity="0.22"/>
+              <stop offset="100%" stop-color="#c89030" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+
+          <ellipse cx="180" cy="200" rx="120" ry="80" fill="url(#cg)"/>
+
+          <!-- TOP → Law -->
+          <g class="tri-zone" onclick="navigate('law')">
+            <polygon class="tri-fill" points="180,20 100,160 260,160" fill="#100f0e" fill-opacity="0.72"/>
+            <polygon points="180,20 100,160 260,160" fill="none" stroke="#e8b84a" stroke-width="1.2" stroke-opacity="0.85"/>
+            <text class="tri-label" x="180" y="118">Law</text>
+          </g>
+
+          <!-- LEFT → Capital -->
+          <g class="tri-zone" onclick="navigate('capital')">
+            <polygon class="tri-fill" points="100,160 20,300 180,300" fill="#0e0f0c" fill-opacity="0.72"/>
+            <polygon points="100,160 20,300 180,300" fill="none" stroke="#e8b84a" stroke-width="1.2" stroke-opacity="0.85"/>
+            <text class="tri-label" x="100" y="246">Capital</text>
+          </g>
+
+          <!-- RIGHT → Technology -->
+          <g class="tri-zone" onclick="navigate('technology')">
+            <polygon class="tri-fill" points="260,160 180,300 340,300" fill="#0c100e" fill-opacity="0.72"/>
+            <polygon points="260,160 180,300 340,300" fill="none" stroke="#e8b84a" stroke-width="1.2" stroke-opacity="0.85"/>
+            <text class="tri-label" x="260" y="246">Technology</text>
+          </g>
+
+          <!-- CENTER → New Adam -->
+          <g class="tri-zone" onclick="navigate('newadам')">
+            <polygon class="tri-fill" points="100,160 260,160 180,300" fill="#1a1505" fill-opacity="0.55"/>
+            <polygon points="100,160 260,160 180,300" fill="url(#centerTriGlow)" fill-opacity="0.9"/>
+            <polygon points="100,160 260,160 180,300" fill="none" stroke="#ffe090" stroke-width="1.6" stroke-opacity="0.95"/>
+            <text class="tri-label" x="180" y="218" fill="#ffe090">New Adam</text>
+          </g>
+
+          <!-- Outer border -->
+          <polygon points="180,20 20,300 340,300" fill="none" stroke="#e8b84a" stroke-width="1.8" stroke-opacity="0.95"/>
+
+          <circle cx="180" cy="20"  r="2.5" fill="#f0cc60" fill-opacity="0.9"/>
+          <circle cx="20"  cy="300" r="2"   fill="#e8b84a" fill-opacity="0.8"/>
+          <circle cx="340" cy="300" r="2"   fill="#e8b84a" fill-opacity="0.8"/>
+          <circle cx="100" cy="160" r="2"   fill="#e8b84a" fill-opacity="0.7"/>
+          <circle cx="260" cy="160" r="2"   fill="#e8b84a" fill-opacity="0.7"/>
+          <circle cx="180" cy="300" r="2"   fill="#e8b84a" fill-opacity="0.7"/>
+          <circle cx="180" cy="207" r="3.5" fill="#ffe090" fill-opacity="0.85"/>
+          <circle cx="180" cy="207" r="8"   fill="#c89030" fill-opacity="0.22"/>
+        </svg>
+      </div>
+
+      <div class="tagline">Authoring a New Future.</div>
+      <div class="benefactor-link-wrap">
+        <span class="benefactor-link" onclick="navigate('benefactor')">Become a Benefactor</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- NEW ADAM -->
+  <div class="page" id="page-newadам">
+    <div class="inner-page">
+      <div class="page-top">
+        <span class="back-link" onclick="navigate('home')">← Return</span>
+      </div>
+      <div class="page-eyebrow">Teachings</div>
+      <h1 class="page-heading">New Adam</h1>
+
+      <!-- Entry list view -->
+      <div class="entry-list" id="list-newadам">
+        <div class="entry-index" id="index-newadам">
+          <!-- Entries injected by JS -->
+        </div>
+        <div class="writing-placeholder" id="empty-newadам" style="display:none;">
+          The first entry has not yet been written.
+        </div>
+      </div>
+
+      <!-- Single entry view -->
+      <div class="entry-view" id="entry-newadам">
+        <span class="entry-back" onclick="closeEntry('newadам')">← All Entries</span>
+        <div class="entry-full-date" id="entry-date-newadам"></div>
+        <h2 class="entry-full-title" id="entry-title-newadам"></h2>
+        <div class="entry-full-body" id="entry-body-newadам"></div>
+      </div>
+
+      <div class="foundation-link-wrap" id="foundation-wrap">
+        <div class="foundation-link-rule"></div>
+        <span class="foundation-link" onclick="navigate('foundation')">The Foundational Document</span>
+        <div class="foundation-link-rule"></div>
+      </div>
+
+      <div class="community-threshold">
+        <div class="threshold-label">Enter the Covenant</div>
+        <a class="threshold-link" href="#" target="_blank">Join the Community →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- CAPITAL -->
+  <div class="page" id="page-capital">
+    <div class="inner-page">
+      <div class="page-top">
+        <span class="back-link" onclick="navigate('home')">← Return</span>
+        <a class="portfolio-link" href="https://docs.google.com/spreadsheets/d/e/2PACX-1vRxAWEQmq7XKoQacTfEhbu9lbESTWSbCBRhXhFfmvilFDsMUw4o4J7H753CZ0O_FPqItghPVBX1ijZg/pubhtml" target="_blank">Portfolio →</a>
+      </div>
+      <div class="page-eyebrow">Teachings</div>
+      <h1 class="page-heading">Capital</h1>
+
+      <div class="entry-list" id="list-capital">
+        <div class="entry-index" id="index-capital"></div>
+        <div class="writing-placeholder" id="empty-capital" style="display:none;">
+          The first entry has not yet been written.
+        </div>
+      </div>
+
+      <div class="entry-view" id="entry-capital">
+        <span class="entry-back" onclick="closeEntry('capital')">← All Entries</span>
+        <div class="entry-full-date" id="entry-date-capital"></div>
+        <h2 class="entry-full-title" id="entry-title-capital"></h2>
+        <div class="entry-full-body" id="entry-body-capital"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LAW -->
+  <div class="page" id="page-law">
+    <div class="inner-page">
+      <div class="page-top">
+        <span class="back-link" onclick="navigate('home')">← Return</span>
+      </div>
+      <div class="page-eyebrow">Teachings</div>
+      <h1 class="page-heading">Law</h1>
+
+      <div class="entry-list" id="list-law">
+        <div class="entry-index" id="index-law"></div>
+        <div class="writing-placeholder" id="empty-law" style="display:none;">
+          The first entry has not yet been written.
+        </div>
+      </div>
+
+      <div class="entry-view" id="entry-law">
+        <span class="entry-back" onclick="closeEntry('law')">← All Entries</span>
+        <div class="entry-full-date" id="entry-date-law"></div>
+        <h2 class="entry-full-title" id="entry-title-law"></h2>
+        <div class="entry-full-body" id="entry-body-law"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TECHNOLOGY -->
+  <div class="page" id="page-technology">
+    <div class="inner-page">
+      <div class="page-top">
+        <span class="back-link" onclick="navigate('home')">← Return</span>
+      </div>
+      <div class="page-eyebrow">Teachings</div>
+      <h1 class="page-heading">Technology</h1>
+
+      <div class="entry-list" id="list-technology">
+        <div class="entry-index" id="index-technology"></div>
+        <div class="writing-placeholder" id="empty-technology" style="display:none;">
+          The first entry has not yet been written.
+        </div>
+      </div>
+
+      <div class="entry-view" id="entry-technology">
+        <span class="entry-back" onclick="closeEntry('technology')">← All Entries</span>
+        <div class="entry-full-date" id="entry-date-technology"></div>
+        <h2 class="entry-full-title" id="entry-title-technology"></h2>
+        <div class="entry-full-body" id="entry-body-technology"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOUNDATION -->
+  <div class="page" id="page-foundation">
+    <div class="foundation-bg"></div>
+    <div class="foundation-glow"></div>
+
+    <!-- LEFT PILLAR -->
+    <div class="foundation-pillar left">
+      <svg viewBox="0 0 72 800" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <!-- Overall pillar light: bright center fading to dark edges -->
+          <linearGradient id="shaftL" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%"   stop-color="#030200" stop-opacity="1"/>
+            <stop offset="15%"  stop-color="#8a6018" stop-opacity="0.6"/>
+            <stop offset="42%"  stop-color="#f0d878" stop-opacity="0.55"/>
+            <stop offset="55%"  stop-color="#c8952a" stop-opacity="0.38"/>
+            <stop offset="80%"  stop-color="#7a5010" stop-opacity="0.3"/>
+            <stop offset="100%" stop-color="#030200" stop-opacity="1"/>
+          </linearGradient>
+          <!-- Individual flute: shadow on left, highlight on right -->
+          <linearGradient id="fL" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%"   stop-color="#000000" stop-opacity="0.62"/>
+            <stop offset="50%"  stop-color="#000000" stop-opacity="0.08"/>
+            <stop offset="100%" stop-color="#f0d878" stop-opacity="0.22"/>
+          </linearGradient>
+          <!-- Center flute: most illuminated -->
+          <linearGradient id="fCL" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%"   stop-color="#000000" stop-opacity="0.3"/>
+            <stop offset="40%"  stop-color="#ffffff" stop-opacity="0.10"/>
+            <stop offset="100%" stop-color="#000000" stop-opacity="0.18"/>
+          </linearGradient>
+          <!-- Cap/base gradient: smooth curved moulding -->
+          <linearGradient id="capL" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%"   stop-color="#f0d060" stop-opacity="0.65"/>
+            <stop offset="50%"  stop-color="#c8952a" stop-opacity="0.38"/>
+            <stop offset="100%" stop-color="#7a5010" stop-opacity="0.15"/>
+          </linearGradient>
+          <linearGradient id="baseL" x1="0%" y1="100%" x2="0%" y2="0%">
+            <stop offset="0%"   stop-color="#f0d060" stop-opacity="0.65"/>
+            <stop offset="50%"  stop-color="#c8952a" stop-opacity="0.38"/>
+            <stop offset="100%" stop-color="#7a5010" stop-opacity="0.15"/>
+          </linearGradient>
+        </defs>
+
+        <!-- ═══ CAPITAL (top) ═══ -->
+        <!-- Smooth curved echinus — fluting tapers into it -->
+        <path d="M10,50 Q10,30 36,24 Q62,30 62,50 L60,80 L12,80 Z" fill="url(#capL)"/>
+        <!-- Fluting continues faintly into the curved cap -->
+        <path d="M18,80 Q17,65 19,50" fill="none" stroke="#c8a828" stroke-width="0.5" stroke-opacity="0.3"/>
+        <path d="M24,80 Q23,62 25,46" fill="none" stroke="#c8a828" stroke-width="0.5" stroke-opacity="0.3"/>
+        <path d="M30,80 Q29,58 31,42" fill="none" stroke="#e8c050" stroke-width="0.6" stroke-opacity="0.35"/>
+        <path d="M36,80 Q36,56 36,40" fill="none" stroke="#e8c050" stroke-width="0.6" stroke-opacity="0.35"/>
+        <path d="M42,80 Q43,58 41,42" fill="none" stroke="#c8a828" stroke-width="0.5" stroke-opacity="0.3"/>
+        <path d="M48,80 Q49,62 47,46" fill="none" stroke="#c8a828" stroke-width="0.5" stroke-opacity="0.3"/>
+        <path d="M54,80 Q55,65 53,50" fill="none" stroke="#c8a828" stroke-width="0.5" stroke-opacity="0.3"/>
+        <!-- Abacus: single clean line at very top -->
+        <line x1="0" y1="22" x2="72" y2="22" stroke="#e8c060" stroke-width="1.2" stroke-opacity="0.7"/>
+        <!-- Thin cap fill above line -->
+        <rect x="0" y="0" width="72" height="22" fill="#c8952a" fill-opacity="0.18"/>
+
+        <!-- ═══ SOLID LINE BREAK (top of shaft) ═══ -->
+        <line x1="12" y1="80" x2="60" y2="80" stroke="#e8c060" stroke-width="1.0" stroke-opacity="0.65"/>
+
+        <!-- ═══ SHAFT ═══ -->
+        <!-- Base fill -->
+        <rect x="12" y="80" width="48" height="640" fill="url(#shaftL)"/>
+        <!-- 7 flutes with shadow/highlight -->
+        <rect x="12" y="80" width="7" height="640" fill="url(#fL)" fill-opacity="0.95"/>
+        <rect x="19" y="80" width="7" height="640" fill="url(#fL)" fill-opacity="0.88"/>
+        <rect x="26" y="80" width="7" height="640" fill="url(#fL)" fill-opacity="0.80"/>
+        <rect x="33" y="80" width="7" height="640" fill="url(#fCL)" fill-opacity="0.95"/>
+        <rect x="40" y="80" width="7" height="640" fill="url(#fL)" fill-opacity="0.78"/>
+        <rect x="47" y="80" width="7" height="640" fill="url(#fL)" fill-opacity="0.85"/>
+        <rect x="54" y="80" width="6" height="640" fill="url(#fL)" fill-opacity="0.92"/>
+        <!-- Arris ridges -->
+        <line x1="19" y1="80" x2="19" y2="720" stroke="#c8a828" stroke-width="0.7" stroke-opacity="0.5"/>
+        <line x1="26" y1="80" x2="26" y2="720" stroke="#c8a828" stroke-width="0.7" stroke-opacity="0.5"/>
+        <line x1="33" y1="80" x2="33" y2="720" stroke="#e8c050" stroke-width="0.9" stroke-opacity="0.55"/>
+        <line x1="40" y1="80" x2="40" y2="720" stroke="#e8c050" stroke-width="0.9" stroke-opacity="0.55"/>
+        <line x1="47" y1="80" x2="47" y2="720" stroke="#c8a828" stroke-width="0.7" stroke-opacity="0.5"/>
+        <line x1="54" y1="80" x2="54" y2="720" stroke="#c8a828" stroke-width="0.7" stroke-opacity="0.5"/>
+        <!-- Outer edge darks -->
+        <rect x="12" y="80" width="4" height="640" fill="#000000" fill-opacity="0.35"/>
+        <rect x="56" y="80" width="4" height="640" fill="#000000" fill-opacity="0.28"/>
+
+        <!-- ═══ SOLID LINE BREAK (bottom of shaft) ═══ -->
+        <line x1="12" y1="720" x2="60" y2="720" stroke="#e8c060" stroke-width="1.0" stroke-opacity="0.65"/>
+
+        <!-- ═══ BASE (bottom) ═══ -->
+        <!-- Smooth curved torus — mirrors the cap -->
+        <path d="M10,750 Q10,770 36,776 Q62,770 62,750 L60,720 L12,720 Z" fill="url(#baseL)"/>
+        <!-- Fluting fades into base -->
+        <path d="M18,720 Q17,735 19,750" fill="none" stroke="#c8a828" stroke-width="0.5" stroke-opacity="0.3"/>
+        <path d="M24,720 Q23,738 25,754" fill="none" stroke="#c8a828" stroke-width="0.5" stroke-opacity="0.3"/>
+        <path d="M30,720 Q29,742 31,758" fill="none" stroke="#e8c050" stroke-width="0.6" stroke-opacity="0.35"/>
+        <path d="M36,720 Q36,744 36,760" fill="none" stroke="#e8c050" stroke-width="0.6" stroke-opacity="0.35"/>
+        <path d="M42,720 Q43,742 41,758" fill="none" stroke="#c8a828" stroke-width="0.5" stroke-opacity="0.3"/>
+        <path d="M48,720 Q49,738 47,754" fill="none" stroke="#c8a828" stroke-width="0.5" stroke-opacity="0.3"/>
+        <path d="M54,720 Q55,735 53,750" fill="none" stroke="#c8a828" stroke-width="0.5" stroke-opacity="0.3"/>
+        <!-- Plinth: single clean line at very bottom -->
+        <line x1="0" y1="778" x2="72" y2="778" stroke="#e8c060" stroke-width="1.2" stroke-opacity="0.7"/>
+        <rect x="0" y="778" width="72" height="22" fill="#c8952a" fill-opacity="0.18"/>
+      </svg>
+    </div>
+
+    <!-- RIGHT PILLAR (mirrored light direction) -->
+    <div class="foundation-pillar right">
+      <svg viewBox="0 0 72 800" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="shaftR" x1="100%" y1="0%" x2="0%" y2="0%">
+            <stop offset="0%"   stop-color="#030200" stop-opacity="1"/>
+            <stop offset="15%"  stop-color="#8a6018" stop-opacity="0.6"/>
+            <stop offset="42%"  stop-color="#f0d878" stop-opacity="0.55"/>
+            <stop offset="58%"  stop-color="#c8952a" stop-opacity="0.38"/>
+            <stop offset="80%"  stop-color="#7a5010" stop-opacity="0.3"/>
+            <stop offset="100%" stop-color="#030200" stop-opacity="1"/>
+          </linearGradient>
+          <linearGradient id="fR" x1="100%" y1="0%" x2="0%" y2="0%">
+            <stop offset="0%"   stop-color="#000000" stop-opacity="0.62"/>
+            <stop offset="50%"  stop-color="#000000" stop-opacity="0.08"/>
+            <stop offset="100%" stop-color="#f0d878" stop-opacity="0.22"/>
+          </linearGradient>
+          <linearGradient id="fCR" x1="100%" y1="0%" x2="0%" y2="0%">
+            <stop offset="0%"   stop-color="#000000" stop-opacity="0.3"/>
+            <stop offset="40%"  stop-color="#ffffff" stop-opacity="0.10"/>
+            <stop offset="100%" stop-color="#000000" stop-opacity="0.18"/>
+          </linearGradient>
+          <linearGradient id="capR" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%"   stop-color="#f0d060" stop-opacity="0.65"/>
+            <stop offset="50%"  stop-color="#c8952a" stop-opacity="0.38"/>
+            <stop offset="100%" stop-color="#7a5010" stop-opacity="0.15"/>
+          </linearGradient>
+          <linearGradient id="baseR" x1="0%" y1="100%" x2="0%" y2="0%">
+            <stop offset="0%"   stop-color="#f0d060" stop-opacity="0.65"/>
+            <stop offset="50%"  stop-color="#c8952a" stop-opacity="0.38"/>
+            <stop offset="100%" stop-color="#7a5010" stop-opacity="0.15"/>
+          </linearGradient>
+        </defs>
+
+        <!-- ═══ CAPITAL (top) ═══ -->
+        <path d="M10,50 Q10,30 36,24 Q62,30 62,50 L60,80 L12,80 Z" fill="url(#capR)"/>
+        <!-- Fluting tapers into cap -->
+        <path d="M18,80 Q17,65 19,50" fill="none" stroke="#c8a828" stroke-width="0.5" stroke-opacity="0.3"/>
+        <path d="M24,80 Q23,62 25,46" fill="none" stroke="#c8a828" stroke-width="0.5" stroke-opacity="0.3"/>
+        <path d="M30,80 Q29,58 31,42" fill="none" stroke="#e8c050" stroke-width="0.6" stroke-opacity="0.35"/>
+        <path d="M36,80 Q36,56 36,40" fill="none" stroke="#e8c050" stroke-width="0.6" stroke-opacity="0.35"/>
+        <path d="M42,80 Q43,58 41,42" fill="none" stroke="#c8a828" stroke-width="0.5" stroke-opacity="0.3"/>
+        <path d="M48,80 Q49,62 47,46" fill="none" stroke="#c8a828" stroke-width="0.5" stroke-opacity="0.3"/>
+        <path d="M54,80 Q55,65 53,50" fill="none" stroke="#c8a828" stroke-width="0.5" stroke-opacity="0.3"/>
+        <!-- Abacus line -->
+        <line x1="0" y1="22" x2="72" y2="22" stroke="#e8c060" stroke-width="1.2" stroke-opacity="0.7"/>
+        <rect x="0" y="0" width="72" height="22" fill="#c8952a" fill-opacity="0.18"/>
+
+        <!-- ═══ SOLID LINE BREAK (top) ═══ -->
+        <line x1="12" y1="80" x2="60" y2="80" stroke="#e8c060" stroke-width="1.0" stroke-opacity="0.65"/>
+
+        <!-- ═══ SHAFT ═══ -->
+        <rect x="12" y="80" width="48" height="640" fill="url(#shaftR)"/>
+        <rect x="54" y="80" width="6" height="640" fill="url(#fR)" fill-opacity="0.95"/>
+        <rect x="47" y="80" width="7" height="640" fill="url(#fR)" fill-opacity="0.88"/>
+        <rect x="40" y="80" width="7" height="640" fill="url(#fR)" fill-opacity="0.80"/>
+        <rect x="33" y="80" width="7" height="640" fill="url(#fCR)" fill-opacity="0.95"/>
+        <rect x="26" y="80" width="7" height="640" fill="url(#fR)" fill-opacity="0.78"/>
+        <rect x="19" y="80" width="7" height="640" fill="url(#fR)" fill-opacity="0.85"/>
+        <rect x="12" y="80" width="7" height="640" fill="url(#fR)" fill-opacity="0.92"/>
+        <!-- Arris ridges -->
+        <line x1="53" y1="80" x2="53" y2="720" stroke="#c8a828" stroke-width="0.7" stroke-opacity="0.5"/>
+        <line x1="46" y1="80" x2="46" y2="720" stroke="#c8a828" stroke-width="0.7" stroke-opacity="0.5"/>
+        <line x1="39" y1="80" x2="39" y2="720" stroke="#e8c050" stroke-width="0.9" stroke-opacity="0.55"/>
+        <line x1="32" y1="80" x2="32" y2="720" stroke="#e8c050" stroke-width="0.9" stroke-opacity="0.55"/>
+        <line x1="25" y1="80" x2="25" y2="720" stroke="#c8a828" stroke-width="0.7" stroke-opacity="0.5"/>
+        <line x1="18" y1="80" x2="18" y2="720" stroke="#c8a828" stroke-width="0.7" stroke-opacity="0.5"/>
+        <!-- Outer edge darks -->
+        <rect x="56" y="80" width="4" height="640" fill="#000000" fill-opacity="0.35"/>
+        <rect x="12" y="80" width="4" height="640" fill="#000000" fill-opacity="0.28"/>
+
+        <!-- ═══ SOLID LINE BREAK (bottom) ═══ -->
+        <line x1="12" y1="720" x2="60" y2="720" stroke="#e8c060" stroke-width="1.0" stroke-opacity="0.65"/>
+
+        <!-- ═══ BASE (bottom) ═══ -->
+        <path d="M10,750 Q10,770 36,776 Q62,770 62,750 L60,720 L12,720 Z" fill="url(#baseR)"/>
+        <!-- Fluting fades into base -->
+        <path d="M18,720 Q17,735 19,750" fill="none" stroke="#c8a828" stroke-width="0.5" stroke-opacity="0.3"/>
+        <path d="M24,720 Q23,738 25,754" fill="none" stroke="#c8a828" stroke-width="0.5" stroke-opacity="0.3"/>
+        <path d="M30,720 Q29,742 31,758" fill="none" stroke="#e8c050" stroke-width="0.6" stroke-opacity="0.35"/>
+        <path d="M36,720 Q36,744 36,760" fill="none" stroke="#e8c050" stroke-width="0.6" stroke-opacity="0.35"/>
+        <path d="M42,720 Q43,742 41,758" fill="none" stroke="#c8a828" stroke-width="0.5" stroke-opacity="0.3"/>
+        <path d="M48,720 Q49,738 47,754" fill="none" stroke="#c8a828" stroke-width="0.5" stroke-opacity="0.3"/>
+        <path d="M54,720 Q55,735 53,750" fill="none" stroke="#c8a828" stroke-width="0.5" stroke-opacity="0.3"/>
+        <!-- Plinth line -->
+        <line x1="0" y1="778" x2="72" y2="778" stroke="#e8c060" stroke-width="1.2" stroke-opacity="0.7"/>
+        <rect x="0" y="778" width="72" height="22" fill="#c8952a" fill-opacity="0.18"/>
+      </svg>
+    </div>
+
+    <!-- Decorative border overlay -->
+    <div class="foundation-border">
+      <svg viewBox="0 0 1000 800" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="borderTop" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%"   stop-color="#c8952a" stop-opacity="0.0"/>
+            <stop offset="15%"  stop-color="#c8952a" stop-opacity="0.35"/>
+            <stop offset="50%"  stop-color="#e8c060" stop-opacity="0.55"/>
+            <stop offset="85%"  stop-color="#c8952a" stop-opacity="0.35"/>
+            <stop offset="100%" stop-color="#c8952a" stop-opacity="0.0"/>
+          </linearGradient>
+          <linearGradient id="borderBot" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%"   stop-color="#c8952a" stop-opacity="0.0"/>
+            <stop offset="15%"  stop-color="#c8952a" stop-opacity="0.22"/>
+            <stop offset="50%"  stop-color="#e8c060" stop-opacity="0.35"/>
+            <stop offset="85%"  stop-color="#c8952a" stop-opacity="0.22"/>
+            <stop offset="100%" stop-color="#c8952a" stop-opacity="0.0"/>
+          </linearGradient>
+        </defs>
+        <!-- Top entablature band -->
+        <rect x="0" y="18" width="1000" height="1"  fill="url(#borderTop)"/>
+        <rect x="0" y="22" width="1000" height="0.5" fill="url(#borderTop)" opacity="0.5"/>
+        <rect x="0" y="30" width="1000" height="1"  fill="url(#borderTop)" opacity="0.3"/>
+        <!-- Bottom base band -->
+        <rect x="0" y="770" width="1000" height="1"  fill="url(#borderBot)"/>
+        <rect x="0" y="774" width="1000" height="0.5" fill="url(#borderBot)" opacity="0.5"/>
+        <!-- Corner ornaments top -->
+        <path d="M72,18 L90,18 L90,36" fill="none" stroke="#c8952a" stroke-width="0.6" stroke-opacity="0.4"/>
+        <path d="M928,18 L910,18 L910,36" fill="none" stroke="#c8952a" stroke-width="0.6" stroke-opacity="0.4"/>
+        <!-- Corner ornaments bottom -->
+        <path d="M72,770 L90,770 L90,752" fill="none" stroke="#c8952a" stroke-width="0.6" stroke-opacity="0.3"/>
+        <path d="M928,770 L910,770 L910,752" fill="none" stroke="#c8952a" stroke-width="0.6" stroke-opacity="0.3"/>
+        <!-- Top center diamond cluster -->
+        <rect x="498" y="14" width="4" height="4" fill="#e8c060" fill-opacity="0.6" transform="rotate(45 500 16)"/>
+        <rect x="488" y="14" width="3" height="3" fill="#c8952a" fill-opacity="0.4" transform="rotate(45 490 16)"/>
+        <rect x="508" y="14" width="3" height="3" fill="#c8952a" fill-opacity="0.4" transform="rotate(45 510 16)"/>
+      </svg>
+    </div>
+
+    <!-- Page content -->
+    <div class="foundation-content">
+      <span class="foundation-back" onclick="navigate('newadам')">← Return</span>
+
+      <!-- Arch ornament SVG -->
+      <div class="foundation-arch-wrap">
+        <svg width="320" height="60" viewBox="0 0 320 60" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="archLine" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%"   stop-color="#c8952a" stop-opacity="0"/>
+              <stop offset="30%"  stop-color="#c8952a" stop-opacity="0.5"/>
+              <stop offset="50%"  stop-color="#e8c060" stop-opacity="0.8"/>
+              <stop offset="70%"  stop-color="#c8952a" stop-opacity="0.5"/>
+              <stop offset="100%" stop-color="#c8952a" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <!-- Arch curve -->
+          <path d="M20,58 Q160,2 300,58" fill="none" stroke="#c8952a" stroke-width="0.8" stroke-opacity="0.45"/>
+          <path d="M30,58 Q160,10 290,58" fill="none" stroke="#e8c060" stroke-width="0.4" stroke-opacity="0.25"/>
+          <!-- Keystone diamond -->
+          <rect x="156" y="1" width="8" height="8" fill="#e8c060" fill-opacity="0.6" transform="rotate(45 160 5)"/>
+          <!-- Horizontal rule beneath arch -->
+          <line x1="0" y1="58" x2="320" y2="58" stroke="url(#archLine)" stroke-width="0.8"/>
+          <!-- Side pillar caps -->
+          <rect x="14" y="50" width="12" height="8" fill="#c8952a" fill-opacity="0.3" rx="1"/>
+          <rect x="294" y="50" width="12" height="8" fill="#c8952a" fill-opacity="0.3" rx="1"/>
+          <!-- Decorative dots along arch -->
+          <circle cx="80"  cy="24" r="1.2" fill="#c8952a" fill-opacity="0.35"/>
+          <circle cx="160" cy="4"  r="1.5" fill="#e8c060" fill-opacity="0.5"/>
+          <circle cx="240" cy="24" r="1.2" fill="#c8952a" fill-opacity="0.35"/>
+        </svg>
+      </div>
+
+      <div class="foundation-eyebrow">In the Beginning Was the Word</div>
+      <h1 class="foundation-title">The Foundational<br/>Document</h1>
+      <div class="foundation-subtitle">A covenant between man and his becoming</div>
+
+      <!-- Capital frieze ornament -->
+      <svg class="foundation-capital" viewBox="0 0 500 28" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="friezeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%"   stop-color="#c8952a" stop-opacity="0"/>
+            <stop offset="20%"  stop-color="#c8952a" stop-opacity="0.45"/>
+            <stop offset="50%"  stop-color="#e8c060" stop-opacity="0.65"/>
+            <stop offset="80%"  stop-color="#c8952a" stop-opacity="0.45"/>
+            <stop offset="100%" stop-color="#c8952a" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <!-- Frieze band -->
+        <rect x="0" y="12" width="500" height="1" fill="url(#friezeGrad)"/>
+        <rect x="0" y="15" width="500" height="0.5" fill="url(#friezeGrad)" opacity="0.4"/>
+        <!-- Triglyphs -->
+        <rect x="100" y="6" width="2" height="12" fill="#c8952a" fill-opacity="0.3"/>
+        <rect x="104" y="6" width="2" height="12" fill="#c8952a" fill-opacity="0.3"/>
+        <rect x="108" y="6" width="2" height="12" fill="#c8952a" fill-opacity="0.3"/>
+        <rect x="196" y="6" width="2" height="12" fill="#c8952a" fill-opacity="0.3"/>
+        <rect x="200" y="6" width="2" height="12" fill="#c8952a" fill-opacity="0.3"/>
+        <rect x="204" y="6" width="2" height="12" fill="#c8952a" fill-opacity="0.3"/>
+        <rect x="292" y="6" width="2" height="12" fill="#c8952a" fill-opacity="0.3"/>
+        <rect x="296" y="6" width="2" height="12" fill="#c8952a" fill-opacity="0.3"/>
+        <rect x="300" y="6" width="2" height="12" fill="#c8952a" fill-opacity="0.3"/>
+        <rect x="388" y="6" width="2" height="12" fill="#c8952a" fill-opacity="0.3"/>
+        <rect x="392" y="6" width="2" height="12" fill="#c8952a" fill-opacity="0.3"/>
+        <rect x="396" y="6" width="2" height="12" fill="#c8952a" fill-opacity="0.3"/>
+        <!-- Center ornament -->
+        <rect x="246" y="4" width="8" height="8" fill="#e8c060" fill-opacity="0.5" transform="rotate(45 250 8)"/>
+      </svg>
+
+      <div class="foundation-body">
+        <p>Your foundational document will be inscribed here.</p>
+        <p>This is the word from which all teachings flow —<br/>
+        the root beneath the three pillars,<br/>
+        the covenant before the work.</p>
+      </div>
+
+      <div class="foundation-placeholder">Awaiting the Word</div>
+
+      <!-- Bottom frieze -->
+      <svg class="foundation-frieze" viewBox="0 0 500 24" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="friezeBot" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%"   stop-color="#c8952a" stop-opacity="0"/>
+            <stop offset="25%"  stop-color="#c8952a" stop-opacity="0.3"/>
+            <stop offset="50%"  stop-color="#e8c060" stop-opacity="0.45"/>
+            <stop offset="75%"  stop-color="#c8952a" stop-opacity="0.3"/>
+            <stop offset="100%" stop-color="#c8952a" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <rect x="0" y="8"  width="500" height="0.8" fill="url(#friezeBot)"/>
+        <rect x="0" y="12" width="500" height="0.5" fill="url(#friezeBot)" opacity="0.4"/>
+        <rect x="0" y="16" width="500" height="0.8" fill="url(#friezeBot)"/>
+        <rect x="246" y="5" width="8" height="8" fill="#c8952a" fill-opacity="0.4" transform="rotate(45 250 9)"/>
+      </svg>
+
+      <div class="foundation-seal">
+        <div class="foundation-seal-cross"></div>
+        <div class="foundation-seal-text">City of Louis · The New Adam</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BENEFACTOR -->
+  <div class="page" id="page-benefactor">
+    <div class="inner-page">
+      <div class="page-top">
+        <span class="back-link" onclick="navigate('home')">← Return</span>
+      </div>
+      <div class="page-eyebrow">Patronage</div>
+      <h1 class="page-heading">Become a Benefactor</h1>
+
+      <div class="benefactor-page">
+        <p class="benefactor-intro">
+          Everything within these walls is freely given.<br/>
+          If the work has served you — in thought, in action, in becoming —<br/>
+          you are invited to extend it forward.
+        </p>
+        <div class="benefactor-divider"></div>
+
+        <div class="amount-wrap">
+          <div class="amount-label">Your Contribution</div>
+          <div class="amount-input-row">
+            <span class="amount-currency">$</span>
+            <input class="amount-input" id="amount-field" type="number" min="1" placeholder="0" />
+          </div>
+        </div>
+
+        <div class="identity-wrap">
+          <div class="identity-label">How you wish to be known</div>
+          <div class="identity-options">
+            <span class="identity-option selected" id="opt-anon" onclick="selectIdentity('anon')">Anonymous</span>
+            <span class="identity-option" id="opt-named" onclick="selectIdentity('named')">By Name</span>
+          </div>
+          <input class="name-input" id="name-field" type="text" placeholder="Your name"/>
+        </div>
+
+        <button class="stripe-btn" onclick="handleContribute()">Extend the Work →</button>
+
+        <p class="stripe-note">
+          Secured by Stripe. No account required.<br/>
+          Your support — named or unnamed — is received with gratitude.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ─────────────────────────────────────────
+    // ENTRIES DATA
+    // When Decap CMS is connected, this array
+    // will be populated from your markdown files.
+    // For now, sample entries demonstrate the layout.
+    // ─────────────────────────────────────────
+    const entries = [
+      {
+        id: 'na-001',
+        category: 'newadам',
+        date: '2026-05-04',
+        title: 'The New Adam Defined',
+        excerpt: 'What it means to be forged rather than born into a way of thinking.',
+        body: `<p>This is a sample entry to show how your writing will appear. Replace this with your words when you publish your first entry through the Decap CMS portal.</p><p>Each entry will display with its date, title, and full body text. Paragraphs are spaced for reading. The typography is set for contemplation, not consumption.</p>`
+      },
+      {
+        id: 'cap-001',
+        category: 'capital',
+        date: '2026-05-04',
+        title: 'On the Nature of Capital',
+        excerpt: 'Capital is not money. It is stored intention.',
+        body: `<p>This is a sample entry for the Capital pillar. Your actual writing on capital allocation, investment philosophy, and financial sovereignty will live here.</p><p>Delete this entry through the Decap portal once you publish your first real piece.</p>`
+      },
+      {
+        id: 'law-001',
+        category: 'law',
+        date: '2026-05-04',
+        title: 'The First Principle of Law',
+        excerpt: 'Before statute, before precedent — there is the principle.',
+        body: `<p>This is a sample entry for the Law pillar. Your writings on law, morality, and the ordering of civilization will appear here.</p>`
+      },
+      {
+        id: 'tech-001',
+        category: 'technology',
+        date: '2026-05-04',
+        title: 'Technology as Extension of Will',
+        excerpt: 'Every tool is a thought made physical.',
+        body: `<p>This is a sample entry for the Technology pillar. Your writings on technology, its promise, and its dangers will appear here.</p>`
+      }
+    ];
+
+    // ─────────────────────────────────────────
+    // FORMAT DATE
+    // ─────────────────────────────────────────
+    function formatDate(dateStr) {
+      const [y, m, d] = dateStr.split('-');
+      const months = ['January','February','March','April','May','June',
+                      'July','August','September','October','November','December'];
+      return `${months[parseInt(m)-1]} ${parseInt(d)}, ${y}`;
+    }
+
+    // ─────────────────────────────────────────
+    // RENDER ENTRY INDEX FOR A CATEGORY
+    // ─────────────────────────────────────────
+    function renderIndex(category) {
+      const container = document.getElementById('index-' + category);
+      const empty     = document.getElementById('empty-' + category);
+      if (!container) return;
+
+      const catEntries = entries
+        .filter(e => e.category === category)
+        .sort((a, b) => b.date.localeCompare(a.date)); // newest first
+
+      if (catEntries.length === 0) {
+        container.innerHTML = '';
+        if (empty) empty.style.display = 'block';
+        return;
+      }
+
+      if (empty) empty.style.display = 'none';
+      container.innerHTML = catEntries.map(e => `
+        <div class="entry-item" onclick="openEntry('${category}', '${e.id}')">
+          <div class="entry-date">${formatDate(e.date)}</div>
+          <div class="entry-title">${e.title}</div>
+          ${e.excerpt ? `<div class="entry-excerpt">${e.excerpt}</div>` : ''}
+        </div>
+      `).join('');
+    }
+
+    // ─────────────────────────────────────────
+    // OPEN A SINGLE ENTRY
+    // ─────────────────────────────────────────
+    function openEntry(category, id) {
+      const entry = entries.find(e => e.id === id);
+      if (!entry) return;
+
+      document.getElementById('entry-date-'  + category).textContent = formatDate(entry.date);
+      document.getElementById('entry-title-' + category).textContent = entry.title;
+      document.getElementById('entry-body-'  + category).innerHTML   = entry.body;
+
+      document.getElementById('list-'  + category).classList.add('hidden');
+      document.getElementById('entry-' + category).classList.add('active');
+
+      // Hide foundation/community links on New Adam when reading an entry
+      const fw = document.getElementById('foundation-wrap');
+      if (fw && category === 'newadам') fw.style.display = 'none';
+
+      window.scrollTo(0, 0);
+    }
+
+    // ─────────────────────────────────────────
+    // CLOSE ENTRY — RETURN TO INDEX
+    // ─────────────────────────────────────────
+    function closeEntry(category) {
+      document.getElementById('list-'  + category).classList.remove('hidden');
+      document.getElementById('entry-' + category).classList.remove('active');
+
+      const fw = document.getElementById('foundation-wrap');
+      if (fw && category === 'newadам') fw.style.display = '';
+
+      window.scrollTo(0, 0);
+    }
+
+    // ─────────────────────────────────────────
+    // PAGE NAVIGATION
+    // ─────────────────────────────────────────
+    function navigate(target) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      const id = target === 'home' ? 'page-home' : 'page-' + target;
+      const el = document.getElementById(id);
+      if (el) { el.classList.add('active'); window.scrollTo(0, 0); }
+
+      // Render entry index when navigating to a content page
+      const cats = ['newadам', 'capital', 'law', 'technology'];
+      if (cats.includes(target)) renderIndex(target);
+    }
+
+    // Benefactor identity toggle
+    function selectIdentity(choice) {
+      document.getElementById('opt-anon').classList.toggle('selected', choice === 'anon');
+      document.getElementById('opt-named').classList.toggle('selected', choice === 'named');
+      const nameField = document.getElementById('name-field');
+      nameField.classList.toggle('visible', choice === 'named');
+    }
+
+    function handleContribute() {
+      const amount = document.getElementById('amount-field').value;
+      if (!amount || parseFloat(amount) < 1) {
+        document.getElementById('amount-field').focus();
+        return;
+      }
+      const stripeBase = 'https://buy.stripe.com/YOUR_STRIPE_PAYMENT_LINK';
+      window.open(stripeBase, '_blank');
+    }
+  </script>
+
+</body>
+</html>
