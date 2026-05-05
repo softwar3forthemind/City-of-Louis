@@ -491,70 +491,106 @@
     ══════════════════════════════════════ */
     @media (max-width: 600px) {
 
-      /* HOME */
+      /* ── HOME ── */
       .home {
-        padding: 2rem 1rem 2.5rem;
+        padding: 0;
         justify-content: center;
+        align-items: center;
         min-height: 100vh;
       }
 
+      /* Rays: source above the screen, narrow cone, full height */
       .rays {
-        top: -22vh;
+        position: fixed;
+        top: -40vh;
         left: 50%;
-        width: 160vw;
-        height: 130vh;
         transform: translateX(-50%);
+        width: 80vw;
+        height: 150vh;
       }
 
+      /* Glow pool follows prism center */
+      .glow-pool {
+        width: 220px;
+        height: 160px;
+        top: 45%;
+      }
+
+      /* Title */
       .site-title {
-        font-size: 8px; letter-spacing: 0.35em; margin-bottom: 1.6rem;
+        font-size: 8px;
+        letter-spacing: 0.38em;
+        margin-bottom: 1.4rem;
       }
 
-      .prism-wrap { width: 290px; height: 258px; }
+      /* Prism — sized for phone, centered */
+      .prism-wrap {
+        width: 280px;
+        height: 248px;
+      }
 
-      .tagline { font-size: 11px; margin-top: 1.4rem; }
+      /* Tagline */
+      .tagline {
+        font-size: 11px;
+        margin-top: 1.2rem;
+        letter-spacing: 0.03em;
+      }
 
-      .benefactor-link-wrap { margin-top: 1.1rem; }
-      .benefactor-link { font-size: 7px; letter-spacing: 0.3em; }
+      /* Benefactor link */
+      .benefactor-link-wrap { margin-top: 1rem; }
+      .benefactor-link { font-size: 7px; letter-spacing: 0.28em; }
 
-      /* INNER PAGES */
-      .inner-page { padding: 2rem 1.2rem 3rem; }
+      /* ── INNER PAGES ── */
+      .inner-page {
+        padding: 1.8rem 1.2rem 3rem;
+      }
 
-      .page-heading { font-size: 19px; margin-bottom: 1.5rem; }
+      .page-heading {
+        font-size: 18px;
+        margin-bottom: 1.4rem;
+        letter-spacing: 0.03em;
+      }
 
+      .page-eyebrow {
+        font-size: 8px;
+        letter-spacing: 0.35em;
+      }
+
+      /* Entry list */
       .entry-title { font-size: 16px; }
       .entry-excerpt { font-size: 13px; }
-      .entry-full-body { font-size: 16px; line-height: 1.9; }
-      .entry-full-title { font-size: 18px; }
+      .entry-item { padding: 1.1rem 0; }
 
-      /* BENEFACTOR PAGE */
-      .benefactor-page { padding: 2rem 0 3rem; }
-      .benefactor-intro { font-size: 14px; }
-      .amount-input { font-size: 24px; width: 120px; }
+      /* Single entry */
+      .entry-full-title { font-size: 17px; }
+      .entry-full-body { font-size: 16px; line-height: 1.9; }
+
+      /* ── BENEFACTOR PAGE ── */
+      .benefactor-page { padding: 1.5rem 0 3rem; }
+      .benefactor-intro { font-size: 14px; line-height: 1.8; }
+      .amount-input { font-size: 24px; width: 110px; }
       .union-form { width: 100%; }
       .union-input { font-size: 14px; }
+      .name-input { width: 100%; }
 
-      /* FOUNDATION PAGE — hide pillars on mobile, too narrow */
+      /* ── FOUNDATION PAGE ── */
       .foundation-pillar { display: none; }
       .foundation-border { display: none; }
-      .foundation-content { padding: 3.5rem 1.4rem 5rem; }
-      .foundation-title { font-size: 22px; }
-      .foundation-arch-wrap svg { width: 260px; }
+      .foundation-content { padding: 3rem 1.4rem 4rem; }
+      .foundation-title { font-size: 20px; letter-spacing: 0.03em; }
+      .foundation-subtitle { font-size: 12px; }
+      .foundation-arch-wrap svg { width: 240px; }
       .foundation-capital { max-width: 100%; }
       .foundation-frieze { max-width: 100%; }
-      .foundation-body { font-size: 15px; }
+      .foundation-body { font-size: 15px; line-height: 2; }
+      .foundation-eyebrow { font-size: 6px; letter-spacing: 0.4em; }
 
-      /* ENTRY INDEX touch targets */
-      .entry-item { padding: 1.2rem 0; }
-
-      /* THRESHOLD / COMMUNITY */
-      .community-threshold { margin-top: 2.5rem; }
-
-      /* FOUNDATION LINK */
-      .foundation-link-wrap { margin: 2rem 0 0; }
+      /* Community threshold */
+      .community-threshold { margin-top: 2rem; }
+      .foundation-link-wrap { margin: 1.8rem 0 0; }
     }
 
-    /* TABLET — slight refinement */
+    /* ── TABLET ── */
     @media (min-width: 601px) and (max-width: 860px) {
       .prism-wrap { width: 320px; height: 284px; }
       .foundation-pillar { width: 50px; }
