@@ -37,7 +37,7 @@
     }
 
     .glow-pool {
-      position: absolute; top: 42%; left: 50%; transform: translate(-50%, -50%);
+      position: absolute; top: 36%; left: 50%; transform: translate(-50%, -50%);
       width: 320px; height: 220px;
       background: radial-gradient(ellipse at 50% 40%, rgba(210,165,60,0.13) 0%, transparent 70%);
       z-index: 1; pointer-events: none;
@@ -53,7 +53,7 @@
       position: relative; z-index: 2;
     }
 
-    .prism-wrap { position: relative; z-index: 2; width: 360px; height: 320px; }
+    .prism-wrap { position: relative; z-index: 2; width: 432px; height: 384px; }
     .prism-svg { width: 100%; height: 100%; overflow: visible; }
 
     .tri-zone { cursor: pointer; }
@@ -66,8 +66,8 @@
     }
 
     .tagline {
-      font-family: 'EB Garamond', serif; font-style: italic; font-size: 13px;
-      color: #6a5c30; margin-top: 2rem; letter-spacing: 0.04em; position: relative; z-index: 2;
+      font-family: 'EB Garamond', serif; font-style: italic; font-size: 15px;
+      color: #62562c; margin-top: 2rem; letter-spacing: 0.04em; position: relative; z-index: 2;
     }
 
     /* ── INNER PAGES ── */
@@ -367,8 +367,8 @@
       background: linear-gradient(90deg, #3a3018, transparent);
     }
     .benefactor-link {
-      font-family: 'Cinzel', serif; font-size: 8px; letter-spacing: 0.38em;
-      color: #5a4e28; text-transform: uppercase; cursor: pointer;
+      font-family: 'Cinzel', serif; font-size: 9.2px; letter-spacing: 0.38em;
+      color: #534826; text-transform: uppercase; cursor: pointer;
       transition: color 0.2s; white-space: nowrap;
     }
     .benefactor-link:hover { color: #c8a030; }
@@ -513,13 +513,14 @@
 
       .glow-pool {
         width: 240px; height: 180px;
-        top: 44%;
+        top: 28%;
       }
 
       .site-title {
         font-size: 13.5px;
         letter-spacing: 0.38em;
         margin-bottom: 1.4rem;
+        margin-top: -1rem;
       }
 
       .prism-wrap {
@@ -528,13 +529,18 @@
       }
 
       .tagline {
-        font-size: 12px;
+        font-size: 14px;
         margin-top: 1.4rem;
         letter-spacing: 0.04em;
+        color: #7a6c38;
       }
 
       .benefactor-link-wrap { margin-top: 1.1rem; }
-      .benefactor-link { font-size: 7.5px; letter-spacing: 0.3em; }
+      .benefactor-link {
+        font-size: 8.6px;
+        letter-spacing: 0.3em;
+        color: #6a5e2a;
+      }
 
       /* ── INNER PAGES ── */
       .inner-page { padding: 2rem 1.2rem 3rem; }
@@ -626,34 +632,34 @@
       <svg class="rays-mobile" style="display:none" viewBox="0 0 400 900" preserveAspectRatio="xMidYMin slice" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <radialGradient id="mRayGrad" cx="50%" cy="0%" r="100%" fx="50%" fy="0%">
-            <stop offset="0%"  stop-color="#c8952a" stop-opacity="0.28"/>
-            <stop offset="45%" stop-color="#a07020" stop-opacity="0.09"/>
+            <stop offset="0%"  stop-color="#c8952a" stop-opacity="0.18"/>
+            <stop offset="45%" stop-color="#a07020" stop-opacity="0.06"/>
             <stop offset="100%" stop-color="#60400a" stop-opacity="0"/>
           </radialGradient>
           <radialGradient id="mSourceGlow" cx="50%" cy="0%" r="22%">
-            <stop offset="0%"  stop-color="#ffe090" stop-opacity="0.65"/>
+            <stop offset="0%"  stop-color="#ffe090" stop-opacity="0.38"/>
             <stop offset="100%" stop-color="#c8952a" stop-opacity="0"/>
           </radialGradient>
         </defs>
-        <!-- Cone fill — extends well beyond edges for full bleed -->
+        <!-- Cone fill -->
         <polygon points="200,0 -200,900 600,900" fill="url(#mRayGrad)"/>
-        <!-- Individual rays — spread to full bleed -->
-        <line x1="200" y1="2" x2="-200" y2="900" stroke="#d4a030" stroke-width="1.0" stroke-opacity="0.13"/>
-        <line x1="200" y1="2" x2="-100" y2="900" stroke="#d4a030" stroke-width="1.2" stroke-opacity="0.11"/>
-        <line x1="200" y1="2" x2="-20"  y2="900" stroke="#e0b840" stroke-width="1.4" stroke-opacity="0.13"/>
-        <line x1="200" y1="2" x2="50"   y2="900" stroke="#e0b840" stroke-width="1.6" stroke-opacity="0.14"/>
-        <line x1="200" y1="2" x2="110"  y2="900" stroke="#e0b840" stroke-width="1.2" stroke-opacity="0.12"/>
-        <line x1="200" y1="2" x2="160"  y2="900" stroke="#f0cc60" stroke-width="2.2" stroke-opacity="0.19"/>
-        <line x1="200" y1="2" x2="200"  y2="900" stroke="#fff0a0" stroke-width="2.8" stroke-opacity="0.22"/>
-        <line x1="200" y1="2" x2="240"  y2="900" stroke="#f0cc60" stroke-width="2.2" stroke-opacity="0.19"/>
-        <line x1="200" y1="2" x2="290"  y2="900" stroke="#e0b840" stroke-width="1.2" stroke-opacity="0.12"/>
-        <line x1="200" y1="2" x2="350"  y2="900" stroke="#e0b840" stroke-width="1.6" stroke-opacity="0.14"/>
-        <line x1="200" y1="2" x2="420"  y2="900" stroke="#d4a030" stroke-width="1.2" stroke-opacity="0.11"/>
-        <line x1="200" y1="2" x2="500"  y2="900" stroke="#d4a030" stroke-width="1.0" stroke-opacity="0.13"/>
-        <line x1="200" y1="2" x2="600"  y2="900" stroke="#d4a030" stroke-width="1.0" stroke-opacity="0.11"/>
-        <!-- Source glow -->
+        <!-- Rays — tighter spread (7.5% narrower spacing), thinner strokes -->
+        <line x1="200" y1="2" x2="-185" y2="900" stroke="#d4a030" stroke-width="0.7" stroke-opacity="0.11"/>
+        <line x1="200" y1="2" x2="-93"  y2="900" stroke="#d4a030" stroke-width="0.8" stroke-opacity="0.10"/>
+        <line x1="200" y1="2" x2="-19"  y2="900" stroke="#e0b840" stroke-width="1.0" stroke-opacity="0.11"/>
+        <line x1="200" y1="2" x2="46"   y2="900" stroke="#e0b840" stroke-width="1.1" stroke-opacity="0.12"/>
+        <line x1="200" y1="2" x2="102"  y2="900" stroke="#e0b840" stroke-width="0.9" stroke-opacity="0.10"/>
+        <line x1="200" y1="2" x2="148"  y2="900" stroke="#f0cc60" stroke-width="1.5" stroke-opacity="0.16"/>
+        <line x1="200" y1="2" x2="200"  y2="900" stroke="#fff0a0" stroke-width="1.8" stroke-opacity="0.18"/>
+        <line x1="200" y1="2" x2="222"  y2="900" stroke="#f0cc60" stroke-width="1.5" stroke-opacity="0.16"/>
+        <line x1="200" y1="2" x2="268"  y2="900" stroke="#e0b840" stroke-width="0.9" stroke-opacity="0.10"/>
+        <line x1="200" y1="2" x2="324"  y2="900" stroke="#e0b840" stroke-width="1.1" stroke-opacity="0.12"/>
+        <line x1="200" y1="2" x2="389"  y2="900" stroke="#d4a030" stroke-width="1.0" stroke-opacity="0.11"/>
+        <line x1="200" y1="2" x2="463"  y2="900" stroke="#d4a030" stroke-width="0.8" stroke-opacity="0.10"/>
+        <line x1="200" y1="2" x2="555"  y2="900" stroke="#d4a030" stroke-width="0.7" stroke-opacity="0.09"/>
+        <!-- Source glow — more transparent -->
         <ellipse cx="200" cy="6"  rx="80"  ry="32" fill="url(#mSourceGlow)"/>
-        <ellipse cx="200" cy="3"  rx="26"  ry="11" fill="#fffde0" fill-opacity="0.45"/>
+        <ellipse cx="200" cy="3"  rx="26"  ry="11" fill="#fffde0" fill-opacity="0.28"/>
       </svg>
 
       <div class="site-title">City of Louis</div>
