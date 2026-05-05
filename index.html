@@ -517,14 +517,14 @@
       }
 
       .site-title {
-        font-size: 9px;
+        font-size: 13.5px;
         letter-spacing: 0.38em;
-        margin-bottom: 1.8rem;
+        margin-bottom: 1.4rem;
       }
 
       .prism-wrap {
-        width: min(300px, 86vw);
-        height: min(266px, 76vw);
+        width: min(345px, 94vw);
+        height: min(306px, 84vw);
       }
 
       .tagline {
@@ -635,20 +635,22 @@
             <stop offset="100%" stop-color="#c8952a" stop-opacity="0"/>
           </radialGradient>
         </defs>
-        <!-- Cone fill -->
-        <polygon points="200,0 0,900 400,900" fill="url(#mRayGrad)"/>
-        <!-- Individual rays — tight at top, spreading to full width -->
-        <line x1="200" y1="2" x2="0"   y2="900" stroke="#d4a030" stroke-width="1.0" stroke-opacity="0.13"/>
-        <line x1="200" y1="2" x2="40"  y2="900" stroke="#d4a030" stroke-width="1.2" stroke-opacity="0.11"/>
-        <line x1="200" y1="2" x2="90"  y2="900" stroke="#e0b840" stroke-width="1.6" stroke-opacity="0.14"/>
-        <line x1="200" y1="2" x2="140" y2="900" stroke="#e0b840" stroke-width="1.2" stroke-opacity="0.12"/>
-        <line x1="200" y1="2" x2="170" y2="900" stroke="#f0cc60" stroke-width="2.2" stroke-opacity="0.19"/>
-        <line x1="200" y1="2" x2="200" y2="900" stroke="#fff0a0" stroke-width="2.8" stroke-opacity="0.22"/>
-        <line x1="200" y1="2" x2="230" y2="900" stroke="#f0cc60" stroke-width="2.2" stroke-opacity="0.19"/>
-        <line x1="200" y1="2" x2="260" y2="900" stroke="#e0b840" stroke-width="1.2" stroke-opacity="0.12"/>
-        <line x1="200" y1="2" x2="310" y2="900" stroke="#e0b840" stroke-width="1.6" stroke-opacity="0.14"/>
-        <line x1="200" y1="2" x2="360" y2="900" stroke="#d4a030" stroke-width="1.2" stroke-opacity="0.11"/>
-        <line x1="200" y1="2" x2="400" y2="900" stroke="#d4a030" stroke-width="1.0" stroke-opacity="0.13"/>
+        <!-- Cone fill — extends well beyond edges for full bleed -->
+        <polygon points="200,0 -200,900 600,900" fill="url(#mRayGrad)"/>
+        <!-- Individual rays — spread to full bleed -->
+        <line x1="200" y1="2" x2="-200" y2="900" stroke="#d4a030" stroke-width="1.0" stroke-opacity="0.13"/>
+        <line x1="200" y1="2" x2="-100" y2="900" stroke="#d4a030" stroke-width="1.2" stroke-opacity="0.11"/>
+        <line x1="200" y1="2" x2="-20"  y2="900" stroke="#e0b840" stroke-width="1.4" stroke-opacity="0.13"/>
+        <line x1="200" y1="2" x2="50"   y2="900" stroke="#e0b840" stroke-width="1.6" stroke-opacity="0.14"/>
+        <line x1="200" y1="2" x2="110"  y2="900" stroke="#e0b840" stroke-width="1.2" stroke-opacity="0.12"/>
+        <line x1="200" y1="2" x2="160"  y2="900" stroke="#f0cc60" stroke-width="2.2" stroke-opacity="0.19"/>
+        <line x1="200" y1="2" x2="200"  y2="900" stroke="#fff0a0" stroke-width="2.8" stroke-opacity="0.22"/>
+        <line x1="200" y1="2" x2="240"  y2="900" stroke="#f0cc60" stroke-width="2.2" stroke-opacity="0.19"/>
+        <line x1="200" y1="2" x2="290"  y2="900" stroke="#e0b840" stroke-width="1.2" stroke-opacity="0.12"/>
+        <line x1="200" y1="2" x2="350"  y2="900" stroke="#e0b840" stroke-width="1.6" stroke-opacity="0.14"/>
+        <line x1="200" y1="2" x2="420"  y2="900" stroke="#d4a030" stroke-width="1.2" stroke-opacity="0.11"/>
+        <line x1="200" y1="2" x2="500"  y2="900" stroke="#d4a030" stroke-width="1.0" stroke-opacity="0.13"/>
+        <line x1="200" y1="2" x2="600"  y2="900" stroke="#d4a030" stroke-width="1.0" stroke-opacity="0.11"/>
         <!-- Source glow -->
         <ellipse cx="200" cy="6"  rx="80"  ry="32" fill="url(#mSourceGlow)"/>
         <ellipse cx="200" cy="3"  rx="26"  ry="11" fill="#fffde0" fill-opacity="0.45"/>
