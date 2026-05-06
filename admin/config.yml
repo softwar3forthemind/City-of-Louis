@@ -3,6 +3,7 @@ backend:
   repo: softwar3forthemind/City-of-Louis
   branch: main
   base_url: https://city-of-louis-auth.softwar3forthemind.workers.dev
+  auth_endpoint: /auth
 
 media_folder: "images/uploads"
 public_folder: "/images/uploads"
