@@ -1,9 +1,6 @@
 backend:
-  name: github
-  repo: softwar3forthemind/City-of-Louis
+  name: git-gateway
   branch: main
-  base_url: https://city-of-louis-auth.softwar3forthemind.workers.dev
-  auth_endpoint: /auth
 
 media_folder: "images/uploads"
 public_folder: "/images/uploads"
