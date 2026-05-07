@@ -1410,14 +1410,31 @@
       nameField.classList.toggle('visible', choice === 'named');
     }
 
-    function handleContribute() {
+    async function handleContribute() {
       const amount = document.getElementById('amount-field').value;
       if (!amount || parseFloat(amount) < 1) {
         document.getElementById('amount-field').focus();
         return;
       }
-      const stripeBase = 'https://buy.stripe.com/YOUR_STRIPE_PAYMENT_LINK';
-      window.open(stripeBase, '_blank');
+      const btn = document.querySelector('.stripe-btn');
+      btn.textContent = '...';
+      try {
+        const res = await fetch('https://city-of-louis-auth.softwar3forthemind.workers.dev/create-checkout', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ amount: parseFloat(amount) })
+        });
+        const data = await res.json();
+        if (data.url) {
+          window.location.href = data.url;
+        } else {
+          btn.textContent = 'Extend the Work →';
+          alert('Something went wrong. Please try again.');
+        }
+      } catch(e) {
+        btn.textContent = 'Extend the Work →';
+        alert('Something went wrong. Please try again.');
+      }
     }
   </script>
 
