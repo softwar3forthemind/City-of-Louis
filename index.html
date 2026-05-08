@@ -1230,7 +1230,7 @@
           <input class="name-input" id="name-field" type="text" placeholder="Your name"/>
         </div>
 
-        <button class="stripe-btn" onclick="handleContribute()">Extend the Work →</button>
+        <button class="stripe-btn" onclick="handleContribute()">Advance the Mission →</button>
 
         <p class="stripe-note">
           Secured by Stripe. No account required.<br/>
@@ -1428,11 +1428,11 @@
         if (data.url) {
           window.location.href = data.url;
         } else {
-          btn.textContent = 'Extend the Work →';
+          btn.textContent = 'Advance the Mission →';
           alert('Something went wrong. Please try again.');
         }
       } catch(e) {
-        btn.textContent = 'Extend the Work →';
+        btn.textContent = 'Advance the Mission →';
         alert('Something went wrong. Please try again.');
       }
     }
