@@ -375,12 +375,35 @@
 
     /* ── BENEFACTOR PAGE ── */
     .benefactor-page {
-      max-width: 520px; margin: 0 auto; padding: 3.5rem 2rem 4rem;
+      max-width: 480px; margin: 0 auto; padding: 2rem 2rem 5rem;
       display: flex; flex-direction: column; align-items: center;
     }
+    .benefactor-seal-top {
+      display: flex; align-items: center; gap: 1rem; margin-bottom: 2.2rem; width: 100%;
+      justify-content: center;
+    }
+    .benefactor-rule {
+      width: 40px; height: 0.5px;
+      background: linear-gradient(90deg, transparent, #3a3018);
+    }
+    .benefactor-rule:last-child {
+      background: linear-gradient(90deg, #3a3018, transparent);
+    }
+    .benefactor-eyebrow {
+      font-family: 'Cinzel', serif; font-size: 7.5px; letter-spacing: 0.45em;
+      color: #4a4020; text-transform: uppercase;
+    }
+    .benefactor-heading {
+      font-family: 'Cinzel Decorative', serif; font-weight: 400; font-size: 22px;
+      color: #d4c9a8; letter-spacing: 0.04em; text-align: center;
+      margin: 0 0 2.2rem; line-height: 1.3;
+    }
     .benefactor-intro {
-      font-family: 'EB Garamond', serif; font-size: 15px; line-height: 1.9;
-      color: #7a6e50; text-align: center; margin-bottom: 2.8rem; font-style: italic;
+      font-family: 'EB Garamond', serif; font-size: 15px; line-height: 2;
+      color: #7a6e50; text-align: center; margin-bottom: 2.2rem; font-style: italic;
+    }
+    .benefactor-ornament {
+      margin-bottom: 2.2rem; opacity: 0.7;
     }
     .benefactor-divider {
       width: 60px; height: 0.5px;
@@ -388,8 +411,8 @@
       margin-bottom: 2.8rem;
     }
     .amount-wrap {
-      width: 100%; margin-bottom: 2rem;
-      display: flex; flex-direction: column; align-items: center; gap: 0.6rem;
+      width: 100%; margin-bottom: 2.5rem;
+      display: flex; flex-direction: column; align-items: center; gap: 0.8rem;
     }
     .amount-label {
       font-family: 'Cinzel', serif; font-size: 8px; letter-spacing: 0.4em;
@@ -404,7 +427,7 @@
       color: #6a5c30; padding-right: 4px;
     }
     .amount-input {
-      font-family: 'EB Garamond', serif; font-size: 28px;
+      font-family: 'EB Garamond', serif; font-size: 32px;
       color: #d4c9a8; background: transparent; border: none; outline: none;
       width: 140px; text-align: left;
       caret-color: #c8a030;
@@ -419,9 +442,7 @@
       font-family: 'Cinzel', serif; font-size: 8px; letter-spacing: 0.4em;
       color: #4a4020; text-transform: uppercase;
     }
-    .identity-options {
-      display: flex; gap: 1.5rem;
-    }
+    .identity-options { display: flex; gap: 1.5rem; }
     .identity-option {
       font-family: 'Cinzel', serif; font-size: 8px; letter-spacing: 0.28em;
       color: #5a4e28; text-transform: uppercase; cursor: pointer;
@@ -430,7 +451,6 @@
     }
     .identity-option.selected,
     .identity-option:hover { color: #c8a030; border-color: #c8a030; }
-
     .name-input {
       font-family: 'EB Garamond', serif; font-size: 15px; font-style: italic;
       color: #d4c9a8; background: transparent; border: none; outline: none;
@@ -444,9 +464,9 @@
     .stripe-btn {
       font-family: 'Cinzel', serif; font-size: 9px; letter-spacing: 0.38em;
       color: #8a7640; text-transform: uppercase; cursor: pointer;
-      border: 0.5px solid #3a3018; padding: 10px 28px;
+      border: 0.5px solid #3a3018; padding: 12px 32px;
       background: transparent; transition: color 0.2s, border-color 0.2s;
-      margin-bottom: 1.8rem;
+      margin-bottom: 1.4rem;
     }
     .stripe-btn:hover { color: #d4a830; border-color: #c8a030; }
 
@@ -1190,18 +1210,56 @@
       <div class="page-top">
         <span class="back-link" onclick="navigate('home')">← Return</span>
       </div>
-      <div class="page-eyebrow">Patronage</div>
-      <h1 class="page-heading">Become a Benefactor</h1>
 
       <div class="benefactor-page">
+
+        <div class="benefactor-seal-top">
+          <div class="benefactor-rule"></div>
+          <div class="benefactor-eyebrow">Patronage</div>
+          <div class="benefactor-rule"></div>
+        </div>
+
+        <h1 class="benefactor-heading">Become a Benefactor</h1>
+
         <p class="benefactor-intro">
           Everything within these walls is freely given.<br/>
-          If the work has served you — in thought, in action, in becoming —<br/>
+          If the work has served you —<br/>
+          in thought, in action, in becoming —<br/>
           you are invited to extend it forward.
         </p>
-        <div class="benefactor-divider"></div>
 
-        <!-- Remain In Union email form -->
+        <div class="benefactor-ornament">
+          <svg viewBox="0 0 120 12" xmlns="http://www.w3.org/2000/svg" width="120">
+            <line x1="0" y1="6" x2="48" y2="6" stroke="#3a3018" stroke-width="0.5"/>
+            <rect x="54" y="2" width="8" height="8" fill="#c8952a" fill-opacity="0.35" transform="rotate(45 58 6)"/>
+            <line x1="68" y1="6" x2="120" y2="6" stroke="#3a3018" stroke-width="0.5"/>
+          </svg>
+        </div>
+
+        <!-- Amount -->
+        <div class="amount-wrap">
+          <div class="amount-label">Your Contribution</div>
+          <div class="amount-input-row">
+            <span class="amount-currency">$</span>
+            <input class="amount-input" id="amount-field" type="number" min="1" placeholder="0" />
+          </div>
+        </div>
+
+        <button class="stripe-btn" onclick="handleContribute()">Advance the Mission →</button>
+
+        <p class="stripe-note">
+          Secured by Stripe. No account required.
+        </p>
+
+        <div class="benefactor-ornament" style="margin-top: 2.5rem;">
+          <svg viewBox="0 0 120 12" xmlns="http://www.w3.org/2000/svg" width="120">
+            <line x1="0" y1="6" x2="48" y2="6" stroke="#3a3018" stroke-width="0.5"/>
+            <rect x="54" y="2" width="8" height="8" fill="#c8952a" fill-opacity="0.35" transform="rotate(45 58 6)"/>
+            <line x1="68" y1="6" x2="120" y2="6" stroke="#3a3018" stroke-width="0.5"/>
+          </svg>
+        </div>
+
+        <!-- Remain In Union -->
         <div class="union-wrap">
           <div class="union-label">Remain In Union</div>
           <div class="union-form">
@@ -1211,31 +1269,6 @@
           <div class="union-msg" id="union-msg-bene"></div>
         </div>
 
-        <div class="benefactor-divider"></div>
-
-        <div class="amount-wrap">
-          <div class="amount-label">Your Contribution</div>
-          <div class="amount-input-row">
-            <span class="amount-currency">$</span>
-            <input class="amount-input" id="amount-field" type="number" min="1" placeholder="0" />
-          </div>
-        </div>
-
-        <div class="identity-wrap">
-          <div class="identity-label">How you wish to be known</div>
-          <div class="identity-options">
-            <span class="identity-option selected" id="opt-anon" onclick="selectIdentity('anon')">Anonymous</span>
-            <span class="identity-option" id="opt-named" onclick="selectIdentity('named')">By Name</span>
-          </div>
-          <input class="name-input" id="name-field" type="text" placeholder="Your name"/>
-        </div>
-
-        <button class="stripe-btn" onclick="handleContribute()">Advance the Mission →</button>
-
-        <p class="stripe-note">
-          Secured by Stripe. No account required.<br/>
-          Your support — named or unnamed — is received with gratitude.
-        </p>
       </div>
     </div>
   </div>
