@@ -1419,7 +1419,7 @@
     }
 
     // ─────────────────────────────────────────
-    // PAGE NAVIGATION
+    // PAGE NAVIGATION — with hash routing
     // ─────────────────────────────────────────
     function navigate(target) {
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -1427,10 +1427,30 @@
       const el = document.getElementById(id);
       if (el) { el.classList.add('active'); window.scrollTo(0, 0); }
 
+      // Update URL hash
+      if (target === 'home') {
+        history.pushState(null, '', '/');
+      } else {
+        history.pushState(null, '', '#' + target);
+      }
+
       // Render entry index when navigating to a content page
       const cats = ['newadам', 'capital', 'law', 'technology'];
       if (cats.includes(target)) renderIndex(target);
     }
+
+    // ─────────────────────────────────────────
+    // LOAD PAGE FROM URL HASH ON ARRIVAL
+    // ─────────────────────────────────────────
+    function loadFromHash() {
+      const hash = window.location.hash.replace('#', '');
+      if (hash) {
+        navigate(hash);
+      }
+    }
+
+    window.addEventListener('load', loadFromHash);
+    window.addEventListener('hashchange', loadFromHash);
 
     // Benefactor identity toggle
     function selectIdentity(choice) {
