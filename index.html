@@ -530,23 +530,23 @@
     ══════════════════════════════════════ */
     @media (max-width: 600px) {
 
-      /* Allow scroll so footer is reachable at bottom */
-      body { overflow-x: hidden; }
-      #page-home { overflow-y: auto; }
+      /* ── HOME PAGE ── */
 
-      /* Home layout — centered column, footer pushed to bottom */
+      /* Page is a fixed viewport — no scroll on home */
+      #page-home { overflow: hidden; height: 100vh; }
+
+      /* Home flex container fills viewport, centered */
       .home {
+        overflow: hidden;
+        height: 100vh;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        min-height: 100vh;
-        padding: 0 1rem 0;
-        overflow: visible;
-        height: auto;
+        padding: 0 1rem;
       }
 
-      /* Hide desktop rays on mobile */
+      /* Hide desktop rays */
       .rays { display: none; }
 
       /* Show mobile rays */
@@ -559,11 +559,9 @@
       }
 
       /* Glow pool */
-      .glow-pool {
-        width: 240px; height: 180px;
-        top: 38%;
-      }
+      .glow-pool { width: 240px; height: 180px; top: 38%; }
 
+      /* Title */
       .site-title {
         font-size: 13.5px;
         letter-spacing: 0.38em;
@@ -571,36 +569,27 @@
         margin-top: -1rem;
       }
 
+      /* Prism */
       .prism-wrap {
         width: min(345px, 94vw);
         height: min(306px, 84vw);
       }
 
-      .tagline {
-        font-size: 14px;
-        margin-top: 0.6rem;
-        letter-spacing: 0.04em;
-        color: #7a6c38;
-      }
-
+      /* Tagline + patronage */
+      .tagline { font-size: 14px; margin-top: 0.6rem; letter-spacing: 0.04em; color: #7a6c38; }
       .benefactor-link-wrap { margin-top: 0.5rem; }
-      .benefactor-link {
-        font-size: 8.6px;
-        letter-spacing: 0.3em;
-        color: #6a5e2a;
-      }
+      .benefactor-link { font-size: 8.6px; letter-spacing: 0.3em; color: #6a5e2a; }
 
-      /* Footer pushed to very bottom, out of centered flow */
+      /* Footer — absolute, pinned to very bottom, outside centered flow */
       .home-footer {
-        position: relative;
-        bottom: auto;
-        width: 100%;
-        margin-top: 3rem;
-        padding: 1.2rem 1rem 2.5rem;
+        position: absolute;
+        bottom: 0; left: 0; right: 0;
+        padding: 0.8rem 1.2rem 1.4rem;
         border-top: 0.5px solid #2a2010;
+        z-index: 2;
       }
 
-      /* Music toggle — top left */
+      /* Music toggle — fixed top left */
       .music-toggle {
         bottom: auto; right: auto;
         top: 1.2rem; left: 1.2rem;
