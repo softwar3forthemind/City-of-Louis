@@ -780,34 +780,32 @@
     }
 
     /* ── CONTACT PAGE ── */
-    .contact-options {
-      display: flex; flex-direction: column; gap: 2.2rem; margin-top: 1rem;
+    .contact-form-wrap {
+      display: flex; flex-direction: column; gap: 0; max-width: 480px;
     }
-    .contact-option {
-      display: flex; flex-direction: column; gap: 0.5rem;
-      padding: 1.8rem 0; border-bottom: 0.5px solid #1e1a0e;
+    .contact-field-wrap {
+      border-bottom: 0.5px solid #2a2418; margin-bottom: 1.8rem;
+      padding-bottom: 4px;
     }
-    .contact-option:first-child { border-top: 0.5px solid #1e1a0e; }
-    .contact-option-label {
-      font-family: 'Cinzel', serif; font-size: 8px; letter-spacing: 0.45em;
-      color: #4a3e1e; text-transform: uppercase;
+    .contact-input {
+      font-family: 'EB Garamond', serif; font-size: 16px; font-style: italic;
+      color: #d4c9a8; background: transparent; border: none; outline: none;
+      width: 100%; caret-color: #c8a030; resize: none;
     }
-    .contact-option-title {
-      font-family: 'EB Garamond', serif; font-size: 19px;
-      color: #c4b888; line-height: 1.3;
+    .contact-input::placeholder { color: #3a3220; }
+    .contact-textarea { line-height: 1.8; padding-top: 2px; }
+    .contact-submit-btn {
+      font-family: 'Cinzel', serif; font-size: 9px; letter-spacing: 0.38em;
+      color: #8a7640; text-transform: uppercase; cursor: pointer;
+      border: 0.5px solid #3a3018; padding: 12px 32px;
+      background: transparent; transition: color 0.2s, border-color 0.2s;
+      align-self: flex-start; margin-top: 0.5rem;
     }
-    .contact-option-desc {
-      font-family: 'EB Garamond', serif; font-size: 14px;
-      color: #5a5038; font-style: italic; line-height: 1.7;
+    .contact-submit-btn:hover { color: #d4a830; border-color: #c8a030; }
+    .contact-msg {
+      font-family: 'EB Garamond', serif; font-size: 14px; font-style: italic;
+      color: #6a5c30; margin-top: 1rem; min-height: 20px;
     }
-    .contact-link {
-      display: inline-block; margin-top: 0.6rem;
-      font-family: 'Cinzel', serif; font-size: 9px; letter-spacing: 0.32em;
-      color: #7a6a30; text-transform: uppercase; text-decoration: none;
-      border-bottom: 0.5px solid #3a3018; padding-bottom: 3px;
-      transition: color 0.2s, border-color 0.2s; cursor: pointer;
-    }
-    .contact-link:hover { color: #d4a830; border-color: #c8952a; }
 
     /* ── CONTENT SUBSCRIPTION BADGE ── */
     .content-sub-badge {
@@ -1581,7 +1579,7 @@
 
       <div class="about-body">
         <p>City of Louis is an independent publishing platform producing original commentary on law, capital, technology, and the philosophical formation of man. All content is written by its sole author.</p>
-        <p>The work here is concerned with one question above all others: what does it mean to author one's own existence? City of Louis is an attempt to answer that question in public — through writing, through ideas, and through the construction of a city of thought.</p>
+        <p>City of Louis is devoted to authoring a better society, as we enter the age of Artificial Intelligence, Space Exploration, and Virtual Reality.</p>
         <p>City of Louis is not affiliated with any government, institution, organization, or entity of any kind. It is the independent work of one individual.</p>
       </div>
     </div>
@@ -1596,21 +1594,20 @@
       <div class="page-eyebrow">Reach Out</div>
       <h1 class="page-heading">Contact</h1>
 
-      <div class="contact-options">
+      <div class="contact-form-wrap">
 
-        <div class="contact-option">
-          <div class="contact-option-label">Direct</div>
-          <div class="contact-option-title">Send an Email</div>
-          <div class="contact-option-desc">For inquiries, correspondence, or any matter requiring a direct response from the author.</div>
-          <a class="contact-link" href="mailto:louis@cityoflouis.com">louis@cityoflouis.com →</a>
+        <div class="contact-field-wrap">
+          <input class="contact-input" id="contact-name" type="text" placeholder="Your name"/>
+        </div>
+        <div class="contact-field-wrap">
+          <input class="contact-input" id="contact-email" type="email" placeholder="Your email address"/>
+        </div>
+        <div class="contact-field-wrap">
+          <textarea class="contact-input contact-textarea" id="contact-message" placeholder="Your message" rows="5"></textarea>
         </div>
 
-        <div class="contact-option">
-          <div class="contact-option-label">Community</div>
-          <div class="contact-option-title">Join the Discord</div>
-          <div class="contact-option-desc">Enter the community of readers and thinkers gathering around the ideas of City of Louis.</div>
-          <a class="contact-link" href="https://discord.gg/Hv7uQ6Pm" target="_blank">Join the Community →</a>
-        </div>
+        <button class="contact-submit-btn" onclick="handleContact()">Send Message →</button>
+        <div class="contact-msg" id="contact-msg"></div>
 
       </div>
     </div>
@@ -1721,6 +1718,55 @@
       } else {
         audio.pause();
         toggle.classList.remove('playing');
+      }
+    }
+
+    // ─────────────────────────────────────────
+    // CONTACT FORM
+    // ─────────────────────────────────────────
+    async function handleContact() {
+      const name    = document.getElementById('contact-name').value.trim();
+      const email   = document.getElementById('contact-email').value.trim();
+      const message = document.getElementById('contact-message').value.trim();
+      const msg     = document.getElementById('contact-msg');
+
+      if (!email || !email.includes('@')) {
+        msg.textContent = 'Please enter a valid email address.';
+        return;
+      }
+      if (!message) {
+        msg.textContent = 'Please enter a message.';
+        return;
+      }
+
+      msg.textContent = '...';
+
+      try {
+        // Send email notification via worker
+        const emailRes = await fetch('https://city-of-louis-auth.softwar3forthemind.workers.dev/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, message, to: 'softwar3forthemind@gmail.com' })
+        });
+
+        // Register email in Kit CRM regardless of message send result
+        await fetch('https://city-of-louis-auth.softwar3forthemind.workers.dev/subscribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email })
+        });
+
+        const data = await emailRes.json();
+        if (data.success) {
+          msg.textContent = 'Your message has been sent.';
+          document.getElementById('contact-name').value = '';
+          document.getElementById('contact-email').value = '';
+          document.getElementById('contact-message').value = '';
+        } else {
+          msg.textContent = 'Something went wrong. Please try again.';
+        }
+      } catch(e) {
+        msg.textContent = 'Something went wrong. Please try again.';
       }
     }
 
