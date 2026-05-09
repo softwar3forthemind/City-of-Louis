@@ -667,6 +667,39 @@
       .music-toggle { bottom: 1.2rem; right: 1.2rem; }
     }
 
+    /* ── HOME FOOTER ── */
+    .home-footer {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 0.8rem; margin-top: 2.5rem; padding-bottom: 2rem;
+      position: relative; z-index: 2;
+    }
+    .home-footer-rule {
+      width: 120px; height: 0.5px;
+      background: linear-gradient(90deg, transparent, #2a2418, transparent);
+      margin-bottom: 0.4rem;
+    }
+    .home-footer-desc {
+      font-family: 'EB Garamond', serif; font-size: 11px; font-style: italic;
+      color: #7a6e50; text-align: center; line-height: 1.9;
+      max-width: 420px;
+    }
+    .home-footer-links {
+      display: flex; align-items: center; gap: 0.6rem;
+    }
+    .home-footer-link {
+      font-family: 'Cinzel', serif; font-size: 7px; letter-spacing: 0.3em;
+      color: #6a5c30; text-transform: uppercase; cursor: pointer;
+      text-decoration: none; transition: color 0.2s;
+    }
+    .home-footer-link:hover { color: #c8a030; }
+    .home-footer-sep {
+      color: #4a3e1e; font-size: 10px;
+    }
+    .home-footer-copy {
+      font-family: 'Cinzel', serif; font-size: 6.5px; letter-spacing: 0.28em;
+      color: #5a4e28; text-transform: uppercase;
+    }
+
   </style>
 </head>
 <body>
@@ -822,6 +855,24 @@
       <div class="tagline">Authoring a New Future.</div>
       <div class="benefactor-link-wrap">
         <span class="benefactor-link" onclick="navigate('benefactor')">Patronage</span>
+      </div>
+
+      <div class="home-footer">
+        <div class="home-footer-rule"></div>
+        <p class="home-footer-desc">
+          City of Louis is an independent publishing platform producing original commentary
+          on law, capital, technology, and the philosophical formation of man.
+          All content is the sole intellectual property of its author.
+          Subscription payments are processed securely through Stripe.
+        </p>
+        <div class="home-footer-links">
+          <span onclick="navigate('foundation')" class="home-footer-link">Foundation</span>
+          <span class="home-footer-sep">·</span>
+          <span onclick="navigate('benefactor')" class="home-footer-link">Patronage</span>
+          <span class="home-footer-sep">·</span>
+          <a href="https://discord.gg/vMjGEXee" target="_blank" class="home-footer-link">Community</a>
+        </div>
+        <div class="home-footer-copy">© 2026 City of Louis. All rights reserved.</div>
       </div>
     </div>
   </div>
