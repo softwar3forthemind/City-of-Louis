@@ -529,12 +529,6 @@
     ══════════════════════════════════════ */
     @media (max-width: 600px) {
 
-      /* Prevent scroll below content */
-      body { overflow: hidden; height: 100vh; }
-      #page-home { overflow: hidden; height: 100vh; }
-      .home { overflow: hidden; height: 100vh; }
-
-      .home-footer { bottom: 5.5rem; }
 
       /* Hide desktop rays on mobile */
       .rays { display: none; }
@@ -589,10 +583,18 @@
       }
 
       .home-footer {
-        bottom: 5.5rem;
+        position: relative;
+        bottom: auto;
         border-top: 0.5px solid #2a2010;
-        padding-top: 0.6rem;
+        padding-top: 0.8rem;
+        margin-top: 1.2rem;
+        padding-bottom: 2rem;
       }
+
+      /* Allow scroll on mobile so footer is reachable */
+      body { overflow: auto; height: auto; }
+      #page-home { overflow: auto; height: auto; }
+      .home { overflow: visible; height: auto; min-height: 100vh; padding-bottom: 1rem; }
 
       /* ── INNER PAGES ── */
       .inner-page { padding: 2rem 1.2rem 3rem; }
@@ -678,7 +680,10 @@
     }
     .music-toggle.playing .music-label { color: #8a7640; }
     @media (max-width: 600px) {
-      .music-toggle { bottom: 1.2rem; right: 1.2rem; }
+      .music-toggle {
+        bottom: auto; right: auto;
+        top: 1.2rem; left: 1.2rem;
+      }
     }
 
     .home-footer-rule {
@@ -718,6 +723,91 @@
       transition: color 0.2s;
     }
     .benefactor-terms-link:hover { color: #c8a030; }
+
+    /* ── PILLAR SUBSCRIBE BOX ── */
+    .pillar-subscribe {
+      display: flex; align-items: center; gap: 0;
+      border-bottom: 0.5px solid #3a3018;
+      width: 100%; max-width: 340px;
+      padding-bottom: 6px; margin-bottom: 2.8rem;
+    }
+    .pillar-subscribe-input {
+      font-family: 'EB Garamond', serif; font-size: 15px; font-style: italic;
+      color: #d4c9a8; background: transparent; border: none; outline: none;
+      flex: 1; caret-color: #c8a030;
+    }
+    .pillar-subscribe-input::placeholder { color: #3a3220; }
+    .pillar-subscribe-btn {
+      font-family: 'Cinzel', serif; font-size: 11px;
+      color: #7a6a30; background: transparent; border: none;
+      cursor: pointer; padding: 0 0 0 8px;
+      transition: color 0.2s;
+    }
+    .pillar-subscribe-btn:hover { color: #d4a830; }
+    .pillar-subscribe-msg {
+      font-family: 'EB Garamond', serif; font-size: 12px; font-style: italic;
+      color: #6a5c30; min-height: 16px; margin-top: 0.4rem; margin-bottom: 2rem;
+    }
+
+    /* ── ABOUT PAGE ── */
+    .about-byline {
+      font-family: 'Cinzel', serif; font-size: 9px; letter-spacing: 0.45em;
+      color: #7a6a44; text-transform: uppercase; margin-bottom: 0.5rem;
+    }
+    .about-body {
+      font-size: 16px; line-height: 1.9; color: #9a8e70; font-style: italic;
+    }
+    .about-body p { margin-bottom: 1.5rem; }
+    .about-name {
+      font-family: 'Cinzel', serif; font-size: 13px; letter-spacing: 0.3em;
+      color: #c4b888; text-transform: uppercase; margin-bottom: 2.2rem;
+      padding-bottom: 1.2rem; border-bottom: 0.5px solid #2a2418;
+    }
+
+    /* ── CONTACT PAGE ── */
+    .contact-options {
+      display: flex; flex-direction: column; gap: 2.2rem; margin-top: 1rem;
+    }
+    .contact-option {
+      display: flex; flex-direction: column; gap: 0.5rem;
+      padding: 1.8rem 0; border-bottom: 0.5px solid #1e1a0e;
+    }
+    .contact-option:first-child { border-top: 0.5px solid #1e1a0e; }
+    .contact-option-label {
+      font-family: 'Cinzel', serif; font-size: 8px; letter-spacing: 0.45em;
+      color: #4a3e1e; text-transform: uppercase;
+    }
+    .contact-option-title {
+      font-family: 'EB Garamond', serif; font-size: 19px;
+      color: #c4b888; line-height: 1.3;
+    }
+    .contact-option-desc {
+      font-family: 'EB Garamond', serif; font-size: 14px;
+      color: #5a5038; font-style: italic; line-height: 1.7;
+    }
+    .contact-link {
+      display: inline-block; margin-top: 0.6rem;
+      font-family: 'Cinzel', serif; font-size: 9px; letter-spacing: 0.32em;
+      color: #7a6a30; text-transform: uppercase; text-decoration: none;
+      border-bottom: 0.5px solid #3a3018; padding-bottom: 3px;
+      transition: color 0.2s, border-color 0.2s; cursor: pointer;
+    }
+    .contact-link:hover { color: #d4a830; border-color: #c8952a; }
+
+    /* ── CONTENT SUBSCRIPTION BADGE ── */
+    .content-sub-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      border: 0.5px solid #2a2410; padding: 6px 14px;
+      margin-bottom: 1.8rem;
+    }
+    .content-sub-badge-dot {
+      width: 5px; height: 5px; border-radius: 50%;
+      background: #c8952a; opacity: 0.6; flex-shrink: 0;
+    }
+    .content-sub-badge-text {
+      font-family: 'Cinzel', serif; font-size: 7px; letter-spacing: 0.4em;
+      color: #6a5c30; text-transform: uppercase;
+    }
 
     /* ── TERMS OF SERVICE ── */
     .terms-body {
@@ -903,21 +993,25 @@
       <div class="home-footer">
         <div class="home-footer-rule"></div>
         <p class="home-footer-desc">
-          City of Louis is an independent publishing platform producing original commentary
+          City of Louis is an independent publishing platform by Louis Stevens, producing original commentary
           on law, capital, technology, and the philosophical formation of man.
           All content is the sole intellectual property of its author.
           Subscription payments are processed securely through Stripe.
         </p>
         <div class="home-footer-links">
+          <span onclick="navigate('about')" class="home-footer-link">About</span>
+          <span class="home-footer-sep">·</span>
           <span onclick="navigate('foundation')" class="home-footer-link">Foundation</span>
           <span class="home-footer-sep">·</span>
           <span onclick="navigate('benefactor')" class="home-footer-link">Patronage</span>
           <span class="home-footer-sep">·</span>
-          <a href="https://discord.gg/vMjGEXee" target="_blank" class="home-footer-link">Community</a>
+          <span onclick="navigate('contact')" class="home-footer-link">Contact</span>
+          <span class="home-footer-sep">·</span>
+          <span onclick="navigate('privacy')" class="home-footer-link">Privacy Policy</span>
           <span class="home-footer-sep">·</span>
           <span onclick="navigate('terms')" class="home-footer-link">Terms of Service</span>
         </div>
-        <div class="home-footer-copy">© 2026 City of Louis. All rights reserved.</div>
+        <div class="home-footer-copy">© 2026 Louis Stevens. All rights reserved.</div>
       </div>
     </div>
   </div>
@@ -938,6 +1032,22 @@
         <div class="foundation-link-rule"></div>
       </div>
 
+      <!-- Subscribe -->
+      <div class="union-wrap">
+        <div class="union-form">
+          <input class="union-input" id="union-email-newadам" type="email" placeholder="Subscribe with your email"/>
+          <button class="union-btn" onclick="subscribeEmail('union-email-newadам')">→</button>
+        </div>
+        <div class="union-msg" id="union-msg-newadам"></div>
+      </div>
+
+      <!-- Subscribe -->
+      <div class="pillar-subscribe">
+        <input class="pillar-subscribe-input" id="sub-newadам" type="email" placeholder="Subscribe with your email"/>
+        <button class="pillar-subscribe-btn" onclick="subscribeEmail('sub-newadам')">→</button>
+      </div>
+      <div class="pillar-subscribe-msg" id="union-msg-sub-newadам"></div>
+
       <!-- Entry list view -->
       <div class="entry-list" id="list-newadам">
         <div class="entry-index" id="index-newadам"></div>
@@ -956,7 +1066,7 @@
 
       <div class="community-threshold">
         <div class="threshold-label">Enter the Covenant</div>
-        <a class="threshold-link" href="https://discord.gg/vMjGEXee" target="_blank">Join the Community →</a>
+        <a class="threshold-link" href="https://discord.gg/Hv7uQ6Pm" target="_blank">Join the Community →</a>
       </div>
     </div>
   </div>
@@ -970,6 +1080,22 @@
       </div>
       <div class="page-eyebrow">Teachings</div>
       <h1 class="page-heading">Capital</h1>
+
+      <!-- Subscribe -->
+      <div class="union-wrap">
+        <div class="union-form">
+          <input class="union-input" id="union-email-capital" type="email" placeholder="Subscribe with your email"/>
+          <button class="union-btn" onclick="subscribeEmail('union-email-capital')">→</button>
+        </div>
+        <div class="union-msg" id="union-msg-capital"></div>
+      </div>
+
+      <!-- Subscribe -->
+      <div class="pillar-subscribe">
+        <input class="pillar-subscribe-input" id="sub-capital" type="email" placeholder="Subscribe with your email"/>
+        <button class="pillar-subscribe-btn" onclick="subscribeEmail('sub-capital')">→</button>
+      </div>
+      <div class="pillar-subscribe-msg" id="union-msg-sub-capital"></div>
 
       <div class="entry-list" id="list-capital">
         <div class="entry-index" id="index-capital"></div>
@@ -996,6 +1122,22 @@
       <div class="page-eyebrow">Teachings</div>
       <h1 class="page-heading">Law</h1>
 
+      <!-- Subscribe -->
+      <div class="union-wrap">
+        <div class="union-form">
+          <input class="union-input" id="union-email-law" type="email" placeholder="Subscribe with your email"/>
+          <button class="union-btn" onclick="subscribeEmail('union-email-law')">→</button>
+        </div>
+        <div class="union-msg" id="union-msg-law"></div>
+      </div>
+
+      <!-- Subscribe -->
+      <div class="pillar-subscribe">
+        <input class="pillar-subscribe-input" id="sub-law" type="email" placeholder="Subscribe with your email"/>
+        <button class="pillar-subscribe-btn" onclick="subscribeEmail('sub-law')">→</button>
+      </div>
+      <div class="pillar-subscribe-msg" id="union-msg-sub-law"></div>
+
       <div class="entry-list" id="list-law">
         <div class="entry-index" id="index-law"></div>
         <div class="writing-placeholder" id="empty-law" style="display:none;">
@@ -1020,6 +1162,22 @@
       </div>
       <div class="page-eyebrow">Teachings</div>
       <h1 class="page-heading">Technology</h1>
+
+      <!-- Subscribe -->
+      <div class="union-wrap">
+        <div class="union-form">
+          <input class="union-input" id="union-email-technology" type="email" placeholder="Subscribe with your email"/>
+          <button class="union-btn" onclick="subscribeEmail('union-email-technology')">→</button>
+        </div>
+        <div class="union-msg" id="union-msg-technology"></div>
+      </div>
+
+      <!-- Subscribe -->
+      <div class="pillar-subscribe">
+        <input class="pillar-subscribe-input" id="sub-technology" type="email" placeholder="Subscribe with your email"/>
+        <button class="pillar-subscribe-btn" onclick="subscribeEmail('sub-technology')">→</button>
+      </div>
+      <div class="pillar-subscribe-msg" id="union-msg-sub-technology"></div>
 
       <div class="entry-list" id="list-technology">
         <div class="entry-index" id="index-technology"></div>
@@ -1398,6 +1556,12 @@
           </svg>
         </div>
 
+        <div class="content-sub-badge">
+          <div class="content-sub-badge-dot"></div>
+          <span class="content-sub-badge-text">Content Subscription Service</span>
+          <div class="content-sub-badge-dot"></div>
+        </div>
+
         <div class="amount-instruction">Set the amount you'd like to spend on City of Louis' original content</div>
 
         <!-- Amount -->
@@ -1417,27 +1581,106 @@
           are processed securely through Stripe.
         </p>
 
-        <div class="benefactor-ornament" style="margin-top: 2rem;">
-          <svg viewBox="0 0 150 12" xmlns="http://www.w3.org/2000/svg" width="150">
-            <line x1="0" y1="6" x2="62" y2="6" stroke="#3a3018" stroke-width="0.5"/>
-            <rect x="68" y="2" width="8" height="8" fill="#c8952a" fill-opacity="0.35" transform="rotate(45 72 6)"/>
-            <line x1="82" y1="6" x2="150" y2="6" stroke="#3a3018" stroke-width="0.5"/>
-          </svg>
-        </div>
-
-        <!-- Remain In Union -->
-        <div class="union-wrap">
-          <div class="union-label">Remain In Union</div>
-          <div class="union-form">
-            <input class="union-input" id="union-email-bene" type="email" placeholder="Your email address"/>
-            <button class="union-btn" onclick="subscribeEmail('union-email-bene')">→</button>
-          </div>
-          <div class="union-msg" id="union-msg-bene"></div>
-        </div>
-
         <div class="benefactor-terms">
           <span onclick="navigate('terms')" class="benefactor-terms-link">Terms of Service</span>
         </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <div class="page" id="page-about">
+    <div class="inner-page">
+      <div class="page-top">
+        <span class="back-link" onclick="navigate('home')">← Return</span>
+      </div>
+      <div class="page-eyebrow">The Author</div>
+      <h1 class="page-heading">About</h1>
+
+      <div class="about-name">Louis Stevens</div>
+
+      <div class="about-body">
+        <p>City of Louis is an independent publishing platform producing original commentary on law, capital, technology, and the philosophical formation of man. All content is written by its sole author.</p>
+        <p>The work here is concerned with one question above all others: what does it mean to author one's own existence? City of Louis is an attempt to answer that question in public — through writing, through ideas, and through the construction of a city of thought.</p>
+        <p>City of Louis is not affiliated with any government, institution, organization, or entity of any kind. It is the independent work of one individual.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="page" id="page-contact">
+    <div class="inner-page">
+      <div class="page-top">
+        <span class="back-link" onclick="navigate('home')">← Return</span>
+      </div>
+      <div class="page-eyebrow">Reach Out</div>
+      <h1 class="page-heading">Contact</h1>
+
+      <div class="contact-options">
+
+        <div class="contact-option">
+          <div class="contact-option-label">Direct</div>
+          <div class="contact-option-title">Send an Email</div>
+          <div class="contact-option-desc">For inquiries, correspondence, or any matter requiring a direct response from the author.</div>
+          <a class="contact-link" href="mailto:louis@cityoflouis.com">louis@cityoflouis.com →</a>
+        </div>
+
+        <div class="contact-option">
+          <div class="contact-option-label">Community</div>
+          <div class="contact-option-title">Join the Discord</div>
+          <div class="contact-option-desc">Enter the community of readers and thinkers gathering around the ideas of City of Louis.</div>
+          <a class="contact-link" href="https://discord.gg/Hv7uQ6Pm" target="_blank">Join the Community →</a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- PRIVACY POLICY -->
+  <div class="page" id="page-privacy">
+    <div class="inner-page">
+      <div class="page-top">
+        <span class="back-link" onclick="navigate('home')">← Return</span>
+      </div>
+      <div class="page-eyebrow">Legal</div>
+      <h1 class="page-heading">Privacy Policy</h1>
+
+      <div class="terms-body">
+
+        <div class="terms-updated">Last updated: May 9, 2026</div>
+
+        <h2 class="terms-section">1. Overview</h2>
+        <p>City of Louis ("we," "the platform") is an independent publishing platform operated by Louis Stevens, a sole proprietor based in Florida, United States. This Privacy Policy describes how we collect, use, and protect the personal information of visitors and subscribers.</p>
+
+        <h2 class="terms-section">2. Information We Collect</h2>
+        <p>We collect only the information necessary to operate this platform. This includes email addresses provided voluntarily through our subscription form, and payment information processed through Stripe, Inc. when you choose to become a patron. We do not collect names, addresses, or any other personal data beyond what is described here, unless you provide it directly.</p>
+
+        <h2 class="terms-section">3. Email Addresses</h2>
+        <p>When you submit your email address through the "Remain In Union" subscription form, it is stored for the sole purpose of sending you updates and dispatches from City of Louis. We do not sell, rent, or share your email address with any third party. You may unsubscribe at any time by contacting us directly.</p>
+
+        <h2 class="terms-section">4. Payment Information</h2>
+        <p>All payment transactions are processed by Stripe, Inc. City of Louis does not store, access, or retain any payment card information. When you complete a payment, your financial data is handled entirely by Stripe in accordance with their privacy policy and PCI-DSS compliance standards. By making a payment, you also agree to Stripe's Privacy Policy.</p>
+
+        <h2 class="terms-section">5. Cookies and Tracking</h2>
+        <p>City of Louis does not use tracking cookies, advertising pixels, or third-party analytics services. The platform does not track your behavior across other websites.</p>
+
+        <h2 class="terms-section">6. Data Security</h2>
+        <p>We take reasonable measures to protect the information we hold. Email addresses are stored securely. No method of transmission or storage is completely secure, and we cannot guarantee absolute security, but we are committed to protecting your data to the best of our ability.</p>
+
+        <h2 class="terms-section">7. Your Rights</h2>
+        <p>You may request to access, correct, or delete any personal information we hold about you at any time. To make such a request, please contact us directly at the address listed on our Contact page.</p>
+
+        <h2 class="terms-section">8. Governing Law</h2>
+        <p>This Privacy Policy is governed by the laws of the State of Florida and the United States of America.</p>
+
+        <h2 class="terms-section">9. Changes to This Policy</h2>
+        <p>We reserve the right to update this Privacy Policy at any time. Material changes will be reflected in the "Last updated" date above. Continued use of the platform constitutes acceptance of the revised policy.</p>
+
+        <h2 class="terms-section">10. Contact</h2>
+        <p>For any privacy-related questions or requests, please contact Louis Stevens directly through the Contact page.</p>
+
+        <div class="terms-footer">© 2026 City of Louis. All rights reserved.</div>
 
       </div>
     </div>
@@ -1478,7 +1721,7 @@
         <p>City of Louis reserves the right to modify these Terms of Service at any time. Continued use of the platform following any modification constitutes acceptance of the updated terms.</p>
 
         <h2 class="terms-section">8. Contact</h2>
-        <p>For any questions regarding these terms, please contact City of Louis through the platform's community channels.</p>
+        <p>For any questions regarding these terms, please contact Louis Stevens directly through the <span onclick="navigate('contact')" style="color:#7a6a30;cursor:pointer;border-bottom:0.5px solid #3a3018;">Contact page</span>.</p>
 
         <div class="terms-footer">© 2026 City of Louis. All rights reserved.</div>
 
@@ -1507,7 +1750,10 @@
     // ─────────────────────────────────────────
     async function subscribeEmail(inputId) {
       const input = document.getElementById(inputId);
-      const msgId = inputId.replace('union-email-', 'union-msg-');
+      // Support both "union-email-X" and "sub-X" input ID patterns
+      const msgId = inputId.startsWith('sub-')
+        ? 'union-msg-' + inputId
+        : inputId.replace('union-email-', 'union-msg-');
       const msg   = document.getElementById(msgId);
       const email = input.value.trim();
 
