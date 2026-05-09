@@ -530,11 +530,11 @@
     ══════════════════════════════════════ */
     @media (max-width: 600px) {
 
-      /* Home page: locked viewport, no scroll */
-      #page-home { overflow: hidden; height: 100vh; }
+      /* Home page only: locked, no scroll */
+      #page-home { overflow: hidden !important; height: 100vh !important; }
 
-      /* All other pages: scrollable */
-      .page.active:not(#page-home) { overflow-y: auto; min-height: 100vh; }
+      /* All other pages: fully scrollable */
+      .page.active:not(#page-home) { overflow-y: auto !important; height: auto !important; min-height: 100vh; }
 
       /* Home container */
       .home {
@@ -603,16 +603,18 @@
       }
       .benefactor-link { font-size: 8.6px; letter-spacing: 0.3em; color: #6a5e2a; }
 
-      /* Footer — pinned to absolute bottom, copyright is the last element */
+      /* Footer — bottom: 0, no padding below copyright */
       .home-footer {
         position: absolute !important;
-        bottom: 0 !important; top: auto !important;
-        left: 0; right: 0;
+        bottom: 0 !important;
+        top: auto !important;
+        left: 0 !important;
+        right: 0 !important;
         display: flex !important;
         flex-direction: column !important;
         align-items: center !important;
-        gap: 0.15rem !important;
-        padding: 0.3rem 1rem 0.35rem !important;
+        gap: 0.12rem !important;
+        padding: 0.3rem 1rem 0 !important;
         z-index: 4;
       }
 
@@ -627,15 +629,27 @@
       }
 
       .home-footer-links {
-        border-top: 0.5px solid #2a2010;
-        padding-top: 0.25rem;
         flex-wrap: wrap;
         justify-content: center;
         gap: 0.2rem;
         display: flex !important;
+        border-top: none !important;
+        padding-top: 0 !important;
       }
 
-      .home-footer-copy { font-size: 6px; letter-spacing: 0.22em; margin: 0; }
+      .home-footer-links:first-of-type {
+        border-top: 0.5px solid #2a2010 !important;
+        padding-top: 0.2rem !important;
+      }
+
+      /* Copyright — absolute last line, flush with bottom edge */
+      .home-footer-copy {
+        font-size: 6px;
+        letter-spacing: 0.22em;
+        margin: 0;
+        padding-bottom: 0;
+        line-height: 1.2;
+      }
 
       /* ── INNER PAGES ── */
       .inner-page { padding: 2rem 1.2rem 3rem; }
@@ -1087,7 +1101,8 @@
           <span onclick="navigate('benefactor')" class="home-footer-link">Patronage</span>
           <span class="home-footer-sep">·</span>
           <span onclick="navigate('contact')" class="home-footer-link">Contact</span>
-          <span class="home-footer-sep">·</span>
+        </div>
+        <div class="home-footer-links">
           <span onclick="navigate('privacy')" class="home-footer-link">Privacy Policy</span>
           <span class="home-footer-sep">·</span>
           <span onclick="navigate('terms')" class="home-footer-link">Terms of Service</span>
