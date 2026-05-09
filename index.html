@@ -530,12 +530,11 @@
     ══════════════════════════════════════ */
     @media (max-width: 600px) {
 
-      /* ── HOME PAGE ── */
-
-      /* Page is a fixed viewport — no scroll on home */
+      /* Hard lock — no scroll */
+      body { overflow: hidden; height: 100vh; }
       #page-home { overflow: hidden; height: 100vh; }
 
-      /* Home flex container fills viewport, centered */
+      /* Home fills viewport, content centered */
       .home {
         overflow: hidden;
         height: 100vh;
@@ -544,7 +543,6 @@
         align-items: center;
         justify-content: center;
         padding: 0 1rem;
-        padding-top: 4rem;
       }
 
       /* Hide desktop rays */
@@ -559,35 +557,45 @@
         z-index: 1; pointer-events: none;
       }
 
-      /* Glow pool */
+      /* Glow pool — flat perimeter is the reference line */
       .glow-pool { width: 240px; height: 180px; top: 38%; }
 
-      /* Title */
+      /* "City of Louis" — sits just above the flat top of the glow pool */
       .site-title {
         font-size: 13.5px;
         letter-spacing: 0.38em;
-        margin-bottom: 1.4rem;
-        margin-top: -1rem;
+        margin-bottom: 0.5rem;
+        margin-top: 0;
       }
 
-      /* Prism */
+      /* Prism — shifted up to stay tight to title */
       .prism-wrap {
         width: min(345px, 94vw);
         height: min(306px, 84vw);
+        margin-top: -1.2rem;
       }
 
-      /* Tagline + patronage */
-      .tagline { font-size: 14px; margin-top: 0.6rem; letter-spacing: 0.04em; color: #7a6c38; }
-      .benefactor-link-wrap { margin-top: 0.5rem; }
+      /* Tagline + patronage follow upward correspondingly */
+      .tagline { font-size: 14px; margin-top: 0.3rem; letter-spacing: 0.04em; color: #7a6c38; }
+      .benefactor-link-wrap { margin-top: 0.3rem; }
       .benefactor-link { font-size: 8.6px; letter-spacing: 0.3em; color: #6a5e2a; }
 
-      /* Footer — absolute, pinned to very bottom, outside centered flow */
+      /* Footer — pinned to absolute bottom, no scroll needed */
       .home-footer {
         position: absolute;
         bottom: 0; left: 0; right: 0;
-        padding: 0.8rem 1.2rem 1.4rem;
-        border-top: 0.5px solid #2a2010;
+        padding: 0.4rem 1.2rem 0.7rem;
         z-index: 2;
+        gap: 0.3rem;
+      }
+
+      /* Thin demarcation line above links only */
+      .home-footer-links {
+        border-top: 0.5px solid #2a2010;
+        padding-top: 0.4rem;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.3rem;
       }
 
       /* ── INNER PAGES ── */
