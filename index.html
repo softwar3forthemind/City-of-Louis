@@ -601,32 +601,44 @@
       }
       .benefactor-link { font-size: 8.6px; letter-spacing: 0.3em; color: #6a5e2a; }
 
-      /* Footer — copyright is the absolute base of the page, flush with ray boundary */
+      /* Footer — pinned to bottom, copyright is the last line at the ray boundary */
       .home-footer {
         position: absolute;
         bottom: 0; left: 0; right: 0;
-        padding: 0.5rem 1.2rem 0.4rem;
-        z-index: 2;
-        gap: 0.25rem;
         display: flex;
         flex-direction: column;
         align-items: center;
+        gap: 0.2rem;
+        padding: 0.4rem 1rem 0.5rem;
+        z-index: 2;
+      }
+
+      .home-footer-rule {
+        width: 60px;
+        margin-bottom: 0.1rem;
+      }
+
+      .home-footer-desc {
+        font-size: 10px;
+        line-height: 1.6;
+        text-align: center;
+        max-width: 90vw;
       }
 
       /* Links row */
       .home-footer-links {
         border-top: 0.5px solid #2a2010;
-        padding-top: 0.35rem;
+        padding-top: 0.3rem;
         flex-wrap: wrap;
         justify-content: center;
-        gap: 0.3rem;
+        gap: 0.25rem;
       }
 
-      /* Copyright is last — sits at the very bottom boundary */
+      /* Copyright is last — absolute base */
       .home-footer-copy {
         font-size: 6px;
         letter-spacing: 0.25em;
-        padding-bottom: 0.3rem;
+        margin-top: 0.1rem;
       }
 
       /* ── INNER PAGES ── */
