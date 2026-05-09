@@ -534,15 +534,16 @@
       body { overflow: hidden; height: 100vh; }
       #page-home { overflow: hidden; height: 100vh; }
 
-      /* Home fills viewport, content centered */
+      /* Home fills viewport — content pushed down so title sits above glow pool at ~38% */
       .home {
         overflow: hidden;
         height: 100vh;
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
+        justify-content: flex-start;
         padding: 0 1rem;
+        padding-top: 32vh;
       }
 
       /* Hide desktop rays */
