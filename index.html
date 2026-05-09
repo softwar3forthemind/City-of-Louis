@@ -530,6 +530,21 @@
     ══════════════════════════════════════ */
     @media (max-width: 600px) {
 
+      /* Allow scroll so footer is reachable at bottom */
+      body { overflow-x: hidden; }
+      #page-home { overflow-y: auto; }
+
+      /* Home layout — centered column, footer pushed to bottom */
+      .home {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        padding: 0 1rem 0;
+        overflow: visible;
+        height: auto;
+      }
 
       /* Hide desktop rays on mobile */
       .rays { display: none; }
@@ -543,15 +558,7 @@
         z-index: 1; pointer-events: none;
       }
 
-      /* Home layout — centered column */
-      .home {
-        min-height: 100vh;
-        padding: 0 1rem;
-        justify-content: center;
-        align-items: center;
-      }
-
-      /* Glow pool — lower so City of Louis sits just above its crest */
+      /* Glow pool */
       .glow-pool {
         width: 240px; height: 180px;
         top: 38%;
@@ -583,19 +590,21 @@
         color: #6a5e2a;
       }
 
+      /* Footer pushed to very bottom, out of centered flow */
       .home-footer {
         position: relative;
         bottom: auto;
+        width: 100%;
+        margin-top: 3rem;
+        padding: 1.2rem 1rem 2.5rem;
         border-top: 0.5px solid #2a2010;
-        padding-top: 0.8rem;
-        margin-top: 1.2rem;
-        padding-bottom: 2rem;
       }
 
-      /* Allow scroll on mobile so footer is reachable */
-      body { overflow: auto; height: auto; }
-      #page-home { overflow: auto; height: auto; }
-      .home { overflow: visible; height: auto; min-height: 100vh; padding-bottom: 1rem; }
+      /* Music toggle — top left */
+      .music-toggle {
+        bottom: auto; right: auto;
+        top: 1.2rem; left: 1.2rem;
+      }
 
       /* ── INNER PAGES ── */
       .inner-page { padding: 2rem 1.2rem 3rem; }
@@ -680,12 +689,6 @@
       color: #4a3e1e; text-transform: uppercase; transition: color 0.3s;
     }
     .music-toggle.playing .music-label { color: #8a7640; }
-    @media (max-width: 600px) {
-      .music-toggle {
-        bottom: auto; right: auto;
-        top: 1.2rem; left: 1.2rem;
-      }
-    }
 
     .home-footer-rule {
       width: 120px; height: 0.5px;
