@@ -534,16 +534,16 @@
       body { overflow: hidden; height: 100vh; }
       #page-home { overflow: hidden; height: 100vh; }
 
-      /* Home fills viewport — content pushed down so title sits above glow pool at ~38% */
+      /* Home fills viewport, position: relative so children can use absolute */
       .home {
         overflow: hidden;
         height: 100vh;
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: flex-start;
+        justify-content: center;
         padding: 0 1rem;
-        padding-top: 32vh;
+        position: relative;
       }
 
       /* Hide desktop rays */
@@ -558,27 +558,47 @@
         z-index: 1; pointer-events: none;
       }
 
-      /* Glow pool — flat perimeter is the reference line */
+      /* Glow pool — flat perimeter sits at top: 38%, transform: -50% means flat top = 38% - 50% of 180px = 38% - 90px */
       .glow-pool { width: 240px; height: 180px; top: 38%; }
 
-      /* "City of Louis" — sits just above the flat top of the glow pool */
+      /* City of Louis — anchored exactly at the glow pool flat perimeter */
       .site-title {
+        position: absolute;
+        top: calc(38vh - 90px - 22px);
+        left: 50%; transform: translateX(-50%);
         font-size: 13.5px;
         letter-spacing: 0.38em;
-        margin-bottom: 0.5rem;
-        margin-top: 0;
+        margin: 0;
+        white-space: nowrap;
+        z-index: 3;
       }
 
-      /* Prism — shifted up to stay tight to title */
+      /* Prism — immediately below title */
       .prism-wrap {
+        position: absolute;
+        top: calc(38vh - 90px);
+        left: 50%; transform: translateX(-50%);
         width: min(345px, 94vw);
         height: min(306px, 84vw);
-        margin-top: -1.2rem;
+        z-index: 3;
       }
 
-      /* Tagline + patronage follow upward correspondingly */
-      .tagline { font-size: 14px; margin-top: 0.3rem; letter-spacing: 0.04em; color: #7a6c38; }
-      .benefactor-link-wrap { margin-top: 0.3rem; }
+      /* Tagline — below prism */
+      .tagline {
+        position: absolute;
+        top: calc(38vh - 90px + min(306px, 84vw) + 4px);
+        left: 50%; transform: translateX(-50%);
+        font-size: 14px; letter-spacing: 0.04em; color: #7a6c38;
+        margin: 0; white-space: nowrap; z-index: 3;
+      }
+
+      /* Patronage — below tagline */
+      .benefactor-link-wrap {
+        position: absolute;
+        top: calc(38vh - 90px + min(306px, 84vw) + 30px);
+        left: 50%; transform: translateX(-50%);
+        margin: 0; z-index: 3;
+      }
       .benefactor-link { font-size: 8.6px; letter-spacing: 0.3em; color: #6a5e2a; }
 
       /* Footer — pinned to absolute bottom, no scroll needed */
