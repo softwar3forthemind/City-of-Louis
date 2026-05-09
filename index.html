@@ -475,6 +475,14 @@
       color: #2e2810; text-align: center; line-height: 1.7;
     }
 
+    .benefactor-disclaimer {
+      font-family: 'EB Garamond', serif; font-size: 11px; font-style: italic;
+      color: #2a2210; text-align: center; line-height: 1.8;
+      margin-top: 2.5rem; padding-top: 1.5rem;
+      border-top: 0.5px solid #1e1a0e;
+      max-width: 380px;
+    }
+
     /* ── REMAIN IN UNION email form ── */
     .union-wrap {
       width: 100%; display: flex; flex-direction: column;
@@ -1304,7 +1312,7 @@
           </div>
         </div>
 
-        <button class="stripe-btn" onclick="handleContribute()">Advance the Mission →</button>
+        <button class="stripe-btn" onclick="handleContribute()">Become a Benefactor →</button>
 
         <p class="stripe-note">
           Secured by Stripe. No account required.
@@ -1327,6 +1335,10 @@
           </div>
           <div class="union-msg" id="union-msg-bene"></div>
         </div>
+
+        <p class="benefactor-disclaimer">
+          City of Louis is an independent publishing platform producing original analysis across law, capital, and philosophy. Payments constitute subscriptions to published content and editorial work — not charitable donations, crowdfunding, or fundraising. All transactions are processed securely through Stripe.
+        </p>
 
       </div>
     </div>
@@ -1552,11 +1564,11 @@
         if (data.url) {
           window.location.href = data.url;
         } else {
-          btn.textContent = 'Advance the Mission →';
+          btn.textContent = 'Become a Benefactor →';
           alert('Something went wrong. Please try again.');
         }
       } catch(e) {
-        btn.textContent = 'Advance the Mission →';
+        btn.textContent = 'Become a Benefactor →';
         alert('Something went wrong. Please try again.');
       }
     }
