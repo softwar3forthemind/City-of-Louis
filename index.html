@@ -601,22 +601,32 @@
       }
       .benefactor-link { font-size: 8.6px; letter-spacing: 0.3em; color: #6a5e2a; }
 
-      /* Footer — pinned to absolute bottom, no scroll needed */
+      /* Footer — copyright is the absolute base of the page, flush with ray boundary */
       .home-footer {
         position: absolute;
         bottom: 0; left: 0; right: 0;
-        padding: 0.4rem 1.2rem 0.7rem;
+        padding: 0.5rem 1.2rem 0.4rem;
         z-index: 2;
-        gap: 0.3rem;
+        gap: 0.25rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
       }
 
-      /* Thin demarcation line above links only */
+      /* Links row */
       .home-footer-links {
         border-top: 0.5px solid #2a2010;
-        padding-top: 0.4rem;
+        padding-top: 0.35rem;
         flex-wrap: wrap;
         justify-content: center;
         gap: 0.3rem;
+      }
+
+      /* Copyright is last — sits at the very bottom boundary */
+      .home-footer-copy {
+        font-size: 6px;
+        letter-spacing: 0.25em;
+        padding-bottom: 0.3rem;
       }
 
       /* ── INNER PAGES ── */
@@ -1074,7 +1084,7 @@
           <span class="home-footer-sep">·</span>
           <span onclick="navigate('terms')" class="home-footer-link">Terms of Service</span>
         </div>
-        <div class="home-footer-copy">© 2026 Louis Stevens. All rights reserved.</div>
+        <div class="home-footer-copy">© 2026 City of Louis. All rights reserved.</div>
       </div>
     </div>
   </div>
