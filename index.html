@@ -476,10 +476,9 @@
     }
 
     .benefactor-disclaimer {
-      font-family: 'EB Garamond', serif; font-size: 11px; font-style: italic;
-      color: #2a2210; text-align: center; line-height: 1.8;
-      margin-top: 2.5rem; padding-top: 1.5rem;
-      border-top: 0.5px solid #1e1a0e;
+      font-family: 'EB Garamond', serif; font-size: 13px;
+      color: #6a5c38; text-align: center; line-height: 1.9;
+      margin-top: 1.2rem; margin-bottom: 0.5rem;
       max-width: 380px;
     }
 
@@ -817,7 +816,7 @@
 
       <div class="tagline">Authoring a New Future.</div>
       <div class="benefactor-link-wrap">
-        <span class="benefactor-link" onclick="navigate('benefactor')">Become a Benefactor</span>
+        <span class="benefactor-link" onclick="navigate('benefactor')">Patronage</span>
       </div>
     </div>
   </div>
@@ -1286,7 +1285,7 @@
           <div class="benefactor-rule"></div>
         </div>
 
-        <h1 class="benefactor-heading">Become a Benefactor</h1>
+        <h1 class="benefactor-heading">Patronage</h1>
 
         <p class="benefactor-intro">
           Everything within these walls is freely given.<br/>
@@ -1312,7 +1311,11 @@
           </div>
         </div>
 
-        <button class="stripe-btn" onclick="handleContribute()">Become a Benefactor →</button>
+        <button class="stripe-btn" onclick="handleContribute()">Become a Patron →</button>
+
+        <p class="benefactor-disclaimer">
+          City of Louis is an independent publishing platform producing original analysis across law, capital, and philosophy. Payments constitute subscriptions to published content and editorial work — not charitable donations, crowdfunding, or fundraising. All transactions are processed securely through Stripe.
+        </p>
 
         <p class="stripe-note">
           Secured by Stripe. No account required.
@@ -1335,10 +1338,6 @@
           </div>
           <div class="union-msg" id="union-msg-bene"></div>
         </div>
-
-        <p class="benefactor-disclaimer">
-          City of Louis is an independent publishing platform producing original analysis across law, capital, and philosophy. Payments constitute subscriptions to published content and editorial work — not charitable donations, crowdfunding, or fundraising. All transactions are processed securely through Stripe.
-        </p>
 
       </div>
     </div>
@@ -1564,11 +1563,11 @@
         if (data.url) {
           window.location.href = data.url;
         } else {
-          btn.textContent = 'Become a Benefactor →';
+          btn.textContent = 'Become a Patron →';
           alert('Something went wrong. Please try again.');
         }
       } catch(e) {
-        btn.textContent = 'Become a Benefactor →';
+        btn.textContent = 'Become a Patron →';
         alert('Something went wrong. Please try again.');
       }
     }
