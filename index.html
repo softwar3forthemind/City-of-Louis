@@ -700,6 +700,41 @@
       color: #5a4e28; text-transform: uppercase;
     }
 
+    .benefactor-terms {
+      margin-top: 2rem; text-align: center;
+    }
+    .benefactor-terms-link {
+      font-family: 'Cinzel', serif; font-size: 7.5px; letter-spacing: 0.3em;
+      color: #5a4e28; text-transform: uppercase; cursor: pointer;
+      border-bottom: 0.5px solid #3a3018; padding-bottom: 2px;
+      transition: color 0.2s;
+    }
+    .benefactor-terms-link:hover { color: #c8a030; }
+
+    /* ── TERMS OF SERVICE ── */
+    .terms-body {
+      max-width: 620px; margin: 0 auto; padding-bottom: 4rem;
+    }
+    .terms-updated {
+      font-family: 'Cinzel', serif; font-size: 7.5px; letter-spacing: 0.3em;
+      color: #4a3e1e; text-transform: uppercase; margin-bottom: 2.5rem;
+    }
+    .terms-section {
+      font-family: 'Cinzel', serif; font-size: 9px; letter-spacing: 0.3em;
+      color: #7a6a30; text-transform: uppercase; margin: 2.2rem 0 0.8rem;
+      border-bottom: 0.5px solid #1e1a0e; padding-bottom: 0.5rem;
+    }
+    .terms-body p {
+      font-family: 'EB Garamond', serif; font-size: 15px; line-height: 1.95;
+      color: #8a7e5a; margin-bottom: 0;
+    }
+    .terms-footer {
+      font-family: 'Cinzel', serif; font-size: 7px; letter-spacing: 0.3em;
+      color: #4a3e1e; text-transform: uppercase; margin-top: 3rem;
+      padding-top: 1.5rem; border-top: 0.5px solid #1e1a0e;
+      text-align: center;
+    }
+
   </style>
 </head>
 <body>
@@ -871,6 +906,8 @@
           <span onclick="navigate('benefactor')" class="home-footer-link">Patronage</span>
           <span class="home-footer-sep">·</span>
           <a href="https://discord.gg/vMjGEXee" target="_blank" class="home-footer-link">Community</a>
+          <span class="home-footer-sep">·</span>
+          <span onclick="navigate('terms')" class="home-footer-link">Terms of Service</span>
         </div>
         <div class="home-footer-copy">© 2026 City of Louis. All rights reserved.</div>
       </div>
@@ -1389,6 +1426,53 @@
           </div>
           <div class="union-msg" id="union-msg-bene"></div>
         </div>
+
+        <div class="benefactor-terms">
+          <span onclick="navigate('terms')" class="benefactor-terms-link">Terms of Service</span>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- TERMS OF SERVICE -->
+  <div class="page" id="page-terms">
+    <div class="inner-page">
+      <div class="page-top">
+        <span class="back-link" onclick="navigate('home')">← Return</span>
+      </div>
+      <div class="page-eyebrow">Legal</div>
+      <h1 class="page-heading">Terms of Service</h1>
+
+      <div class="terms-body">
+
+        <div class="terms-updated">Last updated: May 9, 2026</div>
+
+        <h2 class="terms-section">1. Nature of Service</h2>
+        <p>City of Louis is an independent digital publishing platform operated by a sole proprietor. The platform produces and distributes original written commentary across the domains of law, capital, technology, and philosophy. City of Louis is a content subscription service. It is not a charitable organization, nonprofit entity, crowdfunding platform, or fundraising operation of any kind.</p>
+
+        <h2 class="terms-section">2. Subscription and Payment</h2>
+        <p>Readers may elect to financially support the platform through voluntary subscription payments. These payments constitute compensation for access to published content and the ongoing operation of the platform — not charitable donations, gifts, or contributions to any cause or organization. All payments are processed securely through Stripe, Inc. By completing a payment, you agree to Stripe's Terms of Service in addition to these terms. City of Louis does not store payment information. All transactions are final. Refunds are issued at the sole discretion of City of Louis.</p>
+
+        <h2 class="terms-section">3. Intellectual Property</h2>
+        <p>All content published on City of Louis — including but not limited to written articles, commentary, analysis, design, and visual assets — is the sole intellectual property of City of Louis and its author. Reproduction, redistribution, or republication of any content without explicit written permission is prohibited. Subscribers are granted a personal, non-transferable license to read and access published content for personal use only.</p>
+
+        <h2 class="terms-section">4. Disclaimer</h2>
+        <p>All content published on City of Louis is provided for informational and educational purposes only. Nothing on this platform constitutes financial, legal, investment, or professional advice of any kind. Readers should consult qualified professionals before making any financial or legal decisions. City of Louis makes no representations or warranties regarding the accuracy, completeness, or timeliness of any published content.</p>
+
+        <h2 class="terms-section">5. Limitation of Liability</h2>
+        <p>City of Louis shall not be liable for any direct, indirect, incidental, or consequential damages arising from your use of this platform or reliance on any content published herein. Your use of this platform is at your own risk.</p>
+
+        <h2 class="terms-section">6. Governing Law</h2>
+        <p>These Terms of Service shall be governed by and construed in accordance with the laws of the United States. Any disputes arising from these terms or your use of this platform shall be resolved in a court of competent jurisdiction.</p>
+
+        <h2 class="terms-section">7. Modifications</h2>
+        <p>City of Louis reserves the right to modify these Terms of Service at any time. Continued use of the platform following any modification constitutes acceptance of the updated terms.</p>
+
+        <h2 class="terms-section">8. Contact</h2>
+        <p>For any questions regarding these terms, please contact City of Louis through the platform's community channels.</p>
+
+        <div class="terms-footer">© 2026 City of Louis. All rights reserved.</div>
 
       </div>
     </div>
