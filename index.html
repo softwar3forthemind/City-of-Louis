@@ -573,20 +573,20 @@
         z-index: 3;
       }
 
-      /* Prism — immediately below title */
+      /* Prism — 2.2rem below title, matching desktop */
       .prism-wrap {
         position: absolute;
-        top: calc(38vh - 90px);
+        top: calc(38vh - 90px - 22px + 22px + 2.2rem);
         left: 50%; transform: translateX(-50%);
         width: min(345px, 94vw);
         height: min(306px, 84vw);
         z-index: 3;
       }
 
-      /* Tagline — below prism */
+      /* Tagline — 2rem below prism, matching desktop */
       .tagline {
         position: absolute;
-        top: calc(38vh - 90px + min(306px, 84vw) + 4px);
+        top: calc(38vh - 90px - 22px + 22px + 2.2rem + min(306px, 84vw) + 2rem);
         left: 50%; transform: translateX(-50%);
         font-size: 14px; letter-spacing: 0.04em; color: #7a6c38;
         margin: 0; white-space: nowrap; z-index: 3;
@@ -595,7 +595,7 @@
       /* Patronage — below tagline */
       .benefactor-link-wrap {
         position: absolute;
-        top: calc(38vh - 90px + min(306px, 84vw) + 30px);
+        top: calc(38vh - 90px - 22px + 22px + 2.2rem + min(306px, 84vw) + 2rem + 36px);
         left: 50%; transform: translateX(-50%);
         margin: 0; z-index: 3;
       }
