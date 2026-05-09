@@ -724,12 +724,27 @@
     }
     .benefactor-terms-link:hover { color: #c8a030; }
 
+    /* ── HEADING + SUBSCRIBE ROW ── */
+    .heading-subscribe-row {
+      display: flex; align-items: flex-end; justify-content: space-between;
+      gap: 1.5rem; flex-wrap: wrap;
+      margin-bottom: 2rem; padding-bottom: 1.2rem;
+      border-bottom: 0.5px solid #2a2418;
+    }
+    .page-heading--inline {
+      margin-bottom: 0; padding-bottom: 0;
+      border-bottom: none; flex-shrink: 0;
+    }
+    .heading-subscribe-row .pillar-subscribe {
+      margin-bottom: 0; flex: 1; min-width: 180px; max-width: 300px;
+    }
+
     /* ── PILLAR SUBSCRIBE BOX ── */
     .pillar-subscribe {
       display: flex; align-items: center; gap: 0;
       border-bottom: 0.5px solid #3a3018;
       width: 100%; max-width: 340px;
-      padding-bottom: 6px; margin-bottom: 2.8rem;
+      padding-bottom: 6px;
     }
     .pillar-subscribe-input {
       font-family: 'EB Garamond', serif; font-size: 15px; font-style: italic;
@@ -1023,7 +1038,14 @@
         <span class="back-link" onclick="navigate('home')">← Return</span>
       </div>
       <div class="page-eyebrow">Teachings</div>
-      <h1 class="page-heading">New Adam</h1>
+      <div class="heading-subscribe-row">
+        <h1 class="page-heading page-heading--inline">New Adam</h1>
+        <div class="pillar-subscribe">
+          <input class="pillar-subscribe-input" id="sub-newadам" type="email" placeholder="Subscribe with your email"/>
+          <button class="pillar-subscribe-btn" onclick="subscribeEmail('sub-newadам')">→</button>
+        </div>
+      </div>
+      <div class="pillar-subscribe-msg" id="union-msg-sub-newadам"></div>
 
       <!-- Foundational document link — top -->
       <div class="foundation-link-wrap" id="foundation-wrap">
@@ -1031,22 +1053,6 @@
         <span class="foundation-link" onclick="navigate('foundation')">Breathing Life Into Adam</span>
         <div class="foundation-link-rule"></div>
       </div>
-
-      <!-- Subscribe -->
-      <div class="union-wrap">
-        <div class="union-form">
-          <input class="union-input" id="union-email-newadам" type="email" placeholder="Subscribe with your email"/>
-          <button class="union-btn" onclick="subscribeEmail('union-email-newadам')">→</button>
-        </div>
-        <div class="union-msg" id="union-msg-newadам"></div>
-      </div>
-
-      <!-- Subscribe -->
-      <div class="pillar-subscribe">
-        <input class="pillar-subscribe-input" id="sub-newadам" type="email" placeholder="Subscribe with your email"/>
-        <button class="pillar-subscribe-btn" onclick="subscribeEmail('sub-newadам')">→</button>
-      </div>
-      <div class="pillar-subscribe-msg" id="union-msg-sub-newadам"></div>
 
       <!-- Entry list view -->
       <div class="entry-list" id="list-newadам">
@@ -1079,21 +1085,12 @@
         <a class="portfolio-link" href="https://docs.google.com/spreadsheets/d/e/2PACX-1vR-KLXxwoWarik_XuJ4JF1qc607VBxeZ-Sq65tAeazDa7XE9QVeT3khtilof5GbNU8AvU2N7MAD9J0q/pubhtml" target="_blank">Portfolio →</a>
       </div>
       <div class="page-eyebrow">Teachings</div>
-      <h1 class="page-heading">Capital</h1>
-
-      <!-- Subscribe -->
-      <div class="union-wrap">
-        <div class="union-form">
-          <input class="union-input" id="union-email-capital" type="email" placeholder="Subscribe with your email"/>
-          <button class="union-btn" onclick="subscribeEmail('union-email-capital')">→</button>
+      <div class="heading-subscribe-row">
+        <h1 class="page-heading page-heading--inline">Capital</h1>
+        <div class="pillar-subscribe">
+          <input class="pillar-subscribe-input" id="sub-capital" type="email" placeholder="Subscribe with your email"/>
+          <button class="pillar-subscribe-btn" onclick="subscribeEmail('sub-capital')">→</button>
         </div>
-        <div class="union-msg" id="union-msg-capital"></div>
-      </div>
-
-      <!-- Subscribe -->
-      <div class="pillar-subscribe">
-        <input class="pillar-subscribe-input" id="sub-capital" type="email" placeholder="Subscribe with your email"/>
-        <button class="pillar-subscribe-btn" onclick="subscribeEmail('sub-capital')">→</button>
       </div>
       <div class="pillar-subscribe-msg" id="union-msg-sub-capital"></div>
 
@@ -1120,21 +1117,12 @@
         <span class="back-link" onclick="navigate('home')">← Return</span>
       </div>
       <div class="page-eyebrow">Teachings</div>
-      <h1 class="page-heading">Law</h1>
-
-      <!-- Subscribe -->
-      <div class="union-wrap">
-        <div class="union-form">
-          <input class="union-input" id="union-email-law" type="email" placeholder="Subscribe with your email"/>
-          <button class="union-btn" onclick="subscribeEmail('union-email-law')">→</button>
+      <div class="heading-subscribe-row">
+        <h1 class="page-heading page-heading--inline">Law</h1>
+        <div class="pillar-subscribe">
+          <input class="pillar-subscribe-input" id="sub-law" type="email" placeholder="Subscribe with your email"/>
+          <button class="pillar-subscribe-btn" onclick="subscribeEmail('sub-law')">→</button>
         </div>
-        <div class="union-msg" id="union-msg-law"></div>
-      </div>
-
-      <!-- Subscribe -->
-      <div class="pillar-subscribe">
-        <input class="pillar-subscribe-input" id="sub-law" type="email" placeholder="Subscribe with your email"/>
-        <button class="pillar-subscribe-btn" onclick="subscribeEmail('sub-law')">→</button>
       </div>
       <div class="pillar-subscribe-msg" id="union-msg-sub-law"></div>
 
@@ -1161,21 +1149,12 @@
         <span class="back-link" onclick="navigate('home')">← Return</span>
       </div>
       <div class="page-eyebrow">Teachings</div>
-      <h1 class="page-heading">Technology</h1>
-
-      <!-- Subscribe -->
-      <div class="union-wrap">
-        <div class="union-form">
-          <input class="union-input" id="union-email-technology" type="email" placeholder="Subscribe with your email"/>
-          <button class="union-btn" onclick="subscribeEmail('union-email-technology')">→</button>
+      <div class="heading-subscribe-row">
+        <h1 class="page-heading page-heading--inline">Technology</h1>
+        <div class="pillar-subscribe">
+          <input class="pillar-subscribe-input" id="sub-technology" type="email" placeholder="Subscribe with your email"/>
+          <button class="pillar-subscribe-btn" onclick="subscribeEmail('sub-technology')">→</button>
         </div>
-        <div class="union-msg" id="union-msg-technology"></div>
-      </div>
-
-      <!-- Subscribe -->
-      <div class="pillar-subscribe">
-        <input class="pillar-subscribe-input" id="sub-technology" type="email" placeholder="Subscribe with your email"/>
-        <button class="pillar-subscribe-btn" onclick="subscribeEmail('sub-technology')">→</button>
       </div>
       <div class="pillar-subscribe-msg" id="union-msg-sub-technology"></div>
 
