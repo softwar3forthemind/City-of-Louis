@@ -8,7 +8,7 @@ const CATEGORIES = ['new-adam', 'capital', 'law', 'technology'];
 
 // Map folder names to the category keys used in index.html
 const CATEGORY_MAP = {
-  'new-adam':   'newadам',
+  'new-adam':   'new-adam',
   'capital':    'capital',
   'law':        'law',
   'technology': 'technology'
