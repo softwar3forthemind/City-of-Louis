@@ -23,6 +23,7 @@ function parseFrontmatter(content) {
     const colonIdx = line.indexOf(':');
     if (colonIdx === -1) return;
     const key   = line.slice(0, colonIdx).trim();
+    // Use slice from first colon only — value may contain colons (e.g. in titles)
     const value = line.slice(colonIdx + 1).trim().replace(/^["']|["']$/g, '');
     meta[key] = value;
   });
