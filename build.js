@@ -19,11 +19,12 @@ function parseFrontmatter(content) {
   if (!match) return { meta: {}, body: content };
 
   const meta = {};
-  match[1].split('\n').forEach(line => {
+  // Join continuation lines (lines starting with spaces) before parsing
+  const normalized = match[1].replace(/\n[ \t]+/g, ' ');
+  normalized.split('\n').forEach(line => {
     const colonIdx = line.indexOf(':');
     if (colonIdx === -1) return;
     const key   = line.slice(0, colonIdx).trim();
-    // Use slice from first colon only — value may contain colons (e.g. in titles)
     const value = line.slice(colonIdx + 1).trim().replace(/^["']|["']$/g, '');
     meta[key] = value;
   });
