@@ -2024,6 +2024,11 @@
       const hash = window.location.hash.replace('#', '');
       if (hash) {
         navigate(hash);
+      } else {
+        // No hash — show home page
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        const home = document.getElementById('page-home');
+        if (home) home.classList.add('active');
       }
     }
 
