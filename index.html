@@ -1909,20 +1909,23 @@
 
     async function loadEntries() {
       try {
-        const res  = await fetch('/entries.json?v=' + Date.now());
-        entries    = await res.json();
+        const res = await fetch('/entries.json?v=' + Date.now());
+        if (res.ok) {
+          const data = await res.json();
+          if (Array.isArray(data)) entries = data;
+        }
       } catch(e) {
-        entries = [];
+        // entries stays as empty array — site still works
       }
-      // Render all pillar pages after entries load
-      const cats = ['newadам', 'capital', 'law', 'technology'];
-      cats.forEach(cat => renderIndex(cat));
+      // Render all pillar pages
+      try {
+        const cats = ['newadам', 'capital', 'law', 'technology'];
+        cats.forEach(cat => renderIndex(cat));
+      } catch(e) {}
     }
 
     window.addEventListener('load', () => {
-      // Show correct page immediately from hash
       loadFromHash();
-      // Load entries in background — renderIndex called after
       loadEntries();
     });
 
@@ -2024,14 +2027,8 @@
     // ─────────────────────────────────────────
     function loadFromHash() {
       const hash = window.location.hash.replace('#', '');
-      if (hash) {
-        navigate(hash);
-      } else {
-        // No hash — show home page
-        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-        const home = document.getElementById('page-home');
-        if (home) home.classList.add('active');
-      }
+      if (hash) navigate(hash);
+      // No hash = home page is already active via HTML class, do nothing
     }
 
     window.addEventListener('hashchange', loadFromHash);
