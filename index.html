@@ -1062,7 +1062,7 @@
           </g>
 
           <!-- CENTER → New Adam -->
-          <g class="tri-zone" onclick="navigate('newadам')">
+          <g class="tri-zone" onclick="navigate('new-adam')">
             <polygon class="tri-fill" points="100,160 260,160 180,300" fill="#1a1505" fill-opacity="0.55"/>
             <polygon points="100,160 260,160 180,300" fill="url(#centerTriGlow)" fill-opacity="0.9"/>
             <polygon points="100,160 260,160 180,300" fill="none" stroke="#ffe090" stroke-width="1.6" stroke-opacity="0.95"/>
@@ -1116,7 +1116,7 @@
   </div>
 
   <!-- NEW ADAM -->
-  <div class="page" id="page-newadам">
+  <div class="page" id="page-new-adam">
     <div class="inner-page">
       <div class="page-top">
         <span class="back-link" onclick="navigate('home')">← Return</span>
@@ -1125,11 +1125,11 @@
       <div class="heading-subscribe-row">
         <h1 class="page-heading page-heading--inline">New Adam</h1>
         <div class="pillar-subscribe">
-          <input class="pillar-subscribe-input" id="sub-newadам" type="email" placeholder="Subscribe with your email"/>
-          <button class="pillar-subscribe-btn" onclick="subscribeEmail('sub-newadам')">→</button>
+          <input class="pillar-subscribe-input" id="sub-new-adam" type="email" placeholder="Subscribe with your email"/>
+          <button class="pillar-subscribe-btn" onclick="subscribeEmail('sub-new-adam')">→</button>
         </div>
       </div>
-      <div class="pillar-subscribe-msg" id="union-msg-sub-newadам"></div>
+      <div class="pillar-subscribe-msg" id="union-msg-sub-new-adam"></div>
 
       <!-- Foundational document link — top -->
       <div class="foundation-link-wrap" id="foundation-wrap">
@@ -1139,19 +1139,19 @@
       </div>
 
       <!-- Entry list view -->
-      <div class="entry-list" id="list-newadам">
-        <div class="entry-index" id="index-newadам"></div>
-        <div class="writing-placeholder" id="empty-newadам" style="display:none;">
+      <div class="entry-list" id="list-new-adam">
+        <div class="entry-index" id="index-new-adam"></div>
+        <div class="writing-placeholder" id="empty-new-adam" style="display:none;">
           The first entry has not yet been written.
         </div>
       </div>
 
       <!-- Single entry view -->
-      <div class="entry-view" id="entry-newadам">
-        <span class="entry-back" onclick="closeEntry('newadам')">← All Entries</span>
-        <div class="entry-full-date" id="entry-date-newadам"></div>
-        <h2 class="entry-full-title" id="entry-title-newadам"></h2>
-        <div class="entry-full-body" id="entry-body-newadам"></div>
+      <div class="entry-view" id="entry-new-adam">
+        <span class="entry-back" onclick="closeEntry('new-adam')">← All Entries</span>
+        <div class="entry-full-date" id="entry-date-new-adam"></div>
+        <h2 class="entry-full-title" id="entry-title-new-adam"></h2>
+        <div class="entry-full-body" id="entry-body-new-adam"></div>
       </div>
 
       <div class="community-threshold">
@@ -1493,7 +1493,7 @@
 
     <!-- Page content -->
     <div class="foundation-content">
-      <span class="foundation-back" onclick="navigate('newadам')">← Return</span>
+      <span class="foundation-back" onclick="navigate('new-adam')">← Return</span>
 
       <!-- Arch ornament SVG -->
       <div class="foundation-arch-wrap">
@@ -1913,15 +1913,19 @@
         if (res.ok) {
           const data = await res.json();
           if (Array.isArray(data)) entries = data;
+          console.log('entries.json loaded:', JSON.stringify(entries));
+        } else {
+          console.log('entries.json fetch failed:', res.status);
         }
       } catch(e) {
-        // entries stays as empty array — site still works
+        console.log('entries.json error:', e.message);
       }
-      // Render all pillar pages
       try {
-        const cats = ['newadам', 'capital', 'law', 'technology'];
+        const cats = ['new-adam', 'capital', 'law', 'technology'];
         cats.forEach(cat => renderIndex(cat));
-      } catch(e) {}
+      } catch(e) {
+        console.log('renderIndex error:', e.message);
+      }
     }
 
     window.addEventListener('load', async () => {
@@ -1986,7 +1990,7 @@
 
       // Hide foundation/community links on New Adam when reading an entry
       const fw = document.getElementById('foundation-wrap');
-      if (fw && category === 'newadам') fw.style.display = 'none';
+      if (fw && category === 'new-adam') fw.style.display = 'none';
 
       window.scrollTo(0, 0);
     }
@@ -1999,7 +2003,7 @@
       document.getElementById('entry-' + category).classList.remove('active');
 
       const fw = document.getElementById('foundation-wrap');
-      if (fw && category === 'newadам') fw.style.display = '';
+      if (fw && category === 'new-adam') fw.style.display = '';
 
       window.scrollTo(0, 0);
     }
@@ -2021,7 +2025,7 @@
       }
 
       // Render entry index when navigating to a content page
-      const cats = ['newadам', 'capital', 'law', 'technology'];
+      const cats = ['new-adam', 'capital', 'law', 'technology'];
       if (cats.includes(target)) renderIndex(target);
     }
 
