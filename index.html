@@ -1914,14 +1914,16 @@
       } catch(e) {
         entries = [];
       }
-      // Re-render all pillar pages after entries load
+      // Render all pillar pages after entries load
       const cats = ['newadам', 'capital', 'law', 'technology'];
       cats.forEach(cat => renderIndex(cat));
     }
 
-    window.addEventListener('load', async () => {
-      await loadEntries();
+    window.addEventListener('load', () => {
+      // Show correct page immediately from hash
       loadFromHash();
+      // Load entries in background — renderIndex called after
+      loadEntries();
     });
 
     // ─────────────────────────────────────────
