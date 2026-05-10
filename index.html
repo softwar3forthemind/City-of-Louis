@@ -1901,44 +1901,33 @@
         msg.textContent = 'Something went wrong. Please try again.';
       }
     }
-    // When Decap CMS is connected, this array
-    // will be populated from your markdown files.
-    // For now, sample entries demonstrate the layout.
     // ─────────────────────────────────────────
-    const entries = [
-      {
-        id: 'na-001',
-        category: 'newadам',
-        date: '2026-05-04',
-        title: 'The New Adam Defined',
-        excerpt: 'What it means to be forged rather than born into a way of thinking.',
-        body: `<p>This is a sample entry to show how your writing will appear. Replace this with your words when you publish your first entry through the Decap CMS portal.</p><p>Each entry will display with its date, title, and full body text. Paragraphs are spaced for reading. The typography is set for contemplation, not consumption.</p>`
-      },
-      {
-        id: 'cap-001',
-        category: 'capital',
-        date: '2026-05-04',
-        title: 'On the Nature of Capital',
-        excerpt: 'Capital is not money. It is stored intention.',
-        body: `<p>This is a sample entry for the Capital pillar. Your actual writing on capital allocation, investment philosophy, and financial sovereignty will live here.</p><p>Delete this entry through the Decap portal once you publish your first real piece.</p>`
-      },
-      {
-        id: 'law-001',
-        category: 'law',
-        date: '2026-05-04',
-        title: 'The First Principle of Law',
-        excerpt: 'Before statute, before precedent — there is the principle.',
-        body: `<p>This is a sample entry for the Law pillar. Your writings on law, morality, and the ordering of civilization will appear here.</p>`
-      },
-      {
-        id: 'tech-001',
-        category: 'technology',
-        date: '2026-05-04',
-        title: 'Technology as Extension of Will',
-        excerpt: 'Every tool is a thought made physical.',
-        body: `<p>This is a sample entry for the Technology pillar. Your writings on technology, its promise, and its dangers will appear here.</p>`
+    // ENTRIES — loaded from entries.json at runtime
+    // Generated at deploy time by build.js
+    // ─────────────────────────────────────────
+    let entries = [];
+
+    async function loadEntries() {
+      try {
+        const res  = await fetch('/entries.json?v=' + Date.now());
+        entries    = await res.json();
+      } catch(e) {
+        entries = [];
       }
-    ];
+      // Re-render whatever pillar page is currently active
+      const cats = ['newadам', 'capital', 'law', 'technology'];
+      cats.forEach(cat => {
+        if (document.getElementById('list-' + cat) &&
+            !document.getElementById('list-' + cat).classList.contains('hidden')) {
+          renderIndex(cat);
+        }
+      });
+    }
+
+    window.addEventListener('load', () => {
+      loadEntries();
+      loadFromHash();
+    });
 
     // ─────────────────────────────────────────
     // FORMAT DATE
@@ -2043,7 +2032,6 @@
       }
     }
 
-    window.addEventListener('load', loadFromHash);
     window.addEventListener('hashchange', loadFromHash);
 
     // Benefactor identity toggle
