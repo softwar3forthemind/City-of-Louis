@@ -1914,19 +1914,14 @@
       } catch(e) {
         entries = [];
       }
-      // Re-render whatever pillar page is currently active
+      // Re-render all pillar pages after entries load
       const cats = ['newadам', 'capital', 'law', 'technology'];
-      cats.forEach(cat => {
-        if (document.getElementById('list-' + cat) &&
-            !document.getElementById('list-' + cat).classList.contains('hidden')) {
-          renderIndex(cat);
-        }
-      });
+      cats.forEach(cat => renderIndex(cat));
     }
 
-    window.addEventListener('load', () => {
-      loadEntries();
+    window.addEventListener('load', async () => {
       loadFromHash();
+      await loadEntries();
     });
 
     // ─────────────────────────────────────────
