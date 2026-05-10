@@ -1924,9 +1924,12 @@
       } catch(e) {}
     }
 
-    window.addEventListener('load', () => {
+    window.addEventListener('load', async () => {
+      // Keep home page visible while entries load
+      const home = document.getElementById('page-home');
+      if (home) home.classList.add('active');
+      await loadEntries();
       loadFromHash();
-      loadEntries();
     });
 
     // ─────────────────────────────────────────
@@ -2069,6 +2072,5 @@
     }
   </script>
 
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </body>
 </html>
