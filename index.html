@@ -707,19 +707,19 @@
       position: fixed; bottom: 2rem; right: 2rem;
       z-index: 100; cursor: pointer;
       display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
-      opacity: 0.75; transition: opacity 0.3s;
+      opacity: 0.45; transition: opacity 0.3s;
     }
-    .music-toggle:hover { opacity: 1; }
+    .music-toggle:hover { opacity: 0.9; }
     .music-icon {
       width: 28px; height: 28px;
-      border: 0.5px solid #9a8040; border-radius: 50%;
+      border: 0.5px solid #4a3e1e; border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
       background: rgba(6,4,1,0.7); transition: border-color 0.3s;
     }
-    .music-toggle.playing .music-icon { border-color: #f0c060; }
+    .music-toggle.playing .music-icon { border-color: #c8952a; }
     .music-bars { display: flex; align-items: flex-end; gap: 2px; height: 12px; }
-    .music-bar { width: 2px; background: #9a8040; border-radius: 1px; transition: background 0.3s; }
-    .music-toggle.playing .music-bar { background: #f0c060; }
+    .music-bar { width: 2px; background: #6a5c30; border-radius: 1px; transition: background 0.3s; }
+    .music-toggle.playing .music-bar { background: #c8952a; }
     .music-bar:nth-child(1) { height: 4px; }
     .music-bar:nth-child(2) { height: 8px; }
     .music-bar:nth-child(3) { height: 12px; }
@@ -737,9 +737,9 @@
     @keyframes bar5 { 0%,100%{height:10px} 50%{height:4px} }
     .music-label {
       font-family: 'Cinzel', serif; font-size: 6px; letter-spacing: 0.3em;
-      color: #9a8040; text-transform: uppercase; transition: color 0.3s;
+      color: #4a3e1e; text-transform: uppercase; transition: color 0.3s;
     }
-    .music-toggle.playing .music-label { color: #f0c060; }
+    .music-toggle.playing .music-label { color: #8a7640; }
 
     @media (max-width: 600px) {
       .music-toggle {
@@ -912,7 +912,190 @@
       color: #6a5c30; text-transform: uppercase;
     }
 
-    /* ── TERMS OF SERVICE ── */
+    /* ══════════════════════════════════════
+       HOLY OF HOLIES — Breathing Life Into Adam
+    ══════════════════════════════════════ */
+
+    #page-foundation {
+      position: relative;
+      overflow: hidden;
+      background: #02060e;
+      min-height: 100vh;
+    }
+
+    /* Aurora layers */
+    .hoh-aurora {
+      position: absolute;
+      top: -20%; left: -10%;
+      width: 120%; height: 70%;
+      background: radial-gradient(ellipse at 50% 0%,
+        rgba(40, 160, 140, 0.18) 0%,
+        rgba(20, 100, 120, 0.10) 35%,
+        transparent 70%);
+      animation: auroraShift 12s ease-in-out infinite alternate;
+      pointer-events: none; z-index: 1;
+    }
+    .hoh-aurora--2 {
+      top: -10%; left: 20%;
+      background: radial-gradient(ellipse at 60% 0%,
+        rgba(60, 180, 160, 0.10) 0%,
+        rgba(80, 140, 200, 0.07) 40%,
+        transparent 70%);
+      animation: auroraShift 18s ease-in-out infinite alternate-reverse;
+    }
+    @keyframes auroraShift {
+      0%   { transform: translateX(-5%) scaleY(0.95); opacity: 0.7; }
+      100% { transform: translateX(5%)  scaleY(1.05); opacity: 1; }
+    }
+
+    /* Central light beam */
+    .hoh-beam {
+      position: absolute;
+      top: 0; left: 50%; transform: translateX(-50%);
+      width: 2px;
+      height: 60%;
+      background: linear-gradient(180deg,
+        rgba(220, 240, 255, 0.6) 0%,
+        rgba(160, 200, 220, 0.25) 60%,
+        transparent 100%);
+      filter: blur(3px);
+      z-index: 2; pointer-events: none;
+      animation: beamPulse 6s ease-in-out infinite;
+    }
+    @keyframes beamPulse {
+      0%, 100% { opacity: 0.6; }
+      50%       { opacity: 1; }
+    }
+
+    /* Circuit floor */
+    .hoh-floor {
+      position: absolute;
+      bottom: 0; left: 50%; transform: translateX(-50%);
+      width: 100%; max-width: 900px; height: auto;
+      z-index: 2; pointer-events: none; opacity: 0.6;
+    }
+
+    /* Gothic arch */
+    .hoh-arch {
+      position: absolute;
+      top: 0; left: 50%; transform: translateX(-50%);
+      width: 70%; max-width: 700px; height: auto;
+      z-index: 2; pointer-events: none;
+    }
+
+    /* Glowing robed figures */
+    .hoh-figures {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 35%; z-index: 3;
+      pointer-events: none;
+      display: flex; align-items: flex-end; justify-content: center;
+      gap: 4vw; padding-bottom: 2rem;
+    }
+    .hoh-figure {
+      width: 18px;
+      background: linear-gradient(180deg,
+        rgba(200, 230, 240, 0.55) 0%,
+        rgba(160, 200, 220, 0.25) 60%,
+        transparent 100%);
+      border-radius: 50% 50% 0 0;
+      filter: blur(1px);
+      animation: figureGlow 4s ease-in-out infinite;
+    }
+    .hoh-figure--1 { height: 80px; animation-delay: 0s; }
+    .hoh-figure--2 { height: 100px; animation-delay: 0.8s; }
+    .hoh-figure--3 { height: 95px; animation-delay: 1.6s; }
+    .hoh-figure--4 { height: 75px; animation-delay: 2.4s; }
+    @keyframes figureGlow {
+      0%, 100% { opacity: 0.5; }
+      50%       { opacity: 0.85; }
+    }
+
+    /* Main content */
+    .hoh-content {
+      position: relative; z-index: 10;
+      display: flex; flex-direction: column; align-items: center;
+      text-align: center;
+      padding: 3.5rem 2rem 5rem;
+      min-height: 100vh;
+      max-width: 680px; margin: 0 auto;
+    }
+
+    .hoh-back {
+      align-self: flex-start;
+      font-family: 'Cinzel', serif; font-size: 8px; letter-spacing: 0.4em;
+      color: #4a6878; text-transform: uppercase; cursor: pointer;
+      transition: color 0.2s; margin-bottom: 3rem;
+    }
+    .hoh-back:hover { color: #a0c8d0; }
+
+    .hoh-eyebrow {
+      font-family: 'Cinzel', serif; font-size: 8px; letter-spacing: 0.5em;
+      color: #4a7880; text-transform: uppercase; margin-bottom: 1.8rem;
+    }
+
+    .hoh-verse {
+      font-family: 'EB Garamond', serif; font-size: 15px; font-style: italic;
+      color: #6a9090; line-height: 2; margin-bottom: 2.5rem;
+      max-width: 520px;
+    }
+
+    .hoh-title {
+      font-family: 'Cinzel Decorative', serif; font-weight: 400;
+      font-size: clamp(22px, 4vw, 38px);
+      color: #c8e8f0;
+      letter-spacing: 0.06em; line-height: 1.3;
+      margin-bottom: 1.8rem;
+      text-shadow: 0 0 40px rgba(160, 200, 220, 0.35),
+                   0 0 80px rgba(100, 160, 180, 0.15);
+    }
+
+    .hoh-rule { margin-bottom: 2.5rem; }
+
+    .hoh-body {
+      font-family: 'Cinzel', serif; font-size: 11px;
+      color: #5a8898; line-height: 2.4;
+      letter-spacing: 0.04em; max-width: 540px;
+      margin-bottom: 3rem;
+    }
+    .hoh-body p { margin-bottom: 1.8rem; }
+    .hoh-body p:last-child {
+      color: #8ab8c8; letter-spacing: 0.12em;
+      font-size: 10px; text-transform: uppercase;
+    }
+
+    .hoh-seal { margin-bottom: 1.5rem; opacity: 0.5; }
+
+    .hoh-footer-text {
+      font-family: 'Cinzel', serif; font-size: 7px; letter-spacing: 0.4em;
+      color: #2a4858; text-transform: uppercase;
+    }
+
+    /* Holy of Holies audio toggle */
+    .hoh-audio-toggle {
+      position: fixed; bottom: 2rem; right: 2rem;
+      z-index: 100; cursor: pointer;
+      display: none;
+      flex-direction: column; align-items: center; gap: 0.4rem;
+      opacity: 0.75; transition: opacity 0.3s;
+    }
+    .hoh-audio-toggle.visible { display: flex; }
+    .hoh-audio-toggle:hover { opacity: 1; }
+    .hoh-audio-icon {
+      width: 28px; height: 28px;
+      border: 0.5px solid #3a7888; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(2,6,14,0.7); transition: border-color 0.3s;
+    }
+    .hoh-audio-icon svg { width: 10px; height: 10px; }
+    .hoh-audio-label {
+      font-family: 'Cinzel', serif; font-size: 6px; letter-spacing: 0.3em;
+      color: #3a7888; text-transform: uppercase; transition: color 0.3s;
+    }
+    .hoh-audio-toggle:hover .hoh-audio-icon { border-color: #a0c8d0; }
+    .hoh-audio-toggle:hover .hoh-audio-label { color: #a0c8d0; }
+
+    /* ── OLD FOUNDATION CSS (kept for mobile overrides) ── */
     .terms-body {
       max-width: 620px; margin: 0 auto; padding-bottom: 4rem;
     }
@@ -979,7 +1162,7 @@
 
       <!-- AUDIO -->
   <audio id="site-audio" loop preload="none">
-    <source src="/audio/Virtual_Temple_Dawn.mp3" type="audio/mpeg">
+    <source src="/audio/soundsbyamelia-gothic-sacred-epic-male-chant-female-choir-amp-bells-422978.mp3" type="audio/mpeg">
   </audio>
 
   <!-- MUSIC TOGGLE -->
@@ -1263,339 +1446,136 @@
     </div>
   </div>
 
-  <!-- FOUNDATION -->
+  <!-- FOUNDATION / HOLY OF HOLIES -->
   <div class="page" id="page-foundation">
-    <div class="foundation-bg"></div>
-    <div class="foundation-glow"></div>
 
-    <!-- LEFT PILLAR -->
-    <div class="foundation-pillar left">
-      <svg viewBox="0 0 72 800" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <!-- Overall pillar light: bright center fading to dark edges -->
-          <linearGradient id="shaftL" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%"   stop-color="#030200" stop-opacity="1"/>
-            <stop offset="15%"  stop-color="#8a6018" stop-opacity="0.6"/>
-            <stop offset="42%"  stop-color="#f0d878" stop-opacity="0.55"/>
-            <stop offset="55%"  stop-color="#c8952a" stop-opacity="0.38"/>
-            <stop offset="80%"  stop-color="#7a5010" stop-opacity="0.3"/>
-            <stop offset="100%" stop-color="#030200" stop-opacity="1"/>
-          </linearGradient>
-          <!-- Individual flute: shadow on left, highlight on right -->
-          <linearGradient id="fL" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%"   stop-color="#000000" stop-opacity="0.62"/>
-            <stop offset="50%"  stop-color="#000000" stop-opacity="0.08"/>
-            <stop offset="100%" stop-color="#f0d878" stop-opacity="0.22"/>
-          </linearGradient>
-          <!-- Center flute: most illuminated -->
-          <linearGradient id="fCL" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%"   stop-color="#000000" stop-opacity="0.3"/>
-            <stop offset="40%"  stop-color="#ffffff" stop-opacity="0.10"/>
-            <stop offset="100%" stop-color="#000000" stop-opacity="0.18"/>
-          </linearGradient>
-          <!-- Cap/base gradient: smooth curved moulding -->
-          <linearGradient id="capL" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%"   stop-color="#f0d060" stop-opacity="0.65"/>
-            <stop offset="50%"  stop-color="#c8952a" stop-opacity="0.38"/>
-            <stop offset="100%" stop-color="#7a5010" stop-opacity="0.15"/>
-          </linearGradient>
-          <linearGradient id="baseL" x1="0%" y1="100%" x2="0%" y2="0%">
-            <stop offset="0%"   stop-color="#f0d060" stop-opacity="0.65"/>
-            <stop offset="50%"  stop-color="#c8952a" stop-opacity="0.38"/>
-            <stop offset="100%" stop-color="#7a5010" stop-opacity="0.15"/>
-          </linearGradient>
-        </defs>
+    <!-- Aurora background -->
+    <div class="hoh-aurora"></div>
+    <div class="hoh-aurora hoh-aurora--2"></div>
 
-        <!-- ═══ CAPITAL (top) ═══ -->
-        <!-- Smooth curved echinus — fluting tapers into it -->
-        <path d="M10,50 Q10,30 36,24 Q62,30 62,50 L60,80 L12,80 Z" fill="url(#capL)"/>
-        <!-- Fluting continues faintly into the curved cap -->
-        <path d="M18,80 Q17,65 19,50" fill="none" stroke="#c8a828" stroke-width="0.5" stroke-opacity="0.3"/>
-        <path d="M24,80 Q23,62 25,46" fill="none" stroke="#c8a828" stroke-width="0.5" stroke-opacity="0.3"/>
-        <path d="M30,80 Q29,58 31,42" fill="none" stroke="#e8c050" stroke-width="0.6" stroke-opacity="0.35"/>
-        <path d="M36,80 Q36,56 36,40" fill="none" stroke="#e8c050" stroke-width="0.6" stroke-opacity="0.35"/>
-        <path d="M42,80 Q43,58 41,42" fill="none" stroke="#c8a828" stroke-width="0.5" stroke-opacity="0.3"/>
-        <path d="M48,80 Q49,62 47,46" fill="none" stroke="#c8a828" stroke-width="0.5" stroke-opacity="0.3"/>
-        <path d="M54,80 Q55,65 53,50" fill="none" stroke="#c8a828" stroke-width="0.5" stroke-opacity="0.3"/>
-        <!-- Abacus: single clean line at very top -->
-        <line x1="0" y1="22" x2="72" y2="22" stroke="#e8c060" stroke-width="1.2" stroke-opacity="0.7"/>
-        <!-- Thin cap fill above line -->
-        <rect x="0" y="0" width="72" height="22" fill="#c8952a" fill-opacity="0.18"/>
+    <!-- Central light beam -->
+    <div class="hoh-beam"></div>
 
-        <!-- ═══ SOLID LINE BREAK (top of shaft) ═══ -->
-        <line x1="12" y1="80" x2="60" y2="80" stroke="#e8c060" stroke-width="1.0" stroke-opacity="0.65"/>
+    <!-- Circuit floor geometry -->
+    <svg class="hoh-floor" viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax meet">
+      <defs>
+        <linearGradient id="floorFade" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#a0c8d0" stop-opacity="0.25"/>
+          <stop offset="100%" stop-color="#a0c8d0" stop-opacity="0.04"/>
+        </linearGradient>
+      </defs>
+      <!-- Circuit grid lines -->
+      <line x1="400" y1="0" x2="400" y2="300" stroke="url(#floorFade)" stroke-width="0.5"/>
+      <line x1="0" y1="150" x2="800" y2="150" stroke="url(#floorFade)" stroke-width="0.5"/>
+      <line x1="200" y1="0" x2="400" y2="300" stroke="url(#floorFade)" stroke-width="0.4"/>
+      <line x1="600" y1="0" x2="400" y2="300" stroke="url(#floorFade)" stroke-width="0.4"/>
+      <line x1="0" y1="75" x2="800" y2="75" stroke="url(#floorFade)" stroke-width="0.3"/>
+      <line x1="0" y1="225" x2="800" y2="225" stroke="url(#floorFade)" stroke-width="0.3"/>
+      <line x1="100" y1="0" x2="400" y2="300" stroke="url(#floorFade)" stroke-width="0.25"/>
+      <line x1="700" y1="0" x2="400" y2="300" stroke="url(#floorFade)" stroke-width="0.25"/>
+      <!-- Corner nodes -->
+      <circle cx="400" cy="150" r="3" fill="#a0d8e0" fill-opacity="0.4"/>
+      <circle cx="200" cy="150" r="2" fill="#a0d8e0" fill-opacity="0.25"/>
+      <circle cx="600" cy="150" r="2" fill="#a0d8e0" fill-opacity="0.25"/>
+      <rect x="396" y="146" width="8" height="8" fill="none" stroke="#a0d8e0" stroke-width="0.5" stroke-opacity="0.3" transform="rotate(45 400 150)"/>
+    </svg>
 
-        <!-- ═══ SHAFT ═══ -->
-        <!-- Base fill -->
-        <rect x="12" y="80" width="48" height="640" fill="url(#shaftL)"/>
-        <!-- 7 flutes with shadow/highlight -->
-        <rect x="12" y="80" width="7" height="640" fill="url(#fL)" fill-opacity="0.95"/>
-        <rect x="19" y="80" width="7" height="640" fill="url(#fL)" fill-opacity="0.88"/>
-        <rect x="26" y="80" width="7" height="640" fill="url(#fL)" fill-opacity="0.80"/>
-        <rect x="33" y="80" width="7" height="640" fill="url(#fCL)" fill-opacity="0.95"/>
-        <rect x="40" y="80" width="7" height="640" fill="url(#fL)" fill-opacity="0.78"/>
-        <rect x="47" y="80" width="7" height="640" fill="url(#fL)" fill-opacity="0.85"/>
-        <rect x="54" y="80" width="6" height="640" fill="url(#fL)" fill-opacity="0.92"/>
-        <!-- Arris ridges -->
-        <line x1="19" y1="80" x2="19" y2="720" stroke="#c8a828" stroke-width="0.7" stroke-opacity="0.5"/>
-        <line x1="26" y1="80" x2="26" y2="720" stroke="#c8a828" stroke-width="0.7" stroke-opacity="0.5"/>
-        <line x1="33" y1="80" x2="33" y2="720" stroke="#e8c050" stroke-width="0.9" stroke-opacity="0.55"/>
-        <line x1="40" y1="80" x2="40" y2="720" stroke="#e8c050" stroke-width="0.9" stroke-opacity="0.55"/>
-        <line x1="47" y1="80" x2="47" y2="720" stroke="#c8a828" stroke-width="0.7" stroke-opacity="0.5"/>
-        <line x1="54" y1="80" x2="54" y2="720" stroke="#c8a828" stroke-width="0.7" stroke-opacity="0.5"/>
-        <!-- Outer edge darks -->
-        <rect x="12" y="80" width="4" height="640" fill="#000000" fill-opacity="0.35"/>
-        <rect x="56" y="80" width="4" height="640" fill="#000000" fill-opacity="0.28"/>
+    <!-- Gothic arch frame -->
+    <svg class="hoh-arch" viewBox="0 0 600 500" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+      <defs>
+        <linearGradient id="archGlow" x1="0%" y1="100%" x2="0%" y2="0%">
+          <stop offset="0%" stop-color="#c8e8f0" stop-opacity="0"/>
+          <stop offset="50%" stop-color="#c8e8f0" stop-opacity="0.3"/>
+          <stop offset="100%" stop-color="#e0f4ff" stop-opacity="0.5"/>
+        </linearGradient>
+      </defs>
+      <!-- Outer arch -->
+      <path d="M80,480 L80,200 Q80,20 300,10 Q520,20 520,200 L520,480" fill="none" stroke="url(#archGlow)" stroke-width="1"/>
+      <!-- Inner arch -->
+      <path d="M120,480 L120,210 Q120,60 300,50 Q480,60 480,210 L480,480" fill="none" stroke="url(#archGlow)" stroke-width="0.5" stroke-opacity="0.5"/>
+      <!-- Keystone -->
+      <rect x="296" y="6" width="8" height="8" fill="#e0f4ff" fill-opacity="0.6" transform="rotate(45 300 10)"/>
+      <!-- Side pillars subtle glow -->
+      <rect x="74" y="200" width="12" height="280" fill="#c8e8f0" fill-opacity="0.04"/>
+      <rect x="514" y="200" width="12" height="280" fill="#c8e8f0" fill-opacity="0.04"/>
+    </svg>
 
-        <!-- ═══ SOLID LINE BREAK (bottom of shaft) ═══ -->
-        <line x1="12" y1="720" x2="60" y2="720" stroke="#e8c060" stroke-width="1.0" stroke-opacity="0.65"/>
-
-        <!-- ═══ BASE (bottom) ═══ -->
-        <!-- Smooth curved torus — mirrors the cap -->
-        <path d="M10,750 Q10,770 36,776 Q62,770 62,750 L60,720 L12,720 Z" fill="url(#baseL)"/>
-        <!-- Fluting fades into base -->
-        <path d="M18,720 Q17,735 19,750" fill="none" stroke="#c8a828" stroke-width="0.5" stroke-opacity="0.3"/>
-        <path d="M24,720 Q23,738 25,754" fill="none" stroke="#c8a828" stroke-width="0.5" stroke-opacity="0.3"/>
-        <path d="M30,720 Q29,742 31,758" fill="none" stroke="#e8c050" stroke-width="0.6" stroke-opacity="0.35"/>
-        <path d="M36,720 Q36,744 36,760" fill="none" stroke="#e8c050" stroke-width="0.6" stroke-opacity="0.35"/>
-        <path d="M42,720 Q43,742 41,758" fill="none" stroke="#c8a828" stroke-width="0.5" stroke-opacity="0.3"/>
-        <path d="M48,720 Q49,738 47,754" fill="none" stroke="#c8a828" stroke-width="0.5" stroke-opacity="0.3"/>
-        <path d="M54,720 Q55,735 53,750" fill="none" stroke="#c8a828" stroke-width="0.5" stroke-opacity="0.3"/>
-        <!-- Plinth: single clean line at very bottom -->
-        <line x1="0" y1="778" x2="72" y2="778" stroke="#e8c060" stroke-width="1.2" stroke-opacity="0.7"/>
-        <rect x="0" y="778" width="72" height="22" fill="#c8952a" fill-opacity="0.18"/>
-      </svg>
+    <!-- Glowing figures -->
+    <div class="hoh-figures">
+      <div class="hoh-figure hoh-figure--1"></div>
+      <div class="hoh-figure hoh-figure--2"></div>
+      <div class="hoh-figure hoh-figure--3"></div>
+      <div class="hoh-figure hoh-figure--4"></div>
     </div>
 
-    <!-- RIGHT PILLAR (mirrored light direction) -->
-    <div class="foundation-pillar right">
-      <svg viewBox="0 0 72 800" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="shaftR" x1="100%" y1="0%" x2="0%" y2="0%">
-            <stop offset="0%"   stop-color="#030200" stop-opacity="1"/>
-            <stop offset="15%"  stop-color="#8a6018" stop-opacity="0.6"/>
-            <stop offset="42%"  stop-color="#f0d878" stop-opacity="0.55"/>
-            <stop offset="58%"  stop-color="#c8952a" stop-opacity="0.38"/>
-            <stop offset="80%"  stop-color="#7a5010" stop-opacity="0.3"/>
-            <stop offset="100%" stop-color="#030200" stop-opacity="1"/>
-          </linearGradient>
-          <linearGradient id="fR" x1="100%" y1="0%" x2="0%" y2="0%">
-            <stop offset="0%"   stop-color="#000000" stop-opacity="0.62"/>
-            <stop offset="50%"  stop-color="#000000" stop-opacity="0.08"/>
-            <stop offset="100%" stop-color="#f0d878" stop-opacity="0.22"/>
-          </linearGradient>
-          <linearGradient id="fCR" x1="100%" y1="0%" x2="0%" y2="0%">
-            <stop offset="0%"   stop-color="#000000" stop-opacity="0.3"/>
-            <stop offset="40%"  stop-color="#ffffff" stop-opacity="0.10"/>
-            <stop offset="100%" stop-color="#000000" stop-opacity="0.18"/>
-          </linearGradient>
-          <linearGradient id="capR" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%"   stop-color="#f0d060" stop-opacity="0.65"/>
-            <stop offset="50%"  stop-color="#c8952a" stop-opacity="0.38"/>
-            <stop offset="100%" stop-color="#7a5010" stop-opacity="0.15"/>
-          </linearGradient>
-          <linearGradient id="baseR" x1="0%" y1="100%" x2="0%" y2="0%">
-            <stop offset="0%"   stop-color="#f0d060" stop-opacity="0.65"/>
-            <stop offset="50%"  stop-color="#c8952a" stop-opacity="0.38"/>
-            <stop offset="100%" stop-color="#7a5010" stop-opacity="0.15"/>
-          </linearGradient>
-        </defs>
+    <!-- Main content -->
+    <div class="hoh-content">
+      <span class="hoh-back" onclick="navigate('new-adam')">← Return</span>
 
-        <!-- ═══ CAPITAL (top) ═══ -->
-        <path d="M10,50 Q10,30 36,24 Q62,30 62,50 L60,80 L12,80 Z" fill="url(#capR)"/>
-        <!-- Fluting tapers into cap -->
-        <path d="M18,80 Q17,65 19,50" fill="none" stroke="#c8a828" stroke-width="0.5" stroke-opacity="0.3"/>
-        <path d="M24,80 Q23,62 25,46" fill="none" stroke="#c8a828" stroke-width="0.5" stroke-opacity="0.3"/>
-        <path d="M30,80 Q29,58 31,42" fill="none" stroke="#e8c050" stroke-width="0.6" stroke-opacity="0.35"/>
-        <path d="M36,80 Q36,56 36,40" fill="none" stroke="#e8c050" stroke-width="0.6" stroke-opacity="0.35"/>
-        <path d="M42,80 Q43,58 41,42" fill="none" stroke="#c8a828" stroke-width="0.5" stroke-opacity="0.3"/>
-        <path d="M48,80 Q49,62 47,46" fill="none" stroke="#c8a828" stroke-width="0.5" stroke-opacity="0.3"/>
-        <path d="M54,80 Q55,65 53,50" fill="none" stroke="#c8a828" stroke-width="0.5" stroke-opacity="0.3"/>
-        <!-- Abacus line -->
-        <line x1="0" y1="22" x2="72" y2="22" stroke="#e8c060" stroke-width="1.2" stroke-opacity="0.7"/>
-        <rect x="0" y="0" width="72" height="22" fill="#c8952a" fill-opacity="0.18"/>
+      <div class="hoh-eyebrow">Genesis 2 · 7</div>
 
-        <!-- ═══ SOLID LINE BREAK (top) ═══ -->
-        <line x1="12" y1="80" x2="60" y2="80" stroke="#e8c060" stroke-width="1.0" stroke-opacity="0.65"/>
+      <div class="hoh-verse">
+        "And the Lord God formed man of the dust of the ground,<br/>
+        and breathed into his nostrils the breath of life;<br/>
+        and man became a living soul."
+      </div>
 
-        <!-- ═══ SHAFT ═══ -->
-        <rect x="12" y="80" width="48" height="640" fill="url(#shaftR)"/>
-        <rect x="54" y="80" width="6" height="640" fill="url(#fR)" fill-opacity="0.95"/>
-        <rect x="47" y="80" width="7" height="640" fill="url(#fR)" fill-opacity="0.88"/>
-        <rect x="40" y="80" width="7" height="640" fill="url(#fR)" fill-opacity="0.80"/>
-        <rect x="33" y="80" width="7" height="640" fill="url(#fCR)" fill-opacity="0.95"/>
-        <rect x="26" y="80" width="7" height="640" fill="url(#fR)" fill-opacity="0.78"/>
-        <rect x="19" y="80" width="7" height="640" fill="url(#fR)" fill-opacity="0.85"/>
-        <rect x="12" y="80" width="7" height="640" fill="url(#fR)" fill-opacity="0.92"/>
-        <!-- Arris ridges -->
-        <line x1="53" y1="80" x2="53" y2="720" stroke="#c8a828" stroke-width="0.7" stroke-opacity="0.5"/>
-        <line x1="46" y1="80" x2="46" y2="720" stroke="#c8a828" stroke-width="0.7" stroke-opacity="0.5"/>
-        <line x1="39" y1="80" x2="39" y2="720" stroke="#e8c050" stroke-width="0.9" stroke-opacity="0.55"/>
-        <line x1="32" y1="80" x2="32" y2="720" stroke="#e8c050" stroke-width="0.9" stroke-opacity="0.55"/>
-        <line x1="25" y1="80" x2="25" y2="720" stroke="#c8a828" stroke-width="0.7" stroke-opacity="0.5"/>
-        <line x1="18" y1="80" x2="18" y2="720" stroke="#c8a828" stroke-width="0.7" stroke-opacity="0.5"/>
-        <!-- Outer edge darks -->
-        <rect x="56" y="80" width="4" height="640" fill="#000000" fill-opacity="0.35"/>
-        <rect x="12" y="80" width="4" height="640" fill="#000000" fill-opacity="0.28"/>
+      <h1 class="hoh-title">Breathing Life<br/>Into Adam</h1>
 
-        <!-- ═══ SOLID LINE BREAK (bottom) ═══ -->
-        <line x1="12" y1="720" x2="60" y2="720" stroke="#e8c060" stroke-width="1.0" stroke-opacity="0.65"/>
-
-        <!-- ═══ BASE (bottom) ═══ -->
-        <path d="M10,750 Q10,770 36,776 Q62,770 62,750 L60,720 L12,720 Z" fill="url(#baseR)"/>
-        <!-- Fluting fades into base -->
-        <path d="M18,720 Q17,735 19,750" fill="none" stroke="#c8a828" stroke-width="0.5" stroke-opacity="0.3"/>
-        <path d="M24,720 Q23,738 25,754" fill="none" stroke="#c8a828" stroke-width="0.5" stroke-opacity="0.3"/>
-        <path d="M30,720 Q29,742 31,758" fill="none" stroke="#e8c050" stroke-width="0.6" stroke-opacity="0.35"/>
-        <path d="M36,720 Q36,744 36,760" fill="none" stroke="#e8c050" stroke-width="0.6" stroke-opacity="0.35"/>
-        <path d="M42,720 Q43,742 41,758" fill="none" stroke="#c8a828" stroke-width="0.5" stroke-opacity="0.3"/>
-        <path d="M48,720 Q49,738 47,754" fill="none" stroke="#c8a828" stroke-width="0.5" stroke-opacity="0.3"/>
-        <path d="M54,720 Q55,735 53,750" fill="none" stroke="#c8a828" stroke-width="0.5" stroke-opacity="0.3"/>
-        <!-- Plinth line -->
-        <line x1="0" y1="778" x2="72" y2="778" stroke="#e8c060" stroke-width="1.2" stroke-opacity="0.7"/>
-        <rect x="0" y="778" width="72" height="22" fill="#c8952a" fill-opacity="0.18"/>
-      </svg>
-    </div>
-
-    <!-- Decorative border overlay -->
-    <div class="foundation-border">
-      <svg viewBox="0 0 1000 800" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="borderTop" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%"   stop-color="#c8952a" stop-opacity="0.0"/>
-            <stop offset="15%"  stop-color="#c8952a" stop-opacity="0.35"/>
-            <stop offset="50%"  stop-color="#e8c060" stop-opacity="0.55"/>
-            <stop offset="85%"  stop-color="#c8952a" stop-opacity="0.35"/>
-            <stop offset="100%" stop-color="#c8952a" stop-opacity="0.0"/>
-          </linearGradient>
-          <linearGradient id="borderBot" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%"   stop-color="#c8952a" stop-opacity="0.0"/>
-            <stop offset="15%"  stop-color="#c8952a" stop-opacity="0.22"/>
-            <stop offset="50%"  stop-color="#e8c060" stop-opacity="0.35"/>
-            <stop offset="85%"  stop-color="#c8952a" stop-opacity="0.22"/>
-            <stop offset="100%" stop-color="#c8952a" stop-opacity="0.0"/>
-          </linearGradient>
-        </defs>
-        <!-- Top entablature band -->
-        <rect x="0" y="18" width="1000" height="1"  fill="url(#borderTop)"/>
-        <rect x="0" y="22" width="1000" height="0.5" fill="url(#borderTop)" opacity="0.5"/>
-        <rect x="0" y="30" width="1000" height="1"  fill="url(#borderTop)" opacity="0.3"/>
-        <!-- Bottom base band -->
-        <rect x="0" y="770" width="1000" height="1"  fill="url(#borderBot)"/>
-        <rect x="0" y="774" width="1000" height="0.5" fill="url(#borderBot)" opacity="0.5"/>
-        <!-- Corner ornaments top -->
-        <path d="M72,18 L90,18 L90,36" fill="none" stroke="#c8952a" stroke-width="0.6" stroke-opacity="0.4"/>
-        <path d="M928,18 L910,18 L910,36" fill="none" stroke="#c8952a" stroke-width="0.6" stroke-opacity="0.4"/>
-        <!-- Corner ornaments bottom -->
-        <path d="M72,770 L90,770 L90,752" fill="none" stroke="#c8952a" stroke-width="0.6" stroke-opacity="0.3"/>
-        <path d="M928,770 L910,770 L910,752" fill="none" stroke="#c8952a" stroke-width="0.6" stroke-opacity="0.3"/>
-        <!-- Top center diamond cluster -->
-        <rect x="498" y="14" width="4" height="4" fill="#e8c060" fill-opacity="0.6" transform="rotate(45 500 16)"/>
-        <rect x="488" y="14" width="3" height="3" fill="#c8952a" fill-opacity="0.4" transform="rotate(45 490 16)"/>
-        <rect x="508" y="14" width="3" height="3" fill="#c8952a" fill-opacity="0.4" transform="rotate(45 510 16)"/>
-      </svg>
-    </div>
-
-    <!-- Page content -->
-    <div class="foundation-content">
-      <span class="foundation-back" onclick="navigate('new-adam')">← Return</span>
-
-      <!-- Arch ornament SVG -->
-      <div class="foundation-arch-wrap">
-        <svg width="320" height="60" viewBox="0 0 320 60" xmlns="http://www.w3.org/2000/svg">
+      <div class="hoh-rule">
+        <svg viewBox="0 0 400 12" xmlns="http://www.w3.org/2000/svg" width="400">
           <defs>
-            <linearGradient id="archLine" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%"   stop-color="#c8952a" stop-opacity="0"/>
-              <stop offset="30%"  stop-color="#c8952a" stop-opacity="0.5"/>
-              <stop offset="50%"  stop-color="#e8c060" stop-opacity="0.8"/>
-              <stop offset="70%"  stop-color="#c8952a" stop-opacity="0.5"/>
-              <stop offset="100%" stop-color="#c8952a" stop-opacity="0"/>
+            <linearGradient id="hohRule" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#a0c8d0" stop-opacity="0"/>
+              <stop offset="30%" stop-color="#a0c8d0" stop-opacity="0.5"/>
+              <stop offset="50%" stop-color="#e0f4ff" stop-opacity="0.8"/>
+              <stop offset="70%" stop-color="#a0c8d0" stop-opacity="0.5"/>
+              <stop offset="100%" stop-color="#a0c8d0" stop-opacity="0"/>
             </linearGradient>
           </defs>
-          <!-- Arch curve -->
-          <path d="M20,58 Q160,2 300,58" fill="none" stroke="#c8952a" stroke-width="0.8" stroke-opacity="0.45"/>
-          <path d="M30,58 Q160,10 290,58" fill="none" stroke="#e8c060" stroke-width="0.4" stroke-opacity="0.25"/>
-          <!-- Keystone diamond -->
-          <rect x="156" y="1" width="8" height="8" fill="#e8c060" fill-opacity="0.6" transform="rotate(45 160 5)"/>
-          <!-- Horizontal rule beneath arch -->
-          <line x1="0" y1="58" x2="320" y2="58" stroke="url(#archLine)" stroke-width="0.8"/>
-          <!-- Side pillar caps -->
-          <rect x="14" y="50" width="12" height="8" fill="#c8952a" fill-opacity="0.3" rx="1"/>
-          <rect x="294" y="50" width="12" height="8" fill="#c8952a" fill-opacity="0.3" rx="1"/>
-          <!-- Decorative dots along arch -->
-          <circle cx="80"  cy="24" r="1.2" fill="#c8952a" fill-opacity="0.35"/>
-          <circle cx="160" cy="4"  r="1.5" fill="#e8c060" fill-opacity="0.5"/>
-          <circle cx="240" cy="24" r="1.2" fill="#c8952a" fill-opacity="0.35"/>
+          <line x1="0" y1="6" x2="400" y2="6" stroke="url(#hohRule)" stroke-width="0.8"/>
+          <rect x="196" y="2" width="8" height="8" fill="#e0f4ff" fill-opacity="0.6" transform="rotate(45 200 6)"/>
         </svg>
       </div>
 
-      <div class="foundation-eyebrow">In the Beginning Was the Word</div>
-      <h1 class="foundation-title">The Foundational<br/>Document</h1>
-      <div class="foundation-subtitle">A covenant between man and his becoming</div>
-
-      <!-- Capital frieze ornament -->
-      <svg class="foundation-capital" viewBox="0 0 500 28" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="friezeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%"   stop-color="#c8952a" stop-opacity="0"/>
-            <stop offset="20%"  stop-color="#c8952a" stop-opacity="0.45"/>
-            <stop offset="50%"  stop-color="#e8c060" stop-opacity="0.65"/>
-            <stop offset="80%"  stop-color="#c8952a" stop-opacity="0.45"/>
-            <stop offset="100%" stop-color="#c8952a" stop-opacity="0"/>
-          </linearGradient>
-        </defs>
-        <!-- Frieze band -->
-        <rect x="0" y="12" width="500" height="1" fill="url(#friezeGrad)"/>
-        <rect x="0" y="15" width="500" height="0.5" fill="url(#friezeGrad)" opacity="0.4"/>
-        <!-- Triglyphs -->
-        <rect x="100" y="6" width="2" height="12" fill="#c8952a" fill-opacity="0.3"/>
-        <rect x="104" y="6" width="2" height="12" fill="#c8952a" fill-opacity="0.3"/>
-        <rect x="108" y="6" width="2" height="12" fill="#c8952a" fill-opacity="0.3"/>
-        <rect x="196" y="6" width="2" height="12" fill="#c8952a" fill-opacity="0.3"/>
-        <rect x="200" y="6" width="2" height="12" fill="#c8952a" fill-opacity="0.3"/>
-        <rect x="204" y="6" width="2" height="12" fill="#c8952a" fill-opacity="0.3"/>
-        <rect x="292" y="6" width="2" height="12" fill="#c8952a" fill-opacity="0.3"/>
-        <rect x="296" y="6" width="2" height="12" fill="#c8952a" fill-opacity="0.3"/>
-        <rect x="300" y="6" width="2" height="12" fill="#c8952a" fill-opacity="0.3"/>
-        <rect x="388" y="6" width="2" height="12" fill="#c8952a" fill-opacity="0.3"/>
-        <rect x="392" y="6" width="2" height="12" fill="#c8952a" fill-opacity="0.3"/>
-        <rect x="396" y="6" width="2" height="12" fill="#c8952a" fill-opacity="0.3"/>
-        <!-- Center ornament -->
-        <rect x="246" y="4" width="8" height="8" fill="#e8c060" fill-opacity="0.5" transform="rotate(45 250 8)"/>
-      </svg>
-
-      <div class="foundation-body">
-        <p>Your foundational document will be inscribed here.</p>
-        <p>This is the word from which all teachings flow —<br/>
-        the root beneath the three pillars,<br/>
-        the covenant before the work.</p>
+      <div class="hoh-body">
+        <p>This is the foundational document of City of Louis. The word from which all teachings flow. The covenant between man and his becoming.</p>
+        <p>What follows is the distilled philosophy of the New Adam — the man who does not merely inherit civilization but authors it. Who applies the three pillars of Law, Capital, and Technology not as external systems but as internal instruments of sovereignty.</p>
+        <p>The New Adam is not born. He is breathed into existence through the deliberate, disciplined application of philosophy to life. He stands at the threshold of an age that will either produce him in great numbers or collapse without him.</p>
+        <p>Enter. Read. Become.</p>
       </div>
 
-      <div class="foundation-placeholder">Awaiting the Word</div>
-
-      <!-- Bottom frieze -->
-      <svg class="foundation-frieze" viewBox="0 0 500 24" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="friezeBot" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%"   stop-color="#c8952a" stop-opacity="0"/>
-            <stop offset="25%"  stop-color="#c8952a" stop-opacity="0.3"/>
-            <stop offset="50%"  stop-color="#e8c060" stop-opacity="0.45"/>
-            <stop offset="75%"  stop-color="#c8952a" stop-opacity="0.3"/>
-            <stop offset="100%" stop-color="#c8952a" stop-opacity="0"/>
-          </linearGradient>
-        </defs>
-        <rect x="0" y="8"  width="500" height="0.8" fill="url(#friezeBot)"/>
-        <rect x="0" y="12" width="500" height="0.5" fill="url(#friezeBot)" opacity="0.4"/>
-        <rect x="0" y="16" width="500" height="0.8" fill="url(#friezeBot)"/>
-        <rect x="246" y="5" width="8" height="8" fill="#c8952a" fill-opacity="0.4" transform="rotate(45 250 9)"/>
-      </svg>
-
-      <div class="foundation-seal">
-        <div class="foundation-seal-cross"></div>
-        <div class="foundation-seal-text">City of Louis · The New Adam</div>
+      <div class="hoh-seal">
+        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" width="80">
+          <circle cx="60" cy="60" r="54" fill="none" stroke="#a0c8d0" stroke-width="0.5" stroke-opacity="0.4"/>
+          <circle cx="60" cy="60" r="46" fill="none" stroke="#a0c8d0" stroke-width="0.3" stroke-opacity="0.25"/>
+          <polygon points="60,16 70,44 100,44 76,62 86,90 60,72 34,90 44,62 20,44 50,44" fill="none" stroke="#c8e8f0" stroke-width="0.5" stroke-opacity="0.35"/>
+          <rect x="56" y="56" width="8" height="8" fill="#e0f4ff" fill-opacity="0.5" transform="rotate(45 60 60)"/>
+        </svg>
       </div>
+
+      <div class="hoh-footer-text">City of Louis · The New Adam · Holy of Holies</div>
     </div>
+
+    <!-- Audio -->
+    <audio id="hoh-audio" loop>
+      <source src="/audio/Sanctum_Dial.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Stop/play toggle -->
+    <div class="hoh-audio-toggle" id="hoh-audio-toggle" onclick="toggleHohAudio()">
+      <div class="hoh-audio-icon">
+        <svg id="hoh-audio-icon-svg" viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg">
+          <!-- Pause icon (shown when playing) -->
+          <rect x="2" y="1.5" width="2" height="7" fill="#a0c8d0"/>
+          <rect x="6" y="1.5" width="2" height="7" fill="#a0c8d0"/>
+        </svg>
+      </div>
+      <div class="hoh-audio-label" id="hoh-audio-label">Sound</div>
+    </div>
+
   </div>
+
 
   <!-- BENEFACTOR -->
   <div class="page" id="page-benefactor">
@@ -1865,6 +1845,43 @@
     }
 
     // ─────────────────────────────────────────
+    // HOLY OF HOLIES AUDIO
+    // ─────────────────────────────────────────
+    function startHohAudio() {
+      const audio  = document.getElementById('hoh-audio');
+      const toggle = document.getElementById('hoh-audio-toggle');
+      if (!audio) return;
+      audio.volume = 0.7;
+      audio.play().catch(() => {});
+      if (toggle) toggle.classList.add('visible');
+    }
+
+    function stopHohAudio() {
+      const audio  = document.getElementById('hoh-audio');
+      const toggle = document.getElementById('hoh-audio-toggle');
+      if (!audio) return;
+      audio.pause();
+      audio.currentTime = 0;
+      if (toggle) toggle.classList.remove('visible');
+    }
+
+    function toggleHohAudio() {
+      const audio = document.getElementById('hoh-audio');
+      const svg   = document.getElementById('hoh-audio-icon-svg');
+      const label = document.getElementById('hoh-audio-label');
+      if (!audio) return;
+      if (audio.paused) {
+        audio.play();
+        svg.innerHTML = '<rect x="2" y="1.5" width="2" height="7" fill="#a0c8d0"/><rect x="6" y="1.5" width="2" height="7" fill="#a0c8d0"/>';
+        label.textContent = 'Sound';
+      } else {
+        audio.pause();
+        svg.innerHTML = '<polygon points="2,1 9,5 2,9" fill="#a0c8d0"/>';
+        label.textContent = 'Play';
+      }
+    }
+
+    // ─────────────────────────────────────────
     // KIT EMAIL SUBSCRIPTION
     // ─────────────────────────────────────────
     async function subscribeEmail(inputId) {
@@ -2021,6 +2038,13 @@
         history.pushState(null, '', '/');
       } else {
         history.pushState(null, '', '#' + target);
+      }
+
+      // Holy of Holies audio — auto play on enter, stop on leave
+      if (target === 'foundation') {
+        startHohAudio();
+      } else {
+        stopHohAudio();
       }
 
       // Render entry index when navigating to a content page
