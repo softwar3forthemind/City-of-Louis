@@ -1160,12 +1160,6 @@
 
       <div class="glow-pool"></div>
 
-      <!-- AUDIO -->
-  <audio id="site-audio" loop preload="none">
-    <source src="/audio/Virtual_Temple_Dawn.mp3" type="audio/mpeg">
-  </audio>
-
-
       <svg class="rays-mobile" style="display:none" viewBox="0 0 390 844" preserveAspectRatio="xMidYMin slice" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <radialGradient id="mRayGrad" cx="50%" cy="0%" r="100%" fx="50%" fy="0%">
@@ -1547,7 +1541,7 @@
 
     <!-- Audio -->
     <audio id="hoh-audio" loop>
-      <source src="/audio/Sanctum_Dial.mp3" type="audio/mpeg">
+      <source src="/audio/Sanctum of Awe.mp3" type="audio/mpeg">
     </audio>
 
     <!-- Stop/play toggle -->
@@ -2034,18 +2028,14 @@
       const hohToggle   = document.getElementById('hoh-audio-toggle');
 
       if (target === 'foundation') {
-        // Silence main track
+        // Silence main track, hide main toggle
         if (siteAudio && !siteAudio.paused) {
           siteAudio.pause();
           if (musicToggle) musicToggle.classList.remove('playing');
         }
-        // Hide main music toggle
         if (musicToggle) musicToggle.style.display = 'none';
-        // Start HOH audio
-        if (hohAudio) {
-          hohAudio.volume = 0.75;
-          hohAudio.play().catch(() => {});
-        }
+        // Auto-play HOH audio
+        if (hohAudio) { hohAudio.volume = 0.75; hohAudio.play().catch(() => {}); }
         if (hohToggle) hohToggle.classList.add('visible');
       } else {
         // Stop HOH audio
@@ -2107,5 +2097,25 @@
     }
   </script>
 
+  <!-- AUDIO: Main site -->
+  <audio id="site-audio" loop preload="none">
+    <source src="/audio/Virtual_Temple_Dawn.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- MUSIC TOGGLE: fixed, visible on all pages -->
+  <div class="music-toggle" id="music-toggle" onclick="toggleMusic()">
+    <div class="music-icon">
+      <div class="music-bars">
+        <div class="music-bar"></div>
+        <div class="music-bar"></div>
+        <div class="music-bar"></div>
+        <div class="music-bar"></div>
+        <div class="music-bar"></div>
+      </div>
+    </div>
+    <div class="music-label">Sound</div>
+  </div>
+
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </body>
 </html>
