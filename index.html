@@ -704,10 +704,14 @@
 
     /* ── MUSIC TOGGLE ── */
     .music-toggle {
-      position: fixed; bottom: 2rem; right: 2rem;
+      position: fixed; top: 1.2rem; left: 1.2rem;
       z-index: 1000; cursor: pointer;
       display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
       opacity: 0.75; transition: opacity 0.3s;
+    }
+    body.inner-page-active .music-toggle {
+      top: auto; left: auto;
+      bottom: 2rem; right: 2rem;
     }
     .music-toggle:hover { opacity: 0.9; }
     .music-icon {
@@ -741,13 +745,7 @@
     }
     .music-toggle.playing .music-label { color: #8a7640; }
 
-    @media (max-width: 600px) {
-      .music-toggle {
-        position: fixed;
-        bottom: 2rem; right: 2rem;
-        top: auto; left: auto;
-      }
-    }
+
 
     .home-footer-rule {
       width: 120px; height: 0.5px;
@@ -2014,6 +2012,13 @@
       const id = target === 'home' ? 'page-home' : 'page-' + target;
       const el = document.getElementById(id);
       if (el) { el.classList.add('active'); window.scrollTo(0, 0); }
+
+      // Move music toggle to bottom-right on inner pages (has return button), top-left on home
+      if (target === 'home') {
+        document.body.classList.remove('inner-page-active');
+      } else {
+        document.body.classList.add('inner-page-active');
+      }
 
       // Update URL hash
       if (target === 'home') {
