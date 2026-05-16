@@ -705,9 +705,9 @@
     /* ── MUSIC TOGGLE ── */
     .music-toggle {
       position: fixed; bottom: 2rem; right: 2rem;
-      z-index: 100; cursor: pointer;
+      z-index: 1000; cursor: pointer;
       display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
-      opacity: 0.45; transition: opacity 0.3s;
+      opacity: 0.75; transition: opacity 0.3s;
     }
     .music-toggle:hover { opacity: 0.9; }
     .music-icon {
@@ -1165,19 +1165,7 @@
     <source src="/audio/Virtual_Temple_Dawn.mp3" type="audio/mpeg">
   </audio>
 
-  <!-- MUSIC TOGGLE -->
-  <div class="music-toggle" id="music-toggle" onclick="toggleMusic()">
-    <div class="music-icon">
-      <div class="music-bars">
-        <div class="music-bar"></div>
-        <div class="music-bar"></div>
-        <div class="music-bar"></div>
-        <div class="music-bar"></div>
-        <div class="music-bar"></div>
-      </div>
-    </div>
-    <div class="music-label">Sound</div>
-  </div>
+
       <svg class="rays-mobile" style="display:none" viewBox="0 0 390 844" preserveAspectRatio="xMidYMin slice" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <radialGradient id="mRayGrad" cx="50%" cy="0%" r="100%" fx="50%" fy="0%">
@@ -2040,11 +2028,31 @@
         history.pushState(null, '', '#' + target);
       }
 
-      // Holy of Holies audio — auto play on enter, stop on leave
+      const siteAudio   = document.getElementById('site-audio');
+      const musicToggle = document.getElementById('music-toggle');
+      const hohAudio    = document.getElementById('hoh-audio');
+      const hohToggle   = document.getElementById('hoh-audio-toggle');
+
       if (target === 'foundation') {
-        startHohAudio();
+        // Silence main track
+        if (siteAudio && !siteAudio.paused) {
+          siteAudio.pause();
+          if (musicToggle) musicToggle.classList.remove('playing');
+        }
+        // Hide main music toggle
+        if (musicToggle) musicToggle.style.display = 'none';
+        // Start HOH audio
+        if (hohAudio) {
+          hohAudio.volume = 0.75;
+          hohAudio.play().catch(() => {});
+        }
+        if (hohToggle) hohToggle.classList.add('visible');
       } else {
-        stopHohAudio();
+        // Stop HOH audio
+        if (hohAudio) { hohAudio.pause(); hohAudio.currentTime = 0; }
+        if (hohToggle) hohToggle.classList.remove('visible');
+        // Restore main music toggle
+        if (musicToggle) musicToggle.style.display = '';
       }
 
       // Render entry index when navigating to a content page
