@@ -530,10 +530,11 @@
     }
     /* ══════════════════════════════════════
        MOBILE — all phones (≤600px)
+       Shared styles for inner pages + rays
     ══════════════════════════════════════ */
     @media (max-width: 600px) {
 
-      /* All pages scrollable by default */
+      /* All inner pages: scrollable */
       .page.active:not(#page-home) { overflow-y: auto; height: auto; min-height: 100vh; }
 
       /* Hide desktop rays, show mobile rays */
@@ -546,7 +547,122 @@
         z-index: 1; pointer-events: none;
       }
 
-      /* ── HOME: natural flex flow, scrollable ── */
+      /* ── INNER PAGES ── */
+      .inner-page { padding: 2rem 1.2rem 3rem; }
+      .page-heading { font-size: 18px; margin-bottom: 1.4rem; }
+      .page-eyebrow { font-size: 8px; letter-spacing: 0.35em; }
+      .entry-title { font-size: 16px; }
+      .entry-excerpt { font-size: 13px; }
+      .entry-item { padding: 1.1rem 0; }
+      .entry-full-title { font-size: 17px; }
+      .entry-full-body { font-size: 16px; line-height: 1.9; }
+
+      /* ── BENEFACTOR ── */
+      .benefactor-page { padding: 1.5rem 0 3rem; }
+      .benefactor-intro { font-size: 14px; line-height: 1.8; }
+      .amount-input { font-size: 22px; width: 110px; }
+      .union-form { width: 100%; }
+      .union-input { font-size: 14px; }
+      .name-input { width: 100%; }
+
+      /* ── FOUNDATION / HOH ── */
+      .foundation-pillar { display: none; }
+      .foundation-border { display: none; }
+      .foundation-content { padding: 3rem 1.4rem 4rem; }
+      .foundation-title { font-size: 20px; }
+      .foundation-subtitle { font-size: 12px; }
+      .foundation-arch-wrap svg { width: 240px; }
+      .foundation-capital, .foundation-frieze { max-width: 100%; }
+      .foundation-body { font-size: 15px; line-height: 2; }
+      .foundation-eyebrow { font-size: 6px; letter-spacing: 0.4em; }
+      .community-threshold { margin-top: 2rem; }
+      .foundation-link-wrap { margin: 1.8rem 0 0; }
+    }
+
+    /* ══════════════════════════════════════
+       LARGE PHONES (376px–600px)
+       e.g. iPhone 14/15/16/17 Pro Max, standard
+       Original absolute-positioned home layout
+    ══════════════════════════════════════ */
+    @media (min-width: 376px) and (max-width: 600px) {
+
+      #page-home { overflow: hidden; height: 100vh; }
+
+      .home {
+        overflow: hidden;
+        height: 100vh;
+        max-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 0 1rem;
+        position: relative;
+      }
+
+      .glow-pool { width: 240px; height: 180px; top: 38%; }
+
+      .site-title {
+        position: absolute;
+        top: calc(38vh - 90px - 22px);
+        left: 50%; transform: translateX(-50%);
+        font-size: 13.5px;
+        letter-spacing: 0.38em;
+        margin: 0;
+        white-space: nowrap;
+        z-index: 3;
+      }
+
+      .prism-wrap {
+        position: absolute;
+        top: calc(38vh - 68px + 2.2rem - 2rem);
+        left: 50%; transform: translateX(-50%);
+        width: min(345px, 94vw);
+        height: min(306px, 84vw);
+        z-index: 3;
+      }
+
+      .tagline {
+        position: absolute;
+        top: calc(38vh - 68px + 2.2rem - 2rem + min(306px, 84vw) + 2rem);
+        left: 50%; transform: translateX(-50%);
+        font-size: 14px; letter-spacing: 0.04em; color: #7a6c38;
+        margin: 0; white-space: nowrap; z-index: 3;
+      }
+
+      .benefactor-link-wrap {
+        position: absolute;
+        top: calc(38vh - 68px + 2.2rem - 2rem + min(306px, 84vw) + 2rem + 36px);
+        left: 50%; transform: translateX(-50%);
+        margin: 0; z-index: 3;
+      }
+      .benefactor-link { font-size: 8.6px; letter-spacing: 0.3em; color: #6a5e2a; }
+
+      .home-footer {
+        position: absolute;
+        bottom: 3.2rem;
+        top: auto; left: 0; right: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.1rem;
+        padding: 0.25rem 1rem 0;
+        z-index: 4;
+      }
+
+      .home-footer-rule { width: 50px; margin: 0; }
+      .home-footer-desc { font-size: 9px; line-height: 1.45; text-align: center; max-width: 90vw; margin: 0; }
+      .home-footer-links { flex-wrap: wrap; justify-content: center; gap: 0.2rem; display: flex; margin: 0; padding-top: 0; border-top: none; }
+      .home-footer-links:first-of-type { border-top: 0.5px solid #2a2010; padding-top: 0.15rem; }
+      .home-footer-copy { font-size: 6px; letter-spacing: 0.22em; margin: 0; padding: 0; line-height: 1; display: block; }
+    }
+
+    /* ══════════════════════════════════════
+       SMALL PHONES (≤375px)
+       e.g. iPhone SE — flex flow, scrollable
+    ══════════════════════════════════════ */
+    @media (max-width: 375px) {
+
       #page-home { overflow-y: auto; height: auto; min-height: 100vh; }
 
       .home {
@@ -602,7 +718,6 @@
       }
       .benefactor-link { font-size: 8.6px; letter-spacing: 0.3em; color: #6a5e2a; }
 
-      /* Footer — flows naturally at bottom of content */
       .home-footer {
         position: relative;
         bottom: auto; top: auto; left: auto; right: auto;
@@ -616,80 +731,19 @@
       }
 
       .home-footer-rule { width: 50px; margin: 0; }
+      .home-footer-desc { font-size: 9px; line-height: 1.5; text-align: center; max-width: 90vw; margin: 0; }
+      .home-footer-links { flex-wrap: wrap; justify-content: center; gap: 0.2rem; display: flex; margin: 0; padding-top: 0; border-top: none; }
+      .home-footer-links:first-of-type { border-top: 0.5px solid #2a2010; padding-top: 0.2rem; }
+      .home-footer-copy { font-size: 6px; letter-spacing: 0.22em; margin: 0; padding: 0; line-height: 1.4; }
 
-      .home-footer-desc {
-        font-size: 9px;
-        line-height: 1.5;
-        text-align: center;
-        max-width: 90vw;
-        margin: 0;
+      /* Extra tight for 320px */
+      @media (max-width: 340px) {
+        .home { padding: 3rem 0.8rem 0; }
+        .site-title { font-size: 10.5px; letter-spacing: 0.28em; margin-bottom: 1rem; }
+        .prism-wrap { width: min(290px, 92vw); height: min(258px, 82vw); margin-bottom: 0.8rem; }
+        .tagline { font-size: 11.5px; margin-bottom: 0.5rem; }
+        .home-footer-desc { font-size: 8px; }
       }
-
-      .home-footer-links {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 0.2rem;
-        display: flex;
-        margin: 0;
-        padding-top: 0;
-        border-top: none;
-      }
-
-      .home-footer-links:first-of-type {
-        border-top: 0.5px solid #2a2010;
-        padding-top: 0.2rem;
-      }
-
-      .home-footer-copy {
-        font-size: 6px;
-        letter-spacing: 0.22em;
-        margin: 0; padding: 0;
-        line-height: 1.4;
-      }
-
-      /* ── INNER PAGES ── */
-      .inner-page { padding: 2rem 1.2rem 3rem; }
-      .page-heading { font-size: 18px; margin-bottom: 1.4rem; }
-      .page-eyebrow { font-size: 8px; letter-spacing: 0.35em; }
-      .entry-title { font-size: 16px; }
-      .entry-excerpt { font-size: 13px; }
-      .entry-item { padding: 1.1rem 0; }
-      .entry-full-title { font-size: 17px; }
-      .entry-full-body { font-size: 16px; line-height: 1.9; }
-
-      /* ── BENEFACTOR ── */
-      .benefactor-page { padding: 1.5rem 0 3rem; }
-      .benefactor-intro { font-size: 14px; line-height: 1.8; }
-      .amount-input { font-size: 22px; width: 110px; }
-      .union-form { width: 100%; }
-      .union-input { font-size: 14px; }
-      .name-input { width: 100%; }
-
-      /* ── FOUNDATION / HOH ── */
-      .foundation-pillar { display: none; }
-      .foundation-border { display: none; }
-      .foundation-content { padding: 3rem 1.4rem 4rem; }
-      .foundation-title { font-size: 20px; }
-      .foundation-subtitle { font-size: 12px; }
-      .foundation-arch-wrap svg { width: 240px; }
-      .foundation-capital, .foundation-frieze { max-width: 100%; }
-      .foundation-body { font-size: 15px; line-height: 2; }
-      .foundation-eyebrow { font-size: 6px; letter-spacing: 0.4em; }
-      .community-threshold { margin-top: 2rem; }
-      .foundation-link-wrap { margin: 1.8rem 0 0; }
-    }
-
-    /* ── SMALL PHONES: tighten further for 320px (iPhone SE) ── */
-    @media (max-width: 340px) {
-      .home { padding: 3rem 0.8rem 0; }
-      .site-title { font-size: 10.5px; letter-spacing: 0.28em; margin-bottom: 1rem; }
-      .prism-wrap {
-        width: min(290px, 92vw);
-        height: min(258px, 82vw);
-        margin-bottom: 0.8rem;
-      }
-      .tagline { font-size: 11.5px; margin-bottom: 0.5rem; }
-      .home-footer-desc { font-size: 8px; }
     }
 
     /* ── TABLET ── */
