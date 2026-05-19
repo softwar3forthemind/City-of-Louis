@@ -1,6 +1,6 @@
 ---
 title: "A New Vineyard: Understanding The City Of Louis"
-date: 2026-05-10
+date: 2026-05-19
 ---
 In every pivotal time period in human history, a new politico-religious regime has emerged in response to what was ultimately a suboptimal experience for the citizens of the existing regime. 
 
@@ -48,23 +48,23 @@ Upon building this new nation, Moses used its assets to conquer the land of Isra
 
 He built the vineyard (what Isaiah, the prophet, called God's gift of the nation of Israel to the Israelite people):
 
-*"Let me sing for my beloved*.                                                                                                                                           *A song of my lover about his vineyard.*
-
-*My beloved had vineyard*\
-*On a fruitful hill.*\
-*He broke the ground, cleared it of stones,*\
-*And planted it with choice vines.*\
-*He built a watchtower inside it,*\
-*He even hewed a wine press in it;* \
-*For he hoped it would yield grapes."*
+> *"Let me sing for my beloved*.                                                                                                                                           *A song of my lover about his vineyard.*
+>
+> *My beloved had vineyard*\
+> *On a fruitful hill.*\
+> *He broke the ground, cleared it of stones,*\
+> *And planted it with choice vines.*\
+> *He built a watchtower inside it,*\
+> *He even hewed a wine press in it;* \
+> *For he hoped it would yield grapes."*
 
 Moses removed himself and the Israelites from the weak and ineffective Pharaoh government, or God-structure. He brought his people into the wilderness with only the rudiments of a new structure, where he fully developed a new government. This government produced a religious order, a technology sector, an economy, and a military. And, ultimately, Moses built a new City of Moses through this process, which is a cycle of society.
 
 To close, the City of Louis represents the creation of a new vineyard; one whose principal focus is on the following objectives:
 
-1. The creation of strong, healthy men and women who enjoy the Garden of Eden each day on this earth, with confidence that what is to come after this life will be even more brilliant.\
-2. The creation of strong, healthy families, in which an abundance of offspring represent profound blessings.\
-3. The creation of healthy and ***ethical*** economic engines, i.e., banking and finance, media, technology, and more.\
+1. The creation of strong, healthy men and women who enjoy the Garden of Eden each day on this earth, with confidence that what is to come after this life will be even more brilliant.
+2. The creation of strong, healthy families, in which an abundance of offspring represent profound blessings.
+3. The creation of healthy and ***ethical*** economic engines, i.e., banking and finance, media, technology, and more.
 4. The ***ethical and high integrity creation of key technologies, which genuinely; not just in words; enhances humanity's wellbeing.*** Those key technologies include: Virtual realities, Space Industry, Artificial Intelligence, Robotics, and Brain Machine Interfaces. It is unequivocally certain that if the current vineyard operators control these key technologies, humanity as we know it will be doomed, and the light of consciousness in the universe as we know it will likely be extinguished.
 
 In the Law of Moses, the key promise was that, should the Israelites follow the God structure of Moses, they would exist in safety in the Promised Land, and they would experience immense material abundance in the form of livestock, crops, and wealth. 
