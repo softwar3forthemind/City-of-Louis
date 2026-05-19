@@ -64,6 +64,9 @@ function markdownToHtml(md) {
       continue;
     }
 
+    // Strip trailing backslash line breaks (Decap CMS soft line break encoding)
+    block = block.replace(/\\\s*$/gm, '').trim();
+
     // Blockquote — lines starting with >
     if (/^> /.test(block)) {
       const lines = block.split('\n');
