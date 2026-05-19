@@ -32,26 +32,73 @@ function parseFrontmatter(content) {
   return { meta, body: match[2].trim() };
 }
 
-// Very simple markdown to HTML converter
+// Markdown to HTML converter
 function markdownToHtml(md) {
-  return md
+  // Inline formatting helper
+  function inlineFormat(text) {
+    return text
+      .replace(/\*\*\*(.+?)\*\*\*/g, '<strong><em>$1</em></strong>')
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*(.+?)\*/g, '<em>$1</em>')
+      .replace(/_(.+?)_/g, '<em>$1</em>');
+  }
+
+  const blocks = md.split(/\n\n+/);
+  const html = [];
+
+  for (let block of blocks) {
+    block = block.trim();
+    if (!block) continue;
+
     // Headers
-    .replace(/^### (.+)$/gm, '<h3>$1</h3>')
-    .replace(/^## (.+)$/gm, '<h2>$1</h2>')
-    .replace(/^# (.+)$/gm, '<h2>$1</h2>')
-    // Bold / italic
-    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-    .replace(/\*(.+?)\*/g, '<em>$1</em>')
-    // Paragraphs — split on blank lines
-    .split(/\n\n+/)
-    .map(block => {
-      block = block.trim();
-      if (!block) return '';
-      if (block.startsWith('<h')) return block;
-      return `<p>${block.replace(/\n/g, ' ')}</p>`;
-    })
-    .filter(Boolean)
-    .join('\n');
+    if (/^### /.test(block)) {
+      html.push(`<h3>${inlineFormat(block.replace(/^### /, ''))}</h3>`);
+      continue;
+    }
+    if (/^## /.test(block)) {
+      html.push(`<h2>${inlineFormat(block.replace(/^## /, ''))}</h2>`);
+      continue;
+    }
+    if (/^# /.test(block)) {
+      html.push(`<h2>${inlineFormat(block.replace(/^# /, ''))}</h2>`);
+      continue;
+    }
+
+    // Blockquote — lines starting with >
+    if (/^> /.test(block)) {
+      const lines = block.split('\n');
+      const inner = lines
+        .map(l => l.replace(/^> ?/, '').trim())
+        .filter(l => l.length > 0)
+        .map(l => inlineFormat(l));
+      html.push(`<blockquote>${inner.join('<br/>')}</blockquote>`);
+      continue;
+    }
+
+    // Ordered list — lines starting with 1. 2. etc.
+    if (/^\d+\. /.test(block)) {
+      const items = block.split('\n')
+        .filter(l => /^\d+\. /.test(l.trim()))
+        .map(l => `<li>${inlineFormat(l.replace(/^\d+\. /, '').trim())}</li>`);
+      html.push(`<ol>${items.join('')}</ol>`);
+      continue;
+    }
+
+    // Unordered list — lines starting with - or *
+    if (/^[-*] /.test(block)) {
+      const items = block.split('\n')
+        .filter(l => /^[-*] /.test(l.trim()))
+        .map(l => `<li>${inlineFormat(l.replace(/^[-*] /, '').trim())}</li>`);
+      html.push(`<ul>${items.join('')}</ul>`);
+      continue;
+    }
+
+    // Plain paragraph
+    const lines = block.split('\n').map(l => l.trim()).filter(Boolean);
+    html.push(`<p>${inlineFormat(lines.join(' '))}</p>`);
+  }
+
+  return html.join('\n');
 }
 
 const allEntries = [];
