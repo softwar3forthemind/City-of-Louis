@@ -48,8 +48,7 @@ Upon building this new nation, Moses used its assets to conquer the land of Isra
 
 He built the vineyard (what Isaiah, the prophet, called God's gift of the nation of Israel to the Israelite people):
 
-*"Let me sing for my beloved*\
-*A song of my lover about his vineyard.*
+*"Let me sing for my beloved*.                                                                                                                                           *A song of my lover about his vineyard.*
 
 *My beloved had vineyard*\
 *On a fruitful hill.*\
