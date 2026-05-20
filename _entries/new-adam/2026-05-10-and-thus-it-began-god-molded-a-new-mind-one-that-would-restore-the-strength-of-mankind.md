@@ -46,7 +46,7 @@ Moses developed a new God-structure, offered it to his fellow Israelites, and le
 
 Upon entering the wilderness, which is an apt representation of what it means to exit an existing God-structure, Moses developed a new government. He developed a Law, the Law of Moses, or Moses' Teachings. He developed a religious structure: The Levitical Priesthood, the Tabernacle and its altars and facilities, and his written Law. The religious structure and the law were the same thing. They still are, whether we accept this truth or not.
 
-Moses built a military. He built intelligence assets, e.g., Caleb and Joshua acting as spies on his behalf. The Israelites developed a complex and robust economy in which they bought and sold livestock and clothing. There was a technology sector. In the books of Exodus, Leviticus, Numbers, and Deuteronomy, we witnessed Moses build a new state, or city to liken it to our community: He built the City of Moses.
+Moses built a military. He built intelligence assets, e.g., Caleb and Joshua acting as spies on his behalf. The Israelites developed a complex and robust economy in which they bought and sold livestock, tools, and clothing. In the books of Exodus, Leviticus, Numbers, and Deuteronomy, we witnessed Moses build a new state, or city to liken it to our community: He built the City of Moses.
 
 Upon building this new nation, Moses used its assets to conquer the land of Israel, in which, over the subsequent 2,000 years, the nation of Israel existed.
 
@@ -62,7 +62,9 @@ He built the vineyard (what Isaiah, the prophet, called God's gift of the nation
 > *He even hewed a wine press in it;* \
 > *For he hoped it would yield grapes."*
 
-Moses removed himself and the Israelites from the weak and ineffective Pharaoh government, or God-structure. He brought his people into the wilderness with only the rudiments of a new structure, where he fully developed a new government. This government produced a religious order, a technology sector, an economy, and a military. And, ultimately, Moses built a new City of Moses through this process, which is a cycle of society.
+Moses removed himself and the Israelites from the weak and ineffective Pharaoh government, or God-structure. He brought his people into the wilderness with only the rudiments of a new structure, where he fully developed a new government. 
+
+This government produced a religious order, a legal system, a technology sector, an economy, and a military. And, ultimately, Moses built a new City of Moses through this process, completing the cycle of life and death that plays out not just on a biological level, but also on a society ordering level.
 
 To close, the City of Louis represents the creation of a new vineyard; one whose principal focus is on the following objectives:
 
