@@ -75,4 +75,4 @@ To close, the City of Louis represents the creation of a new vineyard; one whose
 
 In the Law of Moses, the key promise was that, should the Israelites follow the God-structure of Moses, they would exist in safety in the Promised Land, and they would experience immense material abundance in the form of livestock, crops, and wealth. 
 
-The City of Louis aims to develop true kingdoms of heaven in the hearts of its readers, which will invariably be reflected in their material states of being over time.
+The City of Louis aims to develop true kingdoms of heaven in the hearts of its readers, which will invariably be reflected in their material states of being over time as a new kingdom of heaven interplanetarily emerges.
