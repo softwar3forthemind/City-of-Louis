@@ -12,15 +12,15 @@ It's a cycle that has played out since the beginning of time, and it will contin
 
 Arguably, the most well known example of this upending of the existing order is the story of Moses from the Old Testament, which is found in the Christian tradition here on earth. 
 
-According to the narrative, after 430 years of living under Pharaoh's rule, the Israelite people became, at the very least, dissatisfied with the service that Pharaoh offered in the way of a state, or God structure, that governed the land. A new nation builder emerged, i.e., Moses, and he began to attract a following of people. 
+According to the narrative, after 430 years of living under Pharaoh's rule, the Israelite people became, at the very least, dissatisfied with the service that Pharaoh offered in the way of a state, or God-structure, that governed the land. A new nation builder emerged, i.e., Moses, and he began to attract a following of people. 
 
-He gave them rudimentary laws, which, as we will discuss often, represent the formation of a new God structure. To obey the laws is to obey God; therefore, the law is God, and God is the law, which all must obey so as to maintain the stability of the God structure. 
+He gave them rudimentary laws, which, as we will discuss often over time together, represented the formation of a new God-structure. To obey the laws was to obey God; therefore, the law was God, and God was the law, which all must obey so as to maintain the stability of the God-structure. 
 
-The Israelites coalesced around Moses, and he essentially formed a new state, which is inseparable from a God structure. Again, we will work through this thinking exhaustively together over time.
+The Israelites coalesced around Moses, and he essentially formed a new state, which is inseparable from a God-structure. Again, we will work through this thinking exhaustively together over time.
 
-In the narrative of Moses' and the Israelites' Exodus out of Egypt, Moses pitted his God structure against that of Pharaoh's God structure, and Moses' was sufficiently compelling such that 600,000 Israelites left Egypt and wandered into the desert wilderness of the Arabian peninsula after a cinematic flight from the nation.
+In the narrative of Moses' and the Israelites' Exodus out of Egypt, Moses pitted his God-structure against that of Pharaoh's God-structure, and Moses' was so sufficiently compelling  that 600,000 Israelites left Egypt and wandered into the desert wilderness of the Arabian peninsula after a cinematic flight from the nation.
 
-Once in the wilderness, Moses, or rather the creator of our reality, worked through Moses to fully define a new state. This entailed:
+Once in the wilderness, Moses, or rather the creator of our reality worked through Moses, to fully define a new state. This entailed:
 
 A new law, which was communicated to Moses by God. This was known as the Law of Moses, or the Teachings, and it represented God. The Law of Moses and God were the same entity, and this is a crucial idea to understand:
 
