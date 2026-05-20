@@ -36,7 +36,7 @@ He is your creator who defined the laws that you follow. To follow God is to fol
 
 This has been lost on society in our modern era.
 
-Bringing the discussion back to Moses and the Israelites, while in the desert wilderness south after having emerged from the God structure that was Pharaoh's Egypt, God worked through Moses to develop the entirety of the new God structure that would act as the governing structure for the Israelites until 70 AD when the second Temple was destroyed. 
+Bringing the discussion back to Moses and the Israelites, while in the desert wilderness after having emerged from the God structure that was Pharaoh's Egypt, God worked through Moses to develop the entirety of the new God structure that would act as the governing structure for the Israelites until 70 AD when the second Temple was destroyed. 
 
 To further paint this picture for you, imagine in your mind the following:\
 \
