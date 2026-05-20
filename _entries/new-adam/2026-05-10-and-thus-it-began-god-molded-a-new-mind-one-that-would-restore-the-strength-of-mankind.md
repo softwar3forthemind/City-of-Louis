@@ -4,7 +4,7 @@ date: 2026-05-19
 ---
 In every pivotal time period in human history, a new politico-religious regime has emerged in response to what was ultimately a suboptimal experience for the citizens of the existing regime. 
 
-The existing regime, or, as we will come to understand, existing God-structure, begins to fail the citizens, whether with respect to their financial well-being, safety from external or internal threats, or, as is profoundly the case today, family formation rate. These are just a few examples, but they are examples of areas in which the state, or, as I just said, existing God-structure, provides support, and the citizens accept the state's "government" (latin etymology: mind control) and patronize it through various taxes. 
+The existing regime, or, as we will come to understand, existing God-structure, begins to fail the citizens, whether with respect to their financial well-being, safety from external or internal threats, or, as is profoundly the case today, family formation rate. These are just a few examples, but they are examples of areas in which the state, or existing God-structure, provides support, and the citizens accept the state's "government" and patronize it through various taxes. 
 
 It is unequivocally a cyclical dynamic: A population finds itself beholden to a state structure that is, as is the case today, literally killing them (as in birth rates are well below replacement). A new entrant offers an alternative solution. The offer may be, "We can offer you lower taxes, higher birth rates, longer lives, and better family formation," and that offer gradually attracts new buyers, so to speak, over time, until a new state emerges from the ashes of the old failed state. 
 
