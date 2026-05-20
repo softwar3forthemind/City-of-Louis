@@ -22,11 +22,15 @@ In the narrative of Moses' and the Israelites' Exodus out of Egypt, Moses pitted
 
 Once in the wilderness, Moses, or rather the creator of our reality worked through Moses, to fully define a new state. This entailed:
 
-A new law, which was communicated to Moses by God. This was known as the Law of Moses, or the Teachings, and it represented God. The Law of Moses and God were the same entity, and this is a crucial idea to understand:
+A new law, which was communicated to Moses by God. This was known as the Law of Moses, or the Teachings, and it represented God. The Law of Moses and God were the same entity.
+
+This is a crucial idea to understand:
 
 What is God? Let's say you want to describe Him agnostically. God is the universe. He's the particles, and you're just a random particle floating in His sandbox, so to speak. Well, whether you like it or not, you're still obeying God. You still find yourself beholden to the *Laws* of physics. 
 
-Let's say you are sufficiently enlightened as to know that religious expression is inextricably a part of the human experience. What is God in this case?
+Let's say you are sufficiently enlightened as to know that religious expression is inextricably a part of the human experience. It is impossible to *not* be religious, and even disbelief is a religious belief ultimately.
+
+What is God in this case?
 
 He is your creator who defined the laws that you follow. To follow God is to follow His law. His Law is inseparable from Him. So whatever law you follow *is your God. You believe in that God.*
 
