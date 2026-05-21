@@ -1847,7 +1847,8 @@
       const canvas = document.getElementById('star-canvas');
       const ctx    = canvas.getContext('2d');
 
-      const STAR_COUNT = 220;
+      const isMobile = window.innerWidth <= 600;
+      const STAR_COUNT = isMobile ? 220 : 290;
       const stars = [];
       const shooters = [];
 
@@ -1917,7 +1918,10 @@
         const size  = rand(0.3, 1.8);
 
         // Bigger stars twinkle slower; tiny stars flicker faster
-        const speed     = rand(0.003, 0.012) * (1 / size);
+        const isDesktop = window.innerWidth > 600;
+        const speed     = isDesktop
+          ? rand(0.005, 0.018) * (1 / size)
+          : rand(0.003, 0.012) * (1 / size);
         const phase     = rand(0, Math.PI * 2);
         const minAlpha  = rand(0.0, 0.12);
         const maxAlpha  = rand(0.4, 1.0);
