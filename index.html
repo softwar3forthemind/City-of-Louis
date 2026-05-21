@@ -1848,7 +1848,7 @@
       const ctx    = canvas.getContext('2d');
 
       const isMobile = window.innerWidth <= 600;
-      const STAR_COUNT = isMobile ? 220 : 290;
+      const STAR_COUNT = isMobile ? 220 : 340;
       const stars = [];
       const shooters = [];
 
@@ -1892,26 +1892,44 @@
         const w = canvas.width;
         const h = canvas.height;
 
-        // Weight distribution: avoid center (where prism lives)
-        // Stars cluster toward edges and corners
+        // Desktop: stars spread everywhere including rays/center
+        // Mobile: cluster toward edges only
         let x, y;
         const zone = Math.random();
-        if (zone < 0.3) {
-          // Left third
-          x = rand(0, w * 0.28);
-          y = rand(0, h);
-        } else if (zone < 0.6) {
-          // Right third
-          x = rand(w * 0.72, w);
-          y = rand(0, h);
-        } else if (zone < 0.8) {
-          // Top strip
-          x = rand(0, w);
-          y = rand(0, h * 0.22);
+        if (window.innerWidth > 600) {
+          // Desktop — full canvas distribution, weighted toward upper half (rays)
+          if (zone < 0.45) {
+            // Upper half — within and around the rays
+            x = rand(0, w);
+            y = rand(0, h * 0.55);
+          } else if (zone < 0.7) {
+            // Left edge
+            x = rand(0, w * 0.3);
+            y = rand(0, h);
+          } else if (zone < 0.9) {
+            // Right edge
+            x = rand(w * 0.7, w);
+            y = rand(0, h);
+          } else {
+            // Bottom
+            x = rand(0, w);
+            y = rand(h * 0.75, h);
+          }
         } else {
-          // Bottom strip
-          x = rand(0, w);
-          y = rand(h * 0.78, h);
+          // Mobile — edges and corners only
+          if (zone < 0.3) {
+            x = rand(0, w * 0.28);
+            y = rand(0, h);
+          } else if (zone < 0.6) {
+            x = rand(w * 0.72, w);
+            y = rand(0, h);
+          } else if (zone < 0.8) {
+            x = rand(0, w);
+            y = rand(0, h * 0.22);
+          } else {
+            x = rand(0, w);
+            y = rand(h * 0.78, h);
+          }
         }
 
         const color = COLORS[Math.floor(Math.random() * COLORS.length)];
@@ -1926,8 +1944,8 @@
         const minAlpha  = rand(0.0, 0.12);
         const maxAlpha  = rand(0.4, 1.0);
 
-        // Occasional "bright" stars
-        const bright = Math.random() < 0.06;
+        // Occasional "bright" stars — more on desktop
+        const bright = Math.random() < (window.innerWidth > 600 ? 0.13 : 0.06);
 
         stars[i] = { x, y, size: bright ? rand(1.4, 2.4) : size,
                      color, speed, phase,
