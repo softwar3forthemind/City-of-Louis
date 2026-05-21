@@ -1849,6 +1849,27 @@
 
       const STAR_COUNT = 220;
       const stars = [];
+      const shooters = [];
+
+      function spawnShooter() {
+        const w = canvas.width;
+        const h = canvas.height;
+        // Always enter from top-left region or top-right region
+        const fromLeft = Math.random() < 0.5;
+        const x = fromLeft ? rand(-50, w * 0.4) : rand(w * 0.6, w + 50);
+        const y = rand(-50, h * 0.3);
+        // Angle: always moving downward, roughly 20-50 degrees from horizontal
+        const baseAngle = fromLeft ? rand(0.35, 0.9) : rand(Math.PI - 0.9, Math.PI - 0.35);
+        shooters.push({
+          x, y,
+          angle: baseAngle,
+          speed: rand(14, 22),
+          progress: 0,
+          totalDist: rand(280, 520),
+          tailLength: rand(80, 160),
+          width: rand(0.8, 1.6),
+        });
+      }
 
       // Color palette — warm whites, cool silvers, faint gold
       const COLORS = [
@@ -1965,6 +1986,62 @@
           ctx.fill();
 
           ctx.restore();
+        }
+
+        // ── SHOOTING STARS ──
+        for (let i = shooters.length - 1; i >= 0; i--) {
+          const sh = shooters[i];
+          sh.progress += sh.speed;
+
+          const headX = sh.x + Math.cos(sh.angle) * sh.progress;
+          const headY = sh.y + Math.sin(sh.angle) * sh.progress;
+          const tailLen = sh.tailLength;
+          const tailX = headX - Math.cos(sh.angle) * tailLen;
+          const tailY = headY - Math.sin(sh.angle) * tailLen;
+
+          // Fade in then fade out over lifetime
+          const life = sh.progress / sh.totalDist;
+          const alpha = life < 0.15 ? life / 0.15
+                      : life > 0.75 ? (1 - life) / 0.25
+                      : 1.0;
+
+          const grd = ctx.createLinearGradient(tailX, tailY, headX, headY);
+          grd.addColorStop(0,   `rgba(255,248,220,0)`);
+          grd.addColorStop(0.6, `rgba(255,248,220,${alpha * 0.4})`);
+          grd.addColorStop(1,   `rgba(255,255,255,${alpha})`);
+
+          ctx.save();
+          ctx.globalAlpha = 1;
+          ctx.strokeStyle = grd;
+          ctx.lineWidth = sh.width;
+          ctx.lineCap = 'round';
+          ctx.beginPath();
+          ctx.moveTo(tailX, tailY);
+          ctx.lineTo(headX, headY);
+          ctx.stroke();
+
+          // Bright head glow
+          ctx.globalAlpha = alpha * 0.7;
+          const hGrd = ctx.createRadialGradient(headX, headY, 0, headX, headY, sh.width * 3);
+          hGrd.addColorStop(0,   'rgba(255,255,240,0.9)');
+          hGrd.addColorStop(1,   'rgba(255,248,200,0)');
+          ctx.fillStyle = hGrd;
+          ctx.beginPath();
+          ctx.arc(headX, headY, sh.width * 3, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.restore();
+
+          // Remove when off screen or finished
+          if (sh.progress >= sh.totalDist ||
+              headX < -50 || headX > canvas.width + 50 ||
+              headY < -50 || headY > canvas.height + 50) {
+            shooters.splice(i, 1);
+          }
+        }
+
+        // Occasionally spawn a new shooting star
+        if (Math.random() < 0.003 && shooters.length < 3) {
+          spawnShooter();
         }
 
         animId = requestAnimationFrame(draw);
