@@ -38,6 +38,13 @@
       background: radial-gradient(ellipse at 50% 0%, #2a1e08 0%, #120e04 45%, #060401 100%);
     }
 
+    #star-canvas {
+      position: fixed; inset: 0; z-index: 0;
+      width: 100vw; height: 100vh;
+      pointer-events: none;
+      display: block;
+    }
+
     .rays {
       position: fixed; top: 0; left: 50%; transform: translateX(-50%);
       width: 100vw; height: 100vh; z-index: 1; pointer-events: none;
@@ -1197,6 +1204,7 @@
   <div class="page active" id="page-home">
     <div class="home">
       <div class="home-bg"></div>
+      <canvas id="star-canvas"></canvas>
 
       <svg class="rays" viewBox="0 0 700 700" xmlns="http://www.w3.org/2000/svg">
         <defs>
@@ -1830,6 +1838,172 @@
       </div>
     </div>
   </div>
+
+  <script>
+    // ─────────────────────────────────────────
+    // STAR FIELD — homepage only
+    // ─────────────────────────────────────────
+    (function() {
+      const canvas = document.getElementById('star-canvas');
+      const ctx    = canvas.getContext('2d');
+
+      const STAR_COUNT = 220;
+      const stars = [];
+
+      // Color palette — warm whites, cool silvers, faint gold
+      const COLORS = [
+        [255, 248, 220], // warm white
+        [220, 210, 180], // parchment
+        [200, 220, 255], // cool blue-white
+        [255, 240, 180], // faint gold
+        [240, 240, 255], // pure silver
+      ];
+
+      function resize() {
+        canvas.width  = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+
+      function rand(min, max) { return Math.random() * (max - min) + min; }
+
+      function spawnStar(i) {
+        const w = canvas.width;
+        const h = canvas.height;
+
+        // Weight distribution: avoid center (where prism lives)
+        // Stars cluster toward edges and corners
+        let x, y;
+        const zone = Math.random();
+        if (zone < 0.3) {
+          // Left third
+          x = rand(0, w * 0.28);
+          y = rand(0, h);
+        } else if (zone < 0.6) {
+          // Right third
+          x = rand(w * 0.72, w);
+          y = rand(0, h);
+        } else if (zone < 0.8) {
+          // Top strip
+          x = rand(0, w);
+          y = rand(0, h * 0.22);
+        } else {
+          // Bottom strip
+          x = rand(0, w);
+          y = rand(h * 0.78, h);
+        }
+
+        const color = COLORS[Math.floor(Math.random() * COLORS.length)];
+        const size  = rand(0.3, 1.8);
+
+        // Bigger stars twinkle slower; tiny stars flicker faster
+        const speed     = rand(0.003, 0.012) * (1 / size);
+        const phase     = rand(0, Math.PI * 2);
+        const minAlpha  = rand(0.0, 0.12);
+        const maxAlpha  = rand(0.4, 1.0);
+
+        // Occasional "bright" stars
+        const bright = Math.random() < 0.06;
+
+        stars[i] = { x, y, size: bright ? rand(1.4, 2.4) : size,
+                     color, speed, phase,
+                     minAlpha, maxAlpha: bright ? 1.0 : maxAlpha,
+                     bright };
+      }
+
+      function init() {
+        resize();
+        for (let i = 0; i < STAR_COUNT; i++) spawnStar(i);
+      }
+
+      let t = 0;
+      let animId = null;
+      let active = true;
+
+      function draw() {
+        if (!active) return;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        t += 1;
+
+        for (let i = 0; i < stars.length; i++) {
+          const s = stars[i];
+          // Smooth sine-based alpha
+          const alpha = s.minAlpha + (s.maxAlpha - s.minAlpha) *
+                        (0.5 + 0.5 * Math.sin(t * s.speed + s.phase));
+
+          ctx.save();
+          ctx.globalAlpha = alpha;
+
+          if (s.bright) {
+            // Bright stars get a soft glow halo
+            const grd = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, s.size * 4);
+            grd.addColorStop(0,   `rgba(${s.color[0]},${s.color[1]},${s.color[2]},0.5)`);
+            grd.addColorStop(0.4, `rgba(${s.color[0]},${s.color[1]},${s.color[2]},0.15)`);
+            grd.addColorStop(1,   `rgba(${s.color[0]},${s.color[1]},${s.color[2]},0)`);
+            ctx.fillStyle = grd;
+            ctx.beginPath();
+            ctx.arc(s.x, s.y, s.size * 4, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Cross sparkle for the brightest
+            if (s.maxAlpha > 0.85) {
+              ctx.globalAlpha = alpha * 0.5;
+              ctx.strokeStyle = `rgba(${s.color[0]},${s.color[1]},${s.color[2]},1)`;
+              ctx.lineWidth   = 0.4;
+              const arm = s.size * 5;
+              ctx.beginPath();
+              ctx.moveTo(s.x - arm, s.y); ctx.lineTo(s.x + arm, s.y);
+              ctx.moveTo(s.x, s.y - arm); ctx.lineTo(s.x, s.y + arm);
+              ctx.stroke();
+            }
+          }
+
+          // Core dot
+          ctx.globalAlpha = alpha;
+          ctx.fillStyle = `rgb(${s.color[0]},${s.color[1]},${s.color[2]})`;
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+          ctx.fill();
+
+          ctx.restore();
+        }
+
+        animId = requestAnimationFrame(draw);
+      }
+
+      function start() {
+        active = true;
+        if (!animId) draw();
+      }
+
+      function stop() {
+        active = false;
+        if (animId) { cancelAnimationFrame(animId); animId = null; }
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      }
+
+      window.addEventListener('resize', () => {
+        resize();
+        // Respawn stars for new dimensions
+        for (let i = 0; i < stars.length; i++) spawnStar(i);
+      });
+
+      // Only run when home page is visible
+      const homeObserver = new MutationObserver(() => {
+        const homePage = document.getElementById('page-home');
+        if (homePage && homePage.classList.contains('active')) {
+          start();
+        } else {
+          stop();
+        }
+      });
+
+      homeObserver.observe(document.body, { subtree: true, attributes: true, attributeFilter: ['class'] });
+
+      // Init on load
+      init();
+      draw();
+    })();
+  </script>
 
   <script>
     // ─────────────────────────────────────────
