@@ -2078,6 +2078,9 @@
 
       // Init on load
       init();
+      // Spawn 1-2 shooting stars shortly after load
+      setTimeout(spawnShooter, 800);
+      setTimeout(() => { if (Math.random() < 0.6) spawnShooter(); }, 2400);
       draw();
     })();
   </script>
