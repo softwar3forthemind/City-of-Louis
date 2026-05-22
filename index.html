@@ -2107,7 +2107,7 @@
 
         // Bright stars — same 6% probability on both desktop and mobile
         // Desktop has more total stars so proportionally more brights appear naturally
-        const bright = Math.random() < (window.innerWidth > 600 ? 0.069 : 0.06);
+        const bright = Math.random() < (window.innerWidth > 600 ? 0.0828 : 0.06);
         const starSize = bright ? rand(1.4, 2.4) : size;
 
         stars[i] = { x, y,
