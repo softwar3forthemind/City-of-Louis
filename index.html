@@ -2105,27 +2105,18 @@
         const minAlpha  = rand(0.0, 0.12);
         const maxAlpha  = rand(0.4, 1.0);
 
-        // Bright stars — more on desktop, with a superBright tier
-        const isDesk = window.innerWidth > 600;
-        const brightRoll = Math.random();
-        const superBright = isDesk && brightRoll < 0.06;
-        const bright      = superBright ? true : (brightRoll < (isDesk ? 0.22 : 0.06));
-
-        // SuperBright: larger, slower pulse so they feel majestic
-        const starSize = superBright ? rand(2.2, 3.4)
-                       : bright      ? rand(1.4, 2.4)
-                       : size;
-        const brightSpeed = isDesk
-          ? rand(0.006, 0.022) * (1 / Math.max(starSize, 0.5))
-          : speed;
+        // Bright stars — same 6% probability on both desktop and mobile
+        // Desktop has more total stars so proportionally more brights appear naturally
+        const bright = Math.random() < 0.06;
+        const starSize = bright ? rand(1.4, 2.4) : size;
 
         stars[i] = { x, y,
                      size: starSize,
                      color, phase,
-                     speed: bright && isDesk ? brightSpeed : speed,
-                     minAlpha: bright ? rand(0.05, 0.2) : minAlpha,
-                     maxAlpha: superBright ? rand(0.6, 0.8) : bright ? rand(0.45, 0.7) : maxAlpha,
-                     bright, superBright: superBright || false };
+                     speed,
+                     minAlpha: bright ? rand(0.05, 0.15) : minAlpha,
+                     maxAlpha: bright ? rand(0.7, 1.0) : maxAlpha,
+                     bright, superBright: false };
       }
 
       function init() {
@@ -2152,32 +2143,21 @@
           ctx.globalAlpha = alpha;
 
           if (s.bright) {
-            const haloR = s.superBright ? s.size * 6 : s.size * 3.5;
-            // Outer diffuse halo — pulled back significantly
-            const grd = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, haloR);
-            grd.addColorStop(0,    `rgba(${s.color[0]},${s.color[1]},${s.color[2]},${s.superBright ? 0.28 : 0.18})`);
-            grd.addColorStop(0.4,  `rgba(${s.color[0]},${s.color[1]},${s.color[2]},0.07)`);
-            grd.addColorStop(1,    `rgba(${s.color[0]},${s.color[1]},${s.color[2]},0)`);
-            ctx.globalAlpha = alpha;
+            // Halo — same as mobile
+            const grd = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, s.size * 4);
+            grd.addColorStop(0,   `rgba(${s.color[0]},${s.color[1]},${s.color[2]},0.5)`);
+            grd.addColorStop(0.4, `rgba(${s.color[0]},${s.color[1]},${s.color[2]},0.15)`);
+            grd.addColorStop(1,   `rgba(${s.color[0]},${s.color[1]},${s.color[2]},0)`);
             ctx.fillStyle = grd;
             ctx.beginPath();
-            ctx.arc(s.x, s.y, haloR, 0, Math.PI * 2);
+            ctx.arc(s.x, s.y, s.size * 4, 0, Math.PI * 2);
             ctx.fill();
 
-            // Inner corona — subtle
-            const corona = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, s.size * 1.6);
-            corona.addColorStop(0,   `rgba(255,255,240,${s.superBright ? 0.35 : 0.22})`);
-            corona.addColorStop(1,   `rgba(255,248,200,0)`);
-            ctx.fillStyle = corona;
-            ctx.beginPath();
-            ctx.arc(s.x, s.y, s.size * 1.6, 0, Math.PI * 2);
-            ctx.fill();
-
-            // Cross sparkle — only superBright, very faint
-            if (s.superBright) {
-              ctx.globalAlpha = alpha * 0.25;
+            // Cross sparkle for bright stars with high maxAlpha — same as mobile
+            if (s.maxAlpha > 0.85) {
+              ctx.globalAlpha = alpha * 0.5;
               ctx.strokeStyle = `rgba(${s.color[0]},${s.color[1]},${s.color[2]},1)`;
-              ctx.lineWidth = 0.4;
+              ctx.lineWidth   = 0.4;
               const arm = s.size * 5;
               ctx.beginPath();
               ctx.moveTo(s.x - arm, s.y); ctx.lineTo(s.x + arm, s.y);
