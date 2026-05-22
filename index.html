@@ -2124,7 +2124,7 @@
                      color, phase,
                      speed: bright && isDesk ? brightSpeed : speed,
                      minAlpha: bright ? rand(0.05, 0.2) : minAlpha,
-                     maxAlpha: superBright ? 1.0 : bright ? rand(0.75, 1.0) : maxAlpha,
+                     maxAlpha: superBright ? rand(0.6, 0.8) : bright ? rand(0.45, 0.7) : maxAlpha,
                      bright, superBright: superBright || false };
       }
 
@@ -2152,12 +2152,11 @@
           ctx.globalAlpha = alpha;
 
           if (s.bright) {
-            const haloR = s.superBright ? s.size * 9 : s.size * 5;
-            // Outer diffuse halo
+            const haloR = s.superBright ? s.size * 6 : s.size * 3.5;
+            // Outer diffuse halo — pulled back significantly
             const grd = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, haloR);
-            grd.addColorStop(0,    `rgba(${s.color[0]},${s.color[1]},${s.color[2]},${s.superBright ? 0.65 : 0.45})`);
-            grd.addColorStop(0.35, `rgba(${s.color[0]},${s.color[1]},${s.color[2]},0.18)`);
-            grd.addColorStop(0.7,  `rgba(${s.color[0]},${s.color[1]},${s.color[2]},0.06)`);
+            grd.addColorStop(0,    `rgba(${s.color[0]},${s.color[1]},${s.color[2]},${s.superBright ? 0.28 : 0.18})`);
+            grd.addColorStop(0.4,  `rgba(${s.color[0]},${s.color[1]},${s.color[2]},0.07)`);
             grd.addColorStop(1,    `rgba(${s.color[0]},${s.color[1]},${s.color[2]},0)`);
             ctx.globalAlpha = alpha;
             ctx.fillStyle = grd;
@@ -2165,35 +2164,24 @@
             ctx.arc(s.x, s.y, haloR, 0, Math.PI * 2);
             ctx.fill();
 
-            // Inner tight corona
-            const corona = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, s.size * 2.2);
-            corona.addColorStop(0,   `rgba(255,255,240,${s.superBright ? 0.9 : 0.6})`);
+            // Inner corona — subtle
+            const corona = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, s.size * 1.6);
+            corona.addColorStop(0,   `rgba(255,255,240,${s.superBright ? 0.35 : 0.22})`);
             corona.addColorStop(1,   `rgba(255,248,200,0)`);
             ctx.fillStyle = corona;
             ctx.beginPath();
-            ctx.arc(s.x, s.y, s.size * 2.2, 0, Math.PI * 2);
+            ctx.arc(s.x, s.y, s.size * 1.6, 0, Math.PI * 2);
             ctx.fill();
 
-            // Cross sparkle — all bright stars
-            ctx.globalAlpha = alpha * 0.55;
-            ctx.strokeStyle = `rgba(${s.color[0]},${s.color[1]},${s.color[2]},1)`;
-            ctx.lineWidth = s.superBright ? 0.7 : 0.45;
-            const arm = s.superBright ? s.size * 8 : s.size * 5.5;
-            ctx.beginPath();
-            ctx.moveTo(s.x - arm, s.y); ctx.lineTo(s.x + arm, s.y);
-            ctx.moveTo(s.x, s.y - arm); ctx.lineTo(s.x, s.y + arm);
-            ctx.stroke();
-
-            // Diagonal arms for superBright stars — 8-pointed star
+            // Cross sparkle — only superBright, very faint
             if (s.superBright) {
-              ctx.globalAlpha = alpha * 0.28;
-              ctx.lineWidth = 0.5;
-              const diagArm = arm * 0.6;
+              ctx.globalAlpha = alpha * 0.25;
+              ctx.strokeStyle = `rgba(${s.color[0]},${s.color[1]},${s.color[2]},1)`;
+              ctx.lineWidth = 0.4;
+              const arm = s.size * 5;
               ctx.beginPath();
-              ctx.moveTo(s.x - diagArm * 0.707, s.y - diagArm * 0.707);
-              ctx.lineTo(s.x + diagArm * 0.707, s.y + diagArm * 0.707);
-              ctx.moveTo(s.x + diagArm * 0.707, s.y - diagArm * 0.707);
-              ctx.lineTo(s.x - diagArm * 0.707, s.y + diagArm * 0.707);
+              ctx.moveTo(s.x - arm, s.y); ctx.lineTo(s.x + arm, s.y);
+              ctx.moveTo(s.x, s.y - arm); ctx.lineTo(s.x, s.y + arm);
               ctx.stroke();
             }
           }
