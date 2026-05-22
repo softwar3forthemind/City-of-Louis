@@ -768,16 +768,177 @@
       }
     }
 
-    /* ── TABLET ── */
-    @media (min-width: 601px) and (max-width: 860px) {
+    /* ── TABLET (portrait) ── */
+    @media (min-width: 601px) and (max-width: 1024px) and (orientation: portrait) {
       .rays-mobile { display: none !important; }
-      .prism-wrap { width: 320px; height: 284px; }
+      .prism-wrap { width: 360px; height: 320px; }
       .foundation-pillar { width: 50px; }
       .foundation-content { padding: 4rem 1.8rem 5rem; }
+      .inner-page { max-width: 600px; padding: 2.5rem 2rem 3rem; }
+    }
+
+    /* ── LANDSCAPE — phones and iPads on their side ── */
+    @media (orientation: landscape) and (max-height: 600px) {
+
+      /* Home page: scrollable in landscape, flex flow */
+      #page-home { overflow-y: auto !important; height: auto !important; min-height: 100vh; }
+
+      .home {
+        height: auto !important;
+        min-height: 100vh;
+        max-height: none !important;
+        overflow: visible !important;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        padding: 1.5rem 2rem;
+        gap: 1rem;
+        position: relative;
+      }
+
+      /* Title spans full width at top */
+      .site-title {
+        position: relative !important;
+        top: auto !important; left: auto !important;
+        transform: none !important;
+        width: 100%;
+        text-align: center;
+        font-size: 11px;
+        letter-spacing: 0.38em;
+        margin-bottom: 0.5rem;
+        order: 0;
+        z-index: 3;
+      }
+
+      /* Prism: smaller, left side */
+      .prism-wrap {
+        position: relative !important;
+        top: auto !important; left: auto !important;
+        transform: none !important;
+        width: min(240px, 38vw);
+        height: min(213px, 34vw);
+        order: 1;
+        flex-shrink: 0;
+        z-index: 3;
+      }
+
+      /* Tagline + patronage: right side of prism */
+      .tagline {
+        position: relative !important;
+        top: auto !important; left: auto !important;
+        transform: none !important;
+        font-size: 13px;
+        order: 2;
+        margin: 0;
+        align-self: center;
+        z-index: 3;
+      }
+
+      .benefactor-link-wrap {
+        position: relative !important;
+        top: auto !important; left: auto !important;
+        transform: none !important;
+        order: 3;
+        margin: 0;
+        align-self: center;
+        z-index: 3;
+      }
+
+      /* Footer: full width at bottom */
+      .home-footer {
+        position: relative !important;
+        bottom: auto !important; top: auto !important;
+        left: auto !important; right: auto !important;
+        width: 100%;
+        order: 4;
+        padding: 0.5rem 1rem 1rem !important;
+        gap: 0.15rem !important;
+      }
+
+      .home-footer-desc { font-size: 8px; line-height: 1.4; }
+      .glow-pool { display: none; }
+
+      /* Inner pages in landscape */
+      .inner-page { padding: 1.5rem 2rem 2rem; max-width: 700px; }
+      .page-heading { font-size: 18px; }
+      .entry-full-body { font-size: 15px; }
+
+      /* Foundation landscape */
+      .foundation-pillar { display: none; }
+      .foundation-content { padding: 2rem 2rem 3rem; }
+    }
+
+    /* ── IPAD LANDSCAPE (768px–1024px wide, landscape) ── */
+    @media (orientation: landscape) and (min-height: 600px) and (max-width: 1180px) {
+      .rays-mobile { display: none !important; }
+
+      /* iPad landscape home: use desktop-style layout but scaled */
+      #page-home { overflow: hidden; height: 100vh; }
+      .home {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 0 2rem;
+        position: relative;
+      }
+
+      .site-title {
+        position: relative !important;
+        top: auto !important; left: auto !important;
+        transform: none !important;
+        font-size: 13px;
+        letter-spacing: 0.4em;
+        margin-bottom: 1.5rem;
+        z-index: 3;
+      }
+
+      .prism-wrap {
+        position: relative !important;
+        top: auto !important; left: auto !important;
+        transform: none !important;
+        width: min(380px, 50vw);
+        height: min(338px, 44vw);
+        margin-bottom: 1.2rem;
+        z-index: 3;
+      }
+
+      .tagline {
+        position: relative !important;
+        top: auto !important; left: auto !important;
+        transform: none !important;
+        font-size: 15px;
+        margin-bottom: 0.6rem;
+        z-index: 3;
+      }
+
+      .benefactor-link-wrap {
+        position: relative !important;
+        top: auto !important; left: auto !important;
+        transform: none !important;
+        margin: 0 0 1rem;
+        z-index: 3;
+      }
+
+      .home-footer {
+        position: relative !important;
+        bottom: auto !important;
+        padding: 0 2rem 1rem !important;
+      }
+
+      /* Inner pages */
+      .inner-page { max-width: 640px; padding: 2.5rem 2rem 3rem; }
+      .foundation-content { padding: 3rem 2rem 4rem; }
     }
 
     /* Hide mobile rays on desktop */
-    @media (min-width: 601px) {
+    @media (min-width: 601px) and (orientation: portrait) {
+      .rays-mobile { display: none !important; }
+    }
+    @media (orientation: landscape) and (min-height: 600px) {
       .rays-mobile { display: none !important; }
     }
 
@@ -1848,7 +2009,7 @@
       const ctx    = canvas.getContext('2d');
 
       const isMobile = window.innerWidth <= 600;
-      const STAR_COUNT = isMobile ? 220 : 340;
+      const STAR_COUNT = isMobile ? 220 : 420;
       const stars = [];
       const shooters = [];
 
@@ -1944,13 +2105,27 @@
         const minAlpha  = rand(0.0, 0.12);
         const maxAlpha  = rand(0.4, 1.0);
 
-        // Occasional "bright" stars — more on desktop
-        const bright = Math.random() < (window.innerWidth > 600 ? 0.13 : 0.06);
+        // Bright stars — more on desktop, with a superBright tier
+        const isDesk = window.innerWidth > 600;
+        const brightRoll = Math.random();
+        const superBright = isDesk && brightRoll < 0.06;
+        const bright      = superBright ? true : (brightRoll < (isDesk ? 0.22 : 0.06));
 
-        stars[i] = { x, y, size: bright ? rand(1.4, 2.4) : size,
-                     color, speed, phase,
-                     minAlpha, maxAlpha: bright ? 1.0 : maxAlpha,
-                     bright };
+        // SuperBright: larger, slower pulse so they feel majestic
+        const starSize = superBright ? rand(2.2, 3.4)
+                       : bright      ? rand(1.4, 2.4)
+                       : size;
+        const brightSpeed = isDesk
+          ? rand(0.006, 0.022) * (1 / Math.max(starSize, 0.5))
+          : speed;
+
+        stars[i] = { x, y,
+                     size: starSize,
+                     color, phase,
+                     speed: bright && isDesk ? brightSpeed : speed,
+                     minAlpha: bright ? rand(0.05, 0.2) : minAlpha,
+                     maxAlpha: superBright ? 1.0 : bright ? rand(0.75, 1.0) : maxAlpha,
+                     bright, superBright: superBright || false };
       }
 
       function init() {
@@ -1977,25 +2152,48 @@
           ctx.globalAlpha = alpha;
 
           if (s.bright) {
-            // Bright stars get a soft glow halo
-            const grd = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, s.size * 4);
-            grd.addColorStop(0,   `rgba(${s.color[0]},${s.color[1]},${s.color[2]},0.5)`);
-            grd.addColorStop(0.4, `rgba(${s.color[0]},${s.color[1]},${s.color[2]},0.15)`);
-            grd.addColorStop(1,   `rgba(${s.color[0]},${s.color[1]},${s.color[2]},0)`);
+            const haloR = s.superBright ? s.size * 9 : s.size * 5;
+            // Outer diffuse halo
+            const grd = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, haloR);
+            grd.addColorStop(0,    `rgba(${s.color[0]},${s.color[1]},${s.color[2]},${s.superBright ? 0.65 : 0.45})`);
+            grd.addColorStop(0.35, `rgba(${s.color[0]},${s.color[1]},${s.color[2]},0.18)`);
+            grd.addColorStop(0.7,  `rgba(${s.color[0]},${s.color[1]},${s.color[2]},0.06)`);
+            grd.addColorStop(1,    `rgba(${s.color[0]},${s.color[1]},${s.color[2]},0)`);
+            ctx.globalAlpha = alpha;
             ctx.fillStyle = grd;
             ctx.beginPath();
-            ctx.arc(s.x, s.y, s.size * 4, 0, Math.PI * 2);
+            ctx.arc(s.x, s.y, haloR, 0, Math.PI * 2);
             ctx.fill();
 
-            // Cross sparkle for the brightest
-            if (s.maxAlpha > 0.85) {
-              ctx.globalAlpha = alpha * 0.5;
-              ctx.strokeStyle = `rgba(${s.color[0]},${s.color[1]},${s.color[2]},1)`;
-              ctx.lineWidth   = 0.4;
-              const arm = s.size * 5;
+            // Inner tight corona
+            const corona = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, s.size * 2.2);
+            corona.addColorStop(0,   `rgba(255,255,240,${s.superBright ? 0.9 : 0.6})`);
+            corona.addColorStop(1,   `rgba(255,248,200,0)`);
+            ctx.fillStyle = corona;
+            ctx.beginPath();
+            ctx.arc(s.x, s.y, s.size * 2.2, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Cross sparkle — all bright stars
+            ctx.globalAlpha = alpha * 0.55;
+            ctx.strokeStyle = `rgba(${s.color[0]},${s.color[1]},${s.color[2]},1)`;
+            ctx.lineWidth = s.superBright ? 0.7 : 0.45;
+            const arm = s.superBright ? s.size * 8 : s.size * 5.5;
+            ctx.beginPath();
+            ctx.moveTo(s.x - arm, s.y); ctx.lineTo(s.x + arm, s.y);
+            ctx.moveTo(s.x, s.y - arm); ctx.lineTo(s.x, s.y + arm);
+            ctx.stroke();
+
+            // Diagonal arms for superBright stars — 8-pointed star
+            if (s.superBright) {
+              ctx.globalAlpha = alpha * 0.28;
+              ctx.lineWidth = 0.5;
+              const diagArm = arm * 0.6;
               ctx.beginPath();
-              ctx.moveTo(s.x - arm, s.y); ctx.lineTo(s.x + arm, s.y);
-              ctx.moveTo(s.x, s.y - arm); ctx.lineTo(s.x, s.y + arm);
+              ctx.moveTo(s.x - diagArm * 0.707, s.y - diagArm * 0.707);
+              ctx.lineTo(s.x + diagArm * 0.707, s.y + diagArm * 0.707);
+              ctx.moveTo(s.x + diagArm * 0.707, s.y - diagArm * 0.707);
+              ctx.lineTo(s.x - diagArm * 0.707, s.y + diagArm * 0.707);
               ctx.stroke();
             }
           }
