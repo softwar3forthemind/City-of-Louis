@@ -780,7 +780,7 @@
     /* ── LANDSCAPE — phones and iPads on their side ── */
     @media (orientation: landscape) and (max-height: 600px) {
 
-      /* Home page: scrollable in landscape, flex flow */
+      /* Home page: scrollable in landscape */
       #page-home { overflow-y: auto !important; height: auto !important; min-height: 100vh; }
 
       .home {
@@ -789,75 +789,77 @@
         max-height: none !important;
         overflow: visible !important;
         display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
+        flex-direction: column;
         align-items: center;
-        justify-content: center;
-        padding: 1.5rem 2rem;
-        gap: 1rem;
+        justify-content: flex-start;
+        padding: 0.9rem 2rem 0;
+        gap: 0;
         position: relative;
       }
 
-      /* Title spans full width at top */
+      /* City of Louis — top, centered */
       .site-title {
         position: relative !important;
         top: auto !important; left: auto !important;
         transform: none !important;
         width: 100%;
         text-align: center;
-        font-size: 11px;
+        font-size: 10.5px;
         letter-spacing: 0.38em;
         margin-bottom: 0.5rem;
         order: 0;
         z-index: 3;
       }
 
-      /* Prism: smaller, left side */
+      /* Triangle — centered, directly under rays */
       .prism-wrap {
         position: relative !important;
         top: auto !important; left: auto !important;
         transform: none !important;
-        width: min(240px, 38vw);
-        height: min(213px, 34vw);
+        width: min(200px, 36vw);
+        height: min(178px, 32vw);
         order: 1;
-        flex-shrink: 0;
+        margin: 0 auto 0.4rem;
         z-index: 3;
       }
 
-      /* Tagline + patronage: right side of prism */
+      /* Authoring a New Future — below triangle */
       .tagline {
         position: relative !important;
         top: auto !important; left: auto !important;
         transform: none !important;
-        font-size: 13px;
+        font-size: 12px;
         order: 2;
-        margin: 0;
-        align-self: center;
+        margin: 0 0 0.35rem;
+        text-align: center;
+        white-space: nowrap;
         z-index: 3;
       }
 
+      /* Patronage — below tagline */
       .benefactor-link-wrap {
         position: relative !important;
         top: auto !important; left: auto !important;
         transform: none !important;
         order: 3;
-        margin: 0;
-        align-self: center;
+        margin: 0 0 0.6rem;
         z-index: 3;
       }
 
-      /* Footer: full width at bottom */
+      /* Footer — below patronage, shifted down */
       .home-footer {
         position: relative !important;
         bottom: auto !important; top: auto !important;
         left: auto !important; right: auto !important;
         width: 100%;
         order: 4;
-        padding: 0.5rem 1rem 1rem !important;
-        gap: 0.15rem !important;
+        padding: 0.4rem 1rem 1.2rem !important;
+        gap: 0.12rem !important;
+        margin-top: 0.3rem;
       }
 
-      .home-footer-desc { font-size: 8px; line-height: 1.4; }
+      .home-footer-desc { font-size: 7.5px; line-height: 1.35; }
+      .home-footer-copy { font-size: 5.5px; }
       .glow-pool { display: none; }
 
       /* Inner pages in landscape */
