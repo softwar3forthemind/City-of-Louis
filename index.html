@@ -175,10 +175,7 @@
     }
     .entry-back:hover { color: #b09a60; }
 
-    .entry-full-date {
-      font-family: 'Cinzel', serif; font-size: 8px; letter-spacing: 0.4em;
-      color: #4a3e1e; text-transform: uppercase; margin-bottom: 0.8rem;
-    }
+    /* entry-full-date — see updated rule in new_css block above */
 
     .entry-full-title {
       font-family: 'Cinzel Decorative', serif; font-weight: 400; font-size: 22px;
@@ -1382,6 +1379,78 @@
     }
     #reading-progress.visible { opacity: 1; }
 
+
+    /* ── PILLAR NAVIGATION (bottom of pillar pages) ── */
+    .pillar-nav {
+      margin-top: 3.5rem;
+      padding-top: 2rem;
+      border-top: 0.5px solid #1e1a0e;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .pillar-nav-label {
+      font-family: 'Cinzel', serif; font-size: 7px; letter-spacing: 0.5em;
+      color: #3a3218; text-transform: uppercase;
+      width: 100%; text-align: center; margin-bottom: 0.4rem;
+    }
+    .pillar-nav-link {
+      font-family: 'Cinzel', serif; font-size: 9px; letter-spacing: 0.32em;
+      color: #5a4e28; text-transform: uppercase; cursor: pointer;
+      border-bottom: 0.5px solid transparent;
+      padding-bottom: 2px;
+      transition: color 0.22s, border-color 0.22s;
+    }
+    .pillar-nav-link:hover { color: #c8a030; border-color: #c8a030; }
+    .pillar-nav-link.current { color: #3a3218; cursor: default; border-color: transparent; }
+    .pillar-nav-sep { color: #2a2210; font-size: 10px; }
+
+    /* ── PREV / NEXT ENTRY NAVIGATION ── */
+    .entry-footer-nav {
+      display: none;
+      margin-top: 3rem;
+      padding-top: 1.8rem;
+      border-top: 0.5px solid #1e1a0e;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    .entry-footer-nav.visible { display: flex; }
+    .entry-nav-btn {
+      font-family: 'Cinzel', serif; font-size: 8px; letter-spacing: 0.32em;
+      color: #5a4e28; text-transform: uppercase; cursor: pointer;
+      transition: color 0.22s; max-width: 45%;
+      display: flex; flex-direction: column; gap: 0.4rem;
+    }
+    .entry-nav-btn:hover { color: #c8a030; }
+    .entry-nav-btn.next { text-align: right; align-items: flex-end; }
+    .entry-nav-direction {
+      font-size: 7px; letter-spacing: 0.5em; color: #3a3218;
+      text-transform: uppercase;
+    }
+    .entry-nav-title {
+      font-family: 'EB Garamond', serif; font-size: 14px; font-style: italic;
+      color: #7a6a44; line-height: 1.4; letter-spacing: 0;
+      text-transform: none;
+    }
+    .entry-nav-btn:hover .entry-nav-title { color: #c8a030; }
+
+    /* ── DATE PROMINENCE ── */
+    .entry-full-date {
+      font-family: 'Cinzel', serif; font-size: 9.5px; letter-spacing: 0.42em;
+      color: #6a5c30; text-transform: uppercase; margin-bottom: 0.8rem;
+    }
+
+    @media (max-width: 600px) {
+      .pillar-nav { gap: 1.2rem; margin-top: 2.5rem; }
+      .pillar-nav-link { font-size: 8px; letter-spacing: 0.28em; }
+      .entry-footer-nav { flex-direction: column; gap: 1.4rem; }
+      .entry-nav-btn.next { align-self: flex-end; }
+      .entry-nav-btn { max-width: 80%; }
+    }
+
   </style>
 </head>
 <body>
@@ -1588,6 +1657,31 @@
         <div class="entry-full-date" id="entry-date-new-adam"></div>
         <h2 class="entry-full-title" id="entry-title-new-adam"></h2>
         <div class="entry-full-body" id="entry-body-new-adam"></div>
+
+      <!-- Prev/Next entry navigation -->
+      <div class="entry-footer-nav" id="entry-nav-new-adam">
+        <div class="entry-nav-btn prev" id="entry-nav-prev-new-adam" onclick="navigateEntry('new-adam', 'prev')">
+          <span class="entry-nav-direction">← Previous</span>
+          <span class="entry-nav-title" id="entry-nav-prev-title-new-adam"></span>
+        </div>
+        <div class="entry-nav-btn next" id="entry-nav-next-new-adam" onclick="navigateEntry('new-adam', 'next')">
+          <span class="entry-nav-direction">Next →</span>
+          <span class="entry-nav-title" id="entry-nav-next-title-new-adam"></span>
+        </div>
+      </div>
+      </div>
+
+
+      <!-- Pillar navigation -->
+      <div class="pillar-nav">
+        <div class="pillar-nav-label">The Four Pillars</div>
+        <span class="pillar-nav-link current">New Adam</span>
+        <span class="pillar-nav-sep">·</span>
+        <span class="pillar-nav-link" onclick="navigate('capital')">Capital</span>
+        <span class="pillar-nav-sep">·</span>
+        <span class="pillar-nav-link" onclick="navigate('law')">Law</span>
+        <span class="pillar-nav-sep">·</span>
+        <span class="pillar-nav-link" onclick="navigate('technology')">Technology</span>
       </div>
 
       <div class="community-threshold">
@@ -1627,6 +1721,30 @@
         <h2 class="entry-full-title" id="entry-title-capital"></h2>
         <div class="entry-full-body" id="entry-body-capital"></div>
       </div>
+
+      <!-- Prev/Next entry navigation -->
+      <div class="entry-footer-nav" id="entry-nav-capital">
+        <div class="entry-nav-btn prev" id="entry-nav-prev-capital" onclick="navigateEntry('capital', 'prev')">
+          <span class="entry-nav-direction">← Previous</span>
+          <span class="entry-nav-title" id="entry-nav-prev-title-capital"></span>
+        </div>
+        <div class="entry-nav-btn next" id="entry-nav-next-capital" onclick="navigateEntry('capital', 'next')">
+          <span class="entry-nav-direction">Next →</span>
+          <span class="entry-nav-title" id="entry-nav-next-title-capital"></span>
+        </div>
+      </div>
+
+      <!-- Pillar navigation -->
+      <div class="pillar-nav">
+        <div class="pillar-nav-label">The Four Pillars</div>
+        <span class="pillar-nav-link" onclick="navigate('new-adam')">New Adam</span>
+        <span class="pillar-nav-sep">·</span>
+        <span class="pillar-nav-link current">Capital</span>
+        <span class="pillar-nav-sep">·</span>
+        <span class="pillar-nav-link" onclick="navigate('law')">Law</span>
+        <span class="pillar-nav-sep">·</span>
+        <span class="pillar-nav-link" onclick="navigate('technology')">Technology</span>
+      </div>
     </div>
   </div>
 
@@ -1659,6 +1777,30 @@
         <h2 class="entry-full-title" id="entry-title-law"></h2>
         <div class="entry-full-body" id="entry-body-law"></div>
       </div>
+
+      <!-- Prev/Next entry navigation -->
+      <div class="entry-footer-nav" id="entry-nav-law">
+        <div class="entry-nav-btn prev" id="entry-nav-prev-law" onclick="navigateEntry('law', 'prev')">
+          <span class="entry-nav-direction">← Previous</span>
+          <span class="entry-nav-title" id="entry-nav-prev-title-law"></span>
+        </div>
+        <div class="entry-nav-btn next" id="entry-nav-next-law" onclick="navigateEntry('law', 'next')">
+          <span class="entry-nav-direction">Next →</span>
+          <span class="entry-nav-title" id="entry-nav-next-title-law"></span>
+        </div>
+      </div>
+
+      <!-- Pillar navigation -->
+      <div class="pillar-nav">
+        <div class="pillar-nav-label">The Four Pillars</div>
+        <span class="pillar-nav-link" onclick="navigate('new-adam')">New Adam</span>
+        <span class="pillar-nav-sep">·</span>
+        <span class="pillar-nav-link" onclick="navigate('capital')">Capital</span>
+        <span class="pillar-nav-sep">·</span>
+        <span class="pillar-nav-link current">Law</span>
+        <span class="pillar-nav-sep">·</span>
+        <span class="pillar-nav-link" onclick="navigate('technology')">Technology</span>
+      </div>
     </div>
   </div>
 
@@ -1690,6 +1832,30 @@
         <div class="entry-full-date" id="entry-date-technology"></div>
         <h2 class="entry-full-title" id="entry-title-technology"></h2>
         <div class="entry-full-body" id="entry-body-technology"></div>
+      </div>
+
+      <!-- Prev/Next entry navigation -->
+      <div class="entry-footer-nav" id="entry-nav-technology">
+        <div class="entry-nav-btn prev" id="entry-nav-prev-technology" onclick="navigateEntry('technology', 'prev')">
+          <span class="entry-nav-direction">← Previous</span>
+          <span class="entry-nav-title" id="entry-nav-prev-title-technology"></span>
+        </div>
+        <div class="entry-nav-btn next" id="entry-nav-next-technology" onclick="navigateEntry('technology', 'next')">
+          <span class="entry-nav-direction">Next →</span>
+          <span class="entry-nav-title" id="entry-nav-next-title-technology"></span>
+        </div>
+      </div>
+
+      <!-- Pillar navigation -->
+      <div class="pillar-nav">
+        <div class="pillar-nav-label">The Four Pillars</div>
+        <span class="pillar-nav-link" onclick="navigate('new-adam')">New Adam</span>
+        <span class="pillar-nav-sep">·</span>
+        <span class="pillar-nav-link" onclick="navigate('capital')">Capital</span>
+        <span class="pillar-nav-sep">·</span>
+        <span class="pillar-nav-link" onclick="navigate('law')">Law</span>
+        <span class="pillar-nav-sep">·</span>
+        <span class="pillar-nav-link current">Technology</span>
       </div>
     </div>
   </div>
@@ -1855,7 +2021,7 @@
           <div class="content-sub-badge-dot"></div>
         </div>
 
-        <div class="amount-instruction">Set the amount you'd like to spend on City of Louis' original content</div>
+        <div class="amount-instruction">Patronize in proportion to the value you've received.</div>
 
         <!-- Amount -->
         <div class="amount-wrap">
@@ -2515,7 +2681,12 @@
     // OPEN A SINGLE ENTRY
     // ─────────────────────────────────────────
     function openEntry(category, id) {
-      const entry = entries.find(e => e.id === id);
+      const catEntries = entries
+        .filter(e => e.category === category)
+        .sort((a, b) => b.date.localeCompare(a.date));
+
+      const idx   = catEntries.findIndex(e => e.id === id);
+      const entry = catEntries[idx];
       if (!entry) return;
 
       document.getElementById('entry-date-'  + category).textContent = formatDate(entry.date);
@@ -2525,11 +2696,51 @@
       document.getElementById('list-'  + category).classList.add('hidden');
       document.getElementById('entry-' + category).classList.add('active');
 
+      // Prev/next navigation
+      const nav     = document.getElementById('entry-nav-'      + category);
+      const prevBtn = document.getElementById('entry-nav-prev-' + category);
+      const nextBtn = document.getElementById('entry-nav-next-' + category);
+      const prevTtl = document.getElementById('entry-nav-prev-title-' + category);
+      const nextTtl = document.getElementById('entry-nav-next-title-' + category);
+
+      if (nav) {
+        const hasPrev = idx < catEntries.length - 1;
+        const hasNext = idx > 0;
+
+        if (hasPrev || hasNext) nav.classList.add('visible');
+        else nav.classList.remove('visible');
+
+        // Prev = older (higher index in newest-first array)
+        if (prevBtn) prevBtn.style.visibility = hasPrev ? 'visible' : 'hidden';
+        if (prevTtl && hasPrev) prevTtl.textContent = catEntries[idx + 1].title;
+
+        // Next = newer (lower index)
+        if (nextBtn) nextBtn.style.visibility = hasNext ? 'visible' : 'hidden';
+        if (nextTtl && hasNext) nextTtl.textContent = catEntries[idx - 1].title;
+
+        // Store current index for navigation
+        nav.dataset.currentIdx = idx;
+        nav.dataset.category   = category;
+      }
+
       // Hide foundation/community links on New Adam when reading an entry
       const fw = document.getElementById('foundation-wrap');
       if (fw && category === 'new-adam') fw.style.display = 'none';
 
       window.scrollTo(0, 0);
+    }
+
+    function navigateEntry(category, direction) {
+      const nav = document.getElementById('entry-nav-' + category);
+      if (!nav) return;
+      const idx = parseInt(nav.dataset.currentIdx);
+      const catEntries = entries
+        .filter(e => e.category === category)
+        .sort((a, b) => b.date.localeCompare(a.date));
+
+      const newIdx = direction === 'prev' ? idx + 1 : idx - 1;
+      if (newIdx < 0 || newIdx >= catEntries.length) return;
+      openEntry(category, catEntries[newIdx].id);
     }
 
     // ─────────────────────────────────────────
