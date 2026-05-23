@@ -1360,9 +1360,33 @@
       text-align: center;
     }
 
+
+    /* ── PAGE TRANSITION VEIL ── */
+    #transition-veil {
+      position: fixed; inset: 0; z-index: 9999;
+      background: #060401;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.38s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    #transition-veil.fade-in  { opacity: 1;  pointer-events: all; }
+    #transition-veil.fade-out { opacity: 0;  pointer-events: none; }
+
+    /* ── READING PROGRESS BAR ── */
+    #reading-progress {
+      position: fixed; top: 0; left: 0;
+      height: 1.5px; width: 0%;
+      background: linear-gradient(90deg, #7a5c18, #c8952a, #f0d060, #c8952a, #7a5c18);
+      z-index: 9998; pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    #reading-progress.visible { opacity: 1; }
+
   </style>
 </head>
 <body>
+  <div id="transition-veil"></div>
+  <div id="reading-progress"></div>
 
   <!-- HOME -->
   <div class="page active" id="page-home">
@@ -2405,7 +2429,7 @@
         });
         const data = await res.json();
         if (data.success) {
-          msg.textContent = 'You are in union.';
+          msg.textContent = 'Your name is written in the book.';
           input.value = '';
         } else {
           msg.textContent = 'Something went wrong. Please try again.';
@@ -2525,51 +2549,73 @@
     // PAGE NAVIGATION — with hash routing
     // ─────────────────────────────────────────
     function navigate(target) {
-      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-      const id = target === 'home' ? 'page-home' : 'page-' + target;
-      const el = document.getElementById(id);
-      if (el) { el.classList.add('active'); window.scrollTo(0, 0); }
+      const veil = document.getElementById('transition-veil');
 
-      // Move music toggle to bottom-right on inner pages (has return button), top-left on home
-      if (target === 'home') {
-        document.body.classList.remove('inner-page-active');
-      } else {
-        document.body.classList.add('inner-page-active');
-      }
+      // Fade to black
+      veil.classList.add('fade-in');
 
-      // Update URL hash
-      if (target === 'home') {
-        history.pushState(null, '', '/');
-      } else {
-        history.pushState(null, '', '#' + target);
-      }
+      setTimeout(() => {
+        // Swap pages while hidden
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        const id = target === 'home' ? 'page-home' : 'page-' + target;
+        const el = document.getElementById(id);
+        if (el) { el.classList.add('active'); window.scrollTo(0, 0); }
 
-      const siteAudio   = document.getElementById('site-audio');
-      const musicToggle = document.getElementById('music-toggle');
-      const hohAudio    = document.getElementById('hoh-audio');
-      const hohToggle   = document.getElementById('hoh-audio-toggle');
-
-      if (target === 'foundation') {
-        // Silence main track, hide main toggle
-        if (siteAudio && !siteAudio.paused) {
-          siteAudio.pause();
-          if (musicToggle) musicToggle.classList.remove('playing');
+        // Music toggle position
+        if (target === 'home') {
+          document.body.classList.remove('inner-page-active');
+        } else {
+          document.body.classList.add('inner-page-active');
         }
-        if (musicToggle) musicToggle.style.display = 'none';
-        // Auto-play HOH audio
-        if (hohAudio) { hohAudio.volume = 0.75; hohAudio.play().catch(() => {}); }
-        if (hohToggle) hohToggle.classList.add('visible');
-      } else {
-        // Stop HOH audio
-        if (hohAudio) { hohAudio.pause(); hohAudio.currentTime = 0; }
-        if (hohToggle) hohToggle.classList.remove('visible');
-        // Restore main music toggle
-        if (musicToggle) musicToggle.style.display = '';
-      }
 
-      // Render entry index when navigating to a content page
-      const cats = ['new-adam', 'capital', 'law', 'technology'];
-      if (cats.includes(target)) renderIndex(target);
+        // URL hash
+        if (target === 'home') {
+          history.pushState(null, '', '/');
+        } else {
+          history.pushState(null, '', '#' + target);
+        }
+
+        // Audio routing
+        const siteAudio   = document.getElementById('site-audio');
+        const musicToggle = document.getElementById('music-toggle');
+        const hohAudio    = document.getElementById('hoh-audio');
+        const hohToggle   = document.getElementById('hoh-audio-toggle');
+
+        if (target === 'foundation') {
+          if (siteAudio && !siteAudio.paused) {
+            siteAudio.pause();
+            if (musicToggle) musicToggle.classList.remove('playing');
+          }
+          if (musicToggle) musicToggle.style.display = 'none';
+          if (hohAudio) { hohAudio.volume = 0.75; hohAudio.play().catch(() => {}); }
+          if (hohToggle) hohToggle.classList.add('visible');
+        } else {
+          if (hohAudio) { hohAudio.pause(); hohAudio.currentTime = 0; }
+          if (hohToggle) hohToggle.classList.remove('visible');
+          if (musicToggle) musicToggle.style.display = '';
+        }
+
+        // Render entry index
+        const cats = ['new-adam', 'capital', 'law', 'technology'];
+        if (cats.includes(target)) renderIndex(target);
+
+        // Show/hide reading progress bar
+        updateProgressBar();
+        const prog = document.getElementById('reading-progress');
+        const innerPages = ['new-adam','capital','law','technology','foundation','benefactor','about','contact','privacy','terms'];
+        if (innerPages.includes(target)) {
+          prog.classList.add('visible');
+        } else {
+          prog.classList.remove('visible');
+          prog.style.width = '0%';
+        }
+
+        // Fade back in
+        setTimeout(() => {
+          veil.classList.remove('fade-in');
+        }, 40);
+
+      }, 340);
     }
 
     // ─────────────────────────────────────────
@@ -2582,6 +2628,21 @@
     }
 
     window.addEventListener('hashchange', loadFromHash);
+
+    // ─────────────────────────────────────────
+    // READING PROGRESS BAR
+    // ─────────────────────────────────────────
+    function updateProgressBar() {
+      const prog = document.getElementById('reading-progress');
+      if (!prog || !prog.classList.contains('visible')) return;
+      const scrollTop    = window.scrollY || document.documentElement.scrollTop;
+      const docHeight    = document.documentElement.scrollHeight - window.innerHeight;
+      const pct          = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      prog.style.width   = Math.min(pct, 100) + '%';
+    }
+    window.addEventListener('scroll', updateProgressBar, { passive: true });
+
+
 
     // Benefactor identity toggle
     function selectIdentity(choice) {
