@@ -2012,7 +2012,7 @@
       const ctx    = canvas.getContext('2d');
 
       const isMobile = window.innerWidth <= 600;
-      const STAR_COUNT = isMobile ? 220 : 525;
+      const STAR_COUNT = isMobile ? 264 : 630;
       const stars = [];
       const shooters = [];
 
@@ -2110,15 +2110,15 @@
 
         // Bright stars — same 6% probability on both desktop and mobile
         // Desktop has more total stars so proportionally more brights appear naturally
-        const bright = Math.random() < (window.innerWidth > 600 ? 0.0828 : 0.06);
+        const bright = Math.random() < (window.innerWidth > 600 ? 0.0994 : 0.072);
         const starSize = bright ? rand(1.4, 2.4) : size;
 
         stars[i] = { x, y,
                      size: starSize,
                      color, phase,
                      speed,
-                     minAlpha: bright ? rand(0.05, 0.15) : minAlpha,
-                     maxAlpha: bright ? rand(0.7, 1.0) : maxAlpha,
+                     minAlpha: bright ? rand(0.06, 0.18) : minAlpha,
+                     maxAlpha: bright ? rand(0.84, 1.0) : maxAlpha,
                      bright, superBright: false };
       }
 
@@ -2148,8 +2148,8 @@
           if (s.bright) {
             // Halo — same as mobile
             const grd = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, s.size * 4);
-            grd.addColorStop(0,   `rgba(${s.color[0]},${s.color[1]},${s.color[2]},0.5)`);
-            grd.addColorStop(0.4, `rgba(${s.color[0]},${s.color[1]},${s.color[2]},0.15)`);
+            grd.addColorStop(0,   `rgba(${s.color[0]},${s.color[1]},${s.color[2]},0.6)`);
+            grd.addColorStop(0.4, `rgba(${s.color[0]},${s.color[1]},${s.color[2]},0.18)`);
             grd.addColorStop(1,   `rgba(${s.color[0]},${s.color[1]},${s.color[2]},0)`);
             ctx.fillStyle = grd;
             ctx.beginPath();
