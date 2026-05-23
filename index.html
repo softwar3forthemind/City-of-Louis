@@ -2263,7 +2263,7 @@
       const ctx    = canvas.getContext('2d');
 
       const isMobile = window.innerWidth <= 600;
-      const STAR_COUNT = isMobile ? 264 : 630;
+      const STAR_COUNT = isMobile ? 480 : 820;
       const stars = [];
       const shooters = [];
 
@@ -2311,40 +2311,24 @@
         // Mobile: cluster toward edges only
         let x, y;
         const zone = Math.random();
-        if (window.innerWidth > 600) {
-          // Desktop — full canvas distribution, weighted toward upper half (rays)
-          if (zone < 0.45) {
-            // Upper half — within and around the rays
-            x = rand(0, w);
-            y = rand(0, h * 0.55);
-          } else if (zone < 0.7) {
-            // Left edge
-            x = rand(0, w * 0.3);
-            y = rand(0, h);
-          } else if (zone < 0.9) {
-            // Right edge
-            x = rand(w * 0.7, w);
-            y = rand(0, h);
-          } else {
-            // Bottom
-            x = rand(0, w);
-            y = rand(h * 0.75, h);
-          }
+        // Full canvas distribution on all devices — like a real star field
+        // Slight weight toward upper half where rays are
+        if (zone < 0.5) {
+          // Upper half — within and around the rays
+          x = rand(0, w);
+          y = rand(0, h * 0.55);
+        } else if (zone < 0.72) {
+          // Full width, lower half
+          x = rand(0, w);
+          y = rand(h * 0.55, h);
+        } else if (zone < 0.86) {
+          // Left band
+          x = rand(0, w * 0.25);
+          y = rand(0, h);
         } else {
-          // Mobile — edges and corners only
-          if (zone < 0.3) {
-            x = rand(0, w * 0.28);
-            y = rand(0, h);
-          } else if (zone < 0.6) {
-            x = rand(w * 0.72, w);
-            y = rand(0, h);
-          } else if (zone < 0.8) {
-            x = rand(0, w);
-            y = rand(0, h * 0.22);
-          } else {
-            x = rand(0, w);
-            y = rand(h * 0.78, h);
-          }
+          // Right band
+          x = rand(w * 0.75, w);
+          y = rand(0, h);
         }
 
         const color = COLORS[Math.floor(Math.random() * COLORS.length)];
@@ -2361,7 +2345,7 @@
 
         // Bright stars — same 6% probability on both desktop and mobile
         // Desktop has more total stars so proportionally more brights appear naturally
-        const bright = Math.random() < (window.innerWidth > 600 ? 0.0994 : 0.072);
+        const bright = Math.random() < 0.085;
         const starSize = bright ? rand(1.4, 2.4) : size;
 
         stars[i] = { x, y,
