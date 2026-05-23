@@ -5,6 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>City of Louis</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><polygon points='50,5 5,95 95,95' fill='none' stroke='%23e8b84a' stroke-width='6'/><polygon points='50,38 28,78 72,78' fill='%23ffe090' fill-opacity='0.5' stroke='%23ffe090' stroke-width='2.5'/></svg>"/>
+  <meta name="description" content="City of Louis — original commentary on law, capital, technology, and the philosophical formation of man. Authored by Louis Stevens."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://cityoflouis.com/"/>
+  <meta property="og:title" content="City of Louis"/>
+  <meta property="og:description" content="Authoring a New Future. Original commentary on law, capital, technology, and the formation of man."/>
+  <meta property="og:image" content="https://cityoflouis.com/og-image.png"/>
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="630"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="City of Louis"/>
+  <meta name="twitter:description" content="Authoring a New Future."/>
+  <meta name="twitter:image" content="https://cityoflouis.com/og-image.png"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400&family=Cinzel:wght@400;600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet"/>
@@ -575,6 +589,53 @@
       .entry-item { padding: 1.1rem 0; }
       .entry-full-title { font-size: 17px; }
       .entry-full-body { font-size: 16px; line-height: 1.9; }
+      /* ── ENHANCED MOBILE READING ── */
+      .entry-full-body {
+        font-size: 17px;
+        line-height: 2.05;
+        letter-spacing: 0.01em;
+      }
+      .entry-full-body p {
+        margin-bottom: 1.8rem;
+        max-width: 100%;
+      }
+      .entry-full-title {
+        font-size: 20px;
+        line-height: 1.25;
+        letter-spacing: 0.03em;
+        margin-bottom: 1.6rem;
+        padding-bottom: 1rem;
+      }
+      .entry-full-date {
+        font-size: 9px;
+        letter-spacing: 0.38em;
+        margin-bottom: 0.6rem;
+      }
+      .entry-full-body blockquote {
+        font-size: 15.5px;
+        line-height: 2.1;
+        padding: 0.4rem 0 0.4rem 1.1rem;
+        margin: 1.6rem 0;
+        border-left-width: 1.5px;
+      }
+      .entry-full-body li {
+        font-size: 16px;
+        line-height: 1.95;
+        margin-bottom: 0.8rem;
+      }
+      .entry-full-body h2 {
+        font-size: 9px;
+        letter-spacing: 0.32em;
+        margin: 2rem 0 0.8rem;
+      }
+      .inner-page {
+        padding: 2rem 1.4rem 3.5rem;
+      }
+      /* Slightly wider side margins for readability */
+      @media (min-width: 376px) and (max-width: 600px) {
+        .inner-page { padding: 2rem 1.6rem 3.5rem; }
+        .entry-full-body { font-size: 17.5px; line-height: 2.1; }
+      }
 
       /* ── BENEFACTOR ── */
       .benefactor-page { padding: 1.5rem 0 3rem; }
