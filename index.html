@@ -49,7 +49,7 @@
 
     .home-bg {
       position: absolute; inset: 0; z-index: 0;
-      background: radial-gradient(ellipse at 50% 0%, #2a1e08 0%, #120e04 45%, #060401 100%);
+      background: radial-gradient(ellipse at 50% 0%, #2a1e08 0%, #120e04 28%, #060401 55%);
     }
 
     #star-canvas {
@@ -66,8 +66,8 @@
 
     .glow-pool {
       position: absolute; top: 36%; left: 50%; transform: translate(-50%, -50%);
-      width: 320px; height: 220px;
-      background: radial-gradient(ellipse at 50% 40%, rgba(210,165,60,0.13) 0%, transparent 70%);
+      width: 200px; height: 140px;
+      background: radial-gradient(ellipse at 50% 40%, rgba(210,165,60,0.07) 0%, transparent 55%);
       z-index: 1; pointer-events: none;
     }
 
@@ -1527,8 +1527,8 @@
       <svg class="rays" viewBox="0 0 700 700" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <radialGradient id="rayGrad" cx="50%" cy="0%" r="100%" fx="50%" fy="0%">
-            <stop offset="0%" stop-color="#c8952a" stop-opacity="0.14"/>
-            <stop offset="40%" stop-color="#a07020" stop-opacity="0.05"/>
+            <stop offset="0%" stop-color="#c8952a" stop-opacity="0.09"/>
+            <stop offset="40%" stop-color="#a07020" stop-opacity="0.03"/>
             <stop offset="100%" stop-color="#60400a" stop-opacity="0"/>
           </radialGradient>
           <radialGradient id="sourceGlow" cx="50%" cy="0%" r="20%">
@@ -1550,8 +1550,8 @@
         <line x1="350" y1="2" x2="570" y2="700" stroke="#d4a030" stroke-width="1.2" stroke-opacity="0.085"/>
         <line x1="350" y1="2" x2="640" y2="700" stroke="#d4a030" stroke-width="0.8" stroke-opacity="0.065"/>
         <line x1="350" y1="2" x2="700" y2="700" stroke="#d4a030" stroke-width="0.7" stroke-opacity="0.08"/>
-        <ellipse cx="350" cy="8" rx="90" ry="40" fill="url(#sourceGlow)"/>
-        <ellipse cx="350" cy="4" rx="30" ry="14" fill="#ffe8a0" fill-opacity="0.28"/>
+        <ellipse cx="350" cy="8" rx="55" ry="24" fill="url(#sourceGlow)"/>
+        <ellipse cx="350" cy="4" rx="18" ry="8" fill="#ffe8a0" fill-opacity="0.20"/>
       </svg>
 
       <div class="glow-pool"></div>
@@ -1585,8 +1585,8 @@
         <line x1="195" y1="2" x2="480"  y2="844" stroke="#d4a030" stroke-width="0.8" stroke-opacity="0.065"/>
         <line x1="195" y1="2" x2="590"  y2="844" stroke="#d4a030" stroke-width="0.7" stroke-opacity="0.08"/>
         <!-- Source glow -->
-        <ellipse cx="195" cy="6"  rx="70"  ry="28" fill="url(#mSourceGlow)"/>
-        <ellipse cx="195" cy="3"  rx="22"  ry="9"  fill="#fffde0" fill-opacity="0.28"/>
+        <ellipse cx="195" cy="6"  rx="42"  ry="17" fill="url(#mSourceGlow)"/>
+        <ellipse cx="195" cy="3"  rx="14"  ry="6"  fill="#fffde0" fill-opacity="0.20"/>
       </svg>
 
       <div class="site-title">City of Louis</div>
@@ -2271,9 +2271,9 @@
       // Field:  mid-size stars — the visible star field
       // Bright: large anchor stars with soft glow
 
-      const DUST_COUNT   = isMobile ? 3680 : 6680;
-      const FIELD_COUNT  = isMobile ? 598  : 1058;
-      const BRIGHT_COUNT = isMobile ? 37   : 67;
+      const DUST_COUNT   = isMobile ? 4048 : 7348;
+      const FIELD_COUNT  = isMobile ? 658  : 1164;
+      const BRIGHT_COUNT = isMobile ? 41   : 74;
 
       const dust   = [];
       const field  = [];
@@ -2353,8 +2353,8 @@
           cb: Math.floor(rand(245, 255)),
           phase: rand(0, Math.PI * 2),
           speed: rand(0.0008, 0.003),
-          minA: rand(0.07, 0.21),
-          maxA: rand(0.37, 0.88),
+          minA: rand(0.08, 0.24),
+          maxA: rand(0.43, 0.96),
         };
       }
 
