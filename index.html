@@ -2350,15 +2350,25 @@
       function spawnMicro(i) {
         const w = canvas.width;
         const h = canvas.height;
-        // Rejection sampling — place micro stars according to flood density map
-        let x, y, d;
-        let attempts = 0;
-        do {
+        // Direct weighted placement — faster than rejection sampling
+        let x, y;
+        const zone = Math.random();
+        if (zone < 0.45) {
+          // In the Milky Way band — bottom-left to upper-right diagonal
+          const t = rand(0, 1);
+          x = rand(0, w);
+          const bandY = (1 - x/w) * h;
+          y = bandY + rand(-h * 0.28, h * 0.28);
+          y = Math.max(0, Math.min(h, y));
+        } else if (zone < 0.65) {
+          // Flood base — lower corners
+          x = zone < 0.55 ? rand(0, w * 0.5) : rand(w * 0.5, w);
+          y = rand(h * 0.5, h);
+        } else {
+          // Scattered field
           x = rand(0, w);
           y = rand(0, h);
-          d = floodDensity(x, y, w, h);
-          attempts++;
-        } while (Math.random() > d && attempts < 12);
+        }
 
         // Micro stars: near-invisible, 0.15-0.55px, form the nebula cloud texture
         // Color: mostly cool blue-white with warm tints in the band
@@ -2384,14 +2394,27 @@
       function spawnField(i) {
         const w = canvas.width;
         const h = canvas.height;
-        let x, y, d;
-        let attempts = 0;
-        do {
+        let x, y;
+        const zone = Math.random();
+        if (zone < 0.35) {
+          // Band
+          x = rand(0, w);
+          const bandY = (1 - x/w) * h;
+          y = bandY + rand(-h * 0.32, h * 0.32);
+          y = Math.max(0, Math.min(h, y));
+        } else if (zone < 0.55) {
+          // Upper sky near rays
+          x = rand(0, w);
+          y = rand(0, h * 0.5);
+        } else if (zone < 0.75) {
+          // Lower flood
+          x = rand(0, w);
+          y = rand(h * 0.5, h);
+        } else {
+          // Everywhere
           x = rand(0, w);
           y = rand(0, h);
-          d = floodDensity(x, y, w, h);
-          attempts++;
-        } while (Math.random() > d * 0.7 + 0.15 && attempts < 15);
+        }
 
         const inBand = floodDensity(x, y, w, h) > 0.45;
         // Warm in band, cool in void
@@ -2503,44 +2526,37 @@
         t += 1;
 
         // ── NEBULA GLOW PASS ──
-        // Paint the Milky Way band as a soft luminous cloud before drawing stars
-        // Only every 4 frames for performance
-        if (t % 4 === 0 || t === 1) {
-          ctx.save();
-          // Band glow — diagonal sweep, cool blue-white tint
-          const bw = canvas.width;
-          const bh = canvas.height;
+        ctx.save();
+        ctx.globalAlpha = 1;
+        const bw = canvas.width;
+        const bh = canvas.height;
 
-          // Main band: bottom-left to upper-right
-          const bandGrd = ctx.createLinearGradient(0, bh, bw, 0);
-          bandGrd.addColorStop(0,    'rgba(140, 160, 210, 0.0)');
-          bandGrd.addColorStop(0.15, 'rgba(155, 170, 220, 0.028)');
-          bandGrd.addColorStop(0.35, 'rgba(170, 185, 230, 0.042)');
-          bandGrd.addColorStop(0.5,  'rgba(180, 195, 235, 0.048)');
-          bandGrd.addColorStop(0.65, 'rgba(165, 180, 225, 0.038)');
-          bandGrd.addColorStop(0.85, 'rgba(145, 162, 212, 0.022)');
-          bandGrd.addColorStop(1,    'rgba(130, 150, 200, 0.0)');
-          ctx.fillStyle = bandGrd;
-          ctx.fillRect(0, 0, bw, bh);
+        // Milky Way band — diagonal, cool blue-white
+        const bandGrd = ctx.createLinearGradient(0, bh, bw, 0);
+        bandGrd.addColorStop(0,    'rgba(140,160,210,0.0)');
+        bandGrd.addColorStop(0.2,  'rgba(158,172,222,0.022)');
+        bandGrd.addColorStop(0.5,  'rgba(175,190,232,0.038)');
+        bandGrd.addColorStop(0.8,  'rgba(158,172,222,0.022)');
+        bandGrd.addColorStop(1,    'rgba(140,160,210,0.0)');
+        ctx.fillStyle = bandGrd;
+        ctx.fillRect(0, 0, bw, bh);
 
-          // Flood base glow — warm amber rising from lower corners
-          // This is the theological flood — golden light rising to cleanse
-          const floodL = ctx.createRadialGradient(0, bh, 0, 0, bh, bw * 0.65);
-          floodL.addColorStop(0,   'rgba(180, 120, 20, 0.055)');
-          floodL.addColorStop(0.4, 'rgba(140, 90, 10, 0.022)');
-          floodL.addColorStop(1,   'rgba(100, 60, 5, 0.0)');
-          ctx.fillStyle = floodL;
-          ctx.fillRect(0, 0, bw, bh);
+        // Flood glow — warm amber from lower corners, rising like floodwaters
+        const floodL = ctx.createRadialGradient(0, bh, 0, 0, bh, bw * 0.6);
+        floodL.addColorStop(0,   'rgba(175,115,18,0.045)');
+        floodL.addColorStop(0.5, 'rgba(130,85,8,0.015)');
+        floodL.addColorStop(1,   'rgba(100,60,5,0.0)');
+        ctx.fillStyle = floodL;
+        ctx.fillRect(0, 0, bw, bh);
 
-          const floodR = ctx.createRadialGradient(bw, bh, 0, bw, bh, bw * 0.65);
-          floodR.addColorStop(0,   'rgba(180, 120, 20, 0.055)');
-          floodR.addColorStop(0.4, 'rgba(140, 90, 10, 0.022)');
-          floodR.addColorStop(1,   'rgba(100, 60, 5, 0.0)');
-          ctx.fillStyle = floodR;
-          ctx.fillRect(0, 0, bw, bh);
+        const floodR = ctx.createRadialGradient(bw, bh, 0, bw, bh, bw * 0.6);
+        floodR.addColorStop(0,   'rgba(175,115,18,0.045)');
+        floodR.addColorStop(0.5, 'rgba(130,85,8,0.015)');
+        floodR.addColorStop(1,   'rgba(100,60,5,0.0)');
+        ctx.fillStyle = floodR;
+        ctx.fillRect(0, 0, bw, bh);
 
-          ctx.restore();
-        }
+        ctx.restore();
 
         // ── MICRO STARS (nebula dust) ──
         for (let i = 0; i < microStars.length; i++) {
