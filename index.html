@@ -2256,25 +2256,224 @@
 
   <script>
     // ─────────────────────────────────────────
-    // STAR FIELD — homepage only
+    // MILKY WAY / FLOOD STAR FIELD — homepage only
     // ─────────────────────────────────────────
     (function() {
       const canvas = document.getElementById('star-canvas');
       const ctx    = canvas.getContext('2d');
 
       const isMobile = window.innerWidth <= 600;
-      const STAR_COUNT = isMobile ? 480 : 820;
-      const stars = [];
-      const shooters = [];
+
+      // Star layers — three tiers like a real night sky
+      // 1. Micro dust: hundreds of near-invisible specks forming the nebula cloud
+      // 2. Field stars: mid-size, the body of the sky
+      // 3. Bright anchors: large stars with halos and sparkle
+      const MICRO_COUNT  = isMobile ? 1800 : 3200;
+      const FIELD_COUNT  = isMobile ? 320  : 580;
+      const BRIGHT_COUNT = isMobile ? 28   : 52;
+
+      const microStars  = [];
+      const fieldStars  = [];
+      const brightStars = [];
+      const shooters    = [];
+
+      function rand(min, max) { return Math.random() * (max - min) + min; }
+
+      function resize() {
+        canvas.width  = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+
+      // ── NOISE FUNCTION (simple smooth noise for density map) ──
+      // Used to shape the Milky Way band and flood wave
+      function smoothNoise(x, y, scale) {
+        const xi = Math.floor(x / scale);
+        const yi = Math.floor(y / scale);
+        const xf = (x / scale) - xi;
+        const yf = (y / scale) - yi;
+        // Simple hash
+        function h(a, b) {
+          const n = Math.sin(a * 127.1 + b * 311.7) * 43758.5453;
+          return n - Math.floor(n);
+        }
+        const a = h(xi,   yi);
+        const b = h(xi+1, yi);
+        const c = h(xi,   yi+1);
+        const d = h(xi+1, yi+1);
+        // Bilinear interpolation with smoothstep
+        const sx = xf * xf * (3 - 2 * xf);
+        const sy = yf * yf * (3 - 2 * yf);
+        return a + (b-a)*sx + (c-a)*sy + (a-b-c+d)*sx*sy;
+      }
+
+      // ── FLOOD DENSITY MAP ──
+      // Returns 0-1 density value for a given canvas position
+      // The "flood" rises from the lower corners upward —
+      // dense at the base, cresting at the prism center, sparse above
+      function floodDensity(x, y, w, h) {
+        // Normalize to 0-1
+        const nx = x / w;
+        const ny = y / h;
+
+        // Milky Way band: diagonal sweep from bottom-left to upper-right
+        // Band center line: y = 1 - x (diagonal)
+        const bandCenter = 1.0 - nx;
+        const distFromBand = Math.abs(ny - bandCenter);
+        const bandWidth = 0.38;
+        const bandDensity = Math.max(0, 1 - (distFromBand / bandWidth));
+        // Soft gaussian falloff within band
+        const bandGauss = Math.exp(-(distFromBand * distFromBand) / (2 * 0.04 * 0.04));
+
+        // Flood wave: denser at bottom corners, rising toward center
+        // Like floodwaters cresting — the prism is the ark
+        const floodBase = Math.pow(1 - ny, 0.6) * 0.5; // rises from bottom
+        const cornerLeft  = Math.exp(-((nx*nx) + ((1-ny)*(1-ny))) / 0.18);
+        const cornerRight = Math.exp(-(((1-nx)*(1-nx)) + ((1-ny)*(1-ny))) / 0.18);
+        const floodWave = (cornerLeft + cornerRight) * 0.7 + floodBase;
+
+        // Sparse field everywhere — the void of space
+        const fieldNoise = smoothNoise(x, y, w * 0.3) * 0.4;
+
+        // Combine: band is the Milky Way, flood is the rising waters, field fills the sky
+        const density = Math.min(1,
+          bandGauss * 0.85 +
+          floodWave * 0.55 +
+          fieldNoise * 0.35 +
+          0.08 // base minimum — stars everywhere
+        );
+
+        return density;
+      }
+
+      // ── SPAWN FUNCTIONS ──
+
+      function spawnMicro(i) {
+        const w = canvas.width;
+        const h = canvas.height;
+        // Rejection sampling — place micro stars according to flood density map
+        let x, y, d;
+        let attempts = 0;
+        do {
+          x = rand(0, w);
+          y = rand(0, h);
+          d = floodDensity(x, y, w, h);
+          attempts++;
+        } while (Math.random() > d && attempts < 12);
+
+        // Micro stars: near-invisible, 0.15-0.55px, form the nebula cloud texture
+        // Color: mostly cool blue-white with warm tints in the band
+        const nx = x / w;
+        const ny = y / h;
+        const inBand = floodDensity(x, y, w, h) > 0.5;
+        const r = inBand ? rand(210, 245) : rand(195, 230);
+        const g = inBand ? rand(215, 248) : rand(210, 240);
+        const b = inBand ? rand(225, 255) : rand(230, 255);
+
+        microStars[i] = {
+          x, y,
+          size: rand(0.12, 0.55),
+          r, g, b,
+          // Micro stars have very slow, subtle pulse
+          phase: rand(0, Math.PI * 2),
+          speed: rand(0.001, 0.004),
+          minAlpha: rand(0.0, 0.08),
+          maxAlpha: rand(0.12, 0.45),
+        };
+      }
+
+      function spawnField(i) {
+        const w = canvas.width;
+        const h = canvas.height;
+        let x, y, d;
+        let attempts = 0;
+        do {
+          x = rand(0, w);
+          y = rand(0, h);
+          d = floodDensity(x, y, w, h);
+          attempts++;
+        } while (Math.random() > d * 0.7 + 0.15 && attempts < 15);
+
+        const inBand = floodDensity(x, y, w, h) > 0.45;
+        // Warm in band, cool in void
+        const FIELD_COLORS = inBand ? [
+          [255, 248, 220], // warm white
+          [255, 240, 200], // golden white
+          [220, 230, 255], // pale blue
+          [255, 252, 235], // near white
+        ] : [
+          [200, 215, 255], // cool blue-white
+          [230, 235, 255], // silver
+          [255, 248, 235], // warm white
+          [210, 220, 245], // steel blue
+        ];
+        const color = FIELD_COLORS[Math.floor(Math.random() * FIELD_COLORS.length)];
+
+        fieldStars[i] = {
+          x, y,
+          size: rand(0.4, 1.4),
+          color,
+          phase: rand(0, Math.PI * 2),
+          speed: rand(0.003, 0.011),
+          minAlpha: rand(0.0, 0.1),
+          maxAlpha: rand(0.35, 0.85),
+        };
+      }
+
+      function spawnBright(i) {
+        const w = canvas.width;
+        const h = canvas.height;
+        // Bright anchor stars — distributed across whole sky with slight
+        // preference for the flood band and upper sky (near the prism/rays)
+        let x, y;
+        const zone = Math.random();
+        if (zone < 0.35) {
+          // In the Milky Way flood band
+          const t = rand(0, 1);
+          x = rand(0, w);
+          y = (1 - x/w) * h + rand(-h * 0.22, h * 0.22);
+          y = Math.max(0, Math.min(h, y));
+        } else if (zone < 0.6) {
+          // Upper sky — near the rays, above the prism
+          x = rand(0, w);
+          y = rand(0, h * 0.45);
+        } else if (zone < 0.8) {
+          // Lower corners — the flood base
+          x = zone < 0.7 ? rand(0, w * 0.35) : rand(w * 0.65, w);
+          y = rand(h * 0.55, h);
+        } else {
+          // Scattered anywhere
+          x = rand(0, w);
+          y = rand(0, h);
+        }
+
+        const isStar = Math.random() < 0.25; // 25% get cross-sparkle
+        const BRIGHT_COLORS = [
+          [255, 255, 245], // near-pure white
+          [255, 248, 220], // warm white
+          [200, 220, 255], // blue-white (hot star)
+          [255, 240, 180], // golden
+          [240, 248, 255], // ice white
+        ];
+        const color = BRIGHT_COLORS[Math.floor(Math.random() * BRIGHT_COLORS.length)];
+
+        brightStars[i] = {
+          x, y,
+          size: rand(1.2, 2.8),
+          color,
+          phase: rand(0, Math.PI * 2),
+          speed: rand(0.004, 0.014),
+          minAlpha: rand(0.1, 0.25),
+          maxAlpha: rand(0.7, 1.0),
+          sparkle: isStar,
+        };
+      }
 
       function spawnShooter() {
         const w = canvas.width;
         const h = canvas.height;
-        // Always enter from top-left region or top-right region
         const fromLeft = Math.random() < 0.5;
         const x = fromLeft ? rand(-50, w * 0.4) : rand(w * 0.6, w + 50);
         const y = rand(-50, h * 0.3);
-        // Angle: always moving downward, roughly 20-50 degrees from horizontal
         const baseAngle = fromLeft ? rand(0.35, 0.9) : rand(Math.PI - 0.9, Math.PI - 0.35);
         shooters.push({
           x, y,
@@ -2287,79 +2486,11 @@
         });
       }
 
-      // Color palette — warm whites, cool silvers, faint gold
-      const COLORS = [
-        [255, 248, 220], // warm white
-        [220, 210, 180], // parchment
-        [200, 220, 255], // cool blue-white
-        [255, 240, 180], // faint gold
-        [240, 240, 255], // pure silver
-      ];
-
-      function resize() {
-        canvas.width  = window.innerWidth;
-        canvas.height = window.innerHeight;
-      }
-
-      function rand(min, max) { return Math.random() * (max - min) + min; }
-
-      function spawnStar(i) {
-        const w = canvas.width;
-        const h = canvas.height;
-
-        // Desktop: stars spread everywhere including rays/center
-        // Mobile: cluster toward edges only
-        let x, y;
-        const zone = Math.random();
-        // Full canvas distribution on all devices — like a real star field
-        // Slight weight toward upper half where rays are
-        if (zone < 0.5) {
-          // Upper half — within and around the rays
-          x = rand(0, w);
-          y = rand(0, h * 0.55);
-        } else if (zone < 0.72) {
-          // Full width, lower half
-          x = rand(0, w);
-          y = rand(h * 0.55, h);
-        } else if (zone < 0.86) {
-          // Left band
-          x = rand(0, w * 0.25);
-          y = rand(0, h);
-        } else {
-          // Right band
-          x = rand(w * 0.75, w);
-          y = rand(0, h);
-        }
-
-        const color = COLORS[Math.floor(Math.random() * COLORS.length)];
-        const size  = rand(0.3, 1.8);
-
-        // Bigger stars twinkle slower; tiny stars flicker faster
-        const isDesktop = window.innerWidth > 600;
-        const speed     = isDesktop
-          ? rand(0.005, 0.018) * (1 / size)
-          : rand(0.003, 0.012) * (1 / size);
-        const phase     = rand(0, Math.PI * 2);
-        const minAlpha  = rand(0.0, 0.12);
-        const maxAlpha  = rand(0.4, 1.0);
-
-        // Bright stars — same 6% probability on both desktop and mobile
-        // Desktop has more total stars so proportionally more brights appear naturally
-        const bright = Math.random() < 0.085;
-        const starSize = bright ? rand(1.4, 2.4) : size;
-
-        stars[i] = { x, y,
-                     size: starSize,
-                     color, phase,
-                     speed,
-                     minAlpha: bright ? rand(0.06, 0.18) : minAlpha,
-                     maxAlpha: bright ? rand(0.84, 1.0) : maxAlpha,
-                     bright, superBright: false };
-      }
-
       function init() {
         resize();
-        for (let i = 0; i < STAR_COUNT; i++) spawnStar(i);
+        for (let i = 0; i < MICRO_COUNT;  i++) spawnMicro(i);
+        for (let i = 0; i < FIELD_COUNT;  i++) spawnField(i);
+        for (let i = 0; i < BRIGHT_COUNT; i++) spawnBright(i);
       }
 
       let t = 0;
@@ -2371,40 +2502,105 @@
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         t += 1;
 
-        for (let i = 0; i < stars.length; i++) {
-          const s = stars[i];
-          // Smooth sine-based alpha
+        // ── NEBULA GLOW PASS ──
+        // Paint the Milky Way band as a soft luminous cloud before drawing stars
+        // Only every 4 frames for performance
+        if (t % 4 === 0 || t === 1) {
+          ctx.save();
+          // Band glow — diagonal sweep, cool blue-white tint
+          const bw = canvas.width;
+          const bh = canvas.height;
+
+          // Main band: bottom-left to upper-right
+          const bandGrd = ctx.createLinearGradient(0, bh, bw, 0);
+          bandGrd.addColorStop(0,    'rgba(140, 160, 210, 0.0)');
+          bandGrd.addColorStop(0.15, 'rgba(155, 170, 220, 0.028)');
+          bandGrd.addColorStop(0.35, 'rgba(170, 185, 230, 0.042)');
+          bandGrd.addColorStop(0.5,  'rgba(180, 195, 235, 0.048)');
+          bandGrd.addColorStop(0.65, 'rgba(165, 180, 225, 0.038)');
+          bandGrd.addColorStop(0.85, 'rgba(145, 162, 212, 0.022)');
+          bandGrd.addColorStop(1,    'rgba(130, 150, 200, 0.0)');
+          ctx.fillStyle = bandGrd;
+          ctx.fillRect(0, 0, bw, bh);
+
+          // Flood base glow — warm amber rising from lower corners
+          // This is the theological flood — golden light rising to cleanse
+          const floodL = ctx.createRadialGradient(0, bh, 0, 0, bh, bw * 0.65);
+          floodL.addColorStop(0,   'rgba(180, 120, 20, 0.055)');
+          floodL.addColorStop(0.4, 'rgba(140, 90, 10, 0.022)');
+          floodL.addColorStop(1,   'rgba(100, 60, 5, 0.0)');
+          ctx.fillStyle = floodL;
+          ctx.fillRect(0, 0, bw, bh);
+
+          const floodR = ctx.createRadialGradient(bw, bh, 0, bw, bh, bw * 0.65);
+          floodR.addColorStop(0,   'rgba(180, 120, 20, 0.055)');
+          floodR.addColorStop(0.4, 'rgba(140, 90, 10, 0.022)');
+          floodR.addColorStop(1,   'rgba(100, 60, 5, 0.0)');
+          ctx.fillStyle = floodR;
+          ctx.fillRect(0, 0, bw, bh);
+
+          ctx.restore();
+        }
+
+        // ── MICRO STARS (nebula dust) ──
+        for (let i = 0; i < microStars.length; i++) {
+          const s = microStars[i];
+          const alpha = s.minAlpha + (s.maxAlpha - s.minAlpha) *
+                        (0.5 + 0.5 * Math.sin(t * s.speed + s.phase));
+          ctx.globalAlpha = alpha;
+          ctx.fillStyle = `rgb(${s.r},${s.g},${s.b})`;
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        ctx.globalAlpha = 1;
+
+        // ── FIELD STARS ──
+        for (let i = 0; i < fieldStars.length; i++) {
+          const s = fieldStars[i];
+          const alpha = s.minAlpha + (s.maxAlpha - s.minAlpha) *
+                        (0.5 + 0.5 * Math.sin(t * s.speed + s.phase));
+          ctx.globalAlpha = alpha;
+          ctx.fillStyle = `rgb(${s.color[0]},${s.color[1]},${s.color[2]})`;
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        ctx.globalAlpha = 1;
+
+        // ── BRIGHT ANCHOR STARS ──
+        for (let i = 0; i < brightStars.length; i++) {
+          const s = brightStars[i];
           const alpha = s.minAlpha + (s.maxAlpha - s.minAlpha) *
                         (0.5 + 0.5 * Math.sin(t * s.speed + s.phase));
 
           ctx.save();
           ctx.globalAlpha = alpha;
 
-          if (s.bright) {
-            // Halo — same as mobile
-            const grd = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, s.size * 4);
-            grd.addColorStop(0,   `rgba(${s.color[0]},${s.color[1]},${s.color[2]},0.6)`);
-            grd.addColorStop(0.4, `rgba(${s.color[0]},${s.color[1]},${s.color[2]},0.18)`);
-            grd.addColorStop(1,   `rgba(${s.color[0]},${s.color[1]},${s.color[2]},0)`);
-            ctx.fillStyle = grd;
-            ctx.beginPath();
-            ctx.arc(s.x, s.y, s.size * 4, 0, Math.PI * 2);
-            ctx.fill();
+          // Soft halo
+          const haloR = s.size * 4.5;
+          const grd = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, haloR);
+          grd.addColorStop(0,   `rgba(${s.color[0]},${s.color[1]},${s.color[2]},0.55)`);
+          grd.addColorStop(0.35,`rgba(${s.color[0]},${s.color[1]},${s.color[2]},0.16)`);
+          grd.addColorStop(1,   `rgba(${s.color[0]},${s.color[1]},${s.color[2]},0)`);
+          ctx.fillStyle = grd;
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, haloR, 0, Math.PI * 2);
+          ctx.fill();
 
-            // Cross sparkle for bright stars with high maxAlpha — same as mobile
-            if (s.maxAlpha > 0.85) {
-              ctx.globalAlpha = alpha * 0.5;
-              ctx.strokeStyle = `rgba(${s.color[0]},${s.color[1]},${s.color[2]},1)`;
-              ctx.lineWidth   = 0.4;
-              const arm = s.size * 5;
-              ctx.beginPath();
-              ctx.moveTo(s.x - arm, s.y); ctx.lineTo(s.x + arm, s.y);
-              ctx.moveTo(s.x, s.y - arm); ctx.lineTo(s.x, s.y + arm);
-              ctx.stroke();
-            }
+          // Cross sparkle for brightest stars
+          if (s.sparkle && alpha > 0.4) {
+            ctx.globalAlpha = alpha * 0.45;
+            ctx.strokeStyle = `rgba(${s.color[0]},${s.color[1]},${s.color[2]},1)`;
+            ctx.lineWidth = 0.4;
+            const arm = s.size * 5.5;
+            ctx.beginPath();
+            ctx.moveTo(s.x - arm, s.y); ctx.lineTo(s.x + arm, s.y);
+            ctx.moveTo(s.x, s.y - arm); ctx.lineTo(s.x, s.y + arm);
+            ctx.stroke();
           }
 
-          // Core dot
+          // Core
           ctx.globalAlpha = alpha;
           ctx.fillStyle = `rgb(${s.color[0]},${s.color[1]},${s.color[2]})`;
           ctx.beginPath();
@@ -2413,23 +2609,18 @@
 
           ctx.restore();
         }
+        ctx.globalAlpha = 1;
 
         // ── SHOOTING STARS ──
         for (let i = shooters.length - 1; i >= 0; i--) {
           const sh = shooters[i];
           sh.progress += sh.speed;
-
           const headX = sh.x + Math.cos(sh.angle) * sh.progress;
           const headY = sh.y + Math.sin(sh.angle) * sh.progress;
-          const tailLen = sh.tailLength;
-          const tailX = headX - Math.cos(sh.angle) * tailLen;
-          const tailY = headY - Math.sin(sh.angle) * tailLen;
-
-          // Fade in then fade out over lifetime
-          const life = sh.progress / sh.totalDist;
-          const alpha = life < 0.15 ? life / 0.15
-                      : life > 0.75 ? (1 - life) / 0.25
-                      : 1.0;
+          const tailX = headX - Math.cos(sh.angle) * sh.tailLength;
+          const tailY = headY - Math.sin(sh.angle) * sh.tailLength;
+          const life  = sh.progress / sh.totalDist;
+          const alpha = life < 0.15 ? life / 0.15 : life > 0.75 ? (1 - life) / 0.25 : 1.0;
 
           const grd = ctx.createLinearGradient(tailX, tailY, headX, headY);
           grd.addColorStop(0,   `rgba(255,248,220,0)`);
@@ -2446,18 +2637,16 @@
           ctx.lineTo(headX, headY);
           ctx.stroke();
 
-          // Bright head glow
           ctx.globalAlpha = alpha * 0.7;
           const hGrd = ctx.createRadialGradient(headX, headY, 0, headX, headY, sh.width * 3);
-          hGrd.addColorStop(0,   'rgba(255,255,240,0.9)');
-          hGrd.addColorStop(1,   'rgba(255,248,200,0)');
+          hGrd.addColorStop(0, 'rgba(255,255,240,0.9)');
+          hGrd.addColorStop(1, 'rgba(255,248,200,0)');
           ctx.fillStyle = hGrd;
           ctx.beginPath();
           ctx.arc(headX, headY, sh.width * 3, 0, Math.PI * 2);
           ctx.fill();
           ctx.restore();
 
-          // Remove when off screen or finished
           if (sh.progress >= sh.totalDist ||
               headX < -50 || headX > canvas.width + 50 ||
               headY < -50 || headY > canvas.height + 50) {
@@ -2465,10 +2654,7 @@
           }
         }
 
-        // Occasionally spawn a new shooting star
-        if (Math.random() < 0.0045 && shooters.length < 3) {
-          spawnShooter();
-        }
+        if (Math.random() < 0.0045 && shooters.length < 3) spawnShooter();
 
         animId = requestAnimationFrame(draw);
       }
@@ -2486,11 +2672,11 @@
 
       window.addEventListener('resize', () => {
         resize();
-        // Respawn stars for new dimensions
-        for (let i = 0; i < stars.length; i++) spawnStar(i);
+        for (let i = 0; i < MICRO_COUNT;  i++) spawnMicro(i);
+        for (let i = 0; i < FIELD_COUNT;  i++) spawnField(i);
+        for (let i = 0; i < BRIGHT_COUNT; i++) spawnBright(i);
       });
 
-      // Only run when home page is visible
       const homeObserver = new MutationObserver(() => {
         const homePage = document.getElementById('page-home');
         if (homePage && homePage.classList.contains('active')) {
@@ -2499,12 +2685,9 @@
           stop();
         }
       });
-
       homeObserver.observe(document.body, { subtree: true, attributes: true, attributeFilter: ['class'] });
 
-      // Init on load
       init();
-      // Spawn 1-2 shooting stars shortly after load
       setTimeout(spawnShooter, 800);
       setTimeout(() => { if (Math.random() < 0.6) spawnShooter(); }, 2400);
       draw();
