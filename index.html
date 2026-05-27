@@ -2271,9 +2271,9 @@
       // Field:  mid-size stars — the visible star field
       // Bright: large anchor stars with soft glow
 
-      const DUST_COUNT   = isMobile ? 2200 : 4000;
-      const FIELD_COUNT  = isMobile ? 380  : 680;
-      const BRIGHT_COUNT = isMobile ? 22   : 42;
+      const DUST_COUNT   = isMobile ? 3200 : 5800;
+      const FIELD_COUNT  = isMobile ? 520  : 920;
+      const BRIGHT_COUNT = isMobile ? 32   : 58;
 
       const dust   = [];
       const field  = [];
@@ -2353,8 +2353,8 @@
           cb: Math.floor(rand(245, 255)),
           phase: rand(0, Math.PI * 2),
           speed: rand(0.0008, 0.003),
-          minA: rand(0.04, 0.14),
-          maxA: rand(0.22, 0.62),
+          minA: rand(0.06, 0.18),
+          maxA: rand(0.32, 0.78),
         };
       }
 
@@ -2371,8 +2371,8 @@
           cb: tint < 0.35 ? Math.floor(rand(245,255)) : Math.floor(rand(245,255)),
           phase: rand(0, Math.PI * 2),
           speed: rand(0.002, 0.009),
-          minA: rand(0.0, 0.08),
-          maxA: rand(0.25, 0.82),
+          minA: rand(0.04, 0.12),
+          maxA: rand(0.42, 0.92),
         };
       }
 
@@ -2454,17 +2454,17 @@
         // Diagonal band glow
         const bg = ctx.createLinearGradient(0, H, W, 0);
         bg.addColorStop(0,   'rgba(200,210,240,0.0)');
-        bg.addColorStop(0.2, 'rgba(210,218,245,0.038)');
-        bg.addColorStop(0.5, 'rgba(220,228,252,0.065)');
-        bg.addColorStop(0.8, 'rgba(210,218,245,0.038)');
+        bg.addColorStop(0.2, 'rgba(210,218,245,0.010)');
+        bg.addColorStop(0.5, 'rgba(220,228,252,0.018)');
+        bg.addColorStop(0.8, 'rgba(210,218,245,0.010)');
         bg.addColorStop(1,   'rgba(200,210,240,0.0)');
         ctx.fillStyle = bg;
         ctx.fillRect(0, 0, W, H);
 
         // Rising flood — very faint warm base glow at bottom
         const fg = ctx.createLinearGradient(0, H, 0, H * 0.4);
-        fg.addColorStop(0,   'rgba(180,155,80,0.03)');
-        fg.addColorStop(0.5, 'rgba(160,135,60,0.012)');
+        fg.addColorStop(0,   'rgba(180,155,80,0.0)');
+        fg.addColorStop(0.5, 'rgba(160,135,60,0.003)');
         fg.addColorStop(1,   'rgba(140,115,40,0.0)');
         ctx.fillStyle = fg;
         ctx.fillRect(0, 0, W, H);
