@@ -1461,17 +1461,17 @@
       flex: 1; overflow: hidden; background: #0d1117; min-width: 0;
     }
     .hoh-editor-inner {
-      height: 100%; overflow-y: auto; overflow-x: auto;
-      display: flex; padding: 0.8rem 0;
+      height: 100%; overflow-y: auto; overflow-x: hidden;
+      display: flex; align-items: flex-start; padding: 0.8rem 0;
     }
     .hoh-line-nums {
       flex-shrink: 0; padding: 0 1rem 0 1.2rem;
       text-align: right; font-size: 12.5px; line-height: 1.65;
       color: #30363d; user-select: none; min-width: 44px;
-      letter-spacing: 0;
+      letter-spacing: 0; white-space: pre; align-self: flex-start;
     }
     .hoh-code-wrap {
-      flex: 1; min-width: 0; padding-right: 2rem;
+      flex: 1; min-width: 0; padding-right: 2rem; overflow-x: auto;
     }
     .hoh-code {
       font-family: 'Courier New', Consolas, Monaco, monospace;
@@ -1568,7 +1568,11 @@
 
     /* ── MOBILE ── */
     @media (max-width: 600px) {
-      .hoh-sidebar { display: none; }
+      .hoh-sidebar { width: 140px; font-size: 10px; }
+      .hoh-sb-hdr { font-size: 8px; padding: 0.3rem 0.5rem; }
+      .hoh-t-root, .hoh-t-dir, .hoh-t-file { padding: 2px 0.5rem; font-size: 10px; }
+      .hoh-git-panel { padding: 0.2rem 0.5rem; }
+      .hoh-git-l { font-size: 9.5px; }
       .hoh-chrome { height: 100svh; }
       .hoh-title-center { font-size: 10px; }
       .hoh-t-repo, .hoh-t-sep { display: none; }
@@ -1577,7 +1581,7 @@
       .hoh-win-controls { gap: 5px; }
       .hoh-dot { width: 10px; height: 10px; }
       .hoh-code { font-size: 11.5px; line-height: 1.7; }
-      .hoh-line-nums { font-size: 11px; min-width: 30px; padding: 0 0.5rem 0 0.5rem; }
+      .hoh-line-nums { font-size: 11px; min-width: 30px; padding: 0 0.5rem 0 0.5rem; white-space: pre; align-self: flex-start; }
       .hoh-tabbar { height: 32px; }
       .hoh-tab { padding: 0 10px; font-size: 10.5px; }
       .hoh-s { font-size: 9px; }
@@ -2046,8 +2050,8 @@
 
       <!-- Tab bar -->
       <div class="hoh-tabbar">
-        <div class="hoh-tab hoh-tab-on"><span class="hoh-tab-dot">●</span> HOLY_OF_HOLIES.sol</div>
-        <div class="hoh-tab hoh-tab-off">COVENANT.json</div>
+        <div class="hoh-tab hoh-tab-on"><span class="hoh-tab-dot">●</span> New Covenant</div>
+        <div class="hoh-tab hoh-tab-off">The Mind Of Adam</div>
       </div>
 
       <!-- Body: sidebar + editor -->
@@ -2767,7 +2771,10 @@
       '',
     ];
 
+    let hohCodeInit = false;
     function initCode() {
+      if (hohCodeInit) return;
+      hohCodeInit = true;
       const el = document.getElementById('hoh-code-el');
       const nums = document.getElementById('hoh-line-nums');
       if (!el || !nums) return;
@@ -2922,61 +2929,6 @@
         }
       }
 
-      // Subtle pulse overlay — individual traces light up and fade
-      let pulseT = 0;
-      function pulseDraw() {
-        const W = canvas.width, H = canvas.height;
-        const GRID = 48;
-        // Pick a random trace segment and flash it
-        const px = Math.floor(Math.random() * (W / GRID)) * GRID;
-        const py = Math.floor(Math.random() * (H / GRID)) * GRID;
-        const horiz = Math.random() > 0.5;
-
-        ctx.save();
-        ctx.globalAlpha = 0;
-        const flashGrd = horiz
-          ? ctx.createLinearGradient(px, py, px + GRID, py)
-          : ctx.createLinearGradient(px, py, px, py + GRID);
-        flashGrd.addColorStop(0,   'rgba(200,149,42,0)');
-        flashGrd.addColorStop(0.5, 'rgba(200,149,42,0.55)');
-        flashGrd.addColorStop(1,   'rgba(200,149,42,0)');
-        ctx.strokeStyle = flashGrd;
-        ctx.lineWidth = 1.2;
-
-        // Animate the flash
-        let flashAlpha = 0;
-        let fadeIn = true;
-        const flashId = setInterval(() => {
-          const circuitPg = document.getElementById('page-foundation');
-          if (!circuitPg || !circuitPg.classList.contains('active')) {
-            clearInterval(flashId);
-            return;
-          }
-          ctx.save();
-          // Redraw base circuit first
-          drawCircuit();
-          // Draw flash
-          flashAlpha = fadeIn ? flashAlpha + 0.08 : flashAlpha - 0.06;
-          if (flashAlpha >= 1) fadeIn = false;
-          if (flashAlpha <= 0) { clearInterval(flashId); ctx.restore(); return; }
-          ctx.globalAlpha = flashAlpha;
-          ctx.strokeStyle = flashGrd;
-          ctx.lineWidth = 1.5;
-          ctx.beginPath();
-          if (horiz) { ctx.moveTo(px, py); ctx.lineTo(px + GRID, py); }
-          else        { ctx.moveTo(px, py); ctx.lineTo(px, py + GRID); }
-          ctx.stroke();
-          ctx.restore();
-        }, 40);
-        ctx.restore();
-      }
-
-      // Pulse a random trace every 1.2–2.8 seconds
-      setInterval(() => {
-        const pg = document.getElementById('page-foundation');
-        if (pg && pg.classList.contains('active')) pulseDraw();
-      }, 1200 + Math.random() * 1600);
-
       window.addEventListener('resize', resize);
       resize();
     }
@@ -3030,17 +2982,19 @@
         if (rainActive) return;
         rainActive = true;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        function loop() {
+        let last = 0;
+        function loop(ts) {
           if (!rainActive) return;
-          draw();
-          rainId = setTimeout(loop, 60);
+          if (ts - last > 65) { draw(); last = ts; }
+          rainId = requestAnimationFrame(loop);
         }
-        loop();
+        rainId = requestAnimationFrame(loop);
       };
 
       window.hohRainStop = function() {
         rainActive = false;
-        if (rainId) clearTimeout(rainId);
+        if (rainId) cancelAnimationFrame(rainId);
+        rainId = null;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
       };
 
@@ -3084,6 +3038,11 @@
       if (!pg) return;
       if (pg.classList.contains('active')) {
         initCode();
+        // Scroll editor to cursor (bottom of file)
+        requestAnimationFrame(() => {
+          const ei = document.querySelector('.hoh-editor-inner');
+          if (ei) ei.scrollTop = ei.scrollHeight;
+        });
         window.hohRainStart && window.hohRainStart();
         // First commit after 3s, then on a stable interval
         setTimeout(showCommit, 3000);
