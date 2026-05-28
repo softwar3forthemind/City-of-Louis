@@ -1341,7 +1341,7 @@
 
     #page-foundation {
       background: #020c18;
-      min-height: 100vh;
+      height: 100vh;
       overflow: hidden;
       position: relative;
     }
@@ -1425,7 +1425,8 @@
       width: 210px; flex-shrink: 0;
       background: #161b22;
       border-right: 1px solid #21262d;
-      overflow-y: auto; padding: 0.4rem 0 1rem;
+      overflow-y: scroll; -webkit-overflow-scrolling: touch;
+      padding: 0.4rem 0 1rem;
     }
     .hoh-sb-hdr {
       font-size: 9px; letter-spacing: 0.14em; color: #484f58;
@@ -1459,9 +1460,11 @@
     /* ── EDITOR ── */
     .hoh-editor {
       flex: 1; overflow: hidden; background: #0d1117; min-width: 0;
+      display: flex; flex-direction: column;
     }
     .hoh-editor-inner {
-      height: 100%; overflow-y: auto; overflow-x: hidden;
+      flex: 1; overflow-y: scroll; overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
       display: flex; align-items: flex-start; padding: 0.8rem 0;
     }
     .hoh-line-nums {
@@ -1478,6 +1481,8 @@
       font-size: 12.5px; line-height: 1.65;
       color: #e6edf3; white-space: pre; margin: 0;
     }
+
+    .hoh-panel-hidden { display: none !important; }
 
     /* ── SYNTAX ── */
     .s-cm  { color: #6e7681; }
@@ -2050,8 +2055,8 @@
 
       <!-- Tab bar -->
       <div class="hoh-tabbar">
-        <div class="hoh-tab hoh-tab-on"><span class="hoh-tab-dot">●</span> New Covenant</div>
-        <div class="hoh-tab hoh-tab-off">The Mind Of Adam</div>
+        <div class="hoh-tab hoh-tab-on" id="hoh-tab-1" onclick="hohSwitchTab(1)"><span class="hoh-tab-dot" id="hoh-dot-1">●</span> New Covenant</div>
+        <div class="hoh-tab hoh-tab-off" id="hoh-tab-2" onclick="hohSwitchTab(2)">The Mind Of Adam</div>
       </div>
 
       <!-- Body: sidebar + editor -->
@@ -3002,6 +3007,103 @@
         canvas.width  = window.innerWidth;
         canvas.height = window.innerHeight;
       });
+    }
+
+
+    // ── TAB SWITCHING ────────────────────────────────────────────────────
+    function hohSwitchTab(n) {
+      const t1 = document.getElementById('hoh-tab-1');
+      const t2 = document.getElementById('hoh-tab-2');
+      const p1 = document.getElementById('hoh-panel-1');
+      const p2 = document.getElementById('hoh-panel-2');
+      const d1 = document.getElementById('hoh-dot-1');
+      if (!t1 || !t2 || !p1 || !p2) return;
+
+      if (n === 1) {
+        t1.className = 'hoh-tab hoh-tab-on';
+        t2.className = 'hoh-tab hoh-tab-off';
+        p1.classList.remove('hoh-panel-hidden');
+        p2.classList.add('hoh-panel-hidden');
+        if (d1) d1.style.display = '';
+      } else {
+        t1.className = 'hoh-tab hoh-tab-off';
+        t2.className = 'hoh-tab hoh-tab-on';
+        p1.classList.add('hoh-panel-hidden');
+        p2.classList.remove('hoh-panel-hidden');
+        if (d1) d1.style.display = 'none';
+        // Init panel 2 content once
+        initPanel2();
+        requestAnimationFrame(() => {
+          const p = document.getElementById('hoh-panel-2');
+          if (p) p.scrollTop = p.scrollHeight;
+        });
+      }
+    }
+
+    // ── PANEL 2 CONTENT: THE MIND OF ADAM ────────────────────────────────
+    let panel2Init = false;
+    function initPanel2() {
+      if (panel2Init) return;
+      panel2Init = true;
+      const el   = document.getElementById('hoh-code-2');
+      const nums = document.getElementById('hoh-line-nums-2');
+      if (!el || !nums) return;
+
+      const LINES = [
+        '<span class="s-cm">/**</span>',
+        '<span class="s-cm"> * ═══════════════════════════════════════════════════════════</span>',
+        '<span class="s-cm"> *  T H E   M I N D   O F   A D A M</span>',
+        '<span class="s-cm"> *  City of Louis · Philosophical Treatise</span>',
+        '<span class="s-cm"> *</span>',
+        '<span class="s-cm"> *  @subject  The formation of the New Adam</span>',
+        '<span class="s-cm"> *  @status   DRAFTING...</span>',
+        '<span class="s-cm"> * ═══════════════════════════════════════════════════════════</span>',
+        '<span class="s-cm"> */</span>',
+        '',
+        '<span class="s-kw">import</span> <span class="s-pun">{</span> <span class="s-bright">COVENANT</span> <span class="s-pun">}</span> <span class="s-kw">from</span> <span class="s-str">'./HOLY_OF_HOLIES.sol'</span><span class="s-pun">;</span>',
+        '',
+        '<span class="s-cm">// ── PREMISE ──────────────────────────────────────────────────────────────</span>',
+        '<span class="s-cm">// The New Adam is not a product of his environment.</span>',
+        '<span class="s-cm">// He is the author of it.</span>',
+        '<span class="s-cm">//</span>',
+        '<span class="s-cm">// Where the old Adam inherited civilization,</span>',
+        '<span class="s-cm">// the New Adam builds it — deliberately, philosophically,</span>',
+        '<span class="s-cm">// with law, capital, and technology as his instruments.</span>',
+        '<span class="s-cm">// ─────────────────────────────────────────────────────────────────────────</span>',
+        '',
+        '<span class="s-kw">const</span> <span class="s-bright">MIND</span> <span class="s-pun">=</span> <span class="s-pun">{</span>',
+        '',
+        '  <span class="s-prop">formation</span><span class="s-pun">:</span> <span class="s-pun">{</span>',
+        '    <span class="s-prop">body</span><span class="s-pun">:</span>     <span class="s-str">"Strong. Disciplined. Sovereign."</span><span class="s-pun">,</span>',
+        '    <span class="s-prop">mind</span><span class="s-pun">:</span>     <span class="s-str">"Philosophical. Rigorous. Free."</span><span class="s-pun">,</span>',
+        '    <span class="s-prop">spirit</span><span class="s-pun">:</span>   <span class="s-str">"Covenantal. Purposeful. Eternal."</span><span class="s-pun">,</span>',
+        '  <span class="s-pun">},</span>',
+        '',
+        '  <span class="s-cm">// ── AWAITING INSCRIPTION ─────────────────────────────────────────────</span>',
+        '  <span class="s-cm">// The treatise on the formation of the New Adam</span>',
+        '  <span class="s-cm">// will be written here.</span>',
+        '  <span class="s-cm">// ─────────────────────────────────────────────────────────────────────</span>',
+        '',
+        '  <span class="s-prop">treatise</span><span class="s-pun">:</span> <span class="s-kw">async</span> <span class="s-pun">() =></span> <span class="s-pun">{</span>',
+        '    <span class="s-cm">// coming soon</span>',
+        '    <span class="s-kw">return</span> <span class="s-kw">null</span><span class="s-pun">;</span>',
+        '  <span class="s-pun">},</span>',
+        '',
+        '<span class="s-pun">};</span>',
+        '',
+        '<span class="s-fn">Object</span><span class="s-pun">.</span><span class="s-fn">freeze</span><span class="s-pun">(</span><span class="s-bright">MIND</span><span class="s-pun">);</span>',
+        '<span class="s-kw">export</span> <span class="s-kw">default</span> <span class="s-bright">MIND</span><span class="s-pun">;</span>',
+        '',
+      ];
+
+      let html = '', numsHtml = '';
+      for (let i = 0; i < LINES.length; i++) {
+        const isLast = i === LINES.length - 1;
+        html     += LINES[i] + (isLast ? '<span class="hoh-cursor"></span>' : '') + '\n';
+        numsHtml += (i + 1) + '\n';
+      }
+      el.innerHTML   = html;
+      nums.textContent = numsHtml;
     }
 
     // ── COMMIT TOASTS ─────────────────────────────────────────────────────
