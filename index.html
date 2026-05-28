@@ -1459,14 +1459,22 @@
 
     /* ── EDITOR ── */
     .hoh-editor {
-      flex: 1; overflow: hidden; background: #0d1117; min-width: 0;
-      display: flex; flex-direction: column;
+      flex: 1; background: #0d1117; min-width: 0;
+      overflow: hidden; position: relative;
     }
-    .hoh-editor-inner {
-      flex: 1; overflow-y: scroll; overflow-x: hidden;
+    .hoh-panel {
+      display: flex;
+      align-items: flex-start;
+      padding: 0.8rem 0;
+      overflow-y: scroll;
+      overflow-x: hidden;
       -webkit-overflow-scrolling: touch;
-      display: flex; align-items: flex-start; padding: 0.8rem 0;
+      touch-action: pan-y;
+      height: 100%;
+      width: 100%;
+      box-sizing: border-box;
     }
+    .hoh-panel-hidden { display: none !important; }
     .hoh-line-nums {
       flex-shrink: 0; padding: 0 1rem 0 1.2rem;
       text-align: right; font-size: 12.5px; line-height: 1.65;
@@ -1481,8 +1489,6 @@
       font-size: 12.5px; line-height: 1.65;
       color: #e6edf3; white-space: pre; margin: 0;
     }
-
-    .hoh-panel-hidden { display: none !important; }
 
     /* ── SYNTAX ── */
     .s-cm  { color: #6e7681; }
@@ -1592,7 +1598,7 @@
       .hoh-s { font-size: 9px; }
       .hoh-statusbar { height: 20px; }
       .hoh-s-warn { display: none; }
-      .hoh-editor-inner { padding: 0.5rem 0; }
+      .hoh-panel { padding: 0.5rem 0; height: 100%; }
       .hoh-toast { max-width: 240px; font-size: 10px; right: 0.75rem; }
     }
 
@@ -2097,10 +2103,18 @@
 
         <!-- Code editor -->
         <div class="hoh-editor">
-          <div class="hoh-editor-inner">
+          <!-- Panel 1: New Covenant -->
+          <div class="hoh-panel" id="hoh-panel-1">
             <div class="hoh-line-nums" id="hoh-line-nums"></div>
             <div class="hoh-code-wrap">
               <pre class="hoh-code" id="hoh-code-el"></pre>
+            </div>
+          </div>
+          <!-- Panel 2: The Mind Of Adam -->
+          <div class="hoh-panel hoh-panel-hidden" id="hoh-panel-2">
+            <div class="hoh-line-nums" id="hoh-line-nums-2"></div>
+            <div class="hoh-code-wrap">
+              <pre class="hoh-code" id="hoh-code-2"></pre>
             </div>
           </div>
         </div>
@@ -3013,6 +3027,7 @@
       const t2 = document.getElementById('hoh-tab-2');
       const p1 = document.getElementById('hoh-panel-1');
       const p2 = document.getElementById('hoh-panel-2');
+      if (!p1 || !p2) return;
       const d1 = document.getElementById('hoh-dot-1');
       if (!t1 || !t2 || !p1 || !p2) return;
 
