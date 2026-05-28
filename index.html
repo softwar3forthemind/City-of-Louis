@@ -2776,10 +2776,7 @@
       '',
     ];
 
-    let hohCodeInit = false;
     function initCode() {
-      if (hohCodeInit) return;
-      hohCodeInit = true;
       const el = document.getElementById('hoh-code-el');
       const nums = document.getElementById('hoh-line-nums');
       if (!el || !nums) return;
@@ -3060,7 +3057,7 @@
         '<span class="s-cm"> * ═══════════════════════════════════════════════════════════</span>',
         '<span class="s-cm"> */</span>',
         '',
-        '<span class="s-kw">import</span> <span class="s-pun">{</span> <span class="s-bright">COVENANT</span> <span class="s-pun">}</span> <span class="s-kw">from</span> <span class="s-str">'./HOLY_OF_HOLIES.sol'</span><span class="s-pun">;</span>',
+        "<span class=\"s-kw\">import</span> <span class=\"s-pun\">{</span> <span class=\"s-bright\">COVENANT</span> <span class=\"s-pun\">}</span> <span class=\"s-kw\">from</span> <span class=\"s-str\">'./HOLY_OF_HOLIES.sol'</span><span class=\"s-pun\">;</span>",
         '',
         '<span class="s-cm">// ── PREMISE ──────────────────────────────────────────────────────────────</span>',
         '<span class="s-cm">// The New Adam is not a product of his environment.</span>',
@@ -3105,6 +3102,11 @@
       el.innerHTML   = html;
       nums.textContent = numsHtml;
     }
+
+    // Expose functions to global scope
+    window.hohSwitchTab  = hohSwitchTab;
+    window.initPanel2    = initPanel2;
+    window.hohInitCode   = initCode;
 
     // ── COMMIT TOASTS ─────────────────────────────────────────────────────
     let commitIntervalId = null;
@@ -3160,11 +3162,19 @@
     });
     obs.observe(document.body, { subtree: true, attributes: true, attributeFilter: ['class'] });
 
-    // Init circuit board immediately (it's static)
-    document.addEventListener('DOMContentLoaded', () => {
+    // Init circuit board and expose initCode
+    function tryInit() {
       initCircuit();
       initRain();
-    });
+      // If foundation is already active on load (direct URL), init code
+      const pg = document.getElementById('page-foundation');
+      if (pg && pg.classList.contains('active')) initCode();
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', tryInit);
+    } else {
+      tryInit();
+    }
 
   })();
   </script>
@@ -3503,6 +3513,12 @@
           if (musicToggle) musicToggle.style.display = 'none';
           if (hohAudio) { hohAudio.volume = 0.75; hohAudio.play().catch(() => {}); }
           if (hohToggle) hohToggle.classList.add('visible');
+          // Initialize code directly in navigate to guarantee it runs
+          if (window.hohInitCode) window.hohInitCode();
+          requestAnimationFrame(() => {
+            const ei = document.getElementById('hoh-panel-1');
+            if (ei) ei.scrollTop = ei.scrollHeight;
+          });
         } else {
           if (hohAudio) { hohAudio.pause(); hohAudio.currentTime = 0; }
           if (hohToggle) hohToggle.classList.remove('visible');
