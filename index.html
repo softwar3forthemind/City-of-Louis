@@ -1512,6 +1512,248 @@
       .entry-nav-btn { max-width: 80%; }
     }
 
+
+    /* ══════════════════════════════════════════════════
+       HOLY OF HOLIES — IDE / TERMINAL AESTHETIC
+    ══════════════════════════════════════════════════ */
+
+    #page-foundation {
+      background: #020c18;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    .hoh-chrome {
+      position: relative;
+      z-index: 5;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      font-family: 'Courier New', Consolas, 'Lucida Console', Monaco, monospace;
+      overflow: hidden;
+    }
+
+    /* ── TITLE BAR ── */
+    .hoh-titlebar {
+      height: 38px;
+      background: #161b22;
+      border-bottom: 1px solid #21262d;
+      display: flex;
+      align-items: center;
+      padding: 0 1rem;
+      gap: 1rem;
+      flex-shrink: 0;
+    }
+    .hoh-win-controls { display: flex; gap: 7px; flex-shrink: 0; }
+    .hoh-dot {
+      width: 12px; height: 12px; border-radius: 50%; display: block;
+    }
+    .hoh-dot-r { background: #ff5f57; }
+    .hoh-dot-y { background: #febc2e; }
+    .hoh-dot-g { background: #28c840; }
+
+    .hoh-title-center {
+      flex: 1; text-align: center; font-size: 12px; color: #8b949e;
+    }
+    .hoh-t-repo   { color: #6e7681; }
+    .hoh-t-sep    { color: #30363d; }
+    .hoh-t-file   { color: #e6edf3; letter-spacing: 0.02em; }
+    .hoh-t-branch { color: #c8952a; }
+
+    .hoh-ide-return {
+      font-family: 'Cinzel', serif; font-size: 7.5px; letter-spacing: 0.3em;
+      color: #484f58; cursor: pointer; text-transform: uppercase;
+      transition: color 0.2s; flex-shrink: 0;
+      border-bottom: 0.5px solid transparent; padding-bottom: 1px;
+    }
+    .hoh-ide-return:hover { color: #c8952a; border-color: #c8952a; }
+
+    /* ── TAB BAR ── */
+    .hoh-tabbar {
+      height: 35px;
+      background: #0d1117;
+      border-bottom: 1px solid #21262d;
+      display: flex;
+      align-items: stretch;
+      flex-shrink: 0;
+      overflow-x: auto;
+    }
+    .hoh-tab {
+      padding: 0 14px; font-size: 11.5px;
+      display: flex; align-items: center; gap: 5px;
+      white-space: nowrap; cursor: pointer;
+      border-right: 1px solid #21262d; color: #6e7681;
+      user-select: none;
+    }
+    .hoh-tab-on {
+      color: #e6edf3; background: #161b22;
+      border-top: 1.5px solid #c8952a;
+    }
+    .hoh-tab-dot { color: #c8952a; font-size: 9px; }
+    .hoh-tab-off { opacity: 0.45; }
+
+    /* ── BODY ── */
+    .hoh-body {
+      flex: 1; display: flex; overflow: hidden; min-height: 0;
+    }
+
+    /* ── SIDEBAR ── */
+    .hoh-sidebar {
+      width: 210px; flex-shrink: 0;
+      background: #161b22;
+      border-right: 1px solid #21262d;
+      overflow-y: auto; padding: 0.4rem 0 1rem;
+    }
+    .hoh-sb-hdr {
+      font-size: 9px; letter-spacing: 0.14em; color: #484f58;
+      padding: 0.45rem 0.8rem; text-transform: uppercase;
+    }
+    .hoh-tree { padding-bottom: 0.5rem; }
+    .hoh-t-root {
+      font-size: 11.5px; color: #c8952a;
+      padding: 3px 0.8rem; letter-spacing: 0.04em;
+    }
+    .hoh-t-dir {
+      font-size: 11px; color: #8b949e; padding: 2px 0.8rem;
+    }
+    .hoh-t-file {
+      font-size: 11px; color: #8b949e;
+      padding: 2px 0.8rem; cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+    }
+    .hoh-t-file:hover { color: #e6edf3; background: rgba(200,149,42,0.06); }
+    .hoh-t-active { color: #e6edf3 !important; background: rgba(200,149,42,0.10) !important; }
+    .hoh-t-dim { opacity: 0.38; font-style: italic; }
+
+    .hoh-git-panel { padding: 0.2rem 0.8rem 0.4rem; }
+    .hoh-git-l {
+      font-size: 10.5px; color: #6e7681; padding: 2px 0; line-height: 1.5;
+    }
+    .hoh-gold { color: #c8952a; }
+    .hoh-mod-m { color: #ffa657; font-weight: bold; margin-right: 4px; }
+    .hoh-dim { opacity: 0.38; font-style: italic; }
+
+    /* ── EDITOR ── */
+    .hoh-editor {
+      flex: 1; overflow: hidden; background: #0d1117; min-width: 0;
+    }
+    .hoh-editor-inner {
+      height: 100%; overflow-y: auto; overflow-x: auto;
+      display: flex; padding: 0.8rem 0;
+    }
+    .hoh-line-nums {
+      flex-shrink: 0; padding: 0 1rem 0 1.2rem;
+      text-align: right; font-size: 12.5px; line-height: 1.65;
+      color: #30363d; user-select: none; min-width: 44px;
+      letter-spacing: 0;
+    }
+    .hoh-code-wrap {
+      flex: 1; min-width: 0; padding-right: 2rem;
+    }
+    .hoh-code {
+      font-family: 'Courier New', Consolas, Monaco, monospace;
+      font-size: 12.5px; line-height: 1.65;
+      color: #e6edf3; white-space: pre; margin: 0;
+    }
+
+    /* ── SYNTAX ── */
+    .s-cm  { color: #6e7681; }
+    .s-cm2 { color: #8b949e; font-style: italic; }
+    .s-hdr { color: #c8952a; font-weight: bold; }
+    .s-kw  { color: #c8952a; }
+    .s-kw2 { color: #ff7b72; }
+    .s-str { color: #a5d6ff; }
+    .s-num { color: #79c0ff; }
+    .s-fn  { color: #d2a8ff; }
+    .s-prop{ color: #ffa657; }
+    .s-pun { color: #8b949e; }
+    .s-val { color: #79c0ff; }
+    .s-bright { color: #e6edf3; }
+
+    /* ── CURSOR ── */
+    .hoh-cursor {
+      display: inline-block; width: 8px; height: 1.05em;
+      background: #c8952a; vertical-align: text-bottom;
+      animation: hohBlink 1.05s step-end infinite;
+    }
+    @keyframes hohBlink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0; }
+    }
+
+    /* ── STATUS BAR ── */
+    .hoh-statusbar {
+      height: 22px; background: #c8952a;
+      display: flex; align-items: center;
+      justify-content: space-between;
+      padding: 0 0.8rem; flex-shrink: 0;
+    }
+    .hoh-stat-l, .hoh-stat-r {
+      display: flex; align-items: center; gap: 0.9rem;
+    }
+    .hoh-s {
+      font-size: 10.5px; color: #030912;
+      letter-spacing: 0.035em; white-space: nowrap;
+    }
+    .hoh-s-warn { opacity: 0.7; }
+    .hoh-s-live {
+      font-weight: bold;
+      animation: hohPulse 2s ease-in-out infinite;
+    }
+    @keyframes hohPulse {
+      0%,100% { opacity: 1; }
+      50%      { opacity: 0.55; }
+    }
+
+    /* ── TOAST ── */
+    .hoh-toast {
+      position: fixed; bottom: 2.8rem; right: 1.2rem; z-index: 300;
+      background: #161b22; border: 1px solid #21262d;
+      border-left: 2px solid #c8952a;
+      padding: 0.55rem 0.9rem;
+      font-family: 'Courier New', monospace; font-size: 10.5px;
+      color: #8b949e; max-width: 300px;
+      opacity: 0; transform: translateY(6px);
+      transition: opacity 0.35s ease, transform 0.35s ease;
+      pointer-events: none;
+    }
+    .hoh-toast.visible { opacity: 1; transform: translateY(0); }
+    .hoh-toast-hash { color: #c8952a; }
+    .hoh-toast-msg  { color: #e6edf3; }
+
+    /* ── HOH AUDIO TOGGLE ── */
+    .hoh-audio-toggle {
+      position: fixed; bottom: 2rem; right: 2rem; z-index: 400;
+      cursor: pointer; display: none; flex-direction: column;
+      align-items: center; gap: 0.3rem; opacity: 0.7;
+      transition: opacity 0.3s;
+    }
+    .hoh-audio-toggle.visible { display: flex; }
+    .hoh-audio-toggle:hover { opacity: 1; }
+    .hoh-audio-icon {
+      width: 28px; height: 28px;
+      border: 0.5px solid #c8952a; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(2,12,24,0.8);
+    }
+    .hoh-audio-label {
+      font-family: 'Cinzel', serif; font-size: 6px;
+      letter-spacing: 0.3em; color: #c8952a; text-transform: uppercase;
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 600px) {
+      .hoh-sidebar { display: none; }
+      .hoh-title-center { font-size: 10px; }
+      .hoh-t-repo, .hoh-t-sep, .hoh-t-branch { display: none; }
+      .hoh-code { font-size: 11px; }
+      .hoh-line-nums { font-size: 10.5px; min-width: 32px; padding: 0 0.5rem 0 0.6rem; }
+      .hoh-tabbar { font-size: 10.5px; }
+      .hoh-tab { padding: 0 10px; font-size: 10.5px; }
+      .hoh-s { font-size: 9.5px; }
+    }
+
+
   </style>
 </head>
 <body>
@@ -1921,136 +2163,123 @@
     </div>
   </div>
 
-  <!-- FOUNDATION / HOLY OF HOLIES -->
+  <!-- FOUNDATION / HOLY OF HOLIES — IDE EDITION -->
   <div class="page" id="page-foundation">
 
-    <!-- Aurora background -->
-    <div class="hoh-aurora"></div>
-    <div class="hoh-aurora hoh-aurora--2"></div>
-
-    <!-- Central light beam -->
-    <div class="hoh-beam"></div>
-
-    <!-- Circuit floor geometry -->
-    <svg class="hoh-floor" viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax meet">
-      <defs>
-        <linearGradient id="floorFade" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stop-color="#a0c8d0" stop-opacity="0.25"/>
-          <stop offset="100%" stop-color="#a0c8d0" stop-opacity="0.04"/>
-        </linearGradient>
-      </defs>
-      <!-- Circuit grid lines -->
-      <line x1="400" y1="0" x2="400" y2="300" stroke="url(#floorFade)" stroke-width="0.5"/>
-      <line x1="0" y1="150" x2="800" y2="150" stroke="url(#floorFade)" stroke-width="0.5"/>
-      <line x1="200" y1="0" x2="400" y2="300" stroke="url(#floorFade)" stroke-width="0.4"/>
-      <line x1="600" y1="0" x2="400" y2="300" stroke="url(#floorFade)" stroke-width="0.4"/>
-      <line x1="0" y1="75" x2="800" y2="75" stroke="url(#floorFade)" stroke-width="0.3"/>
-      <line x1="0" y1="225" x2="800" y2="225" stroke="url(#floorFade)" stroke-width="0.3"/>
-      <line x1="100" y1="0" x2="400" y2="300" stroke="url(#floorFade)" stroke-width="0.25"/>
-      <line x1="700" y1="0" x2="400" y2="300" stroke="url(#floorFade)" stroke-width="0.25"/>
-      <!-- Corner nodes -->
-      <circle cx="400" cy="150" r="3" fill="#a0d8e0" fill-opacity="0.4"/>
-      <circle cx="200" cy="150" r="2" fill="#a0d8e0" fill-opacity="0.25"/>
-      <circle cx="600" cy="150" r="2" fill="#a0d8e0" fill-opacity="0.25"/>
-      <rect x="396" y="146" width="8" height="8" fill="none" stroke="#a0d8e0" stroke-width="0.5" stroke-opacity="0.3" transform="rotate(45 400 150)"/>
-    </svg>
-
-    <!-- Gothic arch frame -->
-    <svg class="hoh-arch" viewBox="0 0 600 500" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
-      <defs>
-        <linearGradient id="archGlow" x1="0%" y1="100%" x2="0%" y2="0%">
-          <stop offset="0%" stop-color="#c8e8f0" stop-opacity="0"/>
-          <stop offset="50%" stop-color="#c8e8f0" stop-opacity="0.3"/>
-          <stop offset="100%" stop-color="#e0f4ff" stop-opacity="0.5"/>
-        </linearGradient>
-      </defs>
-      <!-- Outer arch -->
-      <path d="M80,480 L80,200 Q80,20 300,10 Q520,20 520,200 L520,480" fill="none" stroke="url(#archGlow)" stroke-width="1"/>
-      <!-- Inner arch -->
-      <path d="M120,480 L120,210 Q120,60 300,50 Q480,60 480,210 L480,480" fill="none" stroke="url(#archGlow)" stroke-width="0.5" stroke-opacity="0.5"/>
-      <!-- Keystone -->
-      <rect x="296" y="6" width="8" height="8" fill="#e0f4ff" fill-opacity="0.6" transform="rotate(45 300 10)"/>
-      <!-- Side pillars subtle glow -->
-      <rect x="74" y="200" width="12" height="280" fill="#c8e8f0" fill-opacity="0.04"/>
-      <rect x="514" y="200" width="12" height="280" fill="#c8e8f0" fill-opacity="0.04"/>
-    </svg>
-
-    <!-- Glowing figures -->
-    <div class="hoh-figures">
-      <div class="hoh-figure hoh-figure--1"></div>
-      <div class="hoh-figure hoh-figure--2"></div>
-      <div class="hoh-figure hoh-figure--3"></div>
-      <div class="hoh-figure hoh-figure--4"></div>
-    </div>
-
-    <!-- Main content -->
-    <div class="hoh-content">
-      <span class="hoh-back" onclick="navigate('new-adam')">← Return</span>
-
-      <div class="hoh-eyebrow">Genesis 2 · 7</div>
-
-      <div class="hoh-verse">
-        "And the Lord God formed man of the dust of the ground,<br/>
-        and breathed into his nostrils the breath of life;<br/>
-        and man became a living soul."
-      </div>
-
-      <h1 class="hoh-title">Breathing Life<br/>Into Adam</h1>
-
-      <div class="hoh-rule">
-        <svg viewBox="0 0 400 12" xmlns="http://www.w3.org/2000/svg" width="400">
-          <defs>
-            <linearGradient id="hohRule" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stop-color="#a0c8d0" stop-opacity="0"/>
-              <stop offset="30%" stop-color="#a0c8d0" stop-opacity="0.5"/>
-              <stop offset="50%" stop-color="#e0f4ff" stop-opacity="0.8"/>
-              <stop offset="70%" stop-color="#a0c8d0" stop-opacity="0.5"/>
-              <stop offset="100%" stop-color="#a0c8d0" stop-opacity="0"/>
-            </linearGradient>
-          </defs>
-          <line x1="0" y1="6" x2="400" y2="6" stroke="url(#hohRule)" stroke-width="0.8"/>
-          <rect x="196" y="2" width="8" height="8" fill="#e0f4ff" fill-opacity="0.6" transform="rotate(45 200 6)"/>
-        </svg>
-      </div>
-
-      <div class="hoh-body">
-        <p>This is the foundational document of City of Louis. The word from which all teachings flow. The covenant between man and his becoming.</p>
-        <p>What follows is the distilled philosophy of the New Adam — the man who does not merely inherit civilization but authors it. Who applies the three pillars of Law, Capital, and Technology not as external systems but as internal instruments of sovereignty.</p>
-        <p>The New Adam is not born. He is breathed into existence through the deliberate, disciplined application of philosophy to life. He stands at the threshold of an age that will either produce him in great numbers or collapse without him.</p>
-        <p>Enter. Read. Become.</p>
-      </div>
-
-      <div class="hoh-seal">
-        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" width="80">
-          <circle cx="60" cy="60" r="54" fill="none" stroke="#a0c8d0" stroke-width="0.5" stroke-opacity="0.4"/>
-          <circle cx="60" cy="60" r="46" fill="none" stroke="#a0c8d0" stroke-width="0.3" stroke-opacity="0.25"/>
-          <polygon points="60,16 70,44 100,44 76,62 86,90 60,72 34,90 44,62 20,44 50,44" fill="none" stroke="#c8e8f0" stroke-width="0.5" stroke-opacity="0.35"/>
-          <rect x="56" y="56" width="8" height="8" fill="#e0f4ff" fill-opacity="0.5" transform="rotate(45 60 60)"/>
-        </svg>
-      </div>
-
-      <div class="hoh-footer-text">City of Louis · The New Adam · Holy of Holies</div>
-    </div>
+    <!-- Circuit board canvas background -->
+    <canvas id="hoh-circuit-canvas" style="position:fixed;inset:0;z-index:0;pointer-events:none;width:100vw;height:100vh;"></canvas>
+    <!-- Matrix rain canvas -->
+    <canvas id="hoh-rain-canvas" style="position:fixed;inset:0;z-index:1;pointer-events:none;width:100vw;height:100vh;"></canvas>
 
     <!-- Audio -->
     <audio id="hoh-audio" loop>
       <source src="/audio/Sanctum of Awe.mp3" type="audio/mpeg">
     </audio>
-
-    <!-- Stop/play toggle -->
     <div class="hoh-audio-toggle" id="hoh-audio-toggle" onclick="toggleHohAudio()">
       <div class="hoh-audio-icon">
         <svg id="hoh-audio-icon-svg" viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg">
-          <!-- Pause icon (shown when playing) -->
-          <rect x="2" y="1.5" width="2" height="7" fill="#a0c8d0"/>
-          <rect x="6" y="1.5" width="2" height="7" fill="#a0c8d0"/>
+          <rect x="2" y="1.5" width="2" height="7" fill="#c8952a"/>
+          <rect x="6" y="1.5" width="2" height="7" fill="#c8952a"/>
         </svg>
       </div>
       <div class="hoh-audio-label" id="hoh-audio-label">Sound</div>
     </div>
 
-  </div>
+    <!-- IDE Chrome -->
+    <div class="hoh-chrome">
 
+      <!-- Title bar -->
+      <div class="hoh-titlebar">
+        <div class="hoh-win-controls">
+          <span class="hoh-dot hoh-dot-r"></span>
+          <span class="hoh-dot hoh-dot-y"></span>
+          <span class="hoh-dot hoh-dot-g"></span>
+        </div>
+        <div class="hoh-title-center">
+          <span class="hoh-t-repo">city-of-louis</span>
+          <span class="hoh-t-sep"> / </span>
+          <span class="hoh-t-file">HOLY_OF_HOLIES.sol</span>
+          <span class="hoh-t-branch"> · main</span>
+        </div>
+        <span class="hoh-ide-return" onclick="navigate('new-adam')">← return</span>
+      </div>
+
+      <!-- Tab bar -->
+      <div class="hoh-tabbar">
+        <div class="hoh-tab hoh-tab-on"><span class="hoh-tab-dot">●</span> HOLY_OF_HOLIES.sol</div>
+        <div class="hoh-tab hoh-tab-off">README.md</div>
+        <div class="hoh-tab hoh-tab-off">COVENANT.json</div>
+        <div class="hoh-tab hoh-tab-off">package.json</div>
+      </div>
+
+      <!-- Body: sidebar + editor -->
+      <div class="hoh-body">
+
+        <!-- File tree sidebar -->
+        <div class="hoh-sidebar">
+          <div class="hoh-sb-hdr">EXPLORER</div>
+          <div class="hoh-tree">
+            <div class="hoh-t-root">▾ CITY-OF-LOUIS</div>
+            <div class="hoh-t-dir">  ▾ pillars</div>
+            <div class="hoh-t-file hoh-t-active">      HOLY_OF_HOLIES.sol</div>
+            <div class="hoh-t-file">      NEW_ADAM.md</div>
+            <div class="hoh-t-file">      LAW.md</div>
+            <div class="hoh-t-file">      CAPITAL.md</div>
+            <div class="hoh-t-file">      TECHNOLOGY.md</div>
+            <div class="hoh-t-dir">  ▾ entries</div>
+            <div class="hoh-t-file hoh-t-dim">      [awaiting commits]</div>
+            <div class="hoh-t-file hoh-t-dim">  README.md</div>
+            <div class="hoh-t-file hoh-t-dim">  COVENANT.json</div>
+            <div class="hoh-t-file hoh-t-dim">  package.json</div>
+          </div>
+          <div class="hoh-sb-hdr" style="margin-top:1.4rem;">SOURCE CONTROL</div>
+          <div class="hoh-git-panel">
+            <div class="hoh-git-l">branch <span class="hoh-gold">main</span></div>
+            <div class="hoh-git-l"><span class="hoh-mod-m">M</span> HOLY_OF_HOLIES.sol</div>
+            <div class="hoh-git-l hoh-dim">0 commits · genesis</div>
+          </div>
+          <div class="hoh-sb-hdr" style="margin-top:1.4rem;">OUTLINE</div>
+          <div class="hoh-git-panel">
+            <div class="hoh-git-l hoh-gold">⬡ COVENANT</div>
+            <div class="hoh-git-l hoh-dim">  · author</div>
+            <div class="hoh-git-l hoh-dim">  · pillars</div>
+            <div class="hoh-git-l hoh-dim">  · genesis</div>
+            <div class="hoh-git-l hoh-dim">  · flood</div>
+          </div>
+        </div>
+
+        <!-- Code editor -->
+        <div class="hoh-editor">
+          <div class="hoh-editor-inner">
+            <div class="hoh-line-nums" id="hoh-line-nums"></div>
+            <div class="hoh-code-wrap">
+              <pre class="hoh-code" id="hoh-code-el"></pre>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Status bar -->
+      <div class="hoh-statusbar">
+        <div class="hoh-stat-l">
+          <span class="hoh-s">⎇ main</span>
+          <span class="hoh-s">◎ 0 problems</span>
+          <span class="hoh-s hoh-s-warn">⚡ GENESIS BUILD</span>
+        </div>
+        <div class="hoh-stat-r">
+          <span class="hoh-s" id="hoh-ln-col">Ln 1, Col 1</span>
+          <span class="hoh-s">Solidity · Covenant</span>
+          <span class="hoh-s hoh-s-live">● COMPILING</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Commit toast notification -->
+    <div class="hoh-toast" id="hoh-toast"></div>
+
+  </div>
 
   <!-- BENEFACTOR -->
   <div class="page" id="page-benefactor">
@@ -2620,6 +2849,370 @@
       setTimeout(() => { if (Math.random() < 0.6) spawnShooter(); }, 2600);
       draw();
     })();
+  </script>
+
+
+  <script>
+  // ─────────────────────────────────────────────────────────────
+  // HOLY OF HOLIES — IDE ENGINE
+  // Circuit board background · Matrix rain · Code injection
+  // Commit toast notifications · Line numbers
+  // ─────────────────────────────────────────────────────────────
+  (function() {
+
+    // ── CODE CONTENT (syntax-highlighted HTML) ───────────────────
+    const CODE_LINES = [
+      '<span class="s-cm">/**</span>',
+      '<span class="s-cm"> * ═══════════════════════════════════════════════════════════</span>',
+      '<span class="s-cm"> *  H O L Y   O F   H O L I E S</span>',
+      '<span class="s-cm"> *  City of Louis · Foundational Document</span>',
+      '<span class="s-cm"> *</span>',
+      '<span class="s-cm"> *  @author   Louis Stevens</span>',
+      '<span class="s-cm"> *  @version  GENESIS · v0.0.1</span>',
+      '<span class="s-cm"> *  @license  Covenant — All Rights Reserved</span>',
+      '<span class="s-cm"> *  @status   COMPILING...</span>',
+      '<span class="s-cm"> * ═══════════════════════════════════════════════════════════</span>',
+      '<span class="s-cm"> */</span>',
+      '',
+      '<span class="s-str">"use strict"</span><span class="s-pun">;</span>',
+      '',
+      '<span class="s-cm">// ── PREAMBLE ─────────────────────────────────────────────────────────────</span>',
+      '<span class="s-cm">// Named after 2 Samuel 5:7, in which David names Zion after himself</span>',
+      '<span class="s-cm">// and makes it the seat of his kingdom.</span>',
+      '<span class="s-cm">//</span>',
+      '<span class="s-cm">// City of Louis is a civilization of mind — built entry by entry,</span>',
+      '<span class="s-cm">// one reader at a time. A path toward a new version of society,</span>',
+      '<span class="s-cm">// authored deliberately through the rigorous application of philosophy</span>',
+      '<span class="s-cm">// to law, capital, and technology.</span>',
+      '<span class="s-cm">// ─────────────────────────────────────────────────────────────────────────</span>',
+      '',
+      '<span class="s-kw">const</span> <span class="s-bright">COVENANT</span> <span class="s-pun">=</span> <span class="s-pun">{</span>',
+      '',
+      '  <span class="s-prop">author</span><span class="s-pun">:</span>    <span class="s-str">"Louis Stevens"</span><span class="s-pun">,</span>',
+      '  <span class="s-prop">city</span><span class="s-pun">:</span>      <span class="s-str">"City of Louis"</span><span class="s-pun">,</span>',
+      '  <span class="s-prop">founded</span><span class="s-pun">:</span>   <span class="s-str">"MMXXVI"</span><span class="s-pun">,</span>',
+      '  <span class="s-prop">mission</span><span class="s-pun">:</span>   <span class="s-str">"Authoring a New Future"</span><span class="s-pun">,</span>',
+      '  <span class="s-prop">seat</span><span class="s-pun">:</span>      <span class="s-str">"Florida, United States"</span><span class="s-pun">,</span>',
+      '',
+      '  <span class="s-prop">pillars</span><span class="s-pun">:</span> <span class="s-pun">{</span>',
+      '    <span class="s-prop">NEW_ADAM</span><span class="s-pun">:</span>    <span class="s-str">"The philosophical formation of man"</span><span class="s-pun">,</span>',
+      '    <span class="s-prop">LAW</span><span class="s-pun">:</span>         <span class="s-str">"The governance of civilization"</span><span class="s-pun">,</span>',
+      '    <span class="s-prop">CAPITAL</span><span class="s-pun">:</span>     <span class="s-str">"The engine of abundance"</span><span class="s-pun">,</span>',
+      '    <span class="s-prop">TECHNOLOGY</span><span class="s-pun">:</span>  <span class="s-str">"The lever of transformation"</span><span class="s-pun">,</span>',
+      '  <span class="s-pun">},</span>',
+      '',
+      '  <span class="s-cm">// ── THE WORD ──────────────────────────────────────────────────────────</span>',
+      '  <span class="s-cm">// The foundational document will be inscribed here.</span>',
+      '  <span class="s-cm">// This is the root beneath the four pillars —</span>',
+      '  <span class="s-cm">// the covenant before the work begins.</span>',
+      '  <span class="s-cm">// The Word has not yet been written. It is being compiled.</span>',
+      '  <span class="s-cm">// ─────────────────────────────────────────────────────────────────────</span>',
+      '',
+      '  <span class="s-prop">genesis</span><span class="s-pun">:</span> <span class="s-kw">async</span> <span class="s-pun">() =></span> <span class="s-pun">{</span>',
+      '    <span class="s-kw">return</span> <span class="s-kw">new</span> <span class="s-fn">Promise</span><span class="s-pun">((</span><span class="s-bright">resolve</span><span class="s-pun">) => {</span>',
+      '      <span class="s-cm">// await the Word</span>',
+      '      <span class="s-fn">resolve</span><span class="s-pun">();</span>',
+      '    <span class="s-pun">});</span>',
+      '  <span class="s-pun">},</span>',
+      '',
+      '  <span class="s-prop">flood</span><span class="s-pun">:</span> <span class="s-pun">{</span>',
+      '    <span class="s-prop">status</span><span class="s-pun">:</span>    <span class="s-str">"RISING"</span><span class="s-pun">,</span>',
+      '    <span class="s-prop">refuge</span><span class="s-pun">:</span>    <span class="s-str">"City of Louis"</span><span class="s-pun">,</span>',
+      '    <span class="s-prop">survivors</span><span class="s-pun">:</span> <span class="s-pun">[]</span><span class="s-pun">,</span>  <span class="s-cm">// open enrollment</span>',
+      '  <span class="s-pun">},</span>',
+      '',
+      '<span class="s-pun">};</span>',
+      '',
+      '<span class="s-cm">// ── SEAL ─────────────────────────────────────────────────────────────────</span>',
+      '<span class="s-fn">Object</span><span class="s-pun">.</span><span class="s-fn">freeze</span><span class="s-pun">(</span><span class="s-bright">COVENANT</span><span class="s-pun">);</span>',
+      '<span class="s-kw">export</span> <span class="s-kw">default</span> <span class="s-bright">COVENANT</span><span class="s-pun">;</span>',
+      '',
+    ];
+
+    function initCode() {
+      const el = document.getElementById('hoh-code-el');
+      const nums = document.getElementById('hoh-line-nums');
+      if (!el || !nums) return;
+
+      // Render code lines with cursor on last line
+      let html = '';
+      let lineNumsHtml = '';
+      for (let i = 0; i < CODE_LINES.length; i++) {
+        const isLast = i === CODE_LINES.length - 1;
+        html += CODE_LINES[i] + (isLast ? '<span class="hoh-cursor"></span>' : '') + '\n';
+        lineNumsHtml += (i + 1) + '\n';
+      }
+      el.innerHTML = html;
+      nums.textContent = lineNumsHtml;
+    }
+
+    // ── CIRCUIT BOARD CANVAS ────────────────────────────────────────────
+    function initCircuit() {
+      const canvas = document.getElementById('hoh-circuit-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+
+      function resize() {
+        canvas.width  = window.innerWidth;
+        canvas.height = window.innerHeight;
+        drawCircuit();
+      }
+
+      function drawCircuit() {
+        const W = canvas.width, H = canvas.height;
+        ctx.clearRect(0, 0, W, H);
+
+        // Deep navy background
+        ctx.fillStyle = '#020c18';
+        ctx.fillRect(0, 0, W, H);
+
+        // Circuit trace color — COL gold at low opacity
+        const TRACE  = 'rgba(200, 149, 42, 0.18)';
+        const TRACE2 = 'rgba(200, 149, 42, 0.10)';
+        const NODE   = 'rgba(200, 149, 42, 0.35)';
+        const COMP   = 'rgba(200, 149, 42, 0.12)';
+
+        ctx.strokeStyle = TRACE;
+        ctx.lineWidth = 0.7;
+
+        // Grid-based circuit traces
+        const GRID = 48;
+        const cols = Math.ceil(W / GRID) + 2;
+        const rows = Math.ceil(H / GRID) + 2;
+
+        // Seed the random traces deterministically
+        function seededRand(x, y) {
+          const n = Math.sin(x * 127.1 + y * 311.7) * 43758.5453;
+          return n - Math.floor(n);
+        }
+
+        // Draw horizontal traces
+        ctx.strokeStyle = TRACE;
+        ctx.lineWidth = 0.6;
+        for (let r = 0; r < rows; r++) {
+          for (let c = 0; c < cols - 1; c++) {
+            if (seededRand(c, r) > 0.42) {
+              ctx.beginPath();
+              ctx.moveTo(c * GRID, r * GRID);
+              ctx.lineTo((c + 1) * GRID, r * GRID);
+              ctx.stroke();
+            }
+          }
+        }
+
+        // Draw vertical traces
+        ctx.strokeStyle = TRACE2;
+        ctx.lineWidth = 0.5;
+        for (let r = 0; r < rows - 1; r++) {
+          for (let c = 0; c < cols; c++) {
+            if (seededRand(c + 100, r + 100) > 0.52) {
+              ctx.beginPath();
+              ctx.moveTo(c * GRID, r * GRID);
+              ctx.lineTo(c * GRID, (r + 1) * GRID);
+              ctx.stroke();
+            }
+          }
+        }
+
+        // Junction nodes at intersections
+        for (let r = 0; r < rows; r++) {
+          for (let c = 0; c < cols; c++) {
+            if (seededRand(c + 200, r + 200) > 0.72) {
+              ctx.fillStyle = NODE;
+              ctx.beginPath();
+              ctx.arc(c * GRID, r * GRID, 2.2, 0, Math.PI * 2);
+              ctx.fill();
+            }
+          }
+        }
+
+        // SMD components — small rectangles
+        for (let r = 0; r < rows; r++) {
+          for (let c = 0; c < cols; c++) {
+            const rv = seededRand(c + 300, r + 300);
+            if (rv > 0.82) {
+              ctx.strokeStyle = COMP;
+              ctx.lineWidth = 0.5;
+              const x = c * GRID - 10;
+              const y = r * GRID - 4;
+              const w = rv > 0.91 ? 20 : 12;
+              ctx.strokeRect(x, y, w, 8);
+              // Lead lines
+              ctx.beginPath();
+              ctx.moveTo(x - 6, y + 4); ctx.lineTo(x, y + 4);
+              ctx.moveTo(x + w, y + 4); ctx.lineTo(x + w + 6, y + 4);
+              ctx.stroke();
+            }
+            // IC chips — larger rectangles
+            const rv2 = seededRand(c + 400, r + 400);
+            if (rv2 > 0.93) {
+              ctx.strokeStyle = 'rgba(200,149,42,0.20)';
+              ctx.lineWidth = 0.6;
+              const x = c * GRID - 18;
+              const y = r * GRID - 14;
+              ctx.strokeRect(x, y, 36, 28);
+              // IC pin dots
+              for (let p = 0; p < 3; p++) {
+                ctx.fillStyle = 'rgba(200,149,42,0.25)';
+                ctx.fillRect(x - 4, y + 4 + p * 8, 4, 2);
+                ctx.fillRect(x + 36, y + 4 + p * 8, 4, 2);
+              }
+            }
+          }
+        }
+
+        // Long power/ground traces spanning full width
+        ctx.strokeStyle = 'rgba(200,149,42,0.22)';
+        ctx.lineWidth = 1.2;
+        for (let i = 0; i < 4; i++) {
+          const y = H * (0.15 + i * 0.22);
+          ctx.beginPath();
+          ctx.moveTo(0, y);
+          ctx.lineTo(W, y);
+          ctx.stroke();
+        }
+
+        // Vias — small filled circles on long traces
+        ctx.fillStyle = 'rgba(200,149,42,0.3)';
+        for (let i = 0; i < 4; i++) {
+          const y = H * (0.15 + i * 0.22);
+          for (let x = GRID; x < W; x += GRID * 3) {
+            ctx.beginPath();
+            ctx.arc(x, y, 3, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        }
+      }
+
+      window.addEventListener('resize', resize);
+      resize();
+    }
+
+    // ── MATRIX RAIN ───────────────────────────────────────────────────────
+    function initRain() {
+      const canvas = document.getElementById('hoh-rain-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+
+      canvas.width  = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const CHARS = 'アイウエオカキクケコサシスセソタチツテトナニヌネノABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789{}[]()<>/\|=+-_*&^%$#@!;:.,?';
+      const COL_W = 18;
+      const cols  = Math.floor(canvas.width / COL_W);
+      const drops = Array(cols).fill(0).map(() => Math.random() * -50);
+
+      function draw() {
+        ctx.fillStyle = 'rgba(2,12,24,0.055)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        for (let i = 0; i < drops.length; i++) {
+          const char = CHARS[Math.floor(Math.random() * CHARS.length)];
+          const y = drops[i] * 18;
+
+          // Head character — bright gold
+          ctx.fillStyle = 'rgba(200,149,42,0.85)';
+          ctx.font = '13px Courier New';
+          ctx.fillText(char, i * COL_W, y);
+
+          // Trail — dimmer amber
+          if (drops[i] > 1) {
+            ctx.fillStyle = 'rgba(200,149,42,0.12)';
+            const trailChar = CHARS[Math.floor(Math.random() * CHARS.length)];
+            ctx.fillText(trailChar, i * COL_W, y - 18);
+          }
+
+          // Reset when off screen
+          if (y > canvas.height && Math.random() > 0.975) {
+            drops[i] = 0;
+          }
+          drops[i] += 0.28; // slow drift
+        }
+      }
+
+      let rainActive = false;
+      let rainId = null;
+
+      window.hohRainStart = function() {
+        if (rainActive) return;
+        rainActive = true;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        function loop() {
+          if (!rainActive) return;
+          draw();
+          rainId = setTimeout(loop, 60);
+        }
+        loop();
+      };
+
+      window.hohRainStop = function() {
+        rainActive = false;
+        if (rainId) clearTimeout(rainId);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      };
+
+      window.addEventListener('resize', () => {
+        canvas.width  = window.innerWidth;
+        canvas.height = window.innerHeight;
+      });
+    }
+
+    // ── COMMIT TOASTS ─────────────────────────────────────────────────────
+    const COMMITS = [
+      { hash: '4f2a8b1', msg: '"In the beginning was the Word"' },
+      { hash: 'a9c3e02', msg: 'feat: add new-adam pillar foundation' },
+      { hash: '7d1f4c8', msg: 'contributor joined · anonymous' },
+      { hash: 'b2e9a15', msg: 'push origin main · 1 file changed' },
+      { hash: 'c8f3d27', msg: 'merge: flood/rising → main' },
+      { hash: '1a4b9e3', msg: 'compile COVENANT.json · success' },
+      { hash: 'e5c7f02', msg: 'init: breathing life into adam' },
+      { hash: '9b2d6a1', msg: 'feat: open enrollment · survivors[]' },
+      { hash: '3f8c1e9', msg: 'status: GENESIS BUILD · compiling' },
+      { hash: 'd4a7b2f', msg: 'push · new-adam/genesis · 0 conflicts' },
+    ];
+
+    let commitIdx = 0;
+    function showCommit() {
+      const toast = document.getElementById('hoh-toast');
+      if (!toast) return;
+      const c = COMMITS[commitIdx % COMMITS.length];
+      commitIdx++;
+      toast.innerHTML =
+        '<span class="hoh-toast-hash">commit ' + c.hash + '</span> · ' +
+        '<span class="hoh-toast-msg">' + c.msg + '</span>';
+      toast.classList.add('visible');
+      setTimeout(() => toast.classList.remove('visible'), 3800);
+    }
+
+    // ── INIT ON FOUNDATION PAGE ACTIVATION ───────────────────────────────
+    const obs = new MutationObserver(() => {
+      const pg = document.getElementById('page-foundation');
+      if (!pg) return;
+      if (pg.classList.contains('active')) {
+        initCode();
+        window.hohRainStart && window.hohRainStart();
+        // First commit after 3s, then every 18-35s
+        setTimeout(() => {
+          showCommit();
+          setInterval(() => {
+            if (document.getElementById('page-foundation').classList.contains('active')) {
+              showCommit();
+            }
+          }, 24000 + Math.random() * 12000);
+        }, 3000);
+      } else {
+        window.hohRainStop && window.hohRainStop();
+      }
+    });
+    obs.observe(document.body, { subtree: true, attributes: true, attributeFilter: ['class'] });
+
+    // Init circuit board immediately (it's static)
+    document.addEventListener('DOMContentLoaded', () => {
+      initCircuit();
+      initRain();
+    });
+
+  })();
   </script>
 
   <script>
