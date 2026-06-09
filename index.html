@@ -561,123 +561,253 @@
       font-family: 'EB Garamond', serif; font-size: 12px; font-style: italic;
       color: #6a5c30; min-height: 16px;
     }
-    /* ══════════════════════════════════════
-       MOBILE — all phones (≤600px)
-       Shared styles for inner pages + rays
-    ══════════════════════════════════════ */
+    /* ══════════════════════════════════════════════════════
+       MOBILE — complete responsive system
+       Covers all phones (≤600px) across portrait & landscape
+    ══════════════════════════════════════════════════════ */
+
+    /* ── BASE MOBILE RESETS ── */
     @media (max-width: 600px) {
 
-      /* All inner pages: scrollable */
-      .page.active:not(#page-home) { overflow-y: auto; height: auto; min-height: 100vh; }
-
-      /* Hide desktop rays, show mobile rays */
-      .rays { display: none; }
+      /* Rays */
+      .rays        { display: none; }
       .rays-mobile {
         display: block !important;
-        position: fixed;
-        top: 0; left: 0;
+        position: fixed; top: 0; left: 0;
         width: 100vw; height: 100vh;
         z-index: 1; pointer-events: none;
       }
 
-      /* ── INNER PAGES ── */
-      .inner-page { padding: 2rem 1.2rem 3rem; }
-      .page-heading { font-size: 18px; margin-bottom: 1.4rem; }
-      .page-eyebrow { font-size: 8px; letter-spacing: 0.35em; }
-      .entry-title { font-size: 16px; }
-      .entry-excerpt { font-size: 13px; }
-      .entry-item { padding: 1.1rem 0; }
-      .entry-full-title { font-size: 17px; }
-      .entry-full-body { font-size: 16px; line-height: 1.9; }
-      /* ── ENHANCED MOBILE READING ── */
-      .entry-full-body {
-        font-size: 17px;
-        line-height: 2.05;
-        letter-spacing: 0.01em;
+      /* All inner pages scroll freely */
+      .page.active:not(#page-home) {
+        overflow-y: auto; height: auto; min-height: 100svh;
       }
-      .entry-full-body p {
-        margin-bottom: 1.8rem;
+
+      /* ── INNER PAGE SHELL ── */
+      .inner-page {
+        padding: 1.8rem 1.4rem 4rem;
         max-width: 100%;
       }
-      .entry-full-title {
-        font-size: 20px;
-        line-height: 1.25;
-        letter-spacing: 0.03em;
+      .page-top {
+        margin-bottom: 1.8rem;
+      }
+      .back-link {
+        font-size: 8px; letter-spacing: 0.28em;
+      }
+      .portfolio-link {
+        font-size: 7.5px; letter-spacing: 0.25em;
+      }
+
+      /* ── HEADINGS ── */
+      .page-eyebrow {
+        font-size: 7.5px; letter-spacing: 0.38em;
+        margin-bottom: 0.4rem;
+      }
+      .page-heading {
+        font-size: 20px; line-height: 1.2;
         margin-bottom: 1.6rem;
         padding-bottom: 1rem;
       }
+
+      /* Subscribe row: stack vertically on mobile */
+      .heading-subscribe-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.2rem;
+        margin-bottom: 1.6rem;
+        padding-bottom: 1rem;
+      }
+      .page-heading--inline { margin-bottom: 0; }
+      .heading-subscribe-row .pillar-subscribe {
+        max-width: 100%; min-width: 0; width: 100%;
+      }
+
+      /* ── ENTRY INDEX ── */
+      .entry-item { padding: 1.1rem 0; }
+      .entry-date { font-size: 7px; letter-spacing: 0.35em; }
+      .entry-title { font-size: 17px; line-height: 1.3; }
+      .entry-excerpt { font-size: 13.5px; line-height: 1.6; margin-top: 0.3rem; }
+
+      /* ── ENTRY READING ── */
+      .entry-back {
+        font-size: 8px; letter-spacing: 0.28em;
+        margin-bottom: 2rem;
+      }
       .entry-full-date {
-        font-size: 9px;
-        letter-spacing: 0.38em;
+        font-size: 8.5px; letter-spacing: 0.38em;
         margin-bottom: 0.6rem;
       }
-      .entry-full-body blockquote {
-        font-size: 15.5px;
-        line-height: 2.1;
-        padding: 0.4rem 0 0.4rem 1.1rem;
-        margin: 1.6rem 0;
-        border-left-width: 1.5px;
+      .entry-full-title {
+        font-size: 19px; line-height: 1.22;
+        margin-bottom: 1.6rem; padding-bottom: 1rem;
+        letter-spacing: 0.03em;
       }
-      .entry-full-body li {
-        font-size: 16px;
-        line-height: 1.95;
-        margin-bottom: 0.8rem;
+      .entry-full-body {
+        font-size: 16.5px; line-height: 1.95;
+        letter-spacing: 0.01em;
       }
+      .entry-full-body p { margin-bottom: 1.5rem; }
       .entry-full-body h2 {
-        font-size: 9px;
-        letter-spacing: 0.32em;
+        font-size: 8.5px; letter-spacing: 0.3em;
         margin: 2rem 0 0.8rem;
       }
-      .inner-page {
-        padding: 2rem 1.4rem 3.5rem;
+      .entry-full-body blockquote {
+        font-size: 15px; line-height: 2;
+        padding: 0.3rem 0 0.3rem 1rem;
+        margin: 1.4rem 0;
       }
-      /* Slightly wider side margins for readability */
-      @media (min-width: 376px) and (max-width: 600px) {
-        .inner-page { padding: 2rem 1.6rem 3.5rem; }
-        .entry-full-body { font-size: 17.5px; line-height: 2.1; }
+      .entry-full-body ol,
+      .entry-full-body ul {
+        margin-left: 1.2rem; margin-bottom: 1.5rem;
+      }
+      .entry-full-body li {
+        font-size: 16px; line-height: 1.9;
+        margin-bottom: 0.7rem;
       }
 
-      /* ── BENEFACTOR ── */
-      .benefactor-page { padding: 1.5rem 0 3rem; }
-      .benefactor-intro { font-size: 14px; line-height: 1.8; }
-      .amount-input { font-size: 22px; width: 110px; }
-      .union-form { width: 100%; }
-      .union-input { font-size: 14px; }
-      .name-input { width: 100%; }
+      /* ── ENTRY PREV/NEXT NAVIGATION ── */
+      .entry-footer-nav {
+        flex-direction: column;
+        gap: 0;
+        margin-top: 2.5rem;
+        padding-top: 1.5rem;
+      }
+      .entry-nav-btn {
+        max-width: 100%;
+        padding: 1rem 0;
+        border-bottom: 0.5px solid #1e1a0e;
+      }
+      .entry-nav-btn.next {
+        align-items: flex-start;
+        text-align: left;
+      }
+      .entry-nav-direction { font-size: 7px; letter-spacing: 0.45em; }
+      .entry-nav-title { font-size: 13.5px; line-height: 1.4; }
 
-      /* ── FOUNDATION / HOH ── */
+      /* ── PILLAR NAVIGATION ── */
+      .pillar-nav {
+        margin-top: 2.5rem;
+        padding-top: 1.8rem;
+        gap: 0;
+        flex-direction: column;
+        align-items: center;
+      }
+      .pillar-nav-label {
+        font-size: 6.5px; letter-spacing: 0.45em;
+        margin-bottom: 1rem;
+      }
+      /* Pill-style pillar links on mobile — tap-friendly */
+      .pillar-nav > span.pillar-nav-link,
+      .pillar-nav > span.pillar-nav-sep {
+        display: none;
+      }
+      /* Replace with a row of tappable chips */
+      .pillar-nav::after {
+        content: '';
+        display: block;
+      }
+      /* Override: show as inline-flex row */
+      .pillar-nav {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.6rem;
+      }
+      .pillar-nav-label {
+        width: 100%;
+        text-align: center;
+      }
+      .pillar-nav-sep { display: none !important; }
+      .pillar-nav-link {
+        font-size: 7.5px; letter-spacing: 0.22em;
+        padding: 0.55rem 1rem;
+        border: 0.5px solid #2a2418;
+        border-bottom: none;
+        min-width: 64px; text-align: center;
+        transition: color 0.2s, border-color 0.2s, background 0.2s;
+      }
+      .pillar-nav-link:hover,
+      .pillar-nav-link:active {
+        color: #c8a030; border-color: #c8a030;
+        background: rgba(200,149,42,0.05);
+      }
+      .pillar-nav-link.current {
+        color: #3a3218; border-color: #2a2418;
+        background: transparent; cursor: default;
+      }
+
+      /* Community threshold */
+      .community-threshold { margin-top: 2rem; gap: 0.6rem; }
+
+      /* Foundation link on New Adam */
+      .foundation-link-wrap { margin: 1.6rem 0 0; }
+
+      /* ── BENEFACTOR PAGE ── */
+      .benefactor-page { padding: 1.2rem 0 3rem; }
+      .benefactor-heading { font-size: 18px; }
+      .benefactor-intro { font-size: 13px; line-height: 1.9; margin-bottom: 1.4rem; }
+      .amount-instruction { font-size: 10.5px; max-width: 100%; }
+      .amount-input { font-size: 24px; width: 120px; }
+      .amount-input-row { width: 160px; }
+      .stripe-btn { padding: 11px 28px; font-size: 8.5px; }
+      .benefactor-disclaimer { font-size: 8.5px; line-height: 2; }
+
+      /* ── SUBSCRIBE INPUT ── */
+      .pillar-subscribe-input { font-size: 14px; }
+      .pillar-subscribe-btn { font-size: 14px; }
+      .pillar-subscribe-msg { font-size: 11.5px; }
+
+      /* ── ABOUT ── */
+      .about-name { font-size: 11px; letter-spacing: 0.28em; }
+      .about-body { font-size: 13.5px; line-height: 1.95; letter-spacing: 0.025em; }
+
+      /* ── CONTACT ── */
+      .contact-input { font-size: 15px; }
+      .contact-submit-btn { padding: 11px 24px; font-size: 8.5px; }
+      .contact-community { margin-top: 2.5rem; }
+
+      /* ── TERMS / PRIVACY ── */
+      .terms-body { padding-bottom: 3rem; }
+      .terms-updated { font-size: 7px; margin-bottom: 2rem; }
+      .terms-section { font-size: 8px; letter-spacing: 0.28em; margin: 2rem 0 0.7rem; }
+      .terms-body p { font-size: 14px; line-height: 1.9; }
+      .terms-footer { font-size: 6.5px; margin-top: 2.5rem; }
+
+      /* ── HOH (Foundation) ── */
       .foundation-pillar { display: none; }
       .foundation-border { display: none; }
-      .foundation-content { padding: 3rem 1.4rem 4rem; }
-      .foundation-title { font-size: 20px; }
-      .foundation-subtitle { font-size: 12px; }
-      .foundation-arch-wrap svg { width: 240px; }
+      .foundation-content { padding: 2.5rem 1.2rem 3.5rem; }
+      .foundation-title { font-size: 19px; }
+      .foundation-subtitle { font-size: 11.5px; }
+      .foundation-arch-wrap svg { width: 220px; }
       .foundation-capital, .foundation-frieze { max-width: 100%; }
-      .foundation-body { font-size: 15px; line-height: 2; }
-      .foundation-eyebrow { font-size: 6px; letter-spacing: 0.4em; }
-      .community-threshold { margin-top: 2rem; }
-      .foundation-link-wrap { margin: 1.8rem 0 0; }
-    }
+      .foundation-body { font-size: 14.5px; line-height: 1.95; }
+      .foundation-eyebrow { font-size: 6px; letter-spacing: 0.38em; }
+
+      /* Sound toggle bottom-right on all inner pages */
+      body.inner-page-active .music-toggle {
+        bottom: 1.5rem; right: 1.2rem;
+        top: auto; left: auto;
+      }
+
+    } /* end ≤600px */
+
 
     /* ══════════════════════════════════════
-       LARGE PHONES (376px–600px)
-       e.g. iPhone 14/15/16/17 Pro Max, standard
-       Original absolute-positioned home layout
+       LARGE PHONES — portrait (376px–600px)
+       iPhone 14/15/16/17, Pro Max, etc.
     ══════════════════════════════════════ */
     @media (min-width: 376px) and (max-width: 600px) {
 
-      #page-home { overflow: hidden; height: 100vh; }
+      #page-home { overflow: hidden; height: 100svh; }
 
       .home {
         overflow: hidden;
-        height: 100vh;
-        max-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding: 0 1rem;
-        position: relative;
+        height: 100svh; max-height: 100svh;
+        display: flex; flex-direction: column;
+        align-items: center; justify-content: center;
+        padding: 0 1rem; position: relative;
       }
 
       .glow-pool { width: 240px; height: 180px; top: 38%; }
@@ -686,33 +816,30 @@
         position: absolute;
         top: calc(38vh - 90px - 22px);
         left: 50%; transform: translateX(-50%);
-        font-size: 13.5px;
-        letter-spacing: 0.38em;
-        margin: 0;
-        white-space: nowrap;
-        z-index: 3;
+        font-size: 13.5px; letter-spacing: 0.38em;
+        margin: 0; white-space: nowrap; z-index: 3;
       }
 
       .prism-wrap {
         position: absolute;
-        top: calc(38vh - 68px + 2.2rem - 2rem);
+        top: calc(38vh - 68px + 0.2rem);
         left: 50%; transform: translateX(-50%);
-        width: min(345px, 94vw);
-        height: min(306px, 84vw);
+        width: min(340px, 92vw);
+        height: min(302px, 82vw);
         z-index: 3;
       }
 
       .tagline {
         position: absolute;
-        top: calc(38vh - 68px + 2.2rem - 2rem + min(306px, 84vw) + 2rem);
+        top: calc(38vh - 68px + 0.2rem + min(302px, 82vw) + 1.6rem);
         left: 50%; transform: translateX(-50%);
-        font-size: 14px; letter-spacing: 0.04em; color: #7a6c38;
+        font-size: 13.5px; letter-spacing: 0.04em; color: #7a6c38;
         margin: 0; white-space: nowrap; z-index: 3;
       }
 
       .benefactor-link-wrap {
         position: absolute;
-        top: calc(38vh - 68px + 2.2rem - 2rem + min(306px, 84vw) + 2rem + 36px);
+        top: calc(38vh - 68px + 0.2rem + min(302px, 82vw) + 1.6rem + 34px);
         left: 50%; transform: translateX(-50%);
         margin: 0; z-index: 3;
       }
@@ -720,500 +847,219 @@
 
       .home-footer {
         position: absolute;
-        bottom: 3.2rem;
-        top: auto; left: 0; right: 0;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 0.1rem;
-        padding: 0.25rem 1rem 0;
-        z-index: 4;
+        bottom: 2.8rem; top: auto; left: 0; right: 0;
+        display: flex; flex-direction: column;
+        align-items: center; gap: 0.12rem;
+        padding: 0.2rem 1.2rem 0; z-index: 4;
+      }
+      .home-footer-rule { width: 44px; margin: 0; }
+      .home-footer-desc {
+        font-size: 8.5px; line-height: 1.5;
+        text-align: center; max-width: 88vw; margin: 0;
+      }
+      .home-footer-links {
+        flex-wrap: wrap; justify-content: center; gap: 0.2rem;
+        display: flex; margin: 0; padding-top: 0; border-top: none;
+      }
+      .home-footer-links:first-of-type {
+        border-top: 0.5px solid #2a2010; padding-top: 0.12rem;
+      }
+      .home-footer-copy {
+        font-size: 6px; letter-spacing: 0.2em;
+        margin: 0; padding: 0; line-height: 1; display: block;
       }
 
-      .home-footer-rule { width: 50px; margin: 0; }
-      .home-footer-desc { font-size: 9px; line-height: 1.45; text-align: center; max-width: 90vw; margin: 0; }
-      .home-footer-links { flex-wrap: wrap; justify-content: center; gap: 0.2rem; display: flex; margin: 0; padding-top: 0; border-top: none; }
-      .home-footer-links:first-of-type { border-top: 0.5px solid #2a2010; padding-top: 0.15rem; }
-      .home-footer-copy { font-size: 6px; letter-spacing: 0.22em; margin: 0; padding: 0; line-height: 1; display: block; }
-    }
+      /* Music toggle top-left on home */
+      .music-toggle {
+        position: fixed; top: 1.2rem; left: 1.2rem;
+        bottom: auto; right: auto;
+      }
+
+    } /* end 376–600px */
+
 
     /* ══════════════════════════════════════
-       SMALL PHONES (≤375px)
-       e.g. iPhone SE — flex flow, scrollable
+       SMALL PHONES — portrait (≤375px)
+       iPhone SE, older Androids
     ══════════════════════════════════════ */
     @media (max-width: 375px) {
 
-      #page-home { overflow-y: auto; height: auto; min-height: 100vh; }
+      #page-home { overflow-y: auto; height: auto; min-height: 100svh; }
 
       .home {
-        height: auto;
-        min-height: 100vh;
-        max-height: none;
+        height: auto; min-height: 100svh; max-height: none;
         overflow: visible;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-start;
-        padding: 4rem 1rem 0;
-        position: relative;
+        display: flex; flex-direction: column;
+        align-items: center; justify-content: flex-start;
+        padding: 3.5rem 1rem 0; position: relative;
       }
 
-      .glow-pool { width: 200px; height: 160px; top: 20%; }
+      .glow-pool { width: 190px; height: 150px; top: 22%; }
 
       .site-title {
-        position: relative;
-        top: auto; left: auto; transform: none;
-        font-size: 12px;
-        letter-spacing: 0.35em;
-        margin-bottom: 1.4rem;
-        text-align: center;
-        white-space: nowrap;
-        z-index: 3;
+        position: relative; top: auto; left: auto; transform: none;
+        font-size: 11.5px; letter-spacing: 0.34em;
+        margin-bottom: 1.2rem; text-align: center;
+        white-space: nowrap; z-index: 3;
       }
 
       .prism-wrap {
-        position: relative;
-        top: auto; left: auto; transform: none;
-        width: min(320px, 90vw);
-        height: min(284px, 80vw);
-        margin-bottom: 1rem;
-        z-index: 3;
+        position: relative; top: auto; left: auto; transform: none;
+        width: min(295px, 88vw); height: min(262px, 78vw);
+        margin-bottom: 0.9rem; z-index: 3;
       }
 
       .tagline {
-        position: relative;
-        top: auto; left: auto; transform: none;
-        font-size: 13px;
-        color: #7a6c38;
-        margin-bottom: 0.7rem;
-        white-space: nowrap;
-        z-index: 3;
+        position: relative; top: auto; left: auto; transform: none;
+        font-size: 12.5px; color: #7a6c38;
+        margin-bottom: 0.5rem; white-space: nowrap; z-index: 3;
       }
 
       .benefactor-link-wrap {
-        position: relative;
-        top: auto; left: auto; transform: none;
-        margin: 0 0 2rem;
-        z-index: 3;
+        position: relative; top: auto; left: auto; transform: none;
+        margin: 0 0 1.8rem; z-index: 3;
       }
-      .benefactor-link { font-size: 8.6px; letter-spacing: 0.3em; color: #6a5e2a; }
+      .benefactor-link { font-size: 8.2px; letter-spacing: 0.28em; color: #6a5e2a; }
 
       .home-footer {
-        position: relative;
-        bottom: auto; top: auto; left: auto; right: auto;
+        position: relative; bottom: auto; top: auto; left: auto; right: auto;
         width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 0.2rem;
-        padding: 0.5rem 1rem 2rem;
-        z-index: 4;
+        display: flex; flex-direction: column;
+        align-items: center; gap: 0.18rem;
+        padding: 0.4rem 1rem 2rem; z-index: 4;
+      }
+      .home-footer-rule { width: 44px; margin: 0; }
+      .home-footer-desc {
+        font-size: 8px; line-height: 1.5;
+        text-align: center; max-width: 90vw; margin: 0;
+      }
+      .home-footer-links {
+        flex-wrap: wrap; justify-content: center; gap: 0.2rem;
+        display: flex; margin: 0; border-top: none; padding-top: 0;
+      }
+      .home-footer-links:first-of-type {
+        border-top: 0.5px solid #2a2010; padding-top: 0.15rem;
+      }
+      .home-footer-copy {
+        font-size: 5.5px; letter-spacing: 0.2em;
+        margin: 0; padding: 0; line-height: 1.3;
       }
 
-      .home-footer-rule { width: 50px; margin: 0; }
-      .home-footer-desc { font-size: 9px; line-height: 1.5; text-align: center; max-width: 90vw; margin: 0; }
-      .home-footer-links { flex-wrap: wrap; justify-content: center; gap: 0.2rem; display: flex; margin: 0; padding-top: 0; border-top: none; }
-      .home-footer-links:first-of-type { border-top: 0.5px solid #2a2010; padding-top: 0.2rem; }
-      .home-footer-copy { font-size: 6px; letter-spacing: 0.22em; margin: 0; padding: 0; line-height: 1.4; }
-
-      /* Extra tight for 320px */
-      @media (max-width: 340px) {
-        .home { padding: 3rem 0.8rem 0; }
-        .site-title { font-size: 10.5px; letter-spacing: 0.28em; margin-bottom: 1rem; }
-        .prism-wrap { width: min(290px, 92vw); height: min(258px, 82vw); margin-bottom: 0.8rem; }
-        .tagline { font-size: 11.5px; margin-bottom: 0.5rem; }
-        .home-footer-desc { font-size: 8px; }
+      /* Music toggle top-left on home */
+      .music-toggle {
+        position: fixed; top: 1rem; left: 1rem;
+        bottom: auto; right: auto;
       }
-    }
 
-    /* ── TABLET (portrait) ── */
-    @media (min-width: 601px) and (max-width: 1024px) and (orientation: portrait) {
-      .rays-mobile { display: none !important; }
-      .prism-wrap { width: 360px; height: 320px; }
-      .foundation-pillar { width: 50px; }
-      .foundation-content { padding: 4rem 1.8rem 5rem; }
-      .inner-page { max-width: 600px; padding: 2.5rem 2rem 3rem; }
-    }
+      /* Tighten entry nav chips */
+      .pillar-nav-link {
+        font-size: 7px; padding: 0.5rem 0.8rem;
+        min-width: 54px;
+      }
 
-    /* ── LANDSCAPE — phones and iPads on their side ── */
-    @media (orientation: landscape) and (max-height: 600px) {
+    } /* end ≤375px */
 
-      /* Home page: scrollable in landscape */
-      #page-home { overflow-y: auto !important; height: auto !important; min-height: 100vh; }
+
+    /* ══════════════════════════════════════
+       LANDSCAPE — phones on their side
+       max-height: 500px catches all phones
+    ══════════════════════════════════════ */
+    @media (orientation: landscape) and (max-height: 500px) {
+
+      #page-home { overflow-y: auto; height: auto; min-height: 100svh; }
 
       .home {
-        height: auto !important;
-        min-height: 100vh;
-        max-height: none !important;
-        overflow: visible !important;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+        height: auto; min-height: 100svh; max-height: none; overflow: visible;
+        display: flex; flex-direction: column; align-items: center;
         justify-content: flex-start;
-        padding: 0 2rem 0;
-        gap: 0;
-        position: relative;
+        padding: 2.8rem 2rem 0; position: relative;
       }
 
-      /* City of Louis — top, centered */
       .site-title {
-        position: relative !important;
-        top: auto !important; left: auto !important;
-        transform: none !important;
-        width: 100%;
-        text-align: center;
-        font-size: 10.5px;
-        letter-spacing: 0.38em;
-        margin-top: 15vh;
-        margin-bottom: 0.5rem;
-        order: 0;
-        z-index: 3;
+        position: relative; top: auto; left: auto; transform: none;
+        font-size: 10.5px; letter-spacing: 0.36em;
+        margin-top: 15vh; margin-bottom: 0.6rem;
+        text-align: center; white-space: nowrap; z-index: 3;
       }
 
-      /* Triangle — centered, directly under rays */
       .prism-wrap {
-        position: relative !important;
-        top: auto !important; left: auto !important;
-        transform: none !important;
-        width: min(200px, 36vw);
-        height: min(178px, 32vw);
-        order: 1;
-        margin: 0 auto 0.4rem;
-        z-index: 3;
+        position: relative; top: auto; left: auto; transform: none;
+        width: min(190px, 34vw); height: min(169px, 30vw);
+        margin: 0 auto 0.5rem; z-index: 3;
       }
 
-      /* Authoring a New Future — below triangle */
       .tagline {
-        position: relative !important;
-        top: auto !important; left: auto !important;
-        transform: none !important;
-        font-size: 12px;
-        order: 2;
-        margin: 0 0 0.35rem;
-        text-align: center;
-        white-space: nowrap;
-        z-index: 3;
+        position: relative; top: auto; left: auto; transform: none;
+        font-size: 11.5px; margin-bottom: 0.4rem;
+        text-align: center; white-space: nowrap; z-index: 3;
       }
 
-      /* Patronage — below tagline */
       .benefactor-link-wrap {
-        position: relative !important;
-        top: auto !important; left: auto !important;
-        transform: none !important;
-        order: 3;
-        margin: 0 0 0.6rem;
-        z-index: 3;
+        position: relative; top: auto; left: auto; transform: none;
+        margin: 0 0 0.7rem; z-index: 3;
       }
 
-      /* Footer — below patronage, shifted down */
       .home-footer {
-        position: relative !important;
-        bottom: auto !important; top: auto !important;
-        left: auto !important; right: auto !important;
+        position: relative; bottom: auto; top: auto; left: auto; right: auto;
         width: 100%;
-        order: 4;
-        padding: 0.4rem 1rem 1.2rem !important;
-        gap: 0.12rem !important;
-        margin-top: 0.3rem;
+        display: flex; flex-direction: column;
+        align-items: center; gap: 0.1rem;
+        padding: 0.3rem 2rem 1.5rem; z-index: 4;
+        margin-top: 0.4rem;
       }
-
       .home-footer-desc { font-size: 7.5px; line-height: 1.35; }
       .home-footer-copy { font-size: 5.5px; }
       .glow-pool { display: none; }
 
       /* Inner pages in landscape */
-      .inner-page { padding: 1.5rem 2rem 2rem; max-width: 700px; }
-      .page-heading { font-size: 18px; }
-      .entry-full-body { font-size: 15px; }
+      .inner-page { padding: 1.4rem 2rem 2.5rem; }
+      .page-heading { font-size: 17px; }
 
-      /* Foundation landscape */
-      .foundation-pillar { display: none; }
-      .foundation-content { padding: 2rem 2rem 3rem; }
-    }
+    } /* end landscape phones */
 
-    /* ── IPAD LANDSCAPE (768px–1024px wide, landscape) ── */
-    @media (orientation: landscape) and (min-height: 600px) and (max-width: 1180px) {
-      .rays-mobile { display: none !important; }
-
-      /* iPad landscape home: use desktop-style layout but scaled */
-      #page-home { overflow: hidden; height: 100vh; }
-      .home {
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding: 0 2rem;
-        position: relative;
-      }
-
-      .site-title {
-        position: relative !important;
-        top: auto !important; left: auto !important;
-        transform: none !important;
-        font-size: 13px;
-        letter-spacing: 0.4em;
-        margin-bottom: 1.5rem;
-        z-index: 3;
-      }
-
-      .prism-wrap {
-        position: relative !important;
-        top: auto !important; left: auto !important;
-        transform: none !important;
-        width: min(380px, 50vw);
-        height: min(338px, 44vw);
-        margin-bottom: 1.2rem;
-        z-index: 3;
-      }
-
-      .tagline {
-        position: relative !important;
-        top: auto !important; left: auto !important;
-        transform: none !important;
-        font-size: 15px;
-        margin-bottom: 0.6rem;
-        z-index: 3;
-      }
-
-      .benefactor-link-wrap {
-        position: relative !important;
-        top: auto !important; left: auto !important;
-        transform: none !important;
-        margin: 0 0 1rem;
-        z-index: 3;
-      }
-
-      .home-footer {
-        position: relative !important;
-        bottom: auto !important;
-        padding: 0 2rem 1rem !important;
-      }
-
-      /* Inner pages */
-      .inner-page { max-width: 640px; padding: 2.5rem 2rem 3rem; }
-      .foundation-content { padding: 3rem 2rem 4rem; }
-    }
-
-    /* Hide mobile rays on desktop */
-    @media (min-width: 601px) and (orientation: portrait) {
-      .rays-mobile { display: none !important; }
-    }
-    @media (orientation: landscape) and (min-height: 600px) {
-      .rays-mobile { display: none !important; }
-    }
-
-    /* ── MUSIC TOGGLE ── */
-    .music-toggle {
-      position: fixed; top: 1.2rem; left: 1.2rem;
-      z-index: 1000; cursor: pointer;
-      display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
-      opacity: 0.75; transition: opacity 0.3s;
-    }
-    body.inner-page-active .music-toggle {
-      top: auto; left: auto;
-      bottom: 2rem; right: 2rem;
-    }
-    .music-toggle:hover { opacity: 0.9; }
-    .music-icon {
-      width: 28px; height: 28px;
-      border: 0.5px solid #4a3e1e; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      background: rgba(6,4,1,0.7); transition: border-color 0.3s;
-    }
-    .music-toggle.playing .music-icon { border-color: #c8952a; }
-    .music-bars { display: flex; align-items: flex-end; gap: 2px; height: 12px; }
-    .music-bar { width: 2px; background: #6a5c30; border-radius: 1px; transition: background 0.3s; }
-    .music-toggle.playing .music-bar { background: #c8952a; }
-    .music-bar:nth-child(1) { height: 4px; }
-    .music-bar:nth-child(2) { height: 8px; }
-    .music-bar:nth-child(3) { height: 12px; }
-    .music-bar:nth-child(4) { height: 6px; }
-    .music-bar:nth-child(5) { height: 10px; }
-    .music-toggle.playing .music-bar:nth-child(1) { animation: bar1 1.1s ease-in-out infinite; }
-    .music-toggle.playing .music-bar:nth-child(2) { animation: bar2 0.9s ease-in-out infinite; }
-    .music-toggle.playing .music-bar:nth-child(3) { animation: bar3 1.3s ease-in-out infinite; }
-    .music-toggle.playing .music-bar:nth-child(4) { animation: bar4 0.8s ease-in-out infinite; }
-    .music-toggle.playing .music-bar:nth-child(5) { animation: bar5 1.0s ease-in-out infinite; }
-    @keyframes bar1 { 0%,100%{height:4px} 50%{height:10px} }
-    @keyframes bar2 { 0%,100%{height:8px} 50%{height:4px} }
-    @keyframes bar3 { 0%,100%{height:12px} 50%{height:6px} }
-    @keyframes bar4 { 0%,100%{height:6px} 50%{height:12px} }
-    @keyframes bar5 { 0%,100%{height:10px} 50%{height:4px} }
-    .music-label {
-      font-family: 'Cinzel', serif; font-size: 6px; letter-spacing: 0.3em;
-      color: #4a3e1e; text-transform: uppercase; transition: color 0.3s;
-    }
-    .music-toggle.playing .music-label { color: #8a7640; }
-
-
-
-    .home-footer-rule {
-      width: 120px; height: 0.5px;
-      background: linear-gradient(90deg, transparent, #2a2418, transparent);
-      margin-bottom: 0.4rem;
-    }
-    .home-footer-desc {
-      font-family: 'Cinzel', serif; font-size: 8.5px;
-      color: #7a6e50; text-align: center; line-height: 2;
-      letter-spacing: 0.03em; max-width: 420px;
-    }
-    .home-footer-links {
-      display: flex; align-items: center; gap: 0.6rem;
-    }
-    .home-footer-link {
-      font-family: 'Cinzel', serif; font-size: 7px; letter-spacing: 0.3em;
-      color: #6a5c30; text-transform: uppercase; cursor: pointer;
-      text-decoration: none; transition: color 0.2s;
-    }
-    .home-footer-link:hover { color: #c8a030; }
-    .home-footer-sep {
-      color: #4a3e1e; font-size: 10px;
-    }
-    .home-footer-copy {
-      font-family: 'Cinzel', serif; font-size: 6.5px; letter-spacing: 0.28em;
-      color: #5a4e28; text-transform: uppercase;
-    }
-
-    .benefactor-terms {
-      margin-top: 2rem; text-align: center;
-    }
-    .benefactor-terms-link {
-      font-family: 'Cinzel', serif; font-size: 7.5px; letter-spacing: 0.3em;
-      color: #5a4e28; text-transform: uppercase; cursor: pointer;
-      border-bottom: 0.5px solid #3a3018; padding-bottom: 2px;
-      transition: color 0.2s;
-    }
-    .benefactor-terms-link:hover { color: #c8a030; }
-
-    /* ── HEADING + SUBSCRIBE ROW ── */
-    .heading-subscribe-row {
-      display: flex; align-items: flex-end; justify-content: space-between;
-      gap: 1.5rem; flex-wrap: wrap;
-      margin-bottom: 2rem; padding-bottom: 1.2rem;
-      border-bottom: 0.5px solid #2a2418;
-    }
-    .page-heading--inline {
-      margin-bottom: 0; padding-bottom: 0;
-      border-bottom: none; flex-shrink: 0;
-    }
-    .heading-subscribe-row .pillar-subscribe {
-      margin-bottom: 0; flex: 1; min-width: 180px; max-width: 300px;
-    }
-
-    /* ── PILLAR SUBSCRIBE BOX ── */
-    .pillar-subscribe {
-      display: flex; align-items: center; gap: 0;
-      border-bottom: 0.5px solid #3a3018;
-      width: 100%; max-width: 340px;
-      padding-bottom: 6px;
-    }
-    .pillar-subscribe-input {
-      font-family: 'EB Garamond', serif; font-size: 15px; font-style: italic;
-      color: #d4c9a8; background: transparent; border: none; outline: none;
-      flex: 1; caret-color: #c8a030;
-    }
-    .pillar-subscribe-input::placeholder { color: #3a3220; }
-    .pillar-subscribe-btn {
-      font-family: 'Cinzel', serif; font-size: 11px;
-      color: #7a6a30; background: transparent; border: none;
-      cursor: pointer; padding: 0 0 0 8px;
-      transition: color 0.2s;
-    }
-    .pillar-subscribe-btn:hover { color: #d4a830; }
-    .pillar-subscribe-msg {
-      font-family: 'EB Garamond', serif; font-size: 12px; font-style: italic;
-      color: #6a5c30; min-height: 16px; margin-top: 0.4rem; margin-bottom: 2rem;
-    }
-
-    /* ── ABOUT PAGE ── */
-    .about-byline {
-      font-family: 'Cinzel', serif; font-size: 9px; letter-spacing: 0.45em;
-      color: #7a6a44; text-transform: uppercase; margin-bottom: 0.5rem;
-    }
-    .about-body {
-      font-size: 15px; line-height: 2; color: #9a8e70;
-      font-family: 'Cinzel', serif; font-style: normal;
-      letter-spacing: 0.03em;
-    }
-    .about-body p { margin-bottom: 1.5rem; }
-    .about-name {
-      font-family: 'Cinzel', serif; font-size: 13px; letter-spacing: 0.3em;
-      color: #c4b888; text-transform: uppercase; margin-bottom: 2.2rem;
-      padding-bottom: 1.2rem; border-bottom: 0.5px solid #2a2418;
-    }
-
-    /* ── CONTACT PAGE ── */
-    .contact-form-wrap {
-      display: flex; flex-direction: column; gap: 0; max-width: 480px;
-    }
-    .contact-field-wrap {
-      border-bottom: 0.5px solid #2a2418; margin-bottom: 1.8rem;
-      padding-bottom: 4px;
-    }
-    .contact-input {
-      font-family: 'EB Garamond', serif; font-size: 16px; font-style: italic;
-      color: #d4c9a8; background: transparent; border: none; outline: none;
-      width: 100%; caret-color: #c8a030; resize: none;
-    }
-    .contact-input::placeholder { color: #3a3220; }
-    .contact-textarea { line-height: 1.8; padding-top: 2px; }
-    .contact-submit-btn {
-      font-family: 'Cinzel', serif; font-size: 9px; letter-spacing: 0.38em;
-      color: #8a7640; text-transform: uppercase; cursor: pointer;
-      border: 0.5px solid #3a3018; padding: 12px 32px;
-      background: transparent; transition: color 0.2s, border-color 0.2s;
-      align-self: flex-start; margin-top: 0.5rem;
-    }
-    .contact-submit-btn:hover { color: #d4a830; border-color: #c8a030; }
-    .contact-msg {
-      font-family: 'EB Garamond', serif; font-size: 14px; font-style: italic;
-      color: #6a5c30; margin-top: 1rem; min-height: 20px;
-    }
-    .contact-community {
-      margin-top: 3rem; display: flex; flex-direction: column; gap: 0.6rem;
-      max-width: 480px;
-    }
-    .contact-community-rule {
-      width: 100%; height: 0.5px;
-      background: linear-gradient(90deg, #2a2418, transparent);
-      margin-bottom: 0.8rem;
-    }
-    .contact-community-label {
-      font-family: 'Cinzel', serif; font-size: 9px; letter-spacing: 0.42em;
-      color: #7a6a30; text-transform: uppercase;
-    }
-    .contact-community-desc {
-      font-family: 'EB Garamond', serif; font-size: 15px; font-style: italic;
-      color: #5a5038; line-height: 1.75;
-    }
-    .contact-link {
-      display: inline-block; margin-top: 0.4rem;
-      font-family: 'Cinzel', serif; font-size: 9px; letter-spacing: 0.32em;
-      color: #7a6a30; text-transform: uppercase; text-decoration: none;
-      border-bottom: 0.5px solid #3a3018; padding-bottom: 3px;
-      transition: color 0.2s, border-color 0.2s;
-    }
-    .contact-link:hover { color: #d4a830; border-color: #c8952a; }
-
-    /* ── CONTENT SUBSCRIPTION BADGE ── */
-    .content-sub-badge {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      border: 0.5px solid #2a2410; padding: 6px 14px;
-      margin-bottom: 1.8rem;
-    }
-    .content-sub-badge-dot {
-      width: 5px; height: 5px; border-radius: 50%;
-      background: #c8952a; opacity: 0.6; flex-shrink: 0;
-    }
-    .content-sub-badge-text {
-      font-family: 'Cinzel', serif; font-size: 7px; letter-spacing: 0.4em;
-      color: #6a5c30; text-transform: uppercase;
-    }
 
     /* ══════════════════════════════════════
-       HOLY OF HOLIES — Breathing Life Into Adam
+       IPAD LANDSCAPE (601px–1180px, landscape)
     ══════════════════════════════════════ */
+    @media (orientation: landscape) and (min-height: 501px) and (max-width: 1180px) {
+      .rays-mobile { display: none !important; }
+      #page-home { overflow: hidden; height: 100vh; }
+      .home {
+        height: 100vh; display: flex; flex-direction: column;
+        align-items: center; justify-content: center;
+        padding: 0 2rem; position: relative;
+      }
+      .site-title {
+        position: relative; top: auto; left: auto; transform: none;
+        font-size: 12.5px; letter-spacing: 0.4em;
+        margin-bottom: 1.2rem; z-index: 3;
+      }
+      .prism-wrap {
+        position: relative; top: auto; left: auto; transform: none;
+        width: min(340px, 46vw); height: min(302px, 40vw);
+        margin-bottom: 1rem; z-index: 3;
+      }
+      .tagline {
+        position: relative; top: auto; left: auto; transform: none;
+        font-size: 14px; margin-bottom: 0.5rem; z-index: 3;
+      }
+      .benefactor-link-wrap {
+        position: relative; top: auto; left: auto; transform: none;
+        margin: 0 0 1rem; z-index: 3;
+      }
+      .home-footer {
+        position: relative; bottom: auto;
+        padding: 0 2rem 1rem;
+      }
+      .inner-page { max-width: 620px; padding: 2.2rem 2rem 3rem; }
+      .foundation-content { padding: 3rem 2rem 4rem; }
+      .foundation-pillar { display: none; }
+    }
+
+    /* Hide mobile rays on desktop and iPad landscape */
+    @media (min-width: 601px) and (orientation: portrait) { .rays-mobile { display: none !important; } }
+    @media (orientation: landscape) and (min-height: 501px) { .rays-mobile { display: none !important; } }
+
 
     /* ════════════════════════════════════════════════
        HOLY OF HOLIES — IDE
