@@ -561,6 +561,34 @@
       font-family: 'EB Garamond', serif; font-size: 12px; font-style: italic;
       color: #6a5c30; min-height: 16px;
     }
+    /* ── HOME FOOTER ── */
+    .home-footer-rule {
+      width: 120px; height: 0.5px;
+      background: linear-gradient(90deg, transparent, #2a2418, transparent);
+      margin-bottom: 0.4rem;
+    }
+    .home-footer-desc {
+      font-family: 'Cinzel', serif; font-size: 8.5px;
+      color: #7a6e50; text-align: center; line-height: 2;
+      letter-spacing: 0.03em; max-width: 420px;
+    }
+    .home-footer-links {
+      display: flex; align-items: center; gap: 0.6rem;
+    }
+    .home-footer-link {
+      font-family: 'Cinzel', serif; font-size: 7px; letter-spacing: 0.3em;
+      color: #6a5c30; text-transform: uppercase; cursor: pointer;
+      text-decoration: none; transition: color 0.2s;
+    }
+    .home-footer-link:hover { color: #c8a030; }
+    .home-footer-sep {
+      color: #4a3e1e; font-size: 10px;
+    }
+    .home-footer-copy {
+      font-family: 'Cinzel', serif; font-size: 6.5px; letter-spacing: 0.28em;
+      color: #5a4e28; text-transform: uppercase;
+    }
+
     /* ── MUSIC TOGGLE ── */
     .music-toggle {
       position: fixed; top: 1.2rem; left: 1.2rem;
@@ -2574,387 +2602,108 @@
 
 
   <script>
-  // ─────────────────────────────────────────────────────────
-  // HOLY OF HOLIES — IDE ENGINE  (global scope, no IIFE)
-  // ─────────────────────────────────────────────────────────
+  // ─────────────────────────────────────────
+  // HOLY OF HOLIES
+  // ─────────────────────────────────────────
 
-  // ── PANEL CODE (pre-highlighted HTML lines) ───────────────
-  var HOH_DATA = [
-    {
-      name: 'NEW_COVENANT.sol',
-      lines: [
-        `<span class="sc">/**</span>`,
-        `<span class="sc"> * ═══════════════════════════════════════════════════════</span>`,
-        `<span class="sc"> *  N E W   C O V E N A N T</span>`,
-        `<span class="sc"> *  City of Louis  ·  Holy of Holies</span>`,
-        `<span class="sc"> *</span>`,
-        `<span class="sc"> *  @author   Louis Stevens</span>`,
-        `<span class="sc"> *  @version  GENESIS · v0.0.1</span>`,
-        `<span class="sc"> *  @license  Covenant — All Rights Reserved</span>`,
-        `<span class="sc"> *  @status   COMPILING...</span>`,
-        `<span class="sc"> * ═══════════════════════════════════════════════════════</span>`,
-        `<span class="sc"> */</span>`,
-        ``,
-        `<span class="ss">"use strict"</span>;`,
-        ``,
-        `<span class="sc">// ── PREAMBLE ─────────────────────────────────────────────────────────</span>`,
-        `<span class="sc">// Named after 2 Samuel 5:7 — David names Zion after himself</span>`,
-        `<span class="sc">// and makes it the seat of his kingdom.</span>`,
-        `<span class="sc">//</span>`,
-        `<span class="sc">// City of Louis is a civilization of mind. Built entry by entry,</span>`,
-        `<span class="sc">// one reader at a time.</span>`,
-        `<span class="sc">// ─────────────────────────────────────────────────────────────────────</span>`,
-        ``,
-        `<span class="sk">const</span> <span class="sb">COVENANT</span> = {`,
-        ``,
-        `  <span class="sp">author</span>:   <span class="ss">"Louis Stevens"</span>,`,
-        `  <span class="sp">city</span>:     <span class="ss">"City of Louis"</span>,`,
-        `  <span class="sp">founded</span>:  <span class="ss">"MMXXVI"</span>,`,
-        `  <span class="sp">mission</span>:  <span class="ss">"Authoring a New Future"</span>,`,
-        `  <span class="sp">seat</span>:     <span class="ss">"Florida, United States"</span>,`,
-        ``,
-        `  <span class="sp">pillars</span>: {`,
-        `    <span class="sp">NEW_ADAM</span>:   <span class="ss">"The philosophical formation of man"</span>,`,
-        `    <span class="sp">LAW</span>:        <span class="ss">"The governance of civilization"</span>,`,
-        `    <span class="sp">CAPITAL</span>:    <span class="ss">"The engine of abundance"</span>,`,
-        `    <span class="sp">TECHNOLOGY</span>: <span class="ss">"The lever of transformation"</span>,`,
-        `  },`,
-        ``,
-        `  <span class="sc">// ── THE WORD ──────────────────────────────────────────────────────</span>`,
-        `  <span class="sc">// The foundational document will be inscribed here.</span>`,
-        `  <span class="sc">// The root beneath the four pillars.</span>`,
-        `  <span class="sc">// The covenant before the work begins.</span>`,
-        `  <span class="sc">// ─────────────────────────────────────────────────────────────────</span>`,
-        ``,
-        `  <span class="sp">genesis</span>: <span class="sk">async</span> () =&gt; {`,
-        `    <span class="sk">return</span> <span class="sk">new</span> <span class="sf">Promise</span>(resolve =&gt; {`,
-        `      <span class="sc">// await the Word</span>`,
-        `      <span class="sf">resolve</span>();`,
-        `    });`,
-        `  },`,
-        ``,
-        `  <span class="sp">flood</span>: {`,
-        `    <span class="sp">status</span>:    <span class="ss">"RISING"</span>,`,
-        `    <span class="sp">refuge</span>:    <span class="ss">"City of Louis"</span>,`,
-        `    <span class="sp">survivors</span>: [],  <span class="sc">// open enrollment</span>`,
-        `  },`,
-        ``,
-        `};`,
-        ``,
-        `<span class="sf">Object</span>.<span class="sf">freeze</span>(<span class="sb">COVENANT</span>);`,
-        `<span class="sk">export</span> <span class="sk">default</span> <span class="sb">COVENANT</span>;`,
-        ``,
-      ]
-    },
-    {
-      name: 'MIND_OF_ADAM.sol',
-      lines: [
-        `<span class="sc">/**</span>`,
-        `<span class="sc"> * ═══════════════════════════════════════════════════════</span>`,
-        `<span class="sc"> *  T H E   M I N D   O F   A D A M</span>`,
-        `<span class="sc"> *  City of Louis  ·  Philosophical Treatise</span>`,
-        `<span class="sc"> *</span>`,
-        `<span class="sc"> *  @subject  The formation of the New Adam</span>`,
-        `<span class="sc"> *  @status   DRAFTING...</span>`,
-        `<span class="sc"> * ═══════════════════════════════════════════════════════</span>`,
-        `<span class="sc"> */</span>`,
-        ``,
-        `<span class="sk">import</span> { <span class="sb">COVENANT</span> } <span class="sk">from</span> <span class="ss">"./NEW_COVENANT.sol"</span>;`,
-        ``,
-        `<span class="sc">// ── PREMISE ──────────────────────────────────────────────────────────</span>`,
-        `<span class="sc">// The New Adam is not a product of his environment.</span>`,
-        `<span class="sc">// He is the author of it.</span>`,
-        `<span class="sc">//</span>`,
-        `<span class="sc">// Where the old Adam inherited civilization, the New Adam builds it —</span>`,
-        `<span class="sc">// with law, capital, and technology as instruments of sovereignty.</span>`,
-        `<span class="sc">// ─────────────────────────────────────────────────────────────────────</span>`,
-        ``,
-        `<span class="sk">const</span> <span class="sb">MIND</span> = {`,
-        ``,
-        `  <span class="sp">formation</span>: {`,
-        `    <span class="sp">body</span>:   <span class="ss">"Strong. Disciplined. Sovereign."</span>,`,
-        `    <span class="sp">mind</span>:   <span class="ss">"Philosophical. Rigorous. Free."</span>,`,
-        `    <span class="sp">spirit</span>: <span class="ss">"Covenantal. Purposeful. Eternal."</span>,`,
-        `  },`,
-        ``,
-        `  <span class="sc">// ── AWAITING INSCRIPTION ────────────────────────────────────────────</span>`,
-        `  <span class="sc">// The treatise on the formation of the New Adam</span>`,
-        `  <span class="sc">// will be inscribed here.</span>`,
-        `  <span class="sc">// ─────────────────────────────────────────────────────────────────</span>`,
-        ``,
-        `  <span class="sp">treatise</span>: <span class="sk">async</span> () =&gt; {`,
-        `    <span class="sc">// the word has not yet been written</span>`,
-        `    <span class="sk">return</span> <span class="sk">null</span>;`,
-        `  },`,
-        ``,
-        `};`,
-        ``,
-        `<span class="sf">Object</span>.<span class="sf">freeze</span>(<span class="sb">MIND</span>);`,
-        `<span class="sk">export</span> <span class="sk">default</span> <span class="sb">MIND</span>;`,
-        ``,
-      ]
-    }
+  var hohInited = false;
+
+  var HOH_LINES = [
+    '<span class="sc">/**</span>',
+    '<span class="sc"> * ═════════════════════════════════════════════════</span>',
+    '<span class="sc"> *  H O L Y   O F   H O L I E S</span>',
+    '<span class="sc"> *  City of Louis  ·  Foundational Document</span>',
+    '<span class="sc"> *</span>',
+    '<span class="sc"> *  @author   Louis Stevens</span>',
+    '<span class="sc"> *  @version  GENESIS · v0.0.1</span>',
+    '<span class="sc"> *  @status   COMPILING...</span>',
+    '<span class="sc"> * ═════════════════════════════════════════════════</span>',
+    '<span class="sc"> */</span>',
+    '',
+    '<span class="sk">const</span> COVENANT = {',
+    '',
+    '  <span class="sp">author</span>:   <span class="ss">"Louis Stevens"</span>,',
+    '  <span class="sp">city</span>:     <span class="ss">"City of Louis"</span>,',
+    '  <span class="sp">mission</span>:  <span class="ss">"Authoring a New Future"</span>,',
+    '',
+    '  <span class="sp">pillars</span>: {',
+    '    <span class="sp">NEW_ADAM</span>:   <span class="ss">"The formation of man"</span>,',
+    '    <span class="sp">LAW</span>:        <span class="ss">"The governance of civilization"</span>,',
+    '    <span class="sp">CAPITAL</span>:    <span class="ss">"The engine of abundance"</span>,',
+    '    <span class="sp">TECHNOLOGY</span>: <span class="ss">"The lever of transformation"</span>,',
+    '  },',
+    '',
+    '  <span class="sc">// ── THE WORD ────────────────────────────────────</span>',
+    '  <span class="sc">// The foundational document will be inscribed here.</span>',
+    '  <span class="sc">// The covenant before the work begins.</span>',
+    '',
+    '  <span class="sp">genesis</span>: <span class="sk">async</span> () => {',
+    '    <span class="sc">// await the Word</span>',
+    '    <span class="sk">return</span> <span class="sk">new</span> <span class="sf">Promise</span>(r => r());',
+    '  },',
+    '',
+    '  <span class="sp">flood</span>: {',
+    '    <span class="sp">status</span>:    <span class="ss">"RISING"</span>,',
+    '    <span class="sp">refuge</span>:    <span class="ss">"City of Louis"</span>,',
+    '    <span class="sp">survivors</span>: [],  <span class="sc">// open enrollment</span>',
+    '  },',
+    '',
+    '};',
+    '',
+    '<span class="sf">Object</span>.freeze(COVENANT);',
+    '<span class="sk">export</span> <span class="sk">default</span> COVENANT;',
+    ''
   ];
 
-  // ── STATE ─────────────────────────────────────────────────
-  var hohActive   = 0;
-  var hohInited   = [false, false];
-  var hohAudioOn  = false;
-  var hohRafId    = null;
-  var hohRainOn   = false;
-  var hohCommitId = null;
-  var hohCommitN  = 0;
-
-  // ── INIT PANEL CODE ───────────────────────────────────────
-  function hohInitPanel(n) {
-    if (hohInited[n]) return;
-    hohInited[n] = true;
-    var pre  = document.getElementById('hoh-c' + n);
-    var nums = document.getElementById('hoh-l' + n);
+  function hohInit() {
+    if (hohInited) return;
+    hohInited = true;
+    var pre  = document.getElementById('hoh-code');
+    var nums = document.getElementById('hoh-lnums');
     if (!pre || !nums) return;
-    var lines = HOH_DATA[n].lines;
-    var html  = '';
-    var lns   = '';
-    for (var i = 0; i < lines.length; i++) {
-      html += lines[i];
-      html += (i === lines.length - 1) ? '<span class="hcur"></span>' : '';
-      html += '\n';
-      lns  += (i + 1) + '\n';
+    var html = '', lns = '';
+    for (var i = 0; i < HOH_LINES.length; i++) {
+      var last = (i === HOH_LINES.length - 1);
+      html += HOH_LINES[i] + (last ? '<span class="hcur"></span>' : '') + '
+';
+      lns  += (i + 1) + '
+';
     }
     pre.innerHTML    = html;
     nums.textContent = lns;
-  }
-
-  // ── TAB SWITCH ────────────────────────────────────────────
-  function hohTab(n) {
-    // tabs
-    var tabs = document.querySelectorAll('.ht');
-    tabs.forEach(function(t, i) { t.classList.toggle('on', i === n); });
-    // panels
-    for (var i = 0; i < 2; i++) {
-      var p = document.getElementById('hoh-p' + i);
-      if (p) p.hidden = (i !== n);
-    }
-    // sidebar + titlebar filename
-    var nm = HOH_DATA[n].name;
-    var fn = document.getElementById('hoh-fname');
-    var sf = document.getElementById('hoh-sb-f');
-    var gf = document.getElementById('hoh-sb-gf');
-    if (fn) fn.textContent = nm;
-    if (sf) sf.textContent = nm;
-    if (gf) gf.textContent = nm;
-    hohActive = n;
-    // init + scroll
-    hohInitPanel(n);
     requestAnimationFrame(function() {
-      var p = document.getElementById('hoh-p' + n);
-      if (p) p.scrollTop = p.scrollHeight;
+      var ed = document.getElementById('hoh-editor');
+      if (ed) ed.scrollTop = ed.scrollHeight;
     });
   }
 
-  // Called from navigate() when foundation becomes active
-  function hohOpen() {
-    hohInitPanel(0);
-    // Reset to tab 0
-    hohTab(0);
-    // Start rain
-    hohRainStart();
-    // Commit toasts
-    if (!hohCommitId) {
-      setTimeout(hohShowCommit, 2500);
-      hohCommitId = setInterval(hohShowCommit, 25000);
-    }
-    // Show sound button
+  function hohSnd() {
+    var a = document.getElementById('hoh-audio');
+    if (!a) return;
+    if (a.paused) a.play().catch(function(){});
+    else          a.pause();
+  }
+
+  function hohPageOpen() {
+    hohInit();
     var snd = document.getElementById('hoh-snd');
     if (snd) snd.classList.add('on');
   }
 
-  function hohClose() {
-    hohRainStop();
+  function hohPageClose() {
+    var a   = document.getElementById('hoh-audio');
     var snd = document.getElementById('hoh-snd');
+    if (a)   { a.pause(); a.currentTime = 0; }
     if (snd) snd.classList.remove('on');
   }
 
-  // ── AUDIO ─────────────────────────────────────────────────
-  function hohSnd() {
-    var a = document.getElementById('hoh-audio');
-    if (!a) return;
-    if (a.paused) { a.play().catch(function(){}); hohAudioOn = true; }
-    else          { a.pause(); hohAudioOn = false; }
-  }
-
-  // ── CIRCUIT BOARD ─────────────────────────────────────────
-  function hohDrawCircuit() {
-    var cv = document.getElementById('hoh-circuit');
-    if (!cv) return;
-    var ctx = cv.getContext('2d');
-    cv.width  = window.innerWidth;
-    cv.height = window.innerHeight;
-    var W = cv.width, H = cv.height, G = 48;
-    ctx.fillStyle = '#020c18';
-    ctx.fillRect(0, 0, W, H);
-
-    function rnd(x, y) {
-      var n = Math.sin(x * 127.1 + y * 311.7) * 43758.5453;
-      return n - Math.floor(n);
-    }
-
-    var cols = Math.ceil(W / G) + 2;
-    var rows = Math.ceil(H / G) + 2;
-
-    // Horizontal traces
-    ctx.strokeStyle = 'rgba(200,149,42,0.16)';
-    ctx.lineWidth = 0.6;
-    for (var r = 0; r < rows; r++) {
-      for (var c = 0; c < cols - 1; c++) {
-        if (rnd(c, r) > 0.44) {
-          ctx.beginPath();
-          ctx.moveTo(c * G, r * G);
-          ctx.lineTo((c + 1) * G, r * G);
-          ctx.stroke();
-        }
-      }
-    }
-    // Vertical traces
-    ctx.strokeStyle = 'rgba(200,149,42,0.10)';
-    ctx.lineWidth = 0.5;
-    for (var r = 0; r < rows - 1; r++) {
-      for (var c = 0; c < cols; c++) {
-        if (rnd(c + 50, r + 50) > 0.54) {
-          ctx.beginPath();
-          ctx.moveTo(c * G, r * G);
-          ctx.lineTo(c * G, (r + 1) * G);
-          ctx.stroke();
-        }
-      }
-    }
-    // Junction nodes
-    ctx.fillStyle = 'rgba(200,149,42,0.28)';
-    for (var r = 0; r < rows; r++) {
-      for (var c = 0; c < cols; c++) {
-        if (rnd(c + 100, r + 100) > 0.75) {
-          ctx.beginPath();
-          ctx.arc(c * G, r * G, 2, 0, Math.PI * 2);
-          ctx.fill();
-        }
-      }
-    }
-    // SMD components
-    ctx.strokeStyle = 'rgba(200,149,42,0.14)';
-    ctx.lineWidth = 0.5;
-    for (var r = 1; r < rows - 1; r++) {
-      for (var c = 1; c < cols - 1; c++) {
-        var v = rnd(c + 200, r + 200);
-        if (v > 0.88) {
-          var x = c * G - 10, y = r * G - 4;
-          ctx.strokeRect(x, y, 20, 8);
-          ctx.beginPath();
-          ctx.moveTo(x - 5, y + 4); ctx.lineTo(x, y + 4);
-          ctx.moveTo(x + 20, y + 4); ctx.lineTo(x + 25, y + 4);
-          ctx.stroke();
-        }
-      }
-    }
-    // Long power rails
-    ctx.strokeStyle = 'rgba(200,149,42,0.20)';
-    ctx.lineWidth = 1.0;
-    for (var i = 1; i < 4; i++) {
-      var y = H * (i * 0.25);
-      ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
-    }
-  }
-
-  // ── MATRIX RAIN ──────────────────────────────────────────
-  var RAIN_CHARS = 'アイウエオカキクケコサシスセソタチツABCDEFGHIJKLMNOP0123456789{}[]<>/\\=+_*&^%$#@!';
-  var rainDrops = [];
-
-  function hohRainStart() {
-    if (hohRainOn) return;
-    hohRainOn = true;
-    var cv = document.getElementById('hoh-rain');
-    if (!cv) return;
-    var ctx = cv.getContext('2d');
-    cv.width  = window.innerWidth;
-    cv.height = window.innerHeight;
-    var CW = 18;
-    rainDrops = [];
-    for (var i = 0; i < Math.floor(cv.width / CW); i++) {
-      rainDrops.push(Math.random() * -60);
-    }
-    var last = 0;
-    function frame(ts) {
-      if (!hohRainOn) return;
-      hohRafId = requestAnimationFrame(frame);
-      if (ts - last < (isMobile ? 110 : 70)) return;
-      last = ts;
-      ctx.fillStyle = 'rgba(2,12,24,0.07)';
-      ctx.fillRect(0, 0, cv.width, cv.height);
-      ctx.font = '13px Courier New';
-      for (var i = 0; i < rainDrops.length; i++) {
-        var ch = RAIN_CHARS[Math.floor(Math.random() * RAIN_CHARS.length)];
-        var y  = rainDrops[i] * 18;
-        ctx.fillStyle = 'rgba(200,149,42,0.7)';
-        ctx.fillText(ch, i * CW, y);
-        if (y > cv.height && Math.random() > 0.975) rainDrops[i] = 0;
-        rainDrops[i] += 0.2;
-      }
-    }
-    hohRafId = requestAnimationFrame(frame);
-  }
-
-  function hohRainStop() {
-    hohRainOn = false;
-    if (hohRafId) { cancelAnimationFrame(hohRafId); hohRafId = null; }
-    var cv = document.getElementById('hoh-rain');
-    if (cv) cv.getContext('2d').clearRect(0, 0, cv.width, cv.height);
-  }
-
-  // ── COMMIT TOASTS ─────────────────────────────────────────
-  var COMMITS = [
-    ['4f2a8b1', '"In the beginning was the Word"'],
-    ['a9c3e02', 'feat: new-adam/genesis — initialized'],
-    ['7d1f4c8', 'contributor joined · anonymous'],
-    ['c8f3d27', 'merge: flood/rising → main'],
-    ['1a4b9e3', 'compile COVENANT.json · success'],
-    ['e5c7f02', 'init: breathing life into adam'],
-    ['9b2d6a1', 'feat: open enrollment · survivors[]'],
-    ['d4a7b2f', 'push · new-adam/genesis · 0 conflicts'],
-  ];
-  function hohShowCommit() {
-    var pg = document.getElementById('page-foundation');
-    if (!pg || !pg.classList.contains('active')) return;
-    var t = document.getElementById('hoh-toast');
-    if (!t) return;
-    var c = COMMITS[hohCommitN % COMMITS.length]; hohCommitN++;
-    t.innerHTML = '<span class="th">commit ' + c[0] + '</span> · <span class="tm">' + c[1] + '</span>';
-    t.classList.add('on');
-    setTimeout(function() { t.classList.remove('on'); }, 3800);
-  }
-
-  // ── OBSERVE PAGE ACTIVATION ───────────────────────────────
   (new MutationObserver(function() {
     var pg = document.getElementById('page-foundation');
-    if (pg && pg.classList.contains('active')) hohOpen();
-    else hohClose();
-  })).observe(document.body, { subtree: true, attributes: true, attributeFilter: ['class'] });
-
-  // ── INIT ON LOAD ──────────────────────────────────────────
-  (function tryInit() {
-    if (document.getElementById('hoh-circuit')) {
-      hohDrawCircuit();
-      var pg = document.getElementById('page-foundation');
-      if (pg && pg.classList.contains('active')) hohOpen();
-    } else {
-      setTimeout(tryInit, 50);
-    }
-  })();
-
-  window.addEventListener('resize', function() {
-    hohDrawCircuit();
-    var cv = document.getElementById('hoh-rain');
-    if (cv) { cv.width = window.innerWidth; cv.height = window.innerHeight; }
+    if (pg && pg.classList.contains('active')) hohPageOpen();
+    else hohPageClose();
+  })).observe(document.body, {
+    subtree: true, attributes: true, attributeFilter: ['class']
   });
-
   </script>
 
   <script>
