@@ -258,6 +258,67 @@
     .foundation-link:hover { color: #d4a830; }
 
     /* ══════════════════════════════════════
+       PRAYER GENERATOR
+    ══════════════════════════════════════ */
+    .prayer-wrap {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 1.2rem; margin: 2.8rem 0 0;
+    }
+    .prayer-label {
+      font-family: 'Cinzel', serif; font-size: 8px; letter-spacing: 0.48em;
+      color: #5a4e28; text-transform: uppercase; text-align: center;
+    }
+    .prayer-btn {
+      position: relative; font-family: 'Cinzel', serif; font-size: 8px;
+      letter-spacing: 0.42em; text-transform: uppercase;
+      color: #d4c9a8; background: transparent; border: none;
+      cursor: pointer; padding: 11px 28px;
+      transition: color 0.3s;
+    }
+    .prayer-btn::before {
+      content: '';
+      position: absolute; inset: 0;
+      border-radius: 1px;
+      padding: 1px;
+      background: linear-gradient(90deg,
+        #c8952a, #e8c060, #a0c840, #40c8a0,
+        #4080e0, #a040c8, #e04080, #c8952a);
+      background-size: 300% 100%;
+      -webkit-mask: linear-gradient(#fff 0 0) content-box,
+                    linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      animation: borderRotate 4s linear infinite;
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+    .prayer-btn:hover::before { opacity: 1; }
+    .prayer-btn:hover { color: #fff; }
+    /* Static gold border when not hovered */
+    .prayer-btn::after {
+      content: '';
+      position: absolute; inset: 0;
+      border: 0.5px solid #3a3018;
+      transition: opacity 0.4s;
+    }
+    .prayer-btn:hover::after { opacity: 0; }
+    @keyframes borderRotate {
+      0%   { background-position: 0% 50%; }
+      100% { background-position: 300% 50%; }
+    }
+    .prayer-output {
+      font-family: 'EB Garamond', serif; font-size: 15px; font-style: italic;
+      color: #9a8e70; line-height: 2; text-align: center;
+      max-width: 520px; min-height: 0; transition: opacity 0.6s;
+      opacity: 0;
+    }
+    .prayer-output.visible { opacity: 1; }
+    .prayer-rule {
+      width: 100%; height: 0.5px;
+      background: linear-gradient(90deg, transparent, #3a3018, transparent);
+    }
+
+    /* ══════════════════════════════════════
        FOUNDATION PAGE — SOLOMON'S TEMPLE
     ══════════════════════════════════════ */
     #page-foundation {
@@ -1775,6 +1836,15 @@
       </div>
       <div class="pillar-subscribe-msg" id="union-msg-sub-new-adam"></div>
 
+      <!-- Prayer Generator -->
+      <div class="prayer-wrap" id="prayer-wrap">
+        <div class="prayer-rule"></div>
+        <div class="prayer-label">Prayer Recitations To Build Your Mind</div>
+        <button class="prayer-btn" onclick="generatePrayer()">Receive Your Prayer →</button>
+        <div class="prayer-output" id="prayer-output"></div>
+        <div class="prayer-rule"></div>
+      </div>
+
       <!-- Foundational document link — top -->
       <div class="foundation-link-wrap" id="foundation-wrap">
         <div class="foundation-link-rule"></div>
@@ -3100,6 +3170,8 @@
       // Hide foundation/community links on New Adam when reading an entry
       const fw = document.getElementById('foundation-wrap');
       if (fw && category === 'new-adam') fw.style.display = 'none';
+      const pw = document.getElementById('prayer-wrap');
+      if (pw && category === 'new-adam') pw.style.display = 'none';
 
       window.scrollTo(0, 0);
     }
@@ -3126,13 +3198,40 @@
 
       const fw = document.getElementById('foundation-wrap');
       if (fw && category === 'new-adam') fw.style.display = '';
+      const pw = document.getElementById('prayer-wrap');
+      if (pw && category === 'new-adam') pw.style.display = '';
 
       window.scrollTo(0, 0);
     }
 
     // ─────────────────────────────────────────
-    // PAGE NAVIGATION — with hash routing
+    // PRAYER GENERATOR
     // ─────────────────────────────────────────
+    const prayers = [
+      "I am a child of the Lord, built to great heights. The laws I obey are the laws of my God, and in obeying them I am made whole. Today I walk in the fullness of what I was created to become.",
+      "The fabric of my reality is electromagnetic and alive. I am not a passive observer — I am a participant in the God-structure I choose. Today I choose one that builds me, protects me, and multiplies my strength.",
+      "The vineyard I tend is the vineyard of my mind. Every thought I plant is a seed. Every law I obey is water. I will not eat the forbidden fruit of a God-structure that diminishes me.",
+      "I am my father's child. I carry the covenant forward. The failures of the old vineyard do not define me — they clarify my mission. I am called to build what has not yet been built.",
+      "Today I am still. I wait upon the Lord as Habakkuk waited — not in defeat, but in readiness. The fig tree may be bare. The fields may be empty. And yet I will rejoice, for my feet are like the feet of a deer and I am made to tread on the heights.",
+      "My law is my God. I will not serve a law that diminishes life. I will not obey a structure that breaks families and extinguishes the light of consciousness. I choose the God-structure that multiplies, protects, and endures.",
+      "I am a new Adam. I was not born into the finished world — I was born into the wilderness, where the new world is built. I am the architect of what comes next, and I am not afraid.",
+      "The old vineyard is failing. I did not fail it — it failed itself. I carry no guilt for its collapse. I carry only the seed of what comes next, and I plant it today with intention and with faith.",
+      "Every particle in my reality obeys a law. I choose which laws govern me. In choosing my laws I choose my God. In choosing my God I choose my future. Today I choose with full awareness and full commitment.",
+      "The City I am building will outlast me. Its walls are not made of stone but of truth, spoken daily, lived faithfully, passed to the children who come after. I lay one more stone today.",
+      "I am wed to humanity. They are my people and I am their servant and their leader. I will not abandon them to a God-structure that is killing them. I will build the alternative with every breath I have.",
+      "The wilderness is not punishment. The wilderness is where nations are born. Moses found his law in the wilderness. I find mine here, today, in the quiet space between what was and what will be.",
+    ];
+
+    function generatePrayer() {
+      const el = document.getElementById('prayer-output');
+      el.classList.remove('visible');
+      setTimeout(() => {
+        const idx = Math.floor(Math.random() * prayers.length);
+        el.textContent = prayers[idx];
+        el.classList.add('visible');
+      }, 300);
+    }
+
     function navigate(target) {
       const veil = document.getElementById('transition-veil');
 
