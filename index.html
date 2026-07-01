@@ -263,7 +263,7 @@
     /* ── PRAYER + MANKIND DESIGNED — side by side row ── */
     .prayer-mankind-row {
       display: flex; align-items: flex-start; justify-content: center;
-      gap: 3rem; margin: 2.8rem 0 0; width: 100%;
+      gap: 3rem; margin: 0.8rem 0 0; width: 100%;
     }
     .prayer-wrap {
       display: flex; flex-direction: column; align-items: center;
@@ -318,7 +318,40 @@
     }
     .prayer-output.visible { opacity: 1; }
 
-    /* ── MANKIND DESIGNED side ── */
+    /* ── MANKIND DESIGNED button — identical to prayer btn ── */
+    .mankind-btn {
+      position: relative; font-family: 'Cinzel', serif; font-size: 8px;
+      letter-spacing: 0.42em; text-transform: uppercase;
+      color: #d4c9a8; background: transparent; border: none;
+      cursor: pointer; padding: 11px 28px;
+      transition: color 0.3s; white-space: nowrap;
+    }
+    .mankind-btn::before {
+      content: '';
+      position: absolute; inset: 0;
+      border-radius: 1px;
+      padding: 1px;
+      background: linear-gradient(90deg,
+        #ff2200, #ff6600, #ff9900, #ffcc00,
+        #ff6600, #ff3300, #cc1100, #ff2200);
+      background-size: 300% 100%;
+      -webkit-mask: linear-gradient(#fff 0 0) content-box,
+                    linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      animation: fireRotate 2s linear infinite;
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+    .mankind-btn:hover::before { opacity: 1; }
+    .mankind-btn:hover { color: #ffcc88; }
+    .mankind-btn::after {
+      content: '';
+      position: absolute; inset: 0;
+      border: 0.5px solid #3a3018;
+      transition: opacity 0.4s;
+    }
+    .mankind-btn:hover::after { opacity: 0; }
     .mankind-wrap {
       display: flex; flex-direction: column; align-items: center;
       gap: 1rem; flex: 1;
@@ -332,7 +365,7 @@
     .prayer-mankind-rule {
       width: 100%; height: 0.5px;
       background: linear-gradient(90deg, transparent, #3a3018, transparent);
-      margin: 2.8rem 0 0;
+      margin: 1rem 0 0;
     }
 
     @media (max-width: 600px) {
@@ -1868,10 +1901,8 @@
         </div>
         <div class="mankind-divider"></div>
         <div class="mankind-wrap">
-          <div class="prayer-label">The Foundation</div>
-          <div class="foundation-link-rule"></div>
-          <span class="foundation-link" onclick="navigate('foundation')">Mankind, Designed</span>
-          <div class="foundation-link-rule"></div>
+          <div class="prayer-label">Understanding Who We Are</div>
+          <button class="mankind-btn" onclick="navigate('foundation')">Mankind, Designed →</button>
         </div>
       </div>
       <div class="prayer-mankind-rule" style="margin:0 0 1rem;"></div>
