@@ -1661,14 +1661,16 @@
 
 
 
-    /* ── HOMEPAGE BACKGROUND IMAGE (mirrors New Adam exactly) ── */
+    /* ── HOMEPAGE BACKGROUND IMAGE ── */
     #divine-img {
       display: none;
       position: fixed; top: 0; left: 0;
       width: 100vw; height: 100vh;
       object-fit: cover; object-position: center top;
       pointer-events: none; z-index: 0;
-      opacity: 0.75;
+      opacity: 0.28;
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: crisp-edges;
     }
     #page-home.active #divine-img { display: block; }
 
@@ -3019,10 +3021,11 @@
         const dpr = window.devicePixelRatio || 1;
         W = window.innerWidth;
         H = window.innerHeight;
-        canvas.width  = W * dpr;
-        canvas.height = H * dpr;
+        canvas.width  = Math.round(W * dpr);
+        canvas.height = Math.round(H * dpr);
         canvas.style.width  = W + 'px';
         canvas.style.height = H + 'px';
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
         ctx.scale(dpr, dpr);
       }
 
@@ -3042,8 +3045,8 @@
         return {
           x:  bandX * W,
           y:  bandY * H,
-          r:  Math.random() * 0.85 + 0.1,
-          a:  Math.random() * 0.38 + 0.04,
+          r:  Math.random() * 0.6 + 0.2,
+          a:  Math.random() * 0.55 + 0.12,
           s:  (Math.random() - 0.5) * 0.018,
           sy: (Math.random() - 0.5) * 0.006,
         };
@@ -3053,8 +3056,8 @@
         return {
           x:  Math.random() * W,
           y:  Math.random() * H,
-          r:  Math.random() * 1.3 + 0.2,
-          a:  Math.random() * 0.22 + 0.02,
+          r:  Math.random() * 0.9 + 0.2,
+          a:  Math.random() * 0.40 + 0.08,
           s:  (Math.random() - 0.5) * 0.008,
           sy: (Math.random() - 0.5) * 0.003,
         };
@@ -3084,8 +3087,11 @@
       }
 
       function drawStar(p, color) {
+        // Snap to half-pixel grid to avoid sub-pixel blurring
+        const px = Math.round(p.x * 2) / 2;
+        const py = Math.round(p.y * 2) / 2;
         ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.arc(px, py, p.r, 0, Math.PI * 2);
         ctx.fillStyle = color;
         ctx.globalAlpha = p.a;
         ctx.fill();
@@ -3178,7 +3184,6 @@
       });
 
       window.addEventListener('resize', () => {
-        ctx.setTransform(1, 0, 0, 1, 0, 0);
         resize();
         init();
       });
