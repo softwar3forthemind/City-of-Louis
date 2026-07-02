@@ -1668,7 +1668,7 @@
       width: 100vw; height: 100vh;
       object-fit: cover; object-position: center top;
       pointer-events: none; z-index: 0;
-      opacity: 0.28;
+      opacity: 0.32;
       image-rendering: -webkit-optimize-contrast;
       image-rendering: crisp-edges;
     }
@@ -3001,24 +3001,28 @@
     }
 
     // ─────────────────────────────────────────
-    // COSMIC FLOOD — homepage star canvas
+    // ─────────────────────────────────────────
+    // STAR FIELD — homepage canvas
     // ─────────────────────────────────────────
     (function () {
       const canvas = document.getElementById('star-canvas');
       if (!canvas) return;
-      const ctx = canvas.getContext('2d');
-      const isMobile = window.innerWidth < 601;
+      const ctx = canvas.getContext('2d', { alpha: true });
 
-      // Expanded counts for richer galaxy smatterings
-      const DUST_COUNT    = isMobile ? 340  : 9200;
-      const FIELD_COUNT   = isMobile ? 100  : 1600;
-      const SHOOTER_COUNT = isMobile ? 3    : 7;
+      // The Christ figure's line of sight reads at roughly -18° (up-left to down-right)
+      // The galactic streak runs at the same angle across the full viewport
+      const STREAK_ANGLE_DEG = -18;
+      const STREAK_ANGLE_RAD = STREAK_ANGLE_DEG * (Math.PI / 180);
 
-      let W, H, dustParticles, fieldParticles, shooters, raf;
-      let running = false;
+      let W, H, dpr;
+      let fieldStars = [];   // sparse cool-white field across full sky
+      let streakStars = [];  // dense galactic band, diagonal
+      let shooters = [];
+      let raf, running = false;
 
+      // ── DPR-aware resize — the key to crispness on every device ──
       function resize() {
-        const dpr = window.devicePixelRatio || 1;
+        dpr = Math.min(window.devicePixelRatio || 1, 3); // cap at 3x to protect perf
         W = window.innerWidth;
         H = window.innerHeight;
         canvas.width  = Math.round(W * dpr);
@@ -3029,122 +3033,149 @@
         ctx.scale(dpr, dpr);
       }
 
-      // Gaussian random for Milky Way band placement
+      // ── Gaussian for streak distribution ──
       function gauss() {
         let u = 0, v = 0;
-        while (u === 0) u = Math.random();
-        while (v === 0) v = Math.random();
+        while (!u) u = Math.random();
+        while (!v) v = Math.random();
         return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
       }
 
-      function mkDust() {
-        // Wide Milky Way sigma (0.09) = more smatterings spread around figure
-        const sigma = 0.09;
-        const bandX = 0.5 + gauss() * sigma;
-        const bandY = Math.random();
+      // ── Project a point along the streak band ──
+      // t = position along the streak axis (0–1 across diagonal)
+      // perp = perpendicular offset from centre of band
+      function streakPoint(t, perp) {
+        // Diagonal axis: from top-left area to bottom-right
+        const cos = Math.cos(STREAK_ANGLE_RAD);
+        const sin = Math.sin(STREAK_ANGLE_RAD);
+        // Streak runs from (-0.2W, 0.5H) to (1.2W, 0.5H) rotated by angle
+        const cx = W * 0.5;
+        const cy = H * 0.5;
+        const len = Math.sqrt(W * W + H * H) * 1.1;
+        const along = (t - 0.5) * len;
         return {
-          x:  bandX * W,
-          y:  bandY * H,
-          r:  Math.random() * 0.6 + 0.2,
-          a:  Math.random() * 0.55 + 0.12,
-          s:  (Math.random() - 0.5) * 0.018,
-          sy: (Math.random() - 0.5) * 0.006,
+          x: cx + along * cos - perp * sin,
+          y: cy + along * sin + perp * cos,
         };
       }
 
-      function mkField() {
+      function mkStreakStar() {
+        const t = Math.random();
+        const sigma = H * 0.055; // tight band width
+        const perp = gauss() * sigma;
+        const pt = streakPoint(t, perp);
+        // Brightness peaks near centre of band
+        const bandIntensity = Math.exp(-(perp * perp) / (2 * sigma * sigma * 0.4));
+        return {
+          x:  pt.x,
+          y:  pt.y,
+          r:  Math.random() * 0.55 + 0.18,
+          a:  (Math.random() * 0.45 + 0.08) * (0.4 + 0.6 * bandIntensity),
+          s:  (Math.random() - 0.5) * 0.012,
+          sy: (Math.random() - 0.5) * 0.004,
+          t,
+          perp,
+        };
+      }
+
+      function mkFieldStar() {
         return {
           x:  Math.random() * W,
           y:  Math.random() * H,
-          r:  Math.random() * 0.9 + 0.2,
-          a:  Math.random() * 0.40 + 0.08,
-          s:  (Math.random() - 0.5) * 0.008,
-          sy: (Math.random() - 0.5) * 0.003,
+          r:  Math.random() * 0.7 + 0.15,
+          a:  Math.random() * 0.28 + 0.05,
+          s:  (Math.random() - 0.5) * 0.006,
+          sy: (Math.random() - 0.5) * 0.002,
         };
       }
 
       function mkShooter() {
-        const angle = (-20 + Math.random() * 40) * (Math.PI / 180);
-        const speed = 3.5 + Math.random() * 4;
+        // Shooters travel at the same angle as the streak
+        const speed = 4 + Math.random() * 3.5;
         return {
-          x:    Math.random() * W,
-          y:    Math.random() * H * 0.5,
-          vx:   Math.cos(angle) * speed,
-          vy:   Math.sin(angle) * speed,
-          len:  60 + Math.random() * 100,
+          x:    Math.random() * W * 1.2 - W * 0.1,
+          y:    Math.random() * H * 0.6 - H * 0.1,
+          vx:   Math.cos(STREAK_ANGLE_RAD) * speed,
+          vy:   Math.sin(STREAK_ANGLE_RAD) * speed,
+          len:  70 + Math.random() * 90,
           a:    0,
           life: 0,
-          max:  80 + Math.random() * 60,
-          wait: Math.random() * 400,
+          max:  70 + Math.random() * 60,
+          wait: 120 + Math.random() * 500,
         };
       }
 
       function init() {
         resize();
-        dustParticles  = Array.from({ length: DUST_COUNT },  mkDust);
-        fieldParticles = Array.from({ length: FIELD_COUNT }, mkField);
-        shooters       = Array.from({ length: SHOOTER_COUNT }, mkShooter);
+        const isMobile = W < 601;
+        const STREAK_N = isMobile ? 1800 : 5500;
+        const FIELD_N  = isMobile ? 600  : 2200;
+        const SHOOT_N  = isMobile ? 3    : 6;
+
+        streakStars = Array.from({ length: STREAK_N }, mkStreakStar);
+        fieldStars  = Array.from({ length: FIELD_N },  mkFieldStar);
+        shooters    = Array.from({ length: SHOOT_N },  mkShooter);
       }
 
-      function drawStar(p, color) {
-        // Snap to half-pixel grid to avoid sub-pixel blurring
-        const px = Math.round(p.x * 2) / 2;
-        const py = Math.round(p.y * 2) / 2;
+      function drawStar(x, y, r, a, color) {
+        // Integer pixel snap for maximum crispness
+        const px = Math.round(x);
+        const py = Math.round(y);
         ctx.beginPath();
-        ctx.arc(px, py, p.r, 0, Math.PI * 2);
+        ctx.arc(px, py, r, 0, Math.PI * 2);
         ctx.fillStyle = color;
-        ctx.globalAlpha = p.a;
+        ctx.globalAlpha = a;
         ctx.fill();
       }
 
       function tick() {
         ctx.clearRect(0, 0, W, H);
+
+        // ── Sparse field stars — cool blue-white ──
+        for (const p of fieldStars) {
+          drawStar(p.x, p.y, p.r, p.a, '#d8e8ff');
+          p.x += p.s; p.y += p.sy;
+          if (p.x < -2) p.x = W + 2;
+          if (p.x > W + 2) p.x = -2;
+          if (p.y < -2) p.y = H + 2;
+          if (p.y > H + 2) p.y = -2;
+        }
+
+        // ── Galactic streak — silver-white, diagonal ──
+        for (const p of streakStars) {
+          // Pure silver/white — no golden tint
+          drawStar(p.x, p.y, p.r, p.a, '#e8eeff');
+          p.x += p.s; p.y += p.sy;
+          if (p.x < -2) p.x = W + 2;
+          if (p.x > W + 2) p.x = -2;
+          if (p.y < -2) p.y = H + 2;
+          if (p.y > H + 2) p.y = -2;
+        }
+
+        // ── Shooting stars — travel along streak angle ──
         ctx.globalAlpha = 1;
-
-        // Milky Way dust (tinted warm gold near centre)
-        for (const p of dustParticles) {
-          const warm = p.x / W;
-          const r = Math.round(180 + warm * 60);
-          const g = Math.round(160 + warm * 40);
-          const b = Math.round(120 + warm * 20);
-          drawStar(p, `rgb(${r},${g},${b})`);
-          p.x += p.s; p.y += p.sy;
-          if (p.x < 0) p.x = W;
-          if (p.x > W) p.x = 0;
-          if (p.y < 0) p.y = H;
-          if (p.y > H) p.y = 0;
-        }
-
-        // Field stars (cool white / blue-white)
-        for (const p of fieldParticles) {
-          drawStar(p, '#cce0ff');
-          p.x += p.s; p.y += p.sy;
-          if (p.x < 0) p.x = W;
-          if (p.x > W) p.x = 0;
-          if (p.y < 0) p.y = H;
-          if (p.y > H) p.y = 0;
-        }
-
-        // Shooting stars
         for (const s of shooters) {
           if (s.wait > 0) { s.wait--; continue; }
           s.life++;
           const prog = s.life / s.max;
-          s.a = prog < 0.3 ? prog / 0.3 : prog > 0.7 ? (1 - prog) / 0.3 : 1;
+          s.a = prog < 0.25 ? prog / 0.25
+               : prog > 0.72 ? (1 - prog) / 0.28
+               : 1;
           const tailX = s.x - s.vx * (s.len / 5);
           const tailY = s.y - s.vy * (s.len / 5);
           const grad = ctx.createLinearGradient(tailX, tailY, s.x, s.y);
-          grad.addColorStop(0, `rgba(255,240,180,0)`);
-          grad.addColorStop(1, `rgba(255,240,180,${s.a * 0.85})`);
+          grad.addColorStop(0, `rgba(255,248,220,0)`);
+          grad.addColorStop(0.6, `rgba(255,248,220,${(s.a * 0.5).toFixed(3)})`);
+          grad.addColorStop(1, `rgba(255,255,255,${(s.a * 0.9).toFixed(3)})`);
           ctx.beginPath();
-          ctx.moveTo(tailX, tailY);
-          ctx.lineTo(s.x, s.y);
+          ctx.moveTo(Math.round(tailX), Math.round(tailY));
+          ctx.lineTo(Math.round(s.x), Math.round(s.y));
           ctx.strokeStyle = grad;
-          ctx.lineWidth = 1.2;
+          ctx.lineWidth = 1;
           ctx.globalAlpha = 1;
           ctx.stroke();
           s.x += s.vx; s.y += s.vy;
-          if (s.life >= s.max || s.x > W + 200 || s.y > H + 200) {
+          if (s.life >= s.max || s.x > W + 300 || s.y > H + 300 || s.x < -300) {
             Object.assign(s, mkShooter());
           }
         }
