@@ -3124,8 +3124,8 @@
         resize();
         const isMobile = W < 601;
         const STREAK_N = isMobile ? 3200 : 5500;
-        const FIELD_N  = isMobile ? 1200 : 2200;
-        const SHOOT_N  = isMobile ? 3    : 6;
+        const FIELD_N  = isMobile ? 20   : 2200;
+        const SHOOT_N  = isMobile ? 2    : 6;
 
         streakStars = Array.from({ length: STREAK_N }, mkStreakStar);
         fieldStars  = Array.from({ length: FIELD_N },  mkFieldStar);
