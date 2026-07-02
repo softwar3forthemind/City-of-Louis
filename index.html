@@ -979,8 +979,14 @@
         display: block !important;
         position: fixed; top: 0; left: 0;
         width: 100vw; height: 100vh;
-        z-index: 1; pointer-events: none;
+        z-index: 2; pointer-events: none;
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+        shape-rendering: geometricPrecision;
       }
+
+      /* Figure: slightly more present on mobile */
+      #divine-img { opacity: 0.38; }
 
       /* All inner pages scroll freely */
       .page.active:not(#page-home) {
@@ -1669,8 +1675,11 @@
       object-fit: cover; object-position: center top;
       pointer-events: none; z-index: 0;
       opacity: 0.32;
-      image-rendering: -webkit-optimize-contrast;
-      image-rendering: crisp-edges;
+      /* High-quality image rendering on all devices */
+      image-rendering: auto;
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      will-change: opacity;
     }
     #page-home.active #divine-img { display: block; }
 
@@ -1680,6 +1689,8 @@
       position: fixed; top: 0; left: 0;
       width: 100vw; height: 100vh;
       pointer-events: none; z-index: 1;
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
     }
     #page-home.active #star-canvas { display: block; }
 
@@ -3007,7 +3018,10 @@
     (function () {
       const canvas = document.getElementById('star-canvas');
       if (!canvas) return;
-      const ctx = canvas.getContext('2d', { alpha: true });
+      const ctx = canvas.getContext('2d', { alpha: true, desynchronized: false });
+      // Enable maximum quality rendering
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
 
       // The Christ figure's line of sight reads at roughly -18° (up-left to down-right)
       // The galactic streak runs at the same angle across the full viewport
@@ -3020,9 +3034,9 @@
       let shooters = [];
       let raf, running = false;
 
-      // ── DPR-aware resize — the key to crispness on every device ──
+      // ── DPR-aware resize — full native pixel density, no cap ──
       function resize() {
-        dpr = Math.min(window.devicePixelRatio || 1, 3); // cap at 3x to protect perf
+        dpr = window.devicePixelRatio || 1;
         W = window.innerWidth;
         H = window.innerHeight;
         canvas.width  = Math.round(W * dpr);
@@ -3031,6 +3045,8 @@
         canvas.style.height = H + 'px';
         ctx.setTransform(1, 0, 0, 1, 0, 0);
         ctx.scale(dpr, dpr);
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = 'high';
       }
 
       // ── Gaussian for streak distribution ──
@@ -3061,16 +3077,15 @@
 
       function mkStreakStar() {
         const t = Math.random();
-        const sigma = H * 0.055; // tight band width
+        const sigma = H * 0.055;
         const perp = gauss() * sigma;
         const pt = streakPoint(t, perp);
-        // Brightness peaks near centre of band
         const bandIntensity = Math.exp(-(perp * perp) / (2 * sigma * sigma * 0.4));
         return {
           x:  pt.x,
           y:  pt.y,
-          r:  Math.random() * 0.55 + 0.18,
-          a:  (Math.random() * 0.45 + 0.08) * (0.4 + 0.6 * bandIntensity),
+          r:  Math.random() * 0.4 + 0.15,  // tight: 0.15–0.55px logical
+          a:  (Math.random() * 0.55 + 0.15) * (0.4 + 0.6 * bandIntensity),
           s:  (Math.random() - 0.5) * 0.012,
           sy: (Math.random() - 0.5) * 0.004,
           t,
@@ -3082,8 +3097,8 @@
         return {
           x:  Math.random() * W,
           y:  Math.random() * H,
-          r:  Math.random() * 0.7 + 0.15,
-          a:  Math.random() * 0.28 + 0.05,
+          r:  Math.random() * 0.5 + 0.12,  // tight: 0.12–0.62px logical
+          a:  Math.random() * 0.30 + 0.06,
           s:  (Math.random() - 0.5) * 0.006,
           sy: (Math.random() - 0.5) * 0.002,
         };
@@ -3108,8 +3123,8 @@
       function init() {
         resize();
         const isMobile = W < 601;
-        const STREAK_N = isMobile ? 1800 : 5500;
-        const FIELD_N  = isMobile ? 600  : 2200;
+        const STREAK_N = isMobile ? 3200 : 5500;
+        const FIELD_N  = isMobile ? 1200 : 2200;
         const SHOOT_N  = isMobile ? 3    : 6;
 
         streakStars = Array.from({ length: STREAK_N }, mkStreakStar);
@@ -3118,11 +3133,8 @@
       }
 
       function drawStar(x, y, r, a, color) {
-        // Integer pixel snap for maximum crispness
-        const px = Math.round(x);
-        const py = Math.round(y);
         ctx.beginPath();
-        ctx.arc(px, py, r, 0, Math.PI * 2);
+        ctx.arc(x, y, r, 0, Math.PI * 2);
         ctx.fillStyle = color;
         ctx.globalAlpha = a;
         ctx.fill();
