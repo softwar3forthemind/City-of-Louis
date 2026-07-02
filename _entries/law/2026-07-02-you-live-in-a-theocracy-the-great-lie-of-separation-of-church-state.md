@@ -2,7 +2,7 @@
 title: "You Live In A Theocracy: The Great Lie Of Separation Of Church & State"
 date: 2026-07-02
 ---
-The first five books of the Old Testament, which is arguably the foundational text of all society today, are interesting to me insofar as there is not even a remote consideration of the notion of the separation of church and state.
+The first five books of the Old Testament, which is indisputably one of the foundational texts of global society today, are interesting to me insofar as there is not even a remote consideration of the notion of the separation of church and state.
 
 In God's own Word, the idea was simply unthinkable, and, in fact, straying from the prescribed theocratic structure was the direct cause of the Israelite's near-total destruction just a handful of books later. Straying from the prescribed theocratic structure was also quite notably the direct cause of the banishing of Adam and Eve from the Garden of Eden.
 
