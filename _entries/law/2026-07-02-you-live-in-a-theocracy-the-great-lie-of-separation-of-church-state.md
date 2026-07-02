@@ -4,7 +4,7 @@ date: 2026-07-02
 ---
 The first five books of the Old Testament, which is indisputably one of the foundational texts of global society today, are interesting to me insofar as there is not even a remote consideration of the notion of the separation of church and state.
 
-In God's own Word, the idea was simply unthinkable, and, in fact, straying from the prescribed theocratic structure was the direct cause of the Israelite's near-total destruction just a handful of books later. Straying from the prescribed theocratic structure was also quite notably the direct cause of the banishing of Adam and Eve from the Garden of Eden.
+In God's own Word, the idea was simply unthinkable, and, in fact, straying from the prescribed theocratic structure was the direct cause of the Israelite's near-total destruction just a handful of books later. Straying from the prescribed theocratic structure was also notably the direct cause of the banishing of Adam and Eve from the Garden of Eden.
 
 In Genesis, God established what was ultimately a God-structure, i.e., a governance paradigm based in religious devotion to His Laws. To flout God’s Laws was  to remove oneself from paradise.
 
@@ -36,7 +36,7 @@ In this vein, we can consider society today: 
 
 ***There is a theocracy that governs America, and by extension the world.***
 
-Whetheryou like it or not, this is the unfiltered reality of your existence. You are a part of a theocracy, and, as such, you should be curious as to which God you serve.
+Whether you like it or not, this is the unfiltered reality of your existence. You are a part of a theocracy, and, as such, you should be curious as to which God you serve.
 
 In a self-avowed theocracy, we’d ask: “Ok, what does the God of our society mandate in the form of law? How does our God demand we behave whereby we remain in the Garden Of Eden, i.e., we do not end up in jail for one reason or another?”
 
