@@ -70,7 +70,7 @@
 
     .rays {
       position: fixed; top: 0; left: 50%; transform: translateX(-50%);
-      width: 100vw; height: 100vh; z-index: 2; pointer-events: none;
+      width: 100vw; height: 100vh; z-index: 3; pointer-events: none;
     }
 
     .glow-pool {
@@ -90,7 +90,7 @@
       position: relative; z-index: 2;
     }
 
-    .prism-wrap { position: relative; z-index: 3; width: 432px; height: 384px; }
+    .prism-wrap { position: relative; z-index: 4; width: 432px; height: 384px; }
     .prism-svg { width: 100%; height: 100%; overflow: visible; }
 
     .tri-zone { cursor: pointer; }
@@ -1668,7 +1668,7 @@
       width: 100vw; height: 100vh;
       object-fit: cover; object-position: center top;
       pointer-events: none; z-index: 0;
-      opacity: 1;
+      opacity: 0.75;
     }
     #page-home.active #divine-img { display: block; }
 
@@ -3016,8 +3016,14 @@
       let running = false;
 
       function resize() {
-        W = canvas.width  = window.innerWidth;
-        H = canvas.height = window.innerHeight;
+        const dpr = window.devicePixelRatio || 1;
+        W = window.innerWidth;
+        H = window.innerHeight;
+        canvas.width  = W * dpr;
+        canvas.height = H * dpr;
+        canvas.style.width  = W + 'px';
+        canvas.style.height = H + 'px';
+        ctx.scale(dpr, dpr);
       }
 
       // Gaussian random for Milky Way band placement
@@ -3172,6 +3178,7 @@
       });
 
       window.addEventListener('resize', () => {
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
         resize();
         init();
       });
