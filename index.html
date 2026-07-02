@@ -3014,36 +3014,39 @@
     // ─────────────────────────────────────────
     // ─────────────────────────────────────────
     // STAR FIELD — homepage canvas
-    // Pixel-perfect: fillRect at device coords, zero anti-alias blur
     // ─────────────────────────────────────────
     (function () {
       const canvas = document.getElementById('star-canvas');
       if (!canvas) return;
       const ctx = canvas.getContext('2d', { alpha: true });
+      ctx.imageSmoothingEnabled = false;
 
+      // The Christ figure's line of sight reads at roughly -18° (up-left to down-right)
+      // The galactic streak runs at the same angle across the full viewport
       const STREAK_ANGLE_DEG = -18;
       const STREAK_ANGLE_RAD = STREAK_ANGLE_DEG * (Math.PI / 180);
 
       let W, H, dpr;
-      let fieldStars  = [];
-      let streakStars = [];
-      let shooters    = [];
+      let fieldStars = [];   // sparse cool-white field across full sky
+      let streakStars = [];  // dense galactic band, diagonal
+      let shooters = [];
       let raf, running = false;
 
+      // ── DPR-aware resize — full native pixel density, no cap ──
       function resize() {
         dpr = window.devicePixelRatio || 1;
         W = window.innerWidth;
         H = window.innerHeight;
-        // Canvas sized in raw device pixels
         canvas.width  = Math.round(W * dpr);
         canvas.height = Math.round(H * dpr);
         canvas.style.width  = W + 'px';
         canvas.style.height = H + 'px';
-        // NO ctx.scale() — we draw directly in device pixels for crispness
+        // Work in raw device pixels — no scale — so fillRect hits exact pixels
         ctx.setTransform(1, 0, 0, 1, 0, 0);
         ctx.imageSmoothingEnabled = false;
       }
 
+      // ── Gaussian for streak distribution ──
       function gauss() {
         let u = 0, v = 0;
         while (!u) u = Math.random();
@@ -3051,14 +3054,21 @@
         return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
       }
 
+      // ── Project a point along the streak band ──
+      // t = position along the streak axis (0–1 across diagonal)
+      // perp = perpendicular offset from centre of band
       function streakPoint(t, perp) {
+        // Diagonal axis: from top-left area to bottom-right
         const cos = Math.cos(STREAK_ANGLE_RAD);
         const sin = Math.sin(STREAK_ANGLE_RAD);
+        // Streak runs from (-0.2W, 0.5H) to (1.2W, 0.5H) rotated by angle
+        const cx = W * 0.5;
+        const cy = H * 0.5;
         const len = Math.sqrt(W * W + H * H) * 1.1;
         const along = (t - 0.5) * len;
         return {
-          x: W * 0.5 + along * cos - perp * sin,
-          y: H * 0.5 + along * sin + perp * cos,
+          x: cx + along * cos - perp * sin,
+          y: cy + along * sin + perp * cos,
         };
       }
 
@@ -3067,24 +3077,22 @@
         const sigma = H * 0.055;
         const perp = gauss() * sigma;
         const pt = streakPoint(t, perp);
-        const band = Math.exp(-(perp * perp) / (2 * sigma * sigma * 0.4));
-        // bright = 2-device-pixel star with diffraction cross, dim = single pixel
-        const bright = Math.random() > 0.88;
+        const bandIntensity = Math.exp(-(perp * perp) / (2 * sigma * sigma * 0.4));
         return {
-          x:  pt.x, y: pt.y,
-          bright,
-          a:  (Math.random() * 0.65 + 0.20) * (0.35 + 0.65 * band),
+          x:  pt.x,
+          y:  pt.y,
+          bright: Math.random() > 0.88,
+          a:  (Math.random() * 0.65 + 0.20) * (0.35 + 0.65 * bandIntensity),
           s:  (Math.random() - 0.5) * 0.012,
           sy: (Math.random() - 0.5) * 0.004,
         };
       }
 
       function mkFieldStar() {
-        const bright = Math.random() > 0.91;
         return {
           x:  Math.random() * W,
           y:  Math.random() * H,
-          bright,
+          bright: Math.random() > 0.91,
           a:  Math.random() * 0.42 + 0.12,
           s:  (Math.random() - 0.5) * 0.006,
           sy: (Math.random() - 0.5) * 0.002,
@@ -3092,6 +3100,7 @@
       }
 
       function mkShooter() {
+        // Shooters travel at the same angle as the streak
         const speed = 4 + Math.random() * 3.5;
         return {
           x:    Math.random() * W * 1.2 - W * 0.1,
@@ -3099,7 +3108,8 @@
           vx:   Math.cos(STREAK_ANGLE_RAD) * speed,
           vy:   Math.sin(STREAK_ANGLE_RAD) * speed,
           len:  70 + Math.random() * 90,
-          a: 0, life: 0,
+          a:    0,
+          life: 0,
           max:  70 + Math.random() * 60,
           wait: 120 + Math.random() * 500,
         };
@@ -3111,55 +3121,51 @@
         const STREAK_N = isMobile ? 3200 : 5500;
         const FIELD_N  = isMobile ? 280  : 2200;
         const SHOOT_N  = isMobile ? 2    : 6;
+
         streakStars = Array.from({ length: STREAK_N }, mkStreakStar);
-        fieldStars  = Array.from({ length: FIELD_N  }, mkFieldStar);
-        shooters    = Array.from({ length: SHOOT_N  }, mkShooter);
+        fieldStars  = Array.from({ length: FIELD_N },  mkFieldStar);
+        shooters    = Array.from({ length: SHOOT_N },  mkShooter);
       }
 
-      // ── THE KEY FUNCTION ──
-      // x/y are in LOGICAL px. We multiply by dpr and floor to get an
-      // exact device pixel — no anti-aliasing, no blur, pin-sharp dot.
+      // Crisp 1-pixel star at DEVICE resolution — zero blur, zero anti-alias.
+      // x/y are LOGICAL px; we multiply by dpr and floor to snap to device grid.
       function drawPixelStar(x, y, bright, a, r, g, b) {
-        // Snap to device pixel grid
         const px = Math.floor(x * dpr);
         const py = Math.floor(y * dpr);
         ctx.fillStyle = `rgba(${r},${g},${b},${a.toFixed(3)})`;
         if (bright) {
-          // 2×2 core
           ctx.fillRect(px, py, 2, 2);
-          // 4-point diffraction spikes at 28% opacity — looks exactly like a real star
+          // 4-point diffraction cross at 28% — looks like a real star
           ctx.fillStyle = `rgba(${r},${g},${b},${(a * 0.28).toFixed(3)})`;
           ctx.fillRect(px - 1, py,     1, 1);
           ctx.fillRect(px + 2, py,     1, 1);
           ctx.fillRect(px,     py - 1, 1, 1);
           ctx.fillRect(px,     py + 2, 1, 1);
         } else {
-          // Single device pixel — as crisp as physically possible
           ctx.fillRect(px, py, 1, 1);
         }
       }
 
       function tick() {
-        // Clear in raw device pixel space
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        // Field stars — cool blue-white
+        // ── Sparse field stars — cool blue-white ──
         for (const p of fieldStars) {
           drawPixelStar(p.x, p.y, p.bright, p.a, 216, 232, 255);
-          p.x += p.s;  p.y += p.sy;
+          p.x += p.s; p.y += p.sy;
           if (p.x < -2) p.x = W + 2; if (p.x > W + 2) p.x = -2;
           if (p.y < -2) p.y = H + 2; if (p.y > H + 2) p.y = -2;
         }
 
-        // Galactic streak — silver-white diagonal band
+        // ── Galactic streak — silver-white diagonal band ──
         for (const p of streakStars) {
           drawPixelStar(p.x, p.y, p.bright, p.a, 232, 238, 255);
-          p.x += p.s;  p.y += p.sy;
+          p.x += p.s; p.y += p.sy;
           if (p.x < -2) p.x = W + 2; if (p.x > W + 2) p.x = -2;
           if (p.y < -2) p.y = H + 2; if (p.y > H + 2) p.y = -2;
         }
 
-        // Shooting stars — need logical coords, use a temporary scale
+        // ── Shooting stars — use logical coords via temporary scale ──
         ctx.save();
         ctx.scale(dpr, dpr);
         for (const s of shooters) {
@@ -3169,7 +3175,7 @@
           s.a = prog < 0.25 ? prog / 0.25 : prog > 0.72 ? (1 - prog) / 0.28 : 1;
           const tailX = s.x - s.vx * (s.len / 5);
           const tailY = s.y - s.vy * (s.len / 5);
-          const grad  = ctx.createLinearGradient(tailX, tailY, s.x, s.y);
+          const grad = ctx.createLinearGradient(tailX, tailY, s.x, s.y);
           grad.addColorStop(0,   `rgba(255,248,220,0)`);
           grad.addColorStop(0.6, `rgba(255,248,220,${(s.a * 0.5).toFixed(3)})`);
           grad.addColorStop(1,   `rgba(255,255,255,${(s.a * 0.9).toFixed(3)})`);
