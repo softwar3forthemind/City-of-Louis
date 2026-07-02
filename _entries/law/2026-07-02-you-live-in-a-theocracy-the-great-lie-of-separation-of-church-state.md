@@ -48,7 +48,7 @@ To which a participant of the secular society would respond with, for instance, 
 
 In both instances, a God is worshipped. It is inescapable. You cannot escape the worship of ***a*** God. You must fill in the blanks of your own character law, making you no better or worse than the religious fanatic who does the same with a fancy language veneer. The only real difference between the two scenarios, i.e., a so-called secular society and a theocracy, curiously, is the aforesaid possibly sinister vernacular. In choosing to worship the word "secularism," we engage in either self-deception or externally-imposed deception by the vineyard operators, so to speak (this is a Biblical reference found in Isaiah and Matthew).
 
-In short, to live is to live in a theocracy. It doesn't matter what fancy diabetic we create by which we remove the need for "God". In the same way the laws of physics cannot be avoided, creating a lawful God-structure is unavoidable. It is a fundamental component of the fabric of reality. 
+In short, to live is to live in a theocracy. It doesn't matter what fancy dialectic we create by which we remove the need for "God". In the same way the laws of physics cannot be avoided, creating a lawful God-structure is unavoidable. It is a fundamental component of the fabric of reality. 
 
 It can be no other way. 
 
