@@ -12,7 +12,7 @@ The Law and The Paradisiacal Society are inextricably linked; therefore, God and
 
 Nobody would dispute this and would accept it as self-evident.
 
-Even in our collapsing society today (as measured by birth rates, marriage rates, nation state debt, and inflation), we would all agree with the above notion, though in different, and somewhat sinisterly, terms:
+Even in our collapsing society today (as measured by birth rates, marriage rates, nation-state debt, and inflation), we would all agree with the above notion, though in different terms (the terms being somewhat sinister as they are unequivocally deceptive and deleterious for humans):
 
 Disobey the Law of your government, and you will be banished from society, which most consider to be Paradisiacal today, even for the least competent among men, who enjoy a robust welfare state. 
 
