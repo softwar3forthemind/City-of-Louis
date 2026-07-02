@@ -3014,27 +3014,24 @@
     // ─────────────────────────────────────────
     // ─────────────────────────────────────────
     // STAR FIELD — homepage canvas
+    // Crisp pixel-perfect rendering at full device resolution
     // ─────────────────────────────────────────
     (function () {
       const canvas = document.getElementById('star-canvas');
       if (!canvas) return;
       const ctx = canvas.getContext('2d', { alpha: true, desynchronized: false });
-      // Enable maximum quality rendering
-      ctx.imageSmoothingEnabled = true;
-      ctx.imageSmoothingQuality = 'high';
 
-      // The Christ figure's line of sight reads at roughly -18° (up-left to down-right)
-      // The galactic streak runs at the same angle across the full viewport
+      // Galactic streak angle
       const STREAK_ANGLE_DEG = -18;
       const STREAK_ANGLE_RAD = STREAK_ANGLE_DEG * (Math.PI / 180);
 
       let W, H, dpr;
-      let fieldStars = [];   // sparse cool-white field across full sky
-      let streakStars = [];  // dense galactic band, diagonal
-      let shooters = [];
+      let fieldStars  = [];
+      let streakStars = [];
+      let shooters    = [];
       let raf, running = false;
 
-      // ── DPR-aware resize — full native pixel density, no cap ──
+      // ── DPR-aware resize — all stars stored in LOGICAL px, rendered at device px ──
       function resize() {
         dpr = window.devicePixelRatio || 1;
         W = window.innerWidth;
@@ -3043,10 +3040,10 @@
         canvas.height = Math.round(H * dpr);
         canvas.style.width  = W + 'px';
         canvas.style.height = H + 'px';
+        // Work in raw device pixels — no ctx.scale(dpr,dpr)
+        // This lets us use integer fillRect for perfectly crisp 1px dots
         ctx.setTransform(1, 0, 0, 1, 0, 0);
-        ctx.scale(dpr, dpr);
-        ctx.imageSmoothingEnabled = true;
-        ctx.imageSmoothingQuality = 'high';
+        ctx.imageSmoothingEnabled = false;
       }
 
       // ── Gaussian for streak distribution ──
@@ -3057,16 +3054,11 @@
         return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
       }
 
-      // ── Project a point along the streak band ──
-      // t = position along the streak axis (0–1 across diagonal)
-      // perp = perpendicular offset from centre of band
       function streakPoint(t, perp) {
-        // Diagonal axis: from top-left area to bottom-right
         const cos = Math.cos(STREAK_ANGLE_RAD);
         const sin = Math.sin(STREAK_ANGLE_RAD);
-        // Streak runs from (-0.2W, 0.5H) to (1.2W, 0.5H) rotated by angle
-        const cx = W * 0.5;
-        const cy = H * 0.5;
+        const cx  = W * 0.5;
+        const cy  = H * 0.5;
         const len = Math.sqrt(W * W + H * H) * 1.1;
         const along = (t - 0.5) * len;
         return {
@@ -3081,31 +3073,32 @@
         const perp = gauss() * sigma;
         const pt = streakPoint(t, perp);
         const bandIntensity = Math.exp(-(perp * perp) / (2 * sigma * sigma * 0.4));
+        // Vary pixel size: most are 1×1, a few are 2×2 for magnitude variation
+        const mag = Math.random();
         return {
           x:  pt.x,
           y:  pt.y,
-          r:  Math.random() * 0.4 + 0.15,  // tight: 0.15–0.55px logical
-          a:  (Math.random() * 0.55 + 0.15) * (0.4 + 0.6 * bandIntensity),
+          // px = device pixels: 1 for most stars, 2 for the brightest ~12%
+          px: mag > 0.88 ? 2 : 1,
+          a:  (Math.random() * 0.6 + 0.18) * (0.35 + 0.65 * bandIntensity),
           s:  (Math.random() - 0.5) * 0.012,
           sy: (Math.random() - 0.5) * 0.004,
-          t,
-          perp,
         };
       }
 
       function mkFieldStar() {
+        const mag = Math.random();
         return {
           x:  Math.random() * W,
           y:  Math.random() * H,
-          r:  Math.random() * 0.5 + 0.12,  // tight: 0.12–0.62px logical
-          a:  Math.random() * 0.30 + 0.06,
+          px: mag > 0.92 ? 2 : 1,
+          a:  Math.random() * 0.38 + 0.10,
           s:  (Math.random() - 0.5) * 0.006,
           sy: (Math.random() - 0.5) * 0.002,
         };
       }
 
       function mkShooter() {
-        // Shooters travel at the same angle as the streak
         const speed = 4 + Math.random() * 3.5;
         return {
           x:    Math.random() * W * 1.2 - W * 0.1,
@@ -3124,7 +3117,7 @@
         resize();
         const isMobile = W < 601;
         const STREAK_N = isMobile ? 3200 : 5500;
-        const FIELD_N  = isMobile ? 20   : 2200;
+        const FIELD_N  = isMobile ? 280  : 2200;
         const SHOOT_N  = isMobile ? 2    : 6;
 
         streakStars = Array.from({ length: STREAK_N }, mkStreakStar);
@@ -3132,20 +3125,31 @@
         shooters    = Array.from({ length: SHOOT_N },  mkShooter);
       }
 
-      function drawStar(x, y, r, a, color) {
-        ctx.beginPath();
-        ctx.arc(x, y, r, 0, Math.PI * 2);
-        ctx.fillStyle = color;
-        ctx.globalAlpha = a;
-        ctx.fill();
+      // ── Crisp pixel star — renders as exact device pixel(s), zero blur ──
+      // All coordinates are in LOGICAL px; multiply by dpr for raw canvas coords.
+      function drawPixelStar(x, y, px, a, r, g, b) {
+        // Snap to nearest device pixel boundary
+        const dx = Math.round(x * dpr);
+        const dy = Math.round(y * dpr);
+        ctx.fillStyle = `rgba(${r},${g},${b},${a.toFixed(3)})`;
+        ctx.fillRect(dx, dy, px, px);
+        // For 2-pixel stars, add a subtle cross-hair bloom (1 additional pixel
+        // above/below/left/right at 30% opacity) for a natural star diffraction look
+        if (px === 2) {
+          ctx.fillStyle = `rgba(${r},${g},${b},${(a * 0.28).toFixed(3)})`;
+          ctx.fillRect(dx - 1, dy,     1, 1);
+          ctx.fillRect(dx + 2, dy,     1, 1);
+          ctx.fillRect(dx,     dy - 1, 1, 1);
+          ctx.fillRect(dx,     dy + 2, 1, 1);
+        }
       }
 
       function tick() {
-        ctx.clearRect(0, 0, W, H);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        // ── Sparse field stars — cool blue-white ──
+        // ── Field stars — cool blue-white, sparse ──
         for (const p of fieldStars) {
-          drawStar(p.x, p.y, p.r, p.a, '#d8e8ff');
+          drawPixelStar(p.x, p.y, p.px, p.a, 216, 232, 255);
           p.x += p.s; p.y += p.sy;
           if (p.x < -2) p.x = W + 2;
           if (p.x > W + 2) p.x = -2;
@@ -3153,10 +3157,9 @@
           if (p.y > H + 2) p.y = -2;
         }
 
-        // ── Galactic streak — silver-white, diagonal ──
+        // ── Galactic streak — silver-white, diagonal band ──
         for (const p of streakStars) {
-          // Pure silver/white — no golden tint
-          drawStar(p.x, p.y, p.r, p.a, '#e8eeff');
+          drawPixelStar(p.x, p.y, p.px, p.a, 232, 238, 255);
           p.x += p.s; p.y += p.sy;
           if (p.x < -2) p.x = W + 2;
           if (p.x > W + 2) p.x = -2;
@@ -3164,7 +3167,9 @@
           if (p.y > H + 2) p.y = -2;
         }
 
-        // ── Shooting stars — travel along streak angle ──
+        // ── Shooting stars — drawn in logical coords via ctx.scale ──
+        ctx.save();
+        ctx.scale(dpr, dpr);
         ctx.globalAlpha = 1;
         for (const s of shooters) {
           if (s.wait > 0) { s.wait--; continue; }
@@ -3176,12 +3181,12 @@
           const tailX = s.x - s.vx * (s.len / 5);
           const tailY = s.y - s.vy * (s.len / 5);
           const grad = ctx.createLinearGradient(tailX, tailY, s.x, s.y);
-          grad.addColorStop(0, `rgba(255,248,220,0)`);
+          grad.addColorStop(0,   `rgba(255,248,220,0)`);
           grad.addColorStop(0.6, `rgba(255,248,220,${(s.a * 0.5).toFixed(3)})`);
-          grad.addColorStop(1, `rgba(255,255,255,${(s.a * 0.9).toFixed(3)})`);
+          grad.addColorStop(1,   `rgba(255,255,255,${(s.a * 0.9).toFixed(3)})`);
           ctx.beginPath();
-          ctx.moveTo(Math.round(tailX), Math.round(tailY));
-          ctx.lineTo(Math.round(s.x), Math.round(s.y));
+          ctx.moveTo(tailX, tailY);
+          ctx.lineTo(s.x, s.y);
           ctx.strokeStyle = grad;
           ctx.lineWidth = 1;
           ctx.globalAlpha = 1;
@@ -3191,8 +3196,8 @@
             Object.assign(s, mkShooter());
           }
         }
+        ctx.restore();
 
-        ctx.globalAlpha = 1;
         if (running) raf = requestAnimationFrame(tick);
       }
 
