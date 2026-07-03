@@ -21,6 +21,8 @@ In God's own Word, the idea was simply unthinkable, and, in fact, straying from 
 > My anger is roused against the shepherds, 
 >
 > And I will punish the oppressive leaders.
+>
+> Zechariah 10.2-3
 
 In Genesis, God established what was ultimately a God-structure, i.e., a governance paradigm based in religious devotion to His Laws. To flout God’s Laws was  to remove oneself from paradise.
 
