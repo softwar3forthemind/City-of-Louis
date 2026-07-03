@@ -2859,7 +2859,7 @@
       "The fabric of my reality is electromagnetic and alive. I am not a passive observer — I am a participant in the God-structure I choose. Today I choose one that builds me, protects me, and multiplies my strength.",
       "The vineyard I tend is the vineyard of my mind. Every thought I plant is a seed. Every law I obey is water. I will not eat the forbidden fruit of a God-structure that diminishes me.",
       "I am my father's child. I carry the covenant forward. The failures of the old vineyard do not define me — they clarify my mission. I am called to build what has not yet been built.",
-      "Today I am still. I wait upon the Lord as Habakkuk waited — not in defeat, but in readiness. The fig tree may be bare. The fields may be empty. And yet I will rejoice, for my feet are like the feet of a deer and I am made to tread on the heights.",
+      "While I rejoice for the safety, peace, and abundance the Lord provides, I doubly rejoice for the obstacles that he sets in my way that I must endure and overcome; through which my character is strengthened and I am raised to incredible heights.",
       "My law is my God. I will not serve a law that diminishes life. I will not obey a structure that breaks families and extinguishes the light of consciousness. I choose the God-structure that multiplies, protects, and endures.",
       "I am a new Adam. I was not born into the finished world — I was born into the wilderness, where the new world is built. I am the architect of what comes next, and I am not afraid.",
       "The old vineyard is failing. I did not fail it — it failed itself. I carry no guilt for its collapse. I carry only the seed of what comes next, and I plant it today with intention and with faith.",
@@ -3107,17 +3107,17 @@
 
       function mkShooter() {
         // Shooters travel at the same angle as the streak
-        const speed = 4 + Math.random() * 3.5;
+        const speed = (4 + Math.random() * 3.5) * 0.9 * 0.9;
         return {
           x:    Math.random() * W * 1.2 - W * 0.1,
           y:    Math.random() * H * 0.6 - H * 0.1,
           vx:   Math.cos(STREAK_ANGLE_RAD) * speed,
           vy:   Math.sin(STREAK_ANGLE_RAD) * speed,
-          len:  70 + Math.random() * 90,
+          len:  (70 + Math.random() * 90) * 1.1 * 1.1,
           a:    0,
           life: 0,
           max:  70 + Math.random() * 60,
-          wait: 120 + Math.random() * 500,
+          wait: (120 + Math.random() * 500) * 0.85 * 0.85,
         };
       }
 
@@ -3126,7 +3126,7 @@
         const isMobile = W < 601;
         const STREAK_N = isMobile ? 3200 : 5500;
         const FIELD_N  = isMobile ? 20   : 2200;
-        const SHOOT_N  = isMobile ? 2    : 6;
+        const SHOOT_N  = isMobile ? 4    : 8;
 
         streakStars = Array.from({ length: STREAK_N }, mkStreakStar);
         fieldStars  = Array.from({ length: FIELD_N },  mkFieldStar);
@@ -3146,7 +3146,7 @@
 
         // ── Sparse field stars — cool blue-white ──
         for (const p of fieldStars) {
-          drawStar(p.x, p.y, p.r, p.a, '#d8e8ff');
+          drawStar(p.x, p.y, p.r, p.a, '#ffd060');
           p.x += p.s; p.y += p.sy;
           if (p.x < -2) p.x = W + 2;
           if (p.x > W + 2) p.x = -2;
@@ -3157,7 +3157,7 @@
         // ── Galactic streak — silver-white, diagonal ──
         for (const p of streakStars) {
           // Pure silver/white — no golden tint
-          drawStar(p.x, p.y, p.r, p.a, '#e8eeff');
+          drawStar(p.x, p.y, p.r, p.a, '#ffe090');
           p.x += p.s; p.y += p.sy;
           if (p.x < -2) p.x = W + 2;
           if (p.x > W + 2) p.x = -2;
@@ -3177,14 +3177,14 @@
           const tailX = s.x - s.vx * (s.len / 5);
           const tailY = s.y - s.vy * (s.len / 5);
           const grad = ctx.createLinearGradient(tailX, tailY, s.x, s.y);
-          grad.addColorStop(0, `rgba(255,248,220,0)`);
-          grad.addColorStop(0.6, `rgba(255,248,220,${(s.a * 0.5).toFixed(3)})`);
-          grad.addColorStop(1, `rgba(255,255,255,${(s.a * 0.9).toFixed(3)})`);
+          grad.addColorStop(0, `rgba(255,190,20,0)`);
+          grad.addColorStop(0.6, `rgba(255,175,10,${(s.a * 0.65).toFixed(3)})`);
+          grad.addColorStop(1, `rgba(255,230,100,${(s.a * 0.98).toFixed(3)})`);
           ctx.beginPath();
           ctx.moveTo(Math.round(tailX), Math.round(tailY));
           ctx.lineTo(Math.round(s.x), Math.round(s.y));
           ctx.strokeStyle = grad;
-          ctx.lineWidth = 1;
+          ctx.lineWidth = 1.1 * 1.1;
           ctx.globalAlpha = 1;
           ctx.stroke();
           s.x += s.vx; s.y += s.vy;
