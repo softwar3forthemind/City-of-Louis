@@ -22,13 +22,10 @@ The new generation builds a parallel society: A new God-structure, within the ex
 
 This new generation masters various character attributes:
 
-\-An unshakable faith in the One Almighty And Everlasting God who raises and destroys mankind’s God-structures
-
-\-Impeccable dietary laws that fuel consciousness to higher planes
-
-\-Maximum exertion of effort, physically, mentally, and spiritually, whereby the collective consciousness of the new civilization, or parallel society, becomes an energetic force that cannot be opposed
-
-\-These elements restructure the minds of the new civilization, or parallel society, as neuroplasticity and BDNF create masters of their universes, exerting their will and shaping their reality in ways the cadre of the existing God-structure simply could not
+* *An unshakable faith in the One Almighty And Everlasting God who raises and destroys mankind’s God-structures*
+* *Impeccable dietary laws that fuel consciousness to higher planes*
+* *Maximum exertion of effort, physically, mentally, and spiritually, whereby the collective consciousness of the new civilization, or parallel society, becomes an energetic force that cannot be opposed*
+* *These elements restructure the minds of the new civilization, or parallel society, as neuroplasticity and BDNF create masters of their universes, exerting their will and shaping their reality in ways the cadre of the existing God-structure simply could not*
 
 Despite the collapse of their civilization, as measured by birth rates, nation state debt, inflation, central bank activity, judicial impropriety, pedophilia and child abuse, and other facets of our current God-structure in the United States, this new class of spiritual warriors begin to not just restructure the institutions around them, but also restructure the hearts and souls of the humans with whom they unify. 
 
