@@ -3018,8 +3018,10 @@
     (function () {
       const canvas = document.getElementById('star-canvas');
       if (!canvas) return;
-      const ctx = canvas.getContext('2d', { alpha: true });
-      ctx.imageSmoothingEnabled = false;
+      const ctx = canvas.getContext('2d', { alpha: true, desynchronized: false });
+      // Enable maximum quality rendering
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
 
       // The Christ figure's line of sight reads at roughly -18° (up-left to down-right)
       // The galactic streak runs at the same angle across the full viewport
@@ -3041,9 +3043,10 @@
         canvas.height = Math.round(H * dpr);
         canvas.style.width  = W + 'px';
         canvas.style.height = H + 'px';
-        // Work in raw device pixels — no scale — so fillRect hits exact pixels
         ctx.setTransform(1, 0, 0, 1, 0, 0);
-        ctx.imageSmoothingEnabled = false;
+        ctx.scale(dpr, dpr);
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = 'high';
       }
 
       // ── Gaussian for streak distribution ──
@@ -3081,10 +3084,12 @@
         return {
           x:  pt.x,
           y:  pt.y,
-          bright: Math.random() > 0.88,
-          a:  (Math.random() * 0.65 + 0.20) * (0.35 + 0.65 * bandIntensity),
+          r:  Math.random() * 0.4 + 0.15,  // tight: 0.15–0.55px logical
+          a:  (Math.random() * 0.55 + 0.15) * (0.4 + 0.6 * bandIntensity),
           s:  (Math.random() - 0.5) * 0.012,
           sy: (Math.random() - 0.5) * 0.004,
+          t,
+          perp,
         };
       }
 
@@ -3092,8 +3097,8 @@
         return {
           x:  Math.random() * W,
           y:  Math.random() * H,
-          bright: Math.random() > 0.91,
-          a:  Math.random() * 0.42 + 0.12,
+          r:  Math.random() * 0.5 + 0.12,  // tight: 0.12–0.62px logical
+          a:  Math.random() * 0.30 + 0.06,
           s:  (Math.random() - 0.5) * 0.006,
           sy: (Math.random() - 0.5) * 0.002,
         };
@@ -3101,17 +3106,18 @@
 
       function mkShooter() {
         // Shooters travel at the same angle as the streak
-        const speed = 4 + Math.random() * 3.5;
+        // Speed -10%, length +10%, width +10%, golden, wait -15% (more frequent)
+        const speed = (4 + Math.random() * 3.5) * 0.9;
         return {
           x:    Math.random() * W * 1.2 - W * 0.1,
           y:    Math.random() * H * 0.6 - H * 0.1,
           vx:   Math.cos(STREAK_ANGLE_RAD) * speed,
           vy:   Math.sin(STREAK_ANGLE_RAD) * speed,
-          len:  70 + Math.random() * 90,
+          len:  (70 + Math.random() * 90) * 1.1,
           a:    0,
           life: 0,
           max:  70 + Math.random() * 60,
-          wait: 120 + Math.random() * 500,
+          wait: (120 + Math.random() * 500) * 0.85,
         };
       }
 
@@ -3119,71 +3125,66 @@
         resize();
         const isMobile = W < 601;
         const STREAK_N = isMobile ? 3200 : 5500;
-        const FIELD_N  = isMobile ? 280  : 2200;
-        const SHOOT_N  = isMobile ? 2    : 6;
+        const FIELD_N  = isMobile ? 20   : 2200;
+        const SHOOT_N  = isMobile ? 3    : 7;
 
         streakStars = Array.from({ length: STREAK_N }, mkStreakStar);
         fieldStars  = Array.from({ length: FIELD_N },  mkFieldStar);
         shooters    = Array.from({ length: SHOOT_N },  mkShooter);
       }
 
-      // Crisp 1-pixel star at DEVICE resolution — zero blur, zero anti-alias.
-      // x/y are LOGICAL px; we multiply by dpr and floor to snap to device grid.
-      function drawPixelStar(x, y, bright, a, r, g, b) {
-        const px = Math.floor(x * dpr);
-        const py = Math.floor(y * dpr);
-        ctx.fillStyle = `rgba(${r},${g},${b},${a.toFixed(3)})`;
-        if (bright) {
-          ctx.fillRect(px, py, 2, 2);
-          // 4-point diffraction cross at 28% — looks like a real star
-          ctx.fillStyle = `rgba(${r},${g},${b},${(a * 0.28).toFixed(3)})`;
-          ctx.fillRect(px - 1, py,     1, 1);
-          ctx.fillRect(px + 2, py,     1, 1);
-          ctx.fillRect(px,     py - 1, 1, 1);
-          ctx.fillRect(px,     py + 2, 1, 1);
-        } else {
-          ctx.fillRect(px, py, 1, 1);
-        }
+      function drawStar(x, y, r, a, color) {
+        ctx.beginPath();
+        ctx.arc(x, y, r, 0, Math.PI * 2);
+        ctx.fillStyle = color;
+        ctx.globalAlpha = a;
+        ctx.fill();
       }
 
       function tick() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.clearRect(0, 0, W, H);
 
         // ── Sparse field stars — cool blue-white ──
         for (const p of fieldStars) {
-          drawPixelStar(p.x, p.y, p.bright, p.a, 216, 232, 255);
+          drawStar(p.x, p.y, p.r, p.a, '#d8e8ff');
           p.x += p.s; p.y += p.sy;
-          if (p.x < -2) p.x = W + 2; if (p.x > W + 2) p.x = -2;
-          if (p.y < -2) p.y = H + 2; if (p.y > H + 2) p.y = -2;
+          if (p.x < -2) p.x = W + 2;
+          if (p.x > W + 2) p.x = -2;
+          if (p.y < -2) p.y = H + 2;
+          if (p.y > H + 2) p.y = -2;
         }
 
-        // ── Galactic streak — silver-white diagonal band ──
+        // ── Galactic streak — silver-white, diagonal ──
         for (const p of streakStars) {
-          drawPixelStar(p.x, p.y, p.bright, p.a, 232, 238, 255);
+          // Pure silver/white — no golden tint
+          drawStar(p.x, p.y, p.r, p.a, '#e8eeff');
           p.x += p.s; p.y += p.sy;
-          if (p.x < -2) p.x = W + 2; if (p.x > W + 2) p.x = -2;
-          if (p.y < -2) p.y = H + 2; if (p.y > H + 2) p.y = -2;
+          if (p.x < -2) p.x = W + 2;
+          if (p.x > W + 2) p.x = -2;
+          if (p.y < -2) p.y = H + 2;
+          if (p.y > H + 2) p.y = -2;
         }
 
-        // ── Shooting stars — use logical coords via temporary scale ──
-        ctx.save();
-        ctx.scale(dpr, dpr);
+        // ── Shooting stars — travel along streak angle ──
+        ctx.globalAlpha = 1;
         for (const s of shooters) {
           if (s.wait > 0) { s.wait--; continue; }
           s.life++;
           const prog = s.life / s.max;
-          s.a = prog < 0.25 ? prog / 0.25 : prog > 0.72 ? (1 - prog) / 0.28 : 1;
+          s.a = prog < 0.25 ? prog / 0.25
+               : prog > 0.72 ? (1 - prog) / 0.28
+               : 1;
           const tailX = s.x - s.vx * (s.len / 5);
           const tailY = s.y - s.vy * (s.len / 5);
           const grad = ctx.createLinearGradient(tailX, tailY, s.x, s.y);
-          grad.addColorStop(0,   `rgba(255,248,220,0)`);
-          grad.addColorStop(0.6, `rgba(255,248,220,${(s.a * 0.5).toFixed(3)})`);
-          grad.addColorStop(1,   `rgba(255,255,255,${(s.a * 0.9).toFixed(3)})`);
+          grad.addColorStop(0, `rgba(255,200,40,0)`);
+          grad.addColorStop(0.6, `rgba(255,185,20,${(s.a * 0.6).toFixed(3)})`);
+          grad.addColorStop(1, `rgba(255,230,120,${(s.a * 0.95).toFixed(3)})`);
           ctx.beginPath();
-          ctx.moveTo(tailX, tailY);
-          ctx.lineTo(s.x, s.y);
+          ctx.moveTo(Math.round(tailX), Math.round(tailY));
+          ctx.lineTo(Math.round(s.x), Math.round(s.y));
           ctx.strokeStyle = grad;
-          ctx.lineWidth = 1;
+          ctx.lineWidth = 1.1;
           ctx.globalAlpha = 1;
           ctx.stroke();
           s.x += s.vx; s.y += s.vy;
@@ -3191,8 +3192,8 @@
             Object.assign(s, mkShooter());
           }
         }
-        ctx.restore();
 
+        ctx.globalAlpha = 1;
         if (running) raf = requestAnimationFrame(tick);
       }
 
