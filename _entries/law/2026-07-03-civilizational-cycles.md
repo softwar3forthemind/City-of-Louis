@@ -22,6 +22,10 @@ Let’s now walk through the holistic cycle of societal formation, from the gene
 
 Each nation begins with a God-structure, or theocracy, or government. These are synonymous terms. These terms represent the Laws of God, or, in our modern, rather confused civilization, our Laws of the Land. Disobey the Law of God (or whatever modernity would fallaciously call it), and we are removed from civilization, banished to hell and strife for eternity, so to speak. 
 
+> The State has taken the place of God; that is why, seen from this angle, the socialist dictatorships are religions and state slavery is a form of worship.
+>
+> Carl Jung
+
 Throughout each epoch of human history, societies have been formed on the basis of these God-structures, from which the most incredible feats of human creativity have emerged. However, as with each civilization, these God-structures begin to fail. Interestingly, while modern man fancies himself removed from the bondage of a theocracy for and by the Lord Almighty, the reality is that God cannot be separated, and, to succeed as a nation and produce great fruits is to accept the truth that God is the genesis and conclusion of all creation. 
 
 > *My own power and the might of my own hand have won this wealth for me. Remember that it is the Lord your God who gives you the power to get wealth, in fulfillment of the covenant that He made on oath with your fathers, as is still the case.* 
