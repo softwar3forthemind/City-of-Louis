@@ -6,6 +6,22 @@ The first five books of the Old Testament, which is indisputably one of the foun
 
 In God's own Word, the idea was simply unthinkable, and, in fact, straying from the prescribed theocratic structure was the direct cause of the Israelite's near-total destruction just a handful of books later. Straying from the prescribed theocratic structure was also notably the direct cause of the banishing of Adam and Eve from the Garden of Eden.
 
+> For the terephim spoke delusion, 
+>
+> The augurs predicted falsely;
+>
+> And dreamers speak lies
+>
+> And console with illusions.
+>
+> That is why My people have ***strayed*** like a flock, 
+>
+> They suffer for lack of a shepherd. 
+>
+> My anger is roused against the shepherds, 
+>
+> And I will punish the oppressive leaders.
+
 In Genesis, God established what was ultimately a God-structure, i.e., a governance paradigm based in religious devotion to His Laws. To flout God’s Laws was  to remove oneself from paradise.
 
 The Law and The Paradisiacal Society were inextricably linked; therefore, God and The Paradisiacal Society were inextricably linked.
