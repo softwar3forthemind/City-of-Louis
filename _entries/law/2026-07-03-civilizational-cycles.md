@@ -36,6 +36,20 @@ Whether by way of the shepherds, or governors, of a society eating forbidden fru
 
 In our current epoch, our shepherds have indeed eaten the aforesaid forbidden fruit, but, more importantly, they’ve become disgusting, revolting gluttons for printing money, taxing excessively, and portraying evil as virtue, destroying their own flock in the process. God *will* correct their ways in due course, as he has in each cycle of society. Correction historically has come through war and bloodshed, and I hazard the guess that, unfortunately, the same will be the case in this cycle of civilization that's unfolding presently.
 
+> *Oh, the worthless shepherd*
+>
+> *Who abandons the flock!*
+>
+> *Let a sword descend upon his arm*
+>
+> *And upon his right eye!*
+>
+> *His arm shall shrivel up;* 
+>
+> *His right eye shall go blind.*
+>
+> Zechariah 11.17
+
 Sexual liberation within a society and governmental financial profligacy are two notable examples of "Laws of a foreign god," by which a civilization’s God-structure frays, weakens, and ultimately descends into collapse, despotism, and tyranny; from which, a new generation, born into the wilderness and emptiness of the former civilization, must remove itself. 
 
 The new generation builds a parallel society: A new God-structure, within the existing, decrepit and decaying God-structure, i.e., civilization, or Garden of Eden. The new generation, championed by a man like Moses, David, or Jesus, forges its character in the crucible of the rot, decay, and turmoil of the existing God-structure that is in collapse.
