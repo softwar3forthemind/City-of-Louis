@@ -2867,6 +2867,7 @@
       "The City I am building will outlast me. Its walls are not made of stone but of truth, spoken daily, lived faithfully, passed to the children who come after. I lay one more stone today.",
       "I am wed to humanity. They are my people and I am their servant and their leader. I will not abandon them to a God-structure that is killing them. I will build the alternative with every breath I have.",
       "The wilderness is not punishment. The wilderness is where nations are born. Moses found his law in the wilderness. I find mine here, today, in the quiet space between what was and what will be.",
+      "I ride upon the throne that is the Hand of The Lord. I shall have no fear.",
     ];
 
     function generatePrayer() {
@@ -3106,18 +3107,17 @@
 
       function mkShooter() {
         // Shooters travel at the same angle as the streak
-        // Speed -10%, length +10%, width +10%, golden, wait -15% (more frequent)
-        const speed = (4 + Math.random() * 3.5) * 0.9;
+        const speed = 4 + Math.random() * 3.5;
         return {
           x:    Math.random() * W * 1.2 - W * 0.1,
           y:    Math.random() * H * 0.6 - H * 0.1,
           vx:   Math.cos(STREAK_ANGLE_RAD) * speed,
           vy:   Math.sin(STREAK_ANGLE_RAD) * speed,
-          len:  (70 + Math.random() * 90) * 1.1,
+          len:  70 + Math.random() * 90,
           a:    0,
           life: 0,
           max:  70 + Math.random() * 60,
-          wait: (120 + Math.random() * 500) * 0.85,
+          wait: 120 + Math.random() * 500,
         };
       }
 
@@ -3126,7 +3126,7 @@
         const isMobile = W < 601;
         const STREAK_N = isMobile ? 3200 : 5500;
         const FIELD_N  = isMobile ? 20   : 2200;
-        const SHOOT_N  = isMobile ? 3    : 7;
+        const SHOOT_N  = isMobile ? 2    : 6;
 
         streakStars = Array.from({ length: STREAK_N }, mkStreakStar);
         fieldStars  = Array.from({ length: FIELD_N },  mkFieldStar);
@@ -3177,14 +3177,14 @@
           const tailX = s.x - s.vx * (s.len / 5);
           const tailY = s.y - s.vy * (s.len / 5);
           const grad = ctx.createLinearGradient(tailX, tailY, s.x, s.y);
-          grad.addColorStop(0, `rgba(255,200,40,0)`);
-          grad.addColorStop(0.6, `rgba(255,185,20,${(s.a * 0.6).toFixed(3)})`);
-          grad.addColorStop(1, `rgba(255,230,120,${(s.a * 0.95).toFixed(3)})`);
+          grad.addColorStop(0, `rgba(255,248,220,0)`);
+          grad.addColorStop(0.6, `rgba(255,248,220,${(s.a * 0.5).toFixed(3)})`);
+          grad.addColorStop(1, `rgba(255,255,255,${(s.a * 0.9).toFixed(3)})`);
           ctx.beginPath();
           ctx.moveTo(Math.round(tailX), Math.round(tailY));
           ctx.lineTo(Math.round(s.x), Math.round(s.y));
           ctx.strokeStyle = grad;
-          ctx.lineWidth = 1.1;
+          ctx.lineWidth = 1;
           ctx.globalAlpha = 1;
           ctx.stroke();
           s.x += s.vx; s.y += s.vy;
