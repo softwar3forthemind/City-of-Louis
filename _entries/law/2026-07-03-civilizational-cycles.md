@@ -4,13 +4,13 @@ date: 2026-07-03
 ---
 There is an inevitable cyclical nature to our reality, and this is unequivocally true for civilizations around the world. In fact, religious systems, such as Christianity, Hinduism, and Judaism, thoroughly document this phenomenon of civilizational cycles. 
 
-The concept of civilizational cycles is so important to understanding reality that the entirety of both the Christian and Jewish religious texts is devoted to understanding and managing those cycles. As one very notable example, the book of Judges details the idea that, following the liberation of the Israelite people and the subsequent establishment of their theocracy, or new Garden of Eden if you will, new generations forgot the sacrifice of the previous generations. Simultaneously, the older generations did not heed the commands of Moses and Joshua, and they did not champion, with ruthless fervor and adamance, the ideals, or God-structure, that produced the land flowing with milk and honey originally. 
+Indeed, the concept of civilizational cycles is so important to understanding reality that the entirety of both the Christian and Jewish religious texts is devoted to understanding and managing those cycles. As one very notable example, the book of Judges details the idea that, following the liberation of the Israelite people and the subsequent establishment of their theocracy, or new Garden of Eden if you will, new generations forgot the sacrifice of the previous generations. Simultaneously, the older generations did not heed the commands of Moses and Joshua, and they did not champion, with ruthless fervor and adamance, the ideals, or God-structure, that produced the land flowing with milk and honey originally. 
 
 > *Another generation arose after them, which had not experienced \[the deliverance of] the Lord or the deeds that He had wrought for Israel. And the Israelites did what was offensive to the Lord. They worshiped the Baalim and forsook the Lord, the God of their fathers, who had brought them out of the land of Egypt. They followed other gods, from among the gods of the peoples around them, and bowed down to them; they provoked the Lord. They forsook the Lord and worshiped Baal and the Astaroth. Then the Lord was incensed at Israel, and He handed them over to foes who plundered them. He surrendered them to their enemies on all side, and they could no longer hold their own against their enemies.* 
 >
 > Judges 2.10-14
 
-In the above quote, we get a glimpse into a stage in the cycle of society, which is echoed by Hinduism and the Alexander Tytler cycle roughly. We can see that a civilization assumes different mindsets as it is born, matures, and ultimately dies.
+In the above quote, we get a glimpse into a stage in the cycle of society, which is echoed by the aforementioned religious traditions, as well as men throughout history, such as Alexander Tytler and his cycle of civilization. We can see that a civilization assumes different mindsets as it is born, matures, and ultimately dies.
 
 In recent letters I’ve written to you, I walked us through the creation of a God-structure, or theocracy, or government, that places us in a Garden of Eden, out of which we can be forcibly extricated only by consuming information and acting on said information that defies or weakens the existing God-structure. The above quote acts as an ally to this assertion: 
 
@@ -18,7 +18,7 @@ To worship foreign deities is to worship foreign laws, which creates confusion a
 
 To worship a foreign deity is to worship a foreign law. It is an act that serves to restructure one’s mind, and, by extension, the collective consciousness of the mind of the nation. In the same way bad internal governance produces weakened individuals, bad, or confused, government produces weakened nations. 
 
-Let’s now walk through the holistic cycle of societal formation, from the genesis of a God-structure, i.e., the Lord creating the heavens and earth and placing Adam and Eve within a garden in which they must obey God’s Laws, else they be banished. 
+Let’s now walk through the holistic cycle of societal formation, from the genesis of a God-structure, i.e., the Lord creating the heavens and earth and placing Adam and Eve within a garden, to the collapse of said structure by way of consuming the forbidden fruit, thereby causing the banishment of God's children out of the Garden.
 
 Each nation begins with a God-structure, or theocracy, or government. These are synonymous terms. These terms represent the Laws of God, or, in our modern, rather confused civilization, our Laws of the Land. Disobey the Law of God (or whatever modernity would fallaciously call it), and we are removed from civilization, banished to hell and strife for eternity, so to speak. 
 
