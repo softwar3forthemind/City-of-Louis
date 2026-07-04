@@ -36,23 +36,27 @@ Whether by way of the shepherds, or governors, of a society eating forbidden fru
 
 In our current epoch, our shepherds have indeed eaten the aforesaid forbidden fruit, but, more importantly, they’ve become disgusting, revolting gluttons for printing money, taxing excessively, and portraying evil as virtue, destroying their own flock in the process. God *will* correct their ways in due course, as he has in each cycle of society. Correction historically has come through war and bloodshed, and I hazard the guess that, unfortunately, the same will be the case in this cycle of civilization that's unfolding presently.
 
-> Oh, the worthless shepherd
+> *Oh, the worthless shepherd*
 >
-> Who abandons the flock!
+> *Who abandons the flock!*
 >
-> Let a sword descend upon his arm
+> *Let a sword descend upon his arm*
 >
-> And upon his right eye!
+> *And upon his right eye!*
 >
-> His arm shall shrivel up; 
+> *His arm shall shrivel up;* 
 >
-> His right eye shall go blind.
+> *His right eye shall go blind.*
 >
 > Zechariah 11.17
 
 Sexual liberation within a society and governmental financial profligacy are two notable examples of "Laws of a foreign god," by which a civilization’s God-structure frays, weakens, and ultimately descends into collapse, despotism, and tyranny; from which, a new generation, born into the wilderness and emptiness of the former civilization, must remove itself. 
 
 The new generation builds a parallel society: A new God-structure, within the existing, decrepit and decaying God-structure, i.e., civilization, or Garden of Eden. The new generation, championed by a man like Moses, David, or Jesus, forges its character in the crucible of the rot, decay, and turmoil of the existing God-structure that is in collapse.
+
+> *Behold, I am sending My messenger to clear the way before Me... But \[first] I will step forward to contend against you, and I will act as a relentless accuser against those who have no fear of Me: Who practice sorcery, who commit adultery, who swear falsely, who cheat laborers of their hire, and who subvert \[the cause of] the widow, orphan, and stranger, said the Lord of Hosts.* 
+>
+> *Malachi 3.1 & 5*
 
 As was the case when Moses forged his men, women, and children in the crucible of the desert wilderness after their exodus from Egypt, a new generation masters various Godly character attributes, codifies them into law, thereby establishing their new God, then builds and erects a creative nation that carries forth the light of consciousness. In the case of Moses, he built the following elements, as just a few examples, whereby the nation of Israel was officially founded: He created a faith an unshakable faith in the One Almighty And Everlasting God who raises and destroys mankind’s God-structures, at least for the believers who did not defect, and, to be sure many of his followers ultimately did not reach the promised land due to their lack of faith and obedience to the Lord. Moses instituted, at least relative to his time, impeccable dietary and cleanliness laws that fueled consciousness to higher planes. Moses also designed his Law in such a way that he demanded spiritual, physical, and sexual discipline, whereby the collective consciousness of the new civilization, or parallel society, became an energetic force that could not be opposed. Thus, Israel raided the land of Canaan, destroying its military opponents, and establishing a Kingdom of Heaven on earth for themselves.
 
