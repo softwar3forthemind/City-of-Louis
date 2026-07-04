@@ -22,7 +22,7 @@ Let’s now walk through the holistic cycle of societal formation, from the gene
 
 Each nation begins with a God-structure, or theocracy, or government. These are synonymous terms. These terms represent the Laws of God, or, in our modern, rather confused civilization, our Laws of the Land. Disobey the Law of God (or whatever modernity would fallaciously call it), and we are removed from civilization, banished to hell and strife for eternity, so to speak. 
 
-> The State has taken the place of God; that is why, seen from this angle, the socialist dictatorships are religions and state slavery is a form of worship.
+> *The State has taken the place of God; that is why, seen from this angle, the socialist dictatorships are religions and state slavery is a form of worship.*
 >
 > Carl Jung
 
@@ -36,17 +36,17 @@ Whether by way of the shepherds, or governors, of a society eating forbidden fru
 
 In our current epoch, our shepherds have indeed eaten the aforesaid forbidden fruit, but, more importantly, they’ve become disgusting, revolting gluttons for printing money, taxing excessively, and portraying evil as virtue, destroying their own flock in the process. God *will* correct their ways in due course, as he has in each cycle of society. Correction historically has come through war and bloodshed, and I hazard the guess that, unfortunately, the same will be the case in this cycle of civilization that's unfolding presently.
 
-> *Oh, the worthless shepherd*
+> Oh, the worthless shepherd
 >
-> *Who abandons the flock!*
+> Who abandons the flock!
 >
-> *Let a sword descend upon his arm*
+> Let a sword descend upon his arm
 >
-> *And upon his right eye!*
+> And upon his right eye!
 >
-> *His arm shall shrivel up;* 
+> His arm shall shrivel up; 
 >
-> *His right eye shall go blind.*
+> His right eye shall go blind.
 >
 > Zechariah 11.17
 
