@@ -74,7 +74,7 @@ As Moses did in the hearts of his 600,000 followers, who became the nation of Is
 
 Through this process of extrication of the new society and divorce from the old, which is almost always painful and difficult, the new God-structure is strengthened and refined. It begins to dominate spiritually and energetically that of old. 
 
-The heaven and earth cannot contain its emergence.
+Heaven and earth cannot contain its emergence.
 
 It is inevitable. 
 
