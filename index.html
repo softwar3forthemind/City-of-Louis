@@ -3107,17 +3107,28 @@
 
       function mkShooter() {
         // Shooters travel at the same angle as the streak
-        const speed = (4 + Math.random() * 3.5) * 0.9 * 0.9;
+        // Mobile: 10% slower, 10% longer/wider, more frequent, more golden
+        const isMob = W < 601;
+        const speedBase = isMob
+          ? (4 + Math.random() * 3.5) * 0.9 * 0.9 * 0.9   // ×0.9 = 10% slower
+          : (4 + Math.random() * 3.5) * 0.9 * 0.9;
+        const lenBase = isMob
+          ? (70 + Math.random() * 90) * 1.1 * 1.1 * 1.1    // ×1.1 = 10% longer
+          : (70 + Math.random() * 90) * 1.1 * 1.1;
+        const waitBase = isMob
+          ? (80 + Math.random() * 300) * 0.85 * 0.85        // shorter wait = more frequent
+          : (120 + Math.random() * 500) * 0.85 * 0.85;
         return {
           x:    Math.random() * W * 1.2 - W * 0.1,
           y:    Math.random() * H * 0.6 - H * 0.1,
-          vx:   Math.cos(STREAK_ANGLE_RAD) * speed,
-          vy:   Math.sin(STREAK_ANGLE_RAD) * speed,
-          len:  (70 + Math.random() * 90) * 1.1 * 1.1,
+          vx:   Math.cos(STREAK_ANGLE_RAD) * speedBase,
+          vy:   Math.sin(STREAK_ANGLE_RAD) * speedBase,
+          len:  lenBase,
           a:    0,
           life: 0,
           max:  70 + Math.random() * 60,
-          wait: (120 + Math.random() * 500) * 0.85 * 0.85,
+          wait: waitBase,
+          isMob,
         };
       }
 
@@ -3125,8 +3136,8 @@
         resize();
         const isMobile = W < 601;
         const STREAK_N = isMobile ? 3200 : 5500;
-        const FIELD_N  = isMobile ? 20   : 2200;
-        const SHOOT_N  = isMobile ? 4    : 8;
+        const FIELD_N  = isMobile ? 500  : 2200;  // was 20 — needed for visible speckle
+        const SHOOT_N  = isMobile ? 6    : 8;     // one extra shooter on mobile
 
         streakStars = Array.from({ length: STREAK_N }, mkStreakStar);
         fieldStars  = Array.from({ length: FIELD_N },  mkFieldStar);
@@ -3144,20 +3155,23 @@
       function tick() {
         ctx.clearRect(0, 0, W, H);
 
-        // ── Sparse field stars — cool blue-white ──
+        // ── Sparse field stars — golden speckle ──
         for (const p of fieldStars) {
           drawStar(p.x, p.y, p.r, p.a, '#ffd060');
           p.x += p.s; p.y += p.sy;
-          if (p.x < -2) p.x = W + 2;
-          if (p.x > W + 2) p.x = -2;
-          if (p.y < -2) p.y = H + 2;
-          if (p.y > H + 2) p.y = -2;
+          // Reinitialize at a fresh random position rather than wrapping
+          // edge-to-edge — wrapping causes stars to accumulate at perimeters
+          if (p.x < 0 || p.x > W || p.y < 0 || p.y > H) {
+            p.x  = Math.random() * W;
+            p.y  = Math.random() * H;
+            p.s  = (Math.random() - 0.5) * 0.006;
+            p.sy = (Math.random() - 0.5) * 0.002;
+          }
         }
 
-        // ── Galactic streak — silver-white, diagonal ──
+        // ── Galactic streak — deep golden, diagonal ──
         for (const p of streakStars) {
-          // Pure silver/white — no golden tint
-          drawStar(p.x, p.y, p.r, p.a, '#ffe090');
+          drawStar(p.x, p.y, p.r, p.a, '#ffb830');  // richer amber-gold
           p.x += p.s; p.y += p.sy;
           if (p.x < -2) p.x = W + 2;
           if (p.x > W + 2) p.x = -2;
@@ -3177,14 +3191,21 @@
           const tailX = s.x - s.vx * (s.len / 5);
           const tailY = s.y - s.vy * (s.len / 5);
           const grad = ctx.createLinearGradient(tailX, tailY, s.x, s.y);
-          grad.addColorStop(0, `rgba(255,190,20,0)`);
-          grad.addColorStop(0.6, `rgba(255,175,10,${(s.a * 0.65).toFixed(3)})`);
-          grad.addColorStop(1, `rgba(255,230,100,${(s.a * 0.98).toFixed(3)})`);
+          // Mobile: 10% more golden (warmer stops)
+          if (s.isMob) {
+            grad.addColorStop(0,   `rgba(255,165,0,0)`);
+            grad.addColorStop(0.6, `rgba(255,155,0,${(s.a * 0.65).toFixed(3)})`);
+            grad.addColorStop(1,   `rgba(255,210,60,${(s.a * 0.98).toFixed(3)})`);
+          } else {
+            grad.addColorStop(0,   `rgba(255,190,20,0)`);
+            grad.addColorStop(0.6, `rgba(255,175,10,${(s.a * 0.65).toFixed(3)})`);
+            grad.addColorStop(1,   `rgba(255,230,100,${(s.a * 0.98).toFixed(3)})`);
+          }
           ctx.beginPath();
           ctx.moveTo(Math.round(tailX), Math.round(tailY));
           ctx.lineTo(Math.round(s.x), Math.round(s.y));
           ctx.strokeStyle = grad;
-          ctx.lineWidth = 1.1 * 1.1;
+          ctx.lineWidth = s.isMob ? 1.1 * 1.1 * 1.1 : 1.1 * 1.1;  // 10% wider on mobile
           ctx.globalAlpha = 1;
           ctx.stroke();
           s.x += s.vx; s.y += s.vy;
