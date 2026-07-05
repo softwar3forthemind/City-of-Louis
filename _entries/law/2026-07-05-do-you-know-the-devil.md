@@ -2,7 +2,7 @@
 title: Do You Know The Devil?
 date: 2026-07-05
 ---
-In the same way God-structures are inextricably linked to the nature of man, i.e., we formulate a God, whom we serve, simply by virtue of making daily decisions, the concept of the devil is inextricably linked to God-structures; therefore, humanity and our daily life experience. Indeed, the devil cannot be separated from the cycles of civilization. He is part and parcel of the process.
+In the same way God-structures are inextricably linked to the nature of man, i.e., we formulate a God, whom we serve, simply by virtue of making daily decisions, the concept of the devil is inextricably linked to God-structures; therefore, humanity and our daily life experience.
 
 Regardless of our personal theological predilections, our lives become devoted invariably to managing away the devil. Even if we succeed in removing him from our nation, state, city, family, or personal being, Lucifer will patiently wait at the gates of those theocratic entities, or God-structures, and he will enter the moment the door is opened to him. Moreover, seen through another lens, the devil is actually very much so an integral component of the civilizational cycle, as we will explore throughout this letter. Some of our greatest spiritual leaders were actually demons in the eyes of those that they opposed. We, ourselves, in our daily lives, sometimes play that role in fact.
 
