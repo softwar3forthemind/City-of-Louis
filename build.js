@@ -1,5 +1,21 @@
 // build.js — runs at Netlify deploy time
 // Reads all markdown files from _entries/ and writes entries.json
+//
+// ── EMBEDDED VISUALS WORKFLOW ─────────────────────────────────────────
+// To attach a dynamic visual to any entry:
+//   1. Drop a self-contained HTML file into  /visuals/  (e.g. visuals/cycle-of-eden.html)
+//   2. In the entry's markdown body, on its own line, write:
+//        [[visual: cycle-of-eden]]
+//      Optional aspect ratio (width/height of the visual's natural stage):
+//        [[visual: cycle-of-eden | ratio=1000/1120]]
+//   3. Commit. The build validates the name, confirms the file exists,
+//      and emits a sandboxed <iframe> that index.html styles via .entry-visual.
+//
+// Security: names are restricted to [a-z0-9-], the iframe is sandboxed
+// (allow-scripts only — no same-origin access to the parent page, no forms,
+// no popups), and missing visuals fail loudly in the build log instead of
+// shipping a broken embed.
+// ──────────────────────────────────────────────────────────────────────
 
 const fs   = require('fs');
 const path = require('path');
@@ -13,6 +29,8 @@ const CATEGORY_MAP = {
   'law':        'law',
   'technology': 'technology'
 };
+
+const VISUALS_DIR = 'visuals';
 
 function parseFrontmatter(content) {
   const match = content.match(/^---\n([\s\S]*?)\n---\n?([\s\S]*)$/);
@@ -32,76 +50,96 @@ function parseFrontmatter(content) {
   return { meta, body: match[2].trim() };
 }
 
-// Markdown to HTML converter
-function markdownToHtml(md) {
-  // Inline formatting helper
-  function inlineFormat(text) {
-    return text
-      .replace(/\*\*\*(.+?)\*\*\*/g, '<strong><em>$1</em></strong>')
-      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-      .replace(/\*(.+?)\*/g, '<em>$1</em>')
-      .replace(/_(.+?)_/g, '<em>$1</em>');
+// ── VISUAL SHORTCODE ──
+// Matches a whole block consisting only of: [[visual: name]] or
+// [[visual: name | ratio=W/H]]
+const VISUAL_RE   = /^\[\[\s*visual\s*:\s*([a-z0-9-]+)\s*(?:\|\s*ratio\s*=\s*(\d+(?:\.\d+)?)\s*\/\s*(\d+(?:\.\d+)?)\s*)?\]\]$/i;
+const SAFE_NAME   = /^[a-z0-9][a-z0-9-]*$/;
+
+function renderVisual(block, entryId) {
+  const m = block.match(VISUAL_RE);
+  if (!m) return null;
+
+  const name = m[1].toLowerCase();
+  if (!SAFE_NAME.test(name)) {
+    console.warn(`⚠  [${entryId}] Invalid visual name "${name}" — skipped.`);
+    return '';
   }
 
-  const blocks = md.split(/\n\n+/);
-  const html = [];
+  const file = path.join(VISUALS_DIR, name + '.html');
+  if (!fs.existsSync(file)) {
+    console.warn(`⚠  [${entryId}] Visual "${name}" referenced but ${file} does not exist — skipped.`);
+    return '';
+  }
 
-  for (let block of blocks) {
-    block = block.trim();
-    if (!block) continue;
+  // Aspect ratio of the visual's natural stage (defaults tuned for
+  // full-bleed diagram pages like cycle-of-eden: 1000×1120).
+  const rw = m[2] ? parseFloat(m[2]) : 1000;
+  const rh = m[3] ? parseFloat(m[3]) : 1120;
+  const ratio = `${rw} / ${rh}`;
 
+  const title = name.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+
+  return (
+    `<div class="entry-visual" style="aspect-ratio:${ratio};">` +
+    `<iframe src="/visuals/${name}.html" title="${title}" loading="lazy" ` +
+    `sandbox="allow-scripts" referrerpolicy="no-referrer" ` +
+    `allow="" scrolling="no"></iframe>` +
+    `</div>`
+  );
+}
+
+// Very simple markdown to HTML converter
+function markdownToHtml(md, entryId) {
+  return md
     // Headers
-    if (/^### /.test(block)) {
-      html.push(`<h3>${inlineFormat(block.replace(/^### /, ''))}</h3>`);
-      continue;
-    }
-    if (/^## /.test(block)) {
-      html.push(`<h2>${inlineFormat(block.replace(/^## /, ''))}</h2>`);
-      continue;
-    }
-    if (/^# /.test(block)) {
-      html.push(`<h2>${inlineFormat(block.replace(/^# /, ''))}</h2>`);
-      continue;
-    }
+    .replace(/^### (.+)$/gm, '<h3>$1</h3>')
+    .replace(/^## (.+)$/gm, '<h2>$1</h2>')
+    .replace(/^# (.+)$/gm, '<h2>$1</h2>')
+    // Bold / italic
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*(.+?)\*/g, '<em>$1</em>')
+    // Blocks — split on blank lines
+    .split(/\n\n+/)
+    .map(block => {
+      block = block.trim();
+      if (!block) return '';
+      if (block.startsWith('<h')) return block;
 
-    // Strip trailing backslash line breaks (Decap CMS soft line break encoding)
-    block = block.replace(/\\\s*$/gm, '').trim();
+      // Embedded visual shortcode → sandboxed iframe (pass-through)
+      const visual = renderVisual(block, entryId);
+      if (visual !== null) return visual;
 
-    // Blockquote — lines starting with >
-    if (/^> /.test(block)) {
-      const lines = block.split('\n');
-      const inner = lines
-        .map(l => l.replace(/^> ?/, '').trim())
-        .filter(l => l.length > 0)
-        .map(l => inlineFormat(l));
-      html.push(`<blockquote>${inner.join('<br/>')}</blockquote>`);
-      continue;
-    }
+      // Blockquote: every line starts with ">"
+      if (/^>/.test(block) && block.split('\n').every(l => /^>\s?/.test(l) || l.trim() === '')) {
+        const inner = block.split('\n')
+          .map(l => l.replace(/^>\s?/, ''))
+          .join('\n')
+          .split(/\n(?=\S)/)
+          .map(p => `<p>${p.replace(/\n/g, ' ').trim()}</p>`)
+          .join('');
+        return `<blockquote>${inner}</blockquote>`;
+      }
 
-    // Ordered list — lines starting with 1. 2. etc.
-    if (/^\d+\. /.test(block)) {
-      const items = block.split('\n')
-        .filter(l => /^\d+\. /.test(l.trim()))
-        .map(l => `<li>${inlineFormat(l.replace(/^\d+\. /, '').trim())}</li>`);
-      html.push(`<ol>${items.join('')}</ol>`);
-      continue;
-    }
+      // Unordered list
+      if (block.split('\n').every(l => /^[-*]\s+/.test(l))) {
+        const items = block.split('\n').map(l => `<li>${l.replace(/^[-*]\s+/, '')}</li>`).join('');
+        return `<ul>${items}</ul>`;
+      }
 
-    // Unordered list — lines starting with - or *
-    if (/^[-*] /.test(block)) {
-      const items = block.split('\n')
-        .filter(l => /^[-*] /.test(l.trim()))
-        .map(l => `<li>${inlineFormat(l.replace(/^[-*] /, '').trim())}</li>`);
-      html.push(`<ul>${items.join('')}</ul>`);
-      continue;
-    }
+      // Ordered list
+      if (block.split('\n').every(l => /^\d+\.\s+/.test(l))) {
+        const items = block.split('\n').map(l => `<li>${l.replace(/^\d+\.\s+/, '')}</li>`).join('');
+        return `<ol>${items}</ol>`;
+      }
 
-    // Plain paragraph
-    const lines = block.split('\n').map(l => l.trim()).filter(Boolean);
-    html.push(`<p>${inlineFormat(lines.join(' '))}</p>`);
-  }
+      // Horizontal rule
+      if (/^(---|\*\*\*|___)$/.test(block)) return '<hr/>';
 
-  return html.join('\n');
+      return `<p>${block.replace(/\n/g, ' ')}</p>`;
+    })
+    .filter(Boolean)
+    .join('\n');
 }
 
 const allEntries = [];
@@ -123,7 +161,7 @@ CATEGORIES.forEach(cat => {
       date:     meta.date     || '',
       title:    meta.title    || 'Untitled',
       excerpt:  meta.excerpt  || '',
-      body:     markdownToHtml(body)
+      body:     markdownToHtml(body, id)
     });
   });
 });
