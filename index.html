@@ -3156,22 +3156,36 @@
         ctx.clearRect(0, 0, W, H);
 
         // ── Sparse field stars — golden speckle ──
+        const isMobileRender = W < 601;
         for (const p of fieldStars) {
           drawStar(p.x, p.y, p.r, p.a, '#ffd060');
           p.x += p.s; p.y += p.sy;
-          // Reinitialize at a fresh random position rather than wrapping
-          // edge-to-edge — wrapping causes stars to accumulate at perimeters
-          if (p.x < 0 || p.x > W || p.y < 0 || p.y > H) {
-            p.x  = Math.random() * W;
-            p.y  = Math.random() * H;
-            p.s  = (Math.random() - 0.5) * 0.006;
-            p.sy = (Math.random() - 0.5) * 0.002;
+          // On mobile: reinitialize inside canvas instead of wrapping.
+          // Wrapping places stars right at the boundary edge each frame they
+          // cross over, so they visibly accumulate there. Reinit scatters them
+          // randomly back into the interior. Use a 20px inset so the check
+          // fires well before the star reaches the visible perimeter.
+          if (isMobileRender) {
+            if (p.x < 20 || p.x > W - 20 || p.y < 20 || p.y > H - 20) {
+              p.x  = 20 + Math.random() * (W - 40);
+              p.y  = 20 + Math.random() * (H - 40);
+              p.s  = (Math.random() - 0.5) * 0.006;
+              p.sy = (Math.random() - 0.5) * 0.002;
+            }
+          } else {
+            if (p.x < -2) p.x = W + 2;
+            if (p.x > W + 2) p.x = -2;
+            if (p.y < -2) p.y = H + 2;
+            if (p.y > H + 2) p.y = -2;
           }
         }
 
-        // ── Galactic streak — deep golden, diagonal ──
+        // ── Galactic streak — diagonal ──
+        // Desktop: original pale gold #ffe090 — UNCHANGED
+        // Mobile:  richer yellow-gold #ffd230 (less orange than previous #ffb830)
+        const streakColor = isMobileRender ? '#ffd230' : '#ffe090';
         for (const p of streakStars) {
-          drawStar(p.x, p.y, p.r, p.a, '#ffb830');  // richer amber-gold
+          drawStar(p.x, p.y, p.r, p.a, streakColor);
           p.x += p.s; p.y += p.sy;
           if (p.x < -2) p.x = W + 2;
           if (p.x > W + 2) p.x = -2;
@@ -3191,11 +3205,12 @@
           const tailX = s.x - s.vx * (s.len / 5);
           const tailY = s.y - s.vy * (s.len / 5);
           const grad = ctx.createLinearGradient(tailX, tailY, s.x, s.y);
-          // Mobile: 10% more golden (warmer stops)
+          // Mobile: golden but less orange — G channel pushed up ~25 from previous
+          // Desktop: original values — UNCHANGED
           if (s.isMob) {
-            grad.addColorStop(0,   `rgba(255,165,0,0)`);
-            grad.addColorStop(0.6, `rgba(255,155,0,${(s.a * 0.65).toFixed(3)})`);
-            grad.addColorStop(1,   `rgba(255,210,60,${(s.a * 0.98).toFixed(3)})`);
+            grad.addColorStop(0,   `rgba(255,190,0,0)`);
+            grad.addColorStop(0.6, `rgba(255,180,0,${(s.a * 0.65).toFixed(3)})`);
+            grad.addColorStop(1,   `rgba(255,235,60,${(s.a * 0.98).toFixed(3)})`);
           } else {
             grad.addColorStop(0,   `rgba(255,190,20,0)`);
             grad.addColorStop(0.6, `rgba(255,175,10,${(s.a * 0.65).toFixed(3)})`);
@@ -3205,7 +3220,7 @@
           ctx.moveTo(Math.round(tailX), Math.round(tailY));
           ctx.lineTo(Math.round(s.x), Math.round(s.y));
           ctx.strokeStyle = grad;
-          ctx.lineWidth = s.isMob ? 1.1 * 1.1 * 1.1 : 1.1 * 1.1;  // 10% wider on mobile
+          ctx.lineWidth = s.isMob ? 1.1 * 1.1 * 1.1 : 1.1 * 1.1;  // 10% wider on mobile only
           ctx.globalAlpha = 1;
           ctx.stroke();
           s.x += s.vx; s.y += s.vy;
