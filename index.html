@@ -3087,7 +3087,7 @@
           y: pt.y,
           r: Math.random() * 0.4 + 0.15,
           a: (Math.random() * 0.55 + 0.15) * (0.4 + 0.6 * bandIntensity),
-          // no velocity — static, wrapping was causing perimeter buildup
+          // no velocity — static, drift was causing perimeter buildup
         };
       }
 
@@ -3097,16 +3097,15 @@
           y: Math.random() * H,
           r: Math.random() * 0.5 + 0.12,
           a: Math.random() * 0.30 + 0.06,
-          // no velocity — static, wrapping was causing perimeter buildup
+          // no velocity — static, drift was causing perimeter buildup
         };
       }
 
       function mkShooter() {
         const isMob = W < 601;
-        // Mobile only: 10% slower, 10% longer, more frequent, wider, more yellow-gold
-        // Desktop: all original values unchanged
+        // MOBILE ONLY — desktop values are the original, unchanged
         const speed = isMob
-          ? (4 + Math.random() * 3.5) * 0.9 * 0.9 * 0.9
+          ? (4 + Math.random() * 3.5) * 0.9 * 0.9 * 0.9 * 0.9  // ×0.9⁴ — 10% slower again
           : (4 + Math.random() * 3.5) * 0.9 * 0.9;
         const len = isMob
           ? (70 + Math.random() * 90) * 1.1 * 1.1 * 1.1
@@ -3131,8 +3130,8 @@
       function init() {
         resize();
         const isMobile = W < 601;
-        const STREAK_N = isMobile ? 3520 : 5500;  // mobile +10% density; desktop unchanged
-        const FIELD_N  = isMobile ? 500  : 2200;  // mobile was 20; desktop unchanged
+        const STREAK_N = isMobile ? 3680 : 5500;  // mobile: 3200 × 1.15 = +15% density; desktop unchanged
+        const FIELD_N  = isMobile ? 500  : 2200;  // mobile: was 20; desktop unchanged
         const SHOOT_N  = isMobile ? 6    : 8;     // mobile extra shooters; desktop unchanged
 
         streakStars = Array.from({ length: STREAK_N }, mkStreakStar);
@@ -3157,7 +3156,7 @@
           drawStar(p.x, p.y, p.r, p.a, '#ffd060');
         }
 
-        // ── Galactic streak — static diagonal band, no drift, no buildup ──
+        // ── Galactic streak — static diagonal river, no drift, no buildup ──
         // Mobile: yellow-gold #ffd230 / Desktop: original #ffe090 unchanged
         const streakColor = isMob ? '#ffd230' : '#ffe090';
         for (const p of streakStars) {
@@ -3177,7 +3176,7 @@
           const tailY = s.y - s.vy * (s.len / 5);
           const grad = ctx.createLinearGradient(tailX, tailY, s.x, s.y);
           if (s.isMob) {
-            // Mobile only: more yellow-gold, 10% wider
+            // Mobile only: yellow-gold, 10% wider
             grad.addColorStop(0,   `rgba(255,190,0,0)`);
             grad.addColorStop(0.6, `rgba(255,180,0,${(s.a * 0.65).toFixed(3)})`);
             grad.addColorStop(1,   `rgba(255,235,60,${(s.a * 0.98).toFixed(3)})`);
