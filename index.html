@@ -3096,12 +3096,11 @@
 
       function mkFieldStar() {
         return {
-          x:  Math.random() * W,
-          y:  Math.random() * H,
-          r:  Math.random() * 0.5 + 0.12,  // tight: 0.12–0.62px logical
-          a:  Math.random() * 0.30 + 0.06,
-          s:  (Math.random() - 0.5) * 0.006,
-          sy: (Math.random() - 0.5) * 0.002,
+          x: Math.random() * W,
+          y: Math.random() * H,
+          r: Math.random() * 0.5 + 0.12,
+          a: Math.random() * 0.30 + 0.06,
+          // No drift — static pinpoints never accumulate at edges
         };
       }
 
@@ -3155,29 +3154,10 @@
       function tick() {
         ctx.clearRect(0, 0, W, H);
 
-        // ── Sparse field stars — golden speckle ──
+        // ── Sparse field stars — static golden speckle, no drift ──
         const isMobileRender = W < 601;
         for (const p of fieldStars) {
           drawStar(p.x, p.y, p.r, p.a, '#ffd060');
-          p.x += p.s; p.y += p.sy;
-          // On mobile: reinitialize inside canvas instead of wrapping.
-          // Wrapping places stars right at the boundary edge each frame they
-          // cross over, so they visibly accumulate there. Reinit scatters them
-          // randomly back into the interior. Use a 20px inset so the check
-          // fires well before the star reaches the visible perimeter.
-          if (isMobileRender) {
-            if (p.x < 20 || p.x > W - 20 || p.y < 20 || p.y > H - 20) {
-              p.x  = 20 + Math.random() * (W - 40);
-              p.y  = 20 + Math.random() * (H - 40);
-              p.s  = (Math.random() - 0.5) * 0.006;
-              p.sy = (Math.random() - 0.5) * 0.002;
-            }
-          } else {
-            if (p.x < -2) p.x = W + 2;
-            if (p.x > W + 2) p.x = -2;
-            if (p.y < -2) p.y = H + 2;
-            if (p.y > H + 2) p.y = -2;
-          }
         }
 
         // ── Galactic streak — diagonal ──
