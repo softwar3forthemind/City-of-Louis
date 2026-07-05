@@ -3100,33 +3100,33 @@
           y: Math.random() * H,
           r: Math.random() * 0.5 + 0.12,
           a: Math.random() * 0.30 + 0.06,
-          // No drift — static pinpoints never accumulate at edges
+          // no velocity — static pinpoints, buildup impossible
         };
       }
 
       function mkShooter() {
-        // Shooters travel at the same angle as the streak
-        // Mobile: 10% slower, 10% longer/wider, more frequent, more golden
         const isMob = W < 601;
-        const speedBase = isMob
-          ? (4 + Math.random() * 3.5) * 0.9 * 0.9 * 0.9   // ×0.9 = 10% slower
+        // Mobile: 10% slower, 10% longer, more frequent, more yellow-gold
+        // Desktop: original values unchanged
+        const speed = isMob
+          ? (4 + Math.random() * 3.5) * 0.9 * 0.9 * 0.9
           : (4 + Math.random() * 3.5) * 0.9 * 0.9;
-        const lenBase = isMob
-          ? (70 + Math.random() * 90) * 1.1 * 1.1 * 1.1    // ×1.1 = 10% longer
+        const len = isMob
+          ? (70 + Math.random() * 90) * 1.1 * 1.1 * 1.1
           : (70 + Math.random() * 90) * 1.1 * 1.1;
-        const waitBase = isMob
-          ? (80 + Math.random() * 300) * 0.85 * 0.85        // shorter wait = more frequent
+        const wait = isMob
+          ? (80 + Math.random() * 300) * 0.85 * 0.85
           : (120 + Math.random() * 500) * 0.85 * 0.85;
         return {
-          x:    Math.random() * W * 1.2 - W * 0.1,
-          y:    Math.random() * H * 0.6 - H * 0.1,
-          vx:   Math.cos(STREAK_ANGLE_RAD) * speedBase,
-          vy:   Math.sin(STREAK_ANGLE_RAD) * speedBase,
-          len:  lenBase,
-          a:    0,
-          life: 0,
-          max:  70 + Math.random() * 60,
-          wait: waitBase,
+          x:     Math.random() * W * 1.2 - W * 0.1,
+          y:     Math.random() * H * 0.6 - H * 0.1,
+          vx:    Math.cos(STREAK_ANGLE_RAD) * speed,
+          vy:    Math.sin(STREAK_ANGLE_RAD) * speed,
+          len,
+          a:     0,
+          life:  0,
+          max:   70 + Math.random() * 60,
+          wait,
           isMob,
         };
       }
@@ -3134,9 +3134,9 @@
       function init() {
         resize();
         const isMobile = W < 601;
-        const STREAK_N = isMobile ? 3200 : 5500;
-        const FIELD_N  = isMobile ? 500  : 2200;  // was 20 — needed for visible speckle
-        const SHOOT_N  = isMobile ? 6    : 8;     // one extra shooter on mobile
+        const STREAK_N = isMobile ? 3520 : 5500;  // mobile +10% density; desktop unchanged
+        const FIELD_N  = isMobile ? 500  : 2200;  // mobile: was 20, static now; desktop unchanged
+        const SHOOT_N  = isMobile ? 6    : 8;     // mobile +2 shooters; desktop unchanged
 
         streakStars = Array.from({ length: STREAK_N }, mkStreakStar);
         fieldStars  = Array.from({ length: FIELD_N },  mkFieldStar);
@@ -3153,17 +3153,17 @@
 
       function tick() {
         ctx.clearRect(0, 0, W, H);
+        const isMob = W < 601;
 
-        // ── Sparse field stars — static golden speckle, no drift ──
-        const isMobileRender = W < 601;
+        // ── Sparse field stars — static golden speckle ──
         for (const p of fieldStars) {
           drawStar(p.x, p.y, p.r, p.a, '#ffd060');
+          // no position update — static, no drift, no buildup
         }
 
         // ── Galactic streak — diagonal ──
-        // Desktop: original pale gold #ffe090 — UNCHANGED
-        // Mobile:  richer yellow-gold #ffd230 (less orange than previous #ffb830)
-        const streakColor = isMobileRender ? '#ffd230' : '#ffe090';
+        // Mobile: yellow-gold #ffd230 / Desktop: original #ffe090 unchanged
+        const streakColor = isMob ? '#ffd230' : '#ffe090';
         for (const p of streakStars) {
           drawStar(p.x, p.y, p.r, p.a, streakColor);
           p.x += p.s; p.y += p.sy;
@@ -3185,13 +3185,13 @@
           const tailX = s.x - s.vx * (s.len / 5);
           const tailY = s.y - s.vy * (s.len / 5);
           const grad = ctx.createLinearGradient(tailX, tailY, s.x, s.y);
-          // Mobile: golden but less orange — G channel pushed up ~25 from previous
-          // Desktop: original values — UNCHANGED
           if (s.isMob) {
+            // Mobile: more yellow-gold, 10% wider
             grad.addColorStop(0,   `rgba(255,190,0,0)`);
             grad.addColorStop(0.6, `rgba(255,180,0,${(s.a * 0.65).toFixed(3)})`);
             grad.addColorStop(1,   `rgba(255,235,60,${(s.a * 0.98).toFixed(3)})`);
           } else {
+            // Desktop: original unchanged
             grad.addColorStop(0,   `rgba(255,190,20,0)`);
             grad.addColorStop(0.6, `rgba(255,175,10,${(s.a * 0.65).toFixed(3)})`);
             grad.addColorStop(1,   `rgba(255,230,100,${(s.a * 0.98).toFixed(3)})`);
@@ -3200,7 +3200,7 @@
           ctx.moveTo(Math.round(tailX), Math.round(tailY));
           ctx.lineTo(Math.round(s.x), Math.round(s.y));
           ctx.strokeStyle = grad;
-          ctx.lineWidth = s.isMob ? 1.1 * 1.1 * 1.1 : 1.1 * 1.1;  // 10% wider on mobile only
+          ctx.lineWidth = s.isMob ? 1.1 * 1.1 * 1.1 : 1.1 * 1.1;
           ctx.globalAlpha = 1;
           ctx.stroke();
           s.x += s.vx; s.y += s.vy;
