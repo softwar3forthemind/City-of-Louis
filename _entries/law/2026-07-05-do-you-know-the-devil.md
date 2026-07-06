@@ -59,3 +59,5 @@ Some are more paradisiacal than others, though they all follow the same structur
 And, while some may read this and find that it conflicts with their own cognitive programming, referred to most commonly as sensibilities or beliefs, they will invariably find themselves playing the devil, the savior, and the God-structure defender at some point in their lives in various contexts. Rejecting the legal proposal that is unanimously agreed upon in a town hall meeting? You represent a demon, attempting to infiltrate and destroy the Law of God, or, at least, the Law of the God of that idiosyncratic Eden, overseen by the elected officials at the town hall.
 
 As one last offering to you today, to further solidify this framework in our minds, I provided The Cycle Of Eden. (Note Martin Luther’s Role as Satan opposing the Catholic Church’s Eden as he precipitated the Protestant Reformation.)
+
+\[[visual: cycle-of-eden]]
