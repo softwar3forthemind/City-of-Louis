@@ -80,11 +80,13 @@ function renderVisual(block, entryId) {
 
   const title = name.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
 
+  // Ratio is emitted on BOTH the wrapper and the iframe so the embed renders
+  // correctly no matter which version of index.html's CSS is deployed.
   return (
     `<div class="entry-visual" style="aspect-ratio:${ratio};">` +
     `<iframe src="/visuals/${name}.html" title="${title}" loading="lazy" ` +
     `sandbox="allow-scripts" referrerpolicy="no-referrer" ` +
-    `allow="" scrolling="no"></iframe>` +
+    `style="aspect-ratio:${ratio};" scrolling="no"></iframe>` +
     `</div>`
   );
 }
