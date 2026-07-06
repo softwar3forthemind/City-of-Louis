@@ -257,14 +257,22 @@
   starsEl.appendChild(frag);
 
   // ── Fit stage to viewport (works standalone and inside an iframe) ──
+  // Hardened: retries while dimensions are 0 (lazy-load / display:none
+  // timing) and observes container resize — desktop windows never fire
+  // resize events on their own, so a bad initial fit must self-heal.
   var stage = document.getElementById('stage');
   function fit() {
     var w = document.documentElement.clientWidth;
     var h = document.documentElement.clientHeight;
+    if (!w || !h) { requestAnimationFrame(fit); return; }
     var k = Math.min(w / 1000, h / 1120) * 0.94;
     stage.style.transform = 'translate(-50%,-50%) scale(' + k + ')';
   }
+  if (typeof ResizeObserver !== 'undefined') {
+    new ResizeObserver(fit).observe(document.documentElement);
+  }
   window.addEventListener('resize', fit);
+  window.addEventListener('load', fit);
   fit();
 
   // ── Phase cycling ──
