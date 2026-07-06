@@ -9,7 +9,8 @@
 //      Optional aspect ratio (width/height of the visual's natural stage):
 //        [[visual: cycle-of-eden | ratio=1000/1120]]
 //   3. Commit. The build validates the name, confirms the file exists,
-//      and emits a sandboxed <iframe> that index.html styles via .entry-visual.
+//      and emits a fully self-styled, sandboxed <iframe>. No index.html
+//      changes are ever required — the embed carries its own styling.
 //
 // Security: names are restricted to [a-z0-9-], the iframe is sandboxed
 // (allow-scripts only — no same-origin access to the parent page, no forms,
@@ -52,12 +53,15 @@ function parseFrontmatter(content) {
 
 // ── VISUAL SHORTCODE ──
 // Matches a whole block consisting only of: [[visual: name]] or
-// [[visual: name | ratio=W/H]]
+// [[visual: name | ratio=W/H]]. Decap's rich-text editor escapes brackets
+// as \[\[...\]\] when saving — unescape before matching so shortcodes
+// written through the CMS work identically to hand-written ones.
 const VISUAL_RE   = /^\[\[\s*visual\s*:\s*([a-z0-9-]+)\s*(?:\|\s*ratio\s*=\s*(\d+(?:\.\d+)?)\s*\/\s*(\d+(?:\.\d+)?)\s*)?\]\]$/i;
 const SAFE_NAME   = /^[a-z0-9][a-z0-9-]*$/;
 
 function renderVisual(block, entryId) {
-  const m = block.match(VISUAL_RE);
+  const unescaped = block.replace(/\\+([\[\]|])/g, '$1');
+  const m = unescaped.match(VISUAL_RE);
   if (!m) return null;
 
   const name = m[1].toLowerCase();
@@ -80,13 +84,23 @@ function renderVisual(block, entryId) {
 
   const title = name.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
 
-  // Ratio is emitted on BOTH the wrapper and the iframe so the embed renders
-  // correctly no matter which version of index.html's CSS is deployed.
+  // Fully self-styled: the embed carries every rule it needs inline, so it
+  // renders identically under ANY index.html — no stylesheet coupling.
+  // Inline declarations also override any legacy .entry-visual CSS rules
+  // (position/inset/overflow neutralized explicitly).
+  const wrapStyle =
+    'display:block;position:relative;width:auto;height:auto;' +
+    'aspect-ratio:auto;max-height:none;overflow:visible;line-height:0;' +
+    'margin:2.8rem 0 1.2rem;border:0.5px solid #2a2410;background:#060608;';
+  const frameStyle =
+    'display:block;position:static;inset:auto;width:100%;height:auto;' +
+    `aspect-ratio:${ratio};max-height:82vh;border:0;`;
+
   return (
-    `<div class="entry-visual" style="aspect-ratio:${ratio};">` +
+    `<div class="entry-visual" style="${wrapStyle}">` +
     `<iframe src="/visuals/${name}.html" title="${title}" loading="lazy" ` +
-    `sandbox="allow-scripts" referrerpolicy="no-referrer" ` +
-    `style="aspect-ratio:${ratio};" scrolling="no"></iframe>` +
+    `sandbox="allow-scripts" referrerpolicy="no-referrer" scrolling="no" ` +
+    `style="${frameStyle}"></iframe>` +
     `</div>`
   );
 }
