@@ -26,7 +26,7 @@ The devil, in this case, is the opposing thought that rivals the existing, colla
 
 As another example, to Pharaoh, Moses was the devil. Yes, Moses represented an evil, i.e., an opposing structure of thought that would damage, dilute, or destroy Pharaoh’s God-structure and the many benefits conferred to the nation during that period. 
 
-Moses ate the forbidden fruit that was the Burning Bush and assumed a new God-structure in his own mind. Moses became a new Adam: a new species of humanity that would build a new matrix, or theocracy, that would deliver to his followers Zion, or the City of Louis; excuse me, I meant to say David. He became the portal through which his 600,000 followers would exit the Pharaoh Garden of Eden. 
+Moses ate the forbidden fruit that was the Burning Bush and assumed a new God-structure in his own mind. Moses became a new Adam: a new species of humanity that would build a new matrix, or theocracy, that would deliver to his followers Zion, or the City of David, or Jerusalem. He became the portal through which his 600,000 followers would exit the Pharaoh Garden of Eden. 
 
 > *In the wilderness, the whole Israelite community grumbled against Moses and Aaron. The Israelites said to them, “If only we had died by the hand of the Lord in the land of Egypt, when we sat by the fleshpots, when we ate our fill of bread! For you have brought us out into this wilderness to starve this whole congregation to death."*
 >
