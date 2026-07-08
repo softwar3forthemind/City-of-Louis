@@ -50,10 +50,8 @@ The rapture represents the moment in the civilization cycle at which those that 
 
 While the defecting 30% demanded more from God impatiently, the remaining 70% with the kingdom in their hearts waited patiently for the Lord’s providence, and they were duly rewarded with new inventions and technology and modes of existence.
 
-As such, those that were not taken into heaven were those that corrupted the KOH within themselves through eating forbidden fruit: God’s rules on matrimony and familial dynamics are archaic! I do not need to listen to His words! 
+As such, those that were not taken into heaven were those that corrupted the KOH within themselves through eating forbidden fruit: God’s rules on matrimony and familial dynamics are archaic! I do not need to listen to His words! To the netherworld with you, says the Lord in the moment of the rapture.
 
-> *To the netherworld with you, says the Lord in the moment of the rapture.*
->
 > *Happy is the man who has not followed the counsel of the wicked,* 
 >
 > *or taken the path of sinners,*
