@@ -12,6 +12,12 @@ In the most popular founding story of humanity, which, in a grand cosmic sense, 
 
 In this founding narrative, in bright, bold, and explicit letters, the devil leveraged female nature to infiltrate and begin dismantling the God-structure that had produced such an incredible, safe, and abundant civilization: a Garden of Eden. The devil specifically leveraged the innate hormonal structure of the female form, i.e., higher estrogen and lower testosterone which produce a more agreeable, less aggressive, and more amenable demeanor, disastrous for fending off the encroachments of Satan himself. The narrative illustrated that Adam, whose nature is fundamentally different as a result of his hormonal structure, designed by the God-structure of this universe, abdicated his responsibility as the aggressive protector of the God-structure, whereby the devil easily manipulated and conquered Eve’s mind, which Adam astonishingly accepted without protest. A true embodiment of modernity to say the least; hence, the forthcoming expulsion from Eden the nations of earth must endure.
 
+> *For Adam was formed first, then Eve.*
+>
+> *And Adam was not deceived, but the woman being deceived, fell into transgression.*
+>
+> *1 Timothy 2.14-15*
+
 Adam and Eve merely had to refrain from diluting the existing God-structure with bad, or simply divergent, mental software for its participants. They only had to maintain the cognitive programming God had installed in their minds, via which they would remain in paradise and security forever, enjoying the wonder and awe of God's divine, evolutionary plan, e.g., our phones have evolved from landlines to now enabled by satellite technology, at least partially. Imagine what the future will hold for modes of technological interface.
 
 In the above example, we examined the devil and his relationship to humanity and God in such a fashion as to paint the idea of Lucifer as categorically evil.
