@@ -52,7 +52,39 @@ While the defecting 30% demanded more from God impatiently, the remaining 70% wi
 
 As such, those that were not taken into heaven were those that corrupted the KOH within themselves through eating forbidden fruit: God’s rules on matrimony and familial dynamics are archaic! I do not need to listen to His words! 
 
-To the netherworld with you, says the Lord in the moment of the rapture.
+> *To the netherworld with you, says the Lord in the moment of the rapture.*
+>
+> *Happy is the man who has not followed the counsel of the wicked,* 
+>
+> *or taken the path of sinners,*
+>
+> *or joined the company of the insolent;*
+>
+> *rather, the teaching of the Lord is his delight,* 
+>
+> *and he studies that teaching day and night.*
+>
+> *He is like a tree planted beside streams of water,*
+>
+> *which yields its fruit in season,*
+>
+> *whose foliage never fades,*
+>
+> *and whatever it produces thrives.*
+>
+> *Not so the wicked;*
+>
+> *rather, they are like chaff that wind blows away.*
+>
+> *Therefore, the wicked will not survive judgment,* 
+>
+> *nor will sinners, in the assembly of the righteous.*
+>
+> *For the Lord cherishes the way of the righteous,* 
+>
+> *but the way of the wicked is doomed.*
+>
+> Psalms 1.1-6
 
 *Importantly, this is a framework that can be manipulated and viewed from different perspectives,* as if one were holding a geometric shape and manipulating it in their hands. 
 
