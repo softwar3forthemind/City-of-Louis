@@ -46,7 +46,7 @@ The rapture represents the moment in the civilization cycle at which those that 
 >
 > *Lo, I will send the prophet Elijah to you before the coming of the awesome, fearful day of the Lord. He shall reconcile parents with children and children with their parents, so that, when I come, I do not strike the whole land with utter destruction.*
 >
-> Malachi 3.17
+> Malachi 3.18-24
 
 While the defecting 30% demanded more from God impatiently, the remaining 70% with the kingdom in their hearts waited patiently for the Lord’s providence, and they were duly rewarded with new inventions and technology and modes of existence.
 
