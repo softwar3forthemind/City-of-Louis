@@ -38,6 +38,16 @@ This is the rapture, defined.
 
 The rapture represents the moment in the civilization cycle at which those that have maintained the KOH in themselves are kept in heaven and preserved in the future iterations of heaven that God provides.
 
+> *And you shall come to see the difference between the righteous and the wicked, between him who has served God and him who has not served Him.*
+>
+> *For lo! That day is at hand, burning like an oven. All the arrogant and all the doers of evil shall be straw, and the day that is coming - said the Lord of Hosts - shall burn them to ashes and leave of them neither stock nor boughs. But for you who revere My name a sun of victory shall rise to bring healing. You shall go forth and stamp like stall-fed calves, and you shall trample the wicked to a pulp, for they shall be dust beneath your feet on the day that I am preparing - Said the Lord of Hosts.*
+>
+> *Be mindful of the Teaching of My servant Moses, whom I charged at Horeb with laws and rules for all Israel.*
+>
+> *Lo, I will send the prophet Elijah to you before the coming of the awesome, fearful day of the Lord. He shall reconcile parents with children and children with their parents, so that, when I come, I do not strike the whole land with utter destruction.*
+>
+> Malachi 3.17
+
 While the defecting 30% demanded more from God impatiently, the remaining 70% with the kingdom in their hearts waited patiently for the Lord’s providence, and they were duly rewarded with new inventions and technology and modes of existence.
 
 As such, those that were not taken into heaven were those that corrupted the KOH within themselves through eating forbidden fruit: God’s rules on matrimony and familial dynamics are archaic! I do not need to listen to His words! 
